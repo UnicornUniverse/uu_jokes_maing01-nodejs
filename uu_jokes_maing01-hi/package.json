@@ -1,6 +1,6 @@
 {
   "name": "uu_jokes_maing01-hi",
-  "version": "2.1.0-DEV",
+  "version": "2.1.0-dev",
   "description": "Server project example for developing UAF application in Node.js",
   "license": "License Commercial",
   "namespace": "UuJokes",

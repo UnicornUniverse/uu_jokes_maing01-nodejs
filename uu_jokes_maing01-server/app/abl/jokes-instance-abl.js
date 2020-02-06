@@ -1,12 +1,12 @@
 "use strict";
 
-const { LruCache } = require("uu_appg01_server").Utils;
-const { Validator } = require("uu_appg01_server").Validation;
-const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
-const { ValidationHelper } = require("uu_appg01_server").AppServer;
-const { SysProfileAbl } = require("uu_appg01_server").Workspace;
-const { LoggerFactory } = require("uu_appg01_server").Logging;
-const { BinaryStoreCmdError, UuBinaryErrors, UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
+const {LruCache} = require("uu_appg01_server").Utils;
+const {Validator} = require("uu_appg01_server").Validation;
+const {DaoFactory, ObjectStoreError} = require("uu_appg01_server").ObjectStore;
+const {ValidationHelper} = require("uu_appg01_server").AppServer;
+const {SysAppProfileAbl} = require("uu_appg01_server").Workspace;
+const {LoggerFactory} = require("uu_appg01_server").Logging;
+const {BinaryStoreCmdError, UuBinaryErrors, UuBinaryAbl} = require("uu_appg01_binarystore-cmd");
 
 const Path = require("path");
 const fs = require("fs");
@@ -165,7 +165,7 @@ class JokesInstanceAbl {
     this.STATE_UNDER_CONSTRUCTION = STATE_UNDER_CONSTRUCTION;
     this.AUTHORITIES = AUTHORITIES;
     this.EXECUTIVES = EXECUTIVES;
-    this.metaDataCache = new LruCache({ maxAge: 60 * 60 * 1000 });
+    this.metaDataCache = new LruCache({maxAge: 60 * 60 * 1000});
   }
 
   async init(awid, dtoIn) {
@@ -199,20 +199,20 @@ class JokesInstanceAbl {
 
     try {
       // hds 4
-      await SysProfileAbl.setProfile(awid, { code: AUTHORITIES, roleUri: dtoIn.uuAppProfileAuthorities });
+      await SysAppProfileAbl.setProfile(awid, {code: AUTHORITIES, roleUri: dtoIn.uuAppProfileAuthorities});
     } catch (e) {
       // A4
-      throw new Errors.Init.SysSetProfileFailed({ uuAppErrorMap }, { role: dtoIn.uuAppProfileAuthorities }, e);
+      throw new Errors.Init.SysSetProfileFailed({uuAppErrorMap}, {role: dtoIn.uuAppProfileAuthorities}, e);
     }
 
     // hds 5
     if (dtoIn.logo) {
       let binary;
       try {
-        binary = await UuBinaryAbl.createBinary(awid, { data: dtoIn.logo, code: "16x9" });
+        binary = await UuBinaryAbl.createBinary(awid, {data: dtoIn.logo, code: "16x9"});
       } catch (e) {
         // A5
-        throw new Errors.Init.UuBinaryCreateFailed({ uuAppErrorMap }, e);
+        throw new Errors.Init.UuBinaryCreateFailed({uuAppErrorMap}, e);
       }
       // hds 6
       dtoIn.logos = [DEFAULTS.logoType];
@@ -225,9 +225,16 @@ class JokesInstanceAbl {
     } catch (e) {
       // A6
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Init.JokesInstanceDaoCreateFailed({ uuAppErrorMap }, e);
+        throw new Errors.Init.JokesInstanceDaoCreateFailed({uuAppErrorMap}, e);
       }
       throw e;
+    }
+
+    let workspaceStore = DaoFactory.getDao("sysAppWorkspace");
+    try {
+      await workspaceStore.updateByAwid(awid, {state: "active"});
+    } catch (e) {
+      throw new Error("failed to set active state to sysAppWorkspace");
     }
 
     // hds 8
@@ -249,7 +256,7 @@ class JokesInstanceAbl {
       !authorizedProfiles.includes(AUTHORITIES) &&
       !authorizedProfiles.includes(EXECUTIVES)
     ) {
-      throw new Errors.Load.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
+      throw new Errors.Load.JokesInstanceIsUnderConstruction({}, {state: jokesInstance.state});
     }
 
     // hds 2
@@ -281,7 +288,7 @@ class JokesInstanceAbl {
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         // A6
-        throw new Errors.Update.JokesInstanceDaoUpdateByAwidFailed({ uuAppErrorMap }, e);
+        throw new Errors.Update.JokesInstanceDaoUpdateByAwidFailed({uuAppErrorMap}, e);
       }
       throw e;
     }
@@ -315,7 +322,7 @@ class JokesInstanceAbl {
     if (!jokesInstance.logos || !jokesInstance.logos.includes(type)) {
       // hds 3.1
       try {
-        binary = await UuBinaryAbl.createBinary(awid, { data: dtoIn.logo, code: type });
+        binary = await UuBinaryAbl.createBinary(awid, {data: dtoIn.logo, code: type});
       } catch (e) {
         // A5
         throw new Errors.SetLogo.UuBinaryCreateFailed(uuAppErrorMap, e);
@@ -323,7 +330,7 @@ class JokesInstanceAbl {
     } else {
       // hds 3.2
       try {
-        binary = await UuBinaryAbl.updateBinaryData(awid, { data: dtoIn.logo, code: type, revisionStrategy: "NONE" });
+        binary = await UuBinaryAbl.updateBinaryData(awid, {data: dtoIn.logo, code: type, revisionStrategy: "NONE"});
       } catch (e) {
         // A6
         throw new Errors.SetLogo.UuBinaryUpdateBinaryDataFailed(uuAppErrorMap, e);
@@ -340,7 +347,7 @@ class JokesInstanceAbl {
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         // A7
-        throw new Errors.SetLogo.JokesInstanceDaoUpdateByAwidFailed({ uuAppErrorMap }, e);
+        throw new Errors.SetLogo.JokesInstanceDaoUpdateByAwidFailed({uuAppErrorMap}, e);
       }
       throw e;
     }
@@ -383,7 +390,7 @@ class JokesInstanceAbl {
     try {
       jokesInstance = await this.dao.updateByAwid(jokesInstance);
     } catch (e) {
-      throw new Errors.SetIcons.JokesInstanceDaoUpdateByAwidFailed({ uuAppErrorMap }, e);
+      throw new Errors.SetIcons.JokesInstanceDaoUpdateByAwidFailed({uuAppErrorMap}, e);
     }
     jokesInstance.uuAppErrorMap = uuAppErrorMap;
 
@@ -428,17 +435,17 @@ class JokesInstanceAbl {
             });
           } else {
             //HDS 3.2.2
-            await UuBinaryAbl.createBinary(awid, { data, code: underscoredCode });
+            await UuBinaryAbl.createBinary(awid, {data, code: underscoredCode});
             uveMetaData[code] = underscoredCode;
           }
         } catch (e) {
           if (e instanceof BinaryStoreCmdError) {
             if (e.code.indexOf(UuBinaryErrors.CreateBinary.UC_CODE) !== -1) {
               //A6
-              throw new Errors.SetIcons.UuBinaryCreateFailed(uuAppErrorMap, { cause: e }, e);
+              throw new Errors.SetIcons.UuBinaryCreateFailed(uuAppErrorMap, {cause: e}, e);
             } else {
               //A7
-              throw new Errors.SetIcons.UuBinaryUpdateBinaryDataFailed(uuAppErrorMap, { cause: e }, e);
+              throw new Errors.SetIcons.UuBinaryUpdateBinaryDataFailed(uuAppErrorMap, {cause: e}, e);
             }
           }
           throw e;
@@ -523,7 +530,7 @@ class JokesInstanceAbl {
     let jokesInstance = await this.dao.getByAwid(awid);
     if (jokesInstance && jokesInstance.logos && jokesInstance.logos.includes(type)) {
       try {
-        dtoOut = await UuBinaryAbl.getBinaryData(awid, { code: type });
+        dtoOut = await UuBinaryAbl.getBinaryData(awid, {code: type});
       } catch (e) {
         // A3
         if (logger.isWarnLoggable()) {
@@ -570,7 +577,7 @@ class JokesInstanceAbl {
 
     if (uveMetaData && uveMetaData[dtoIn.type]) {
       try {
-        dtoOut = await UuBinaryAbl.getBinaryData(awid, { code: uveMetaData[dtoIn.type] });
+        dtoOut = await UuBinaryAbl.getBinaryData(awid, {code: uveMetaData[dtoIn.type]});
       } catch (e) {
         // A3
         if (logger.isWarnLoggable()) {
@@ -623,18 +630,18 @@ class JokesInstanceAbl {
     <meta property="og:image:height" content="630" />
     <meta property="og:description" content="${uveMetaData.description}" />
     <meta property="og:url" content="${uri.getBaseUri()}/" />
-    
+
     <link rel="icon" href="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=favicon-32x32"/>
     <link rel="icon" type="image/png" sizes="16x16" href="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=favicon-16x16"/>
     <link rel="icon" type="image/png" sizes="32x32" href="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=favicon-32x32"/>
     <link rel="icon" type="image/png" sizes="96x96" href="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=favicon-96x96"/>
     <link rel="icon" type="image/png" sizes="194x194" href="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=favicon-194x194"/>
-    
+
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="${uveMetaData.name}">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="manifest" href="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=manifest"/>
-    
+
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=touchicon-57x57"/>
     <link rel="apple-touch-icon-precomposed" sizes="60x60" href="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=touchicon-60x60"/>
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=touchicon-72x72"/>
@@ -645,13 +652,13 @@ class JokesInstanceAbl {
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=touchicon-152x152"/>
     <link rel="apple-touch-icon-precomposed" sizes="180x180" href="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=touchicon-180x180"/>
     <link rel="apple-touch-icon-precomposed" sizes="512x512" href="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=touchicon-512x512"/>
-    
+
     <meta name="application-name" content="${uveMetaData.name}">
     <meta name="msapplication-TileColor" content="${
       uveMetaData["tilecolor"] ? uveMetaData["tilecolor"] : DEFAULTS.metaData["tilecolor"]
     }"/>
     <meta name="msapplication-config" content="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=browserconfig"/>
-    
+
     <link rel="mask-icon" href="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=safari-pinned-tab" color="#d81e05"/>
     `;
 

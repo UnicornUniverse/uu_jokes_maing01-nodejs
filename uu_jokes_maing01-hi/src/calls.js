@@ -21,6 +21,24 @@ let Calls = {
     });
   },
 
+  loadWorkspace() {
+    return new Promise((resolve, reject) => {
+      let commandUri = Calls.getCommandUri("sys/getAppWorkspace");
+      Calls.call("get", commandUri, { data: null, done: resolve, fail: reject });
+    });
+  },
+
+  initWorkspace(dtoInData) {
+    return new Promise((resolve, reject) => {
+      let commandUri = Calls.getCommandUri("jokesInstance/init");
+      Calls.call("post", commandUri, {
+        data: dtoInData,
+        done: data => resolve({ ...data}),
+        fail: reject
+      });
+    });
+  },
+
   categoryList(dtoInData) {
     return new Promise((resolve, reject) => {
       let commandUri = Calls.getCommandUri("category/list");

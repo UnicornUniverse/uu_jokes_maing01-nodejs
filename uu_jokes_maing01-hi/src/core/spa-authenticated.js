@@ -7,7 +7,7 @@ import "uu_plus4u5g01-app";
 import Config from "./config/config.js";
 import SpaReady from "./spa-ready.js";
 import Calls from "calls";
-import { dig } from "../helpers/object-utils";
+import {dig} from "../helpers/object-utils";
 import Authorization from "../helpers/authorization.js";
 
 import "./spa-authenticated.less";
@@ -92,7 +92,9 @@ const SpaAuthenticated = UU5.Common.VisualComponent.create({
 
   _getChild(data) {
     return (
-      <JokesProvider ref={comp => {this._provider = comp}} data={this._buildAppDataContext(data)}>
+      <JokesProvider ref={comp => {
+        this._provider = comp
+      }} data={this._buildAppDataContext(data)}>
         <SpaReady {...this.getMainPropsToPass()} />;
       </JokesProvider>
     );
@@ -102,9 +104,12 @@ const SpaAuthenticated = UU5.Common.VisualComponent.create({
   //@@viewOn:render
   render() {
     let child;
+    if (this.props.customComp) {
+      return this.props.customComp;
+    }
     return (
       <UU5.Common.Loader onLoad={this._handleLoad}>
-        {({ isLoading, isError, data }) => {
+        {({isLoading, isError, data}) => {
           if (isError) {
             child = (
               <Plus4U5.App.SpaError

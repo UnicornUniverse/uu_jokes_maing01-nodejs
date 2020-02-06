@@ -53,7 +53,7 @@ const Spa = UU5.Common.VisualComponent.create({
           {({ identity }) => {
             let child;
             if (identity) {
-              child = <SpaAuthenticated {...this.getMainPropsToPass()} />;
+              child = <SpaAuthenticated {...this.getMainPropsToPass()} customComp={this.props.customComp} />;
             } else if (identity === null) {
               child = <SpaNotAuthenticated {...this.getMainPropsToPass()} />;
             } else {

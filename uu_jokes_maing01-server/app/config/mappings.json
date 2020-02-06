@@ -1,7 +1,6 @@
 {
   "{vendor}-{uuApp}-{uuSubApp}": {
     "useCaseMap": {
-
       "defaultUve": {
         "realization": "api/controllers/JokesInstanceController.getIndex",
         "httpMethod": "GET",
@@ -9,6 +8,11 @@
       },
       "workaround": {
         "realization": "index.html",
+        "httpMethod": "GET",
+        "type": "UVE"
+      },
+      "sys/appWorkspace/initUve": {
+        "realization": "appWorkspaceInitUve.html",
         "httpMethod": "GET",
         "type": "UVE"
       },

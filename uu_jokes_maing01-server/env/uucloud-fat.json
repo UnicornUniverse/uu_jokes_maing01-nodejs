@@ -1,16 +1,16 @@
-{ 
+{
   "schemaVersion": "1.0.0",
   "schemaSpecificationUri": "https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-289fcd2e11d34f3e9b2184bedb236ded/book/page?code=uuSubAppInstanceDescriptor",
   "uuSubApp": {
-    "code": "UU.JOKES.MAING01",
+    "code": "UU.JOKES.TESTMAING01",
     "name": "uuJokes",
-    "version": "2.1.0-DEV",
+    "version": "2.1.0-dev",
     "description": "Server project example for developing UAF application in Node.js",
     "license": "License Commercial",
     "asidRequired": true,
     "awidCount": 1,
-    "resourcePoolUri": "ues:UU-BT:AWE_EGL",
-    "targetSlot": "PRODUCTION",
+    "resourcePoolUri": "ues:DEV0116-BT:FAMILY_UUSERVERKIT_FAT_RESOURCEPOOL_AWE",
+    "targetSlot": "",
     "uuAppNodeSetMap": {
       "CMD": {
         "nodeSize": "G1_S",
@@ -18,7 +18,7 @@
           "min": 1,
           "max": 1
         },
-        "appPackUri": "ues:UU-BT:UU.JOKES.MAING01/APPBOX-2.1.0-DEV:UU.JOKES.MAING01/CMD-PACK",
+        "appPackUri": "ues:UU-BT:UU.JOKES.TESTMAING01/APPBOX-2.1.0-dev:UU.JOKES.TESTMAING01/CMD-PACK",
         "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.0"
       }
     },
@@ -40,24 +40,30 @@
     },
     "uuConfigMap": {
       "uu_app_oidc_providers_oidcg02_enabled": true,
-      "uu_app_oidc_primary_provider": "oidcg02"
+      "uu_app_oidc_primary_provider": "oidcg02",
+      "asidLicenseOwnerList": [
+        "25-2295-1",
+        "12-470-1"
+      ]
     }
   },
   "uuSubAppInstance": {
-    "asid": "b39ee01ca39744dbbf0280f1f087c449",
-    "asidOwner": "24-5659-1",
-    "awidList": [{
-      "awid": "00c97dde5a404db099b31a7764355fec",
-      "awidOwner": "24-5660-1"
-    }],
+    "asid": "85288568b1814c48bb1c16d5ce0aa7a0",
+    "asidOwner": "25-2295-1",
+    "awidList": [
+      {
+        "awid": "d368ef2c3b79463383ea64f79eccab04",
+        "awidOwner": "25-2296-1"
+      }
+    ],
     "uuAppObjectStoreMap": {
       "OSID_1": {
-        "osid": "d19a1c24e9a944dfaf392cce16d51118"
+        "osid": "e10a40113e4442558e4ff4fd41f2dc2b"
       }
     },
     "uuAppBinaryStoreMap": {
       "BSID_1": {
-        "bsid": "9af924b01fbf4b2aa7c82c23cad41ce7"
+        "bsid": "f23b4d0772a84e17b9b00d1f58be7fca"
       }
     }
   }
