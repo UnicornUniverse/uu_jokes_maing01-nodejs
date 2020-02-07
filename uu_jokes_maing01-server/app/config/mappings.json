@@ -21,6 +21,11 @@
         "httpMethod": "POST",
         "type": "CMD"
       },
+      "jokesInstance/plugInBt": {
+        "realization": "api/controllers/JokesInstanceController.plugInBt",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
       "jokesInstance/load": {
         "realization": "api/controllers/JokesInstanceController.load",
         "httpMethod": "GET",

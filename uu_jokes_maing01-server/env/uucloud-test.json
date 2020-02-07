@@ -9,7 +9,7 @@
     "license": "License Commercial",
     "asidRequired": true,
     "awidCount": 1,
-    "resourcePoolUri": "ues:DEV0114-BT[84723967990073193]:AWE_DEMO[5c90a9904f1d8a75778df379]",
+    "resourcePoolUri": "ues:DEV0116-BT:FAMILY_UUAPPCE_DEV_RESOURCEPOOL_AWE",
     "targetSlot": "PRODUCTION",
     "uuAppNodeSetMap": {
       "CMD": {
@@ -48,23 +48,23 @@
     }
   },
   "uuSubAppInstance": {
-    "asid": "1ebf79d54d2e4e91a58b1376117fa623",
-    "asidOwner": "23-8392-1",
     "awidList": [
       {
-        "awid": "4ef6a7b01b5942ecbfb925b249af987f",
-        "awidOwner": "23-8393-1"
+        "awid": "d368ef2c3b79463383ea64f79eccab04",
+        "awidOwner": "25-2296-1"
       }
     ],
     "uuAppObjectStoreMap": {
       "OSID_1": {
-        "osid": "9607d315da254e2db2c5ac1c39371233"
+        "osid": "e10a40113e4442558e4ff4fd41f2dc2b"
       }
     },
     "uuAppBinaryStoreMap": {
       "BSID_1": {
-        "bsid": "9b8559e348fa4df0851fb5e1896af4d7"
+        "bsid": "f23b4d0772a84e17b9b00d1f58be7fca"
       }
-    }
+    },
+    "asid": "85288568b1814c48bb1c16d5ce0aa7a0",
+    "asidOwner": "25-2295-1"
   }
 }

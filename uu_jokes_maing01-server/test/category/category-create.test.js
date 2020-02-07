@@ -1,4 +1,4 @@
-const { TestHelper } = require("uu_appg01_server-test");
+const { TestHelper } = require("uu_appg01_workspace-test");
 const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { JOKES_INSTANCE_INIT, CATEGORY_CREATE, mockDaoFactory } = require("../general-test-hepler");
 

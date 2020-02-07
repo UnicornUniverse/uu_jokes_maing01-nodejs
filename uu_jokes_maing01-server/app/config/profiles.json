@@ -42,6 +42,10 @@
         "awidRuntimeModeList": ["standard"],
         "profileList": ["AwidOwner"]
       },
+      "jokesInstance/plugInBt": {
+        "awidRuntimeModeList": ["standard"],
+        "profileList": ["Authorities", "Executives", "Readers"]
+      },
       "jokesInstance/load": {
         "awidRuntimeModeList": ["standard"],
         "profileList": ["Authorities", "Executives", "Readers"]

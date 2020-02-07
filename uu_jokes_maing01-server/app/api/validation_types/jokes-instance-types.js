@@ -1,9 +1,14 @@
 /* eslint-disable */
 const jokesInstanceInitDtoInType = shape({
-  uuAppProfileAuthorities: uri().isRequired(),
+  uuAppProfileAuthorities: uri().isRequired("uuBtLocationUri"),
+  uuBtLocationUri: uri().isRequired("uuAppProfileAuthorities"),
   state: oneOf(["active", "underConstruction", "closed"]),
   name: uu5String(4000),
   logo: binary()
+});
+
+const jokesInstancePlugInBtDtoInType = shape({
+  uuBtLocationUri: uri().isRequired(),
 });
 
 const jokesInstanceSetLogoDtoInType = shape({

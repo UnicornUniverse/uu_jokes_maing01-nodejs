@@ -1,4 +1,4 @@
-const { TestHelper } = require("uu_appg01_server-test");
+const { TestHelper } = require("uu_appg01_workspace-test");
 const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const {
   JOKES_INSTANCE_INIT,
@@ -114,17 +114,17 @@ test("A2 - invalid dtoIn", async () => {
 test("A5 - creating logo fails", async () => {
   expect.assertions(2);
 
-  let { JokesInstanceAbl, UuBinaryAbl } = mockAbls();
+  let { JokesInstanceModel, UuBinaryAbl } = mockModels();
   jest.spyOn(UuBinaryAbl, "createBinary").mockImplementation(() => {
     throw new Error("it failed");
   });
-  JokesInstanceAbl.dao.getByAwid = () => {
+  JokesInstanceModel.dao.getByAwid = () => {
     return {};
   };
 
   let dtoIn = { logo: getImageStream() };
   try {
-    await JokesInstanceAbl.setLogo("awid", dtoIn);
+    await JokesInstanceModel.setLogo("awid", dtoIn);
   } catch (e) {
     expect(e.code).toEqual("uu-jokes-main/jokesInstance/setLogo/uuBinaryCreateFailed");
     expect(e.message).toEqual("Creating uuBinary failed.");
@@ -134,17 +134,17 @@ test("A5 - creating logo fails", async () => {
 test("A6 - updating logo fails", async () => {
   expect.assertions(2);
 
-  let { JokesInstanceAbl, UuBinaryAbl } = mockAbls();
+  let { JokesInstanceModel, UuBinaryAbl } = mockModels();
   jest.spyOn(UuBinaryAbl, "updateBinary").mockImplementation(() => {
     throw new Error("it failed");
   });
-  JokesInstanceAbl.dao.getByAwid = () => {
+  JokesInstanceModel.dao.getByAwid = () => {
     return { logos: [DEFAULT_LOGO_TYPE] };
   };
 
   let dtoIn = { logo: getImageStream() };
   try {
-    await JokesInstanceAbl.setLogo("awid", dtoIn);
+    await JokesInstanceModel.setLogo("awid", dtoIn);
   } catch (e) {
     expect(e.code).toEqual("uu-jokes-main/jokesInstance/setLogo/uuBinaryUpdateBinaryDataFailed");
     expect(e.message).toEqual("Updating uuBinary data failed.");
@@ -154,10 +154,10 @@ test("A6 - updating logo fails", async () => {
 test("A7 - updating joke instance fails", async () => {
   expect.assertions(2);
 
-  let { JokesInstanceAbl, UuBinaryAbl } = mockAbls();
+  let { JokesInstanceModel, UuBinaryAbl } = mockModels();
   jest.spyOn(UuBinaryAbl, "createBinary").mockImplementation(() => {});
 
-  JokesInstanceAbl.dao = {
+  JokesInstanceModel.dao = {
     getByAwid: () => {
       return {};
     },
@@ -168,16 +168,16 @@ test("A7 - updating joke instance fails", async () => {
 
   let dtoIn = { logo: getImageStream() };
   try {
-    await JokesInstanceAbl.setLogo("awid", dtoIn);
+    await JokesInstanceModel.setLogo("awid", dtoIn);
   } catch (e) {
     expect(e.code).toEqual("uu-jokes-main/jokesInstance/setLogo/jokesInstanceDaoUpdateByAwidFailed");
     expect(e.message).toEqual("Update jokesInstance by jokesInstance Dao updateByAwid failed.");
   }
 });
 
-function mockAbls() {
+function mockModels() {
   mockDaoFactory();
-  const JokesInstanceAbl = require("../../app/abl/jokes-instance-abl");
-  const { UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
-  return { JokesInstanceAbl, UuBinaryAbl };
+  const JokesInstanceModel = require("../../app/abl/jokes-instance-abl");
+  const UuBinaryAbl = require("uu_appg01_binarystore-cmd").UuBinaryModel;
+  return { JokesInstanceModel, UuBinaryAbl };
 }

@@ -1,12 +1,15 @@
 "use strict";
 
-const {LruCache} = require("uu_appg01_server").Utils;
-const {Validator} = require("uu_appg01_server").Validation;
-const {DaoFactory, ObjectStoreError} = require("uu_appg01_server").ObjectStore;
-const {ValidationHelper} = require("uu_appg01_server").AppServer;
-const {SysAppProfileAbl} = require("uu_appg01_server").Workspace;
-const {LoggerFactory} = require("uu_appg01_server").Logging;
-const {BinaryStoreCmdError, UuBinaryErrors, UuBinaryAbl} = require("uu_appg01_binarystore-cmd");
+const { LruCache } = require("uu_appg01_server").Utils;
+const { Validator } = require("uu_appg01_server").Validation;
+const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
+const { ValidationHelper } = require("uu_appg01_server").AppServer;
+const { LoggerFactory } = require("uu_appg01_server").Logging;
+const { UuBinaryErrors, UuBinaryModel: UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
+const { SysAppProfileAbl, SysAppWorkspaceModel: SysAppWorkspaceAbl, AppClientTokenService, SysAppClientTokenModel: SysAppClientTokenAbl } = require("uu_appg01_server").Workspace;
+
+const { UriBuilder } = require("uu_appg01_server").Uri;
+const { AppClient } = require("uu_appg01_server");
 
 const Path = require("path");
 const fs = require("fs");
@@ -143,10 +146,10 @@ const DEFAULTS = {
   description:
     "Database of jokes in which users can create and update jokes, manage them, rate them and sort them into categories.",
   logoType: "16x9",
-  ttl: 3600 * 1000
+  ttl: 60 * 60 * 1000
 };
 
-const logger = LoggerFactory.get("UuJokes.abl.JokesInstanceAbl");
+const logger = LoggerFactory.get("UuJokes.Models.JokesInstanceModel");
 
 const DEFAULT_NAME = "uuJokes";
 const AUTHORITIES = "Authorities";
@@ -165,10 +168,11 @@ class JokesInstanceAbl {
     this.STATE_UNDER_CONSTRUCTION = STATE_UNDER_CONSTRUCTION;
     this.AUTHORITIES = AUTHORITIES;
     this.EXECUTIVES = EXECUTIVES;
-    this.metaDataCache = new LruCache({maxAge: 60 * 60 * 1000});
+    this.metaDataCache = new LruCache({ maxAge: DEFAULTS.ttl });
   }
 
-  async init(awid, dtoIn) {
+  async init(uri, dtoIn, session) {
+    const awid = uri.getAwid();
     // hds 1
     let jokeInstance = await this.dao.getByAwid(awid);
     // A1
@@ -197,40 +201,140 @@ class JokesInstanceAbl {
       DaoFactory.getDao("category").createSchema()
     ]);
 
+    // hds 4
     try {
-      // hds 4
-      await SysAppProfileAbl.setProfile(awid, {code: AUTHORITIES, roleUri: dtoIn.uuAppProfileAuthorities});
+      jokeInstance = await this.dao.create(dtoIn);
     } catch (e) {
       // A4
-      throw new Errors.Init.SysSetProfileFailed({uuAppErrorMap}, {role: dtoIn.uuAppProfileAuthorities}, e);
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.Init.JokesInstanceDaoCreateFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
     }
 
     // hds 5
     if (dtoIn.logo) {
       let binary;
       try {
-        binary = await UuBinaryAbl.createBinary(awid, {data: dtoIn.logo, code: "16x9"});
+        binary = await UuBinaryAbl.createBinary(awid, { data: dtoIn.logo, code: "16x9" });
       } catch (e) {
         // A5
-        throw new Errors.Init.UuBinaryCreateFailed({uuAppErrorMap}, e);
+        throw new Errors.Init.UuBinaryCreateFailed({ uuAppErrorMap }, e);
       }
-      // hds 6
       dtoIn.logos = [DEFAULTS.logoType];
       delete dtoIn.logo;
     }
 
-    // hds 7
-    try {
-      jokeInstance = await this.dao.create(dtoIn);
-    } catch (e) {
-      // A6
-      if (e instanceof ObjectStoreError) {
-        throw new Errors.Init.JokesInstanceDaoCreateFailed({uuAppErrorMap}, e);
+    // hds 6
+    if (dtoIn.uuBtLocationUri) {
+      const baseUri = uri.getBaseUri();
+      const uuBtUriBuilder = UriBuilder.parse(dtoIn.uuBtLocationUri);
+      const location = uuBtUriBuilder.getParameters().id;
+      const uuBtBaseUri = uuBtUriBuilder.toUri().getBaseUri();
+
+      await SysAppClientTokenAbl.initKeys(uri.getAwid());
+
+      const createAwscDtoIn = {
+        name: dtoIn.name,
+        typeCode: "uu-jokes-maing01",
+        location: location,
+        uuAppWorkspaceUri: baseUri
+      };
+
+      const awscCreateUri = uuBtUriBuilder.setUseCase("uuAwsc/create").toUri();
+      const appClientToken = await AppClientTokenService.createToken(uri, uuBtBaseUri);
+      const callOpts = AppClientTokenService.setToken({ session }, appClientToken);
+
+      let awscDtoOut;
+      try {
+        awscDtoOut = await AppClient.post(awscCreateUri, createAwscDtoIn, callOpts);
+      } catch (e) {
+        // A6
+        throw new Errors.Init.CreateAwscFailed({ uuAppErrorMap }, { location: dtoIn.uuBtLocationUri }, e);
       }
-      throw e;
+
+      const artifactUri = uuBtUriBuilder.setUseCase(null).clearParameters().setParameter("id", awscDtoOut.id).toUri();
+
+      await SysAppWorkspaceAbl.connectArtifact(
+        baseUri,
+        {
+          artifactUri: artifactUri.toString()
+        },
+        session
+      );
+    }
+
+    // hds 7
+    if (dtoIn.uuAppProfileAuthorities) {
+      try {
+        await SysAppProfileAbl.setProfile(awid, { code: AUTHORITIES, roleUri: dtoIn.uuAppProfileAuthorities });
+      } catch (e) {
+        // A7
+        throw new Errors.Init.SysSetProfileFailed({ uuAppErrorMap }, { role: dtoIn.uuAppProfileAuthorities }, e);
+      }
     }
 
     // hds 8
+    jokeInstance.uuAppErrorMap = uuAppErrorMap;
+    return jokeInstance;
+  }
+
+
+  async plugInBt(uri, dtoIn, session) {
+    const awid = uri.getAwid();
+    // hds 1
+    let jokeInstance = await this.dao.getByAwid(awid);
+    // A1
+    if (!jokeInstance) {
+      throw new Errors.Load.JokesInstanceDoesNotExist();
+    }
+
+    // hds 2
+    let validationResult = this.validator.validate("jokesInstancePlugInBtDtoInType", dtoIn);
+    // A2, A3
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.initUnsupportedKeys.code,
+      Errors.Init.InvalidDtoIn
+    );
+
+    // hds 3
+    const baseUri = uri.getBaseUri();
+    const uuBtUriBuilder = UriBuilder.parse(dtoIn.uuBtLocationUri);
+    const location = uuBtUriBuilder.getParameters().id;
+    const uuBtBaseUri = uuBtUriBuilder.toUri().getBaseUri();
+
+    const createAwscDtoIn = {
+      name: jokeInstance.name,
+      typeCode: "uu-jokes-maing01",
+      location: location,
+      uuAppWorkspaceUri: baseUri
+    };
+
+    const awscCreateUri = uuBtUriBuilder.setUseCase("uuAwsc/create").toUri();
+    const appClientToken = await AppClientTokenService.createToken(uri, uuBtBaseUri);
+    const callOpts = AppClientTokenService.setToken({ session }, appClientToken);
+
+    let awscDtoOut;
+    try {
+      awscDtoOut = await AppClient.post(awscCreateUri, createAwscDtoIn, callOpts);
+    } catch (e) {
+      // A6
+      throw new Errors.Init.CreateAwscFailed({ uuAppErrorMap }, { location: dtoIn.uuBtLocationUri }, e);
+    }
+
+    const artifactUri = uuBtUriBuilder.setUseCase(null).clearParameters().setParameter("id", awscDtoOut.id).toUri();
+
+    await SysAppWorkspaceAbl.connectArtifact(
+      baseUri,
+      {
+        artifactUri: artifactUri.toString()
+      },
+      session
+    );
+
+    // hds 4
     jokeInstance.uuAppErrorMap = uuAppErrorMap;
     return jokeInstance;
   }
@@ -249,7 +353,7 @@ class JokesInstanceAbl {
       !authorizedProfiles.includes(AUTHORITIES) &&
       !authorizedProfiles.includes(EXECUTIVES)
     ) {
-      throw new Errors.Load.JokesInstanceIsUnderConstruction({}, {state: jokesInstance.state});
+      throw new Errors.Load.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
     }
 
     // hds 2
@@ -281,7 +385,7 @@ class JokesInstanceAbl {
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         // A6
-        throw new Errors.Update.JokesInstanceDaoUpdateByAwidFailed({uuAppErrorMap}, e);
+        throw new Errors.Update.JokesInstanceDaoUpdateByAwidFailed({ uuAppErrorMap }, e);
       }
       throw e;
     }
@@ -315,7 +419,7 @@ class JokesInstanceAbl {
     if (!jokesInstance.logos || !jokesInstance.logos.includes(type)) {
       // hds 3.1
       try {
-        binary = await UuBinaryAbl.createBinary(awid, {data: dtoIn.logo, code: type});
+        binary = await UuBinaryAbl.createBinary(awid, { data: dtoIn.logo, code: type });
       } catch (e) {
         // A5
         throw new Errors.SetLogo.UuBinaryCreateFailed(uuAppErrorMap, e);
@@ -323,7 +427,7 @@ class JokesInstanceAbl {
     } else {
       // hds 3.2
       try {
-        binary = await UuBinaryAbl.updateBinaryData(awid, {data: dtoIn.logo, code: type, revisionStrategy: "NONE"});
+        binary = await UuBinaryAbl.updateBinaryData(awid, { data: dtoIn.logo, code: type, revisionStrategy: "NONE" });
       } catch (e) {
         // A6
         throw new Errors.SetLogo.UuBinaryUpdateBinaryDataFailed(uuAppErrorMap, e);
@@ -340,7 +444,7 @@ class JokesInstanceAbl {
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         // A7
-        throw new Errors.SetLogo.JokesInstanceDaoUpdateByAwidFailed({uuAppErrorMap}, e);
+        throw new Errors.SetLogo.JokesInstanceDaoUpdateByAwidFailed({ uuAppErrorMap }, e);
       }
       throw e;
     }
@@ -383,7 +487,7 @@ class JokesInstanceAbl {
     try {
       jokesInstance = await this.dao.updateByAwid(jokesInstance);
     } catch (e) {
-      throw new Errors.SetIcons.JokesInstanceDaoUpdateByAwidFailed({uuAppErrorMap}, e);
+      throw new Errors.SetIcons.JokesInstanceDaoUpdateByAwidFailed({ uuAppErrorMap }, e);
     }
     jokesInstance.uuAppErrorMap = uuAppErrorMap;
 
@@ -428,17 +532,17 @@ class JokesInstanceAbl {
             });
           } else {
             //HDS 3.2.2
-            await UuBinaryAbl.createBinary(awid, {data, code: underscoredCode});
+            await UuBinaryAbl.createBinary(awid, { data, code: underscoredCode });
             uveMetaData[code] = underscoredCode;
           }
         } catch (e) {
           if (e instanceof BinaryStoreCmdError) {
             if (e.code.indexOf(UuBinaryErrors.CreateBinary.UC_CODE) !== -1) {
               //A6
-              throw new Errors.SetIcons.UuBinaryCreateFailed(uuAppErrorMap, {cause: e}, e);
+              throw new Errors.SetIcons.UuBinaryCreateFailed(uuAppErrorMap, { cause: e }, e);
             } else {
               //A7
-              throw new Errors.SetIcons.UuBinaryUpdateBinaryDataFailed(uuAppErrorMap, {cause: e}, e);
+              throw new Errors.SetIcons.UuBinaryUpdateBinaryDataFailed(uuAppErrorMap, { cause: e }, e);
             }
           }
           throw e;
@@ -523,7 +627,7 @@ class JokesInstanceAbl {
     let jokesInstance = await this.dao.getByAwid(awid);
     if (jokesInstance && jokesInstance.logos && jokesInstance.logos.includes(type)) {
       try {
-        dtoOut = await UuBinaryAbl.getBinaryData(awid, {code: type});
+        dtoOut = await UuBinaryAbl.getBinaryData(awid, { code: type });
       } catch (e) {
         // A3
         if (logger.isWarnLoggable()) {
@@ -570,7 +674,7 @@ class JokesInstanceAbl {
 
     if (uveMetaData && uveMetaData[dtoIn.type]) {
       try {
-        dtoOut = await UuBinaryAbl.getBinaryData(awid, {code: uveMetaData[dtoIn.type]});
+        dtoOut = await UuBinaryAbl.getBinaryData(awid, { code: uveMetaData[dtoIn.type] });
       } catch (e) {
         // A3
         if (logger.isWarnLoggable()) {
@@ -649,7 +753,7 @@ class JokesInstanceAbl {
     <meta name="application-name" content="${uveMetaData.name}">
     <meta name="msapplication-TileColor" content="${
       uveMetaData["tilecolor"] ? uveMetaData["tilecolor"] : DEFAULTS.metaData["tilecolor"]
-    }"/>
+      }"/>
     <meta name="msapplication-config" content="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=browserconfig"/>
 
     <link rel="mask-icon" href="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=safari-pinned-tab" color="#d81e05"/>

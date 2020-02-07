@@ -1,5 +1,5 @@
 {
-  "maxNoa": 10,
+  "maxNoa": 100,
   "uuSubAppDataStore": {
     "primary": {
       "type": "uuAppObjectStore",

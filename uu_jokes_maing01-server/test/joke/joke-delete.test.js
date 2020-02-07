@@ -1,4 +1,4 @@
-const { TestHelper } = require("uu_appg01_server-test");
+const { TestHelper } = require("uu_appg01_workspace-test");
 const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const {
   JOKES_INSTANCE_INIT,
@@ -196,7 +196,7 @@ test("A7 - deleting image fails", async () => {
 function mockAbl() {
   mockDaoFactory();
   const JokeAbl = require("../../app/abl/joke-abl");
-  const { UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
+  const UuBinaryAbl = require("uu_appg01_binarystore-cmd").UuBinaryModel;
   const JokesInstanceAbl = require("../../app/abl/jokes-instance-abl");
   JokesInstanceAbl.checkInstance = () => null;
   return { JokeAbl, UuBinaryAbl };

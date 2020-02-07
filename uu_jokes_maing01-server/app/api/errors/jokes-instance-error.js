@@ -19,6 +19,13 @@ const Init = {
       this.message = "DtoIn is not valid.";
     }
   },
+  CreateAwscFailed: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Init.UC_CODE}createAwscFailed`;
+      this.message = "Create uuAwsc failed.";
+    }
+  },
   SysSetProfileFailed: class extends UuJokesError {
     constructor() {
       super(...arguments);

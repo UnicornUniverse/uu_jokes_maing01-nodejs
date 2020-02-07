@@ -45,19 +45,19 @@ export const Category = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _handleSubmit(categories) {
+  _handleSubmit(categoryList) {
     let values = this.props.getValues();
     let usedFilter = this.props.filters.find(filter => filter.key === values.type);
     this.props.addFilter(
       values.type,
-      this.getLsiComponent("category", null, categories.find(category => category.id === values[values.type]).name),
+      this.getLsiComponent("category", null, categoryList.find(category => category.id === values[values.type]).name),
       values[values.type],
       usedFilter.filterFn
     );
   },
 
-  _getOptions(categories) {
-    return categories.map(category => (
+  _getOptions(categoryList) {
+    return categoryList.map(category => (
       <UU5.Forms.Select.Option value={category.id} key={category.id} style="whiteSpace: nowrap">
         {category.name}
       </UU5.Forms.Select.Option>
@@ -69,13 +69,13 @@ export const Category = UU5.Common.VisualComponent.create({
   render() {
     return (
       <JokesConsumer>
-        {({ categories }) => (
+        {({ categoryList }) => (
           <UU5.Bricks.Div {...this.getMainPropsToPass()}>
             <UU5.Forms.Select value={this.props.values} name="category" inputWidth="auto" controlled={false}>
-              {this._getOptions(categories)}
+              {this._getOptions(categoryList)}
             </UU5.Forms.Select>
             <UU5.Bricks.Button
-              onClick={() => this._handleSubmit(categories)}
+              onClick={() => this._handleSubmit(categoryList)}
               colorSchema="primary"
               content={this.getLsiValue("apply")}
             />

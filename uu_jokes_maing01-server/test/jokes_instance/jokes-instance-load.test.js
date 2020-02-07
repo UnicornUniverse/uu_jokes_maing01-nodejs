@@ -1,4 +1,4 @@
-const { TestHelper } = require("uu_appg01_server-test");
+const { TestHelper } = require("uu_appg01_workspace-test");
 const { JOKES_INSTANCE_INIT, JOKES_INSTANCE_LOAD } = require("../general-test-hepler");
 
 beforeAll(async () => {
