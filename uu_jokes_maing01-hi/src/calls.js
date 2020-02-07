@@ -30,7 +30,7 @@ let Calls = {
 
   initWorkspace(dtoInData) {
     return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("jokesInstance/init");
+      let commandUri = Calls.getCommandUri("sys/appWorkspace/init");
       Calls.call("post", commandUri, {
         data: dtoInData,
         done: data => resolve({ ...data}),

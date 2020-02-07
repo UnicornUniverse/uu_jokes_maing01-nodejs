@@ -16,7 +16,7 @@
         "httpMethod": "GET",
         "type": "UVE"
       },
-      "jokesInstance/init": {
+      "sys/appWorkspace/init": {
         "realization": "api/controllers/JokesInstanceController.init",
         "httpMethod": "POST",
         "type": "CMD"

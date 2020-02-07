@@ -4,9 +4,6 @@
     "primary": "mongodb://127.0.0.1:27017/JokesMainPrimary",
     "binary": "mongodb://127.0.0.1:27017/JokesMainBinary"
   },
-  "privilegedUserMap": {
-    "asidOwner": "15-3374-1"
-  },
   "asidLicenseOwnerList": ["15-3374-1"],
   "asid": "11111111111111111111111111111111",
   "log_level": "INFO",

@@ -230,13 +230,6 @@ class JokesInstanceAbl {
       throw e;
     }
 
-    let workspaceStore = DaoFactory.getDao("sysAppWorkspace");
-    try {
-      await workspaceStore.updateByAwid(awid, {state: "active"});
-    } catch (e) {
-      throw new Error("failed to set active state to sysAppWorkspace");
-    }
-
     // hds 8
     jokeInstance.uuAppErrorMap = uuAppErrorMap;
     return jokeInstance;

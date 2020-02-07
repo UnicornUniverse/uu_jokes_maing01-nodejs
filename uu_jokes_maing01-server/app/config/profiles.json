@@ -38,7 +38,7 @@
         "awidRuntimeModeList": ["standard"],
         "profileList": ["Public"]
       },
-      "jokesInstance/init": {
+      "sys/appWorkspace/init": {
         "awidRuntimeModeList": ["standard"],
         "profileList": ["AwidOwner"]
       },
