@@ -39,7 +39,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   _handleLoad(data) {
-    return Calls.loadWorkspace(data).then(data => {
+    return Calls.loadIdentityProfiles(data).then(data => {
       return data;
     });
   },
@@ -52,7 +52,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
     return (<UU5.Common.Loader onLoad={this._handleLoad}>
         {({isLoading, isError, data}) => {
           if (isError) {
-            return <UU5.Bricks.Error content="Error loading workspace, probably not authorized."/>
+            return <UU5.Bricks.Error content="Error loading user profiles."/>
           } else if (isLoading) {
             return <UU5.Bricks.Loading/>
           } else {
@@ -63,9 +63,9 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                     if(data.state=="active"){
                       return (<UU5.Bricks.Error content="Workspace has been already initialized."/>);
                     }
-                    if (data.awidLicenseOwnerList.includes(identity.uuIdentity)) {
+                    if (Array.isArray(data.identityProfileList) && data.identityProfileList.includes("AwidLicenseOwner")) {
                       return (<div style={{"textAlign": "center"}}>
-                        <h1>Aplication not initialized. You can initialize it now.</h1>
+                        <h1>Application is not initialized. You can initialize it now.</h1>
                         <UU5.Forms.Form>
                           <UU5.Forms.TextArea rows={10}
                                               ref_={ref => this.form = ref}
@@ -78,7 +78,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                         </UU5.Forms.Form>
                       </div>)
                     } else {
-                      return (<UU5.Bricks.Error content="User is not authorized to initialize workspace."/>);
+                      return (<UU5.Bricks.Error style="margin:auto; marginTop:200px; width: 800px" content="User is not authorized to initialize workspace."/>);
                     }
                   }}
                 </UU5.Common.Identity>

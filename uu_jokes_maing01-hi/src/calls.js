@@ -27,9 +27,9 @@ let Calls = {
     });
   },
 
-  loadWorkspace() {
+  loadIdentityProfiles() {
     return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("sys/getAppWorkspace");
+      let commandUri = Calls.getCommandUri("sys/appWorkspace/initUve");
       Calls.call("get", commandUri, { data: null, done: resolve, fail: reject });
     });
   },

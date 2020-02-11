@@ -124,7 +124,7 @@
       },
       "sys/getAppWorkspace": {
         "awidRuntimeModeList": ["standard"],
-        "profileList": ["Authorities", "AwidOwner"]
+        "profileList": ["Authorities"]
       },
       "sys/getProfile": {
         "awidRuntimeModeList": ["standard"],

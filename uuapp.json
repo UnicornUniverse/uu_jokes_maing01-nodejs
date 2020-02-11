@@ -15,6 +15,10 @@
         "appBoxLocationUri": "ues:UU-BT:PRD.UU-APPG01-SERVER-NODEJS/APPBOX_TESTING",
         "appDeploymentUri": "ues:DEV0116-BT[84723967990075193]:FAMILY_UUSERVERKIT_FAT_RESOURCEPOOL_AWE[5e21c41c19dbca8dcc63b3d8]:UU.JOKES.TESTMAING01[5e39857e37c92c94a5ea87fd]"
       },
+      "test": {
+        "appBoxLocationUri": "ues:UU-BT:PRD.UU-APPG01-SERVER-NODEJS/APPBOX_TESTING",
+        "appDeploymentUri": "ues:DEV0116-BT[84723967990075193]:FAMILY_UUSERVERKIT_FAT_RESOURCEPOOL_AWE[5e21c41c19dbca8dcc63b3d8]:UU.JOKES.MAING01[5e429c1c19dbcacaf663cb52]"
+      },
       "development": {
         "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX",
         "appDeploymentUri": "ues:UU-BT[78462435]:AWE_EGL[5c94fba94f1d8af4f88df7be]:UU.JOKES.MAING01[5d19cc6a0e2aca73efbbb3dd]"
