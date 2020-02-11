@@ -52,7 +52,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
     return (<UU5.Common.Loader onLoad={this._handleLoad}>
         {({isLoading, isError, data}) => {
           if (isError) {
-            return <UU5.Bricks.Error content="error load workspace"/>
+            return <UU5.Bricks.Error content="Error loading workspace, probably not authorized."/>
           } else if (isLoading) {
             return <UU5.Bricks.Loading/>
           } else {
@@ -60,8 +60,11 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
               <UU5.Common.Session session={Session.currentSession}>
                 <UU5.Common.Identity>
                   {({identity, login, logout, ...opt}) => {
+                    if(data.state=="active"){
+                      return (<UU5.Bricks.Error content="Workspace has been already initialized."/>);
+                    }
                     if (data.awidLicenseOwnerList.includes(identity.uuIdentity)) {
-                      return (<div style={{"text-align": "center"}}>
+                      return (<div style={{"textAlign": "center"}}>
                         <h1>Aplication not initialized. You can initialize it now.</h1>
                         <UU5.Forms.Form>
                           <UU5.Forms.TextArea rows={10}
@@ -75,7 +78,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                         </UU5.Forms.Form>
                       </div>)
                     } else {
-                      return (<UU5.Bricks.Error content="Not authorized to initialize worksapce"/>);
+                      return (<UU5.Bricks.Error content="User is not authorized to initialize workspace."/>);
                     }
                   }}
                 </UU5.Common.Identity>

@@ -1,4 +1,4 @@
-import InitAppWorkspace from "./config/initAppworkspace"
+import InitAppWorkspace from "./core/init-app-workspace"
 import {AppContainer} from "react-hot-loader";
 import * as UU5 from "uu5g04";
 

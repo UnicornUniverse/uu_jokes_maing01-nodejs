@@ -53,28 +53,29 @@ export const SpaReady = UU5.Common.VisualComponent.create({
   render() {
     return (
       <JokesConsumer {...this.getMainPropsToPass()}>
-        {({ name }) => (
+        {({name}) => (
           <Plus4U5.App.Page
-            top={<Plus4U5.App.Top content={name} />} // TopTitle
-            bottom={<Bottom />}
+            top={<Plus4U5.App.Top content={name}/>} // TopTitle
+            bottom={<Bottom/>}
             type={1}
             displayedLanguages={["cs", "en"]}
-            left={<Left authenticated={true} />}
+            left={this.props.customComp ? null : <Left authenticated={true}/>}
             leftWidth="!xs-320px !s-320px !m-256px l-256px xl-256px"
           >
-            <UU5.Common.Router
-              route=""
-              notFoundRoute="jokes"
-              routes={{
-                jokes: { component: <Jokes /> },
-                "": "jokes",
-                categoryManagement: {
-                  component: <CategoryManagement />
-                },
-                about: { component: <About /> }
-              }}
-              controlled={false}
-            />
+            {this.props.customComp ? this.props.customComp :
+              <UU5.Common.Router
+                route=""
+                notFoundRoute="jokes"
+                routes={{
+                  jokes: {component: <Jokes/>},
+                  "": "jokes",
+                  categoryManagement: {
+                    component: <CategoryManagement/>
+                  },
+                  about: {component: <About/>}
+                }}
+                controlled={false}
+              />}
           </Plus4U5.App.Page>
         )}
       </JokesConsumer>

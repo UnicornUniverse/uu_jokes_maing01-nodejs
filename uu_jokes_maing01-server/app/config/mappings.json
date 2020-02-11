@@ -12,7 +12,7 @@
         "type": "UVE"
       },
       "sys/appWorkspace/initUve": {
-        "realization": "appWorkspaceInitUve.html",
+        "realization": "app-workspace-init-uve.html",
         "httpMethod": "GET",
         "type": "UVE"
       },

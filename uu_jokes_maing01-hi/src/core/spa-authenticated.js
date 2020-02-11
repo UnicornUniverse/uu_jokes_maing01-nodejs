@@ -95,7 +95,7 @@ const SpaAuthenticated = UU5.Common.VisualComponent.create({
       <JokesProvider ref={comp => {
         this._provider = comp
       }} data={this._buildAppDataContext(data)}>
-        <SpaReady {...this.getMainPropsToPass()} />;
+        <SpaReady {...this.getMainPropsToPass()}/>;
       </JokesProvider>
     );
   },
@@ -105,7 +105,7 @@ const SpaAuthenticated = UU5.Common.VisualComponent.create({
   render() {
     let child;
     if (this.props.customComp) {
-      return this.props.customComp;
+      return <SpaReady {...this.getMainPropsToPass()} customComp={this.props.customComp}/>;
     }
     return (
       <UU5.Common.Loader onLoad={this._handleLoad}>
