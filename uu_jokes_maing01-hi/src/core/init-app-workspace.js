@@ -45,11 +45,23 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
   },
 
   initWorkspace(dataIn) {
-    Calls.initWorkspace(JSON.parse(dataIn)).then(() => window.location.replace(UU5.Common.Url.parse(window.location.href).set({useCase: ""}).toString()));
+    Calls.initWorkspace(JSON.parse(dataIn)).then(
+      () => {
+        let redirectPath = new URLSearchParams(window.location.search).get("originalUrl");
+        if (redirectPath) {
+          redirectPath = decodeURIComponent(redirectPath);
+        } else {
+          redirectPath = UU5.Common.Url.parse(window.location.href).set({useCase: ""}).toString();
+        }
+        window.location.replace(redirectPath);
+      },
+      error => this.setState({errorData: error.dtoOut})
+    );
   },
 
   _getChild() {
-    return (<UU5.Common.Loader onLoad={this._handleLoad}>
+    return (
+      <UU5.Common.Loader onLoad={this._handleLoad}>
         {({isLoading, isError, data}) => {
           if (isError) {
             return <UU5.Bricks.Error content="Error loading user profiles."/>
@@ -59,24 +71,26 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
             return (
               <UU5.Common.Session session={Session.currentSession}>
                 <UU5.Common.Identity>
-                  {({identity, login, logout, ...opt}) => {
-                    if(data.state=="active"){
-                      return (<UU5.Bricks.Error content="Workspace has been already initialized."/>);
-                    }
+                  {() => {
                     if (Array.isArray(data.identityProfileList) && data.identityProfileList.includes("AwidLicenseOwner")) {
-                      return (<div style={{"textAlign": "center"}}>
-                        <h1>Application is not initialized. You can initialize it now.</h1>
-                        <UU5.Forms.Form>
-                          <UU5.Forms.TextArea rows={10}
-                                              ref_={ref => this.form = ref}
-                                              value='{
-            "uuAppProfileAuthorities": "urn:uu:GGALL",
-            "name": "Jokes Test"
-          }'/>
-                          <UU5.Bricks.Button content="Initialize" colorSchema="blue" style="marginTop:8px"
-                                             onClick={() => this.initWorkspace(this.form.getValue())}/>
-                        </UU5.Forms.Form>
-                      </div>)
+                      return (
+                        <div>
+                          <div style={{"textAlign": "center"}}>
+                            <h1>Application is not initialized. You can initialize it now.</h1>
+                            <UU5.Forms.Form>
+                              <UU5.Forms.TextArea controlled={false} rows={10}
+                                                  ref_={ref => this.form = ref}
+                                                  value='{
+                                                    "uuAppProfileAuthorities": "urn:uu:GGALL",
+                                                    "name": "Jokes Test"
+                                                  }'/>
+                              <UU5.Bricks.Button content="Initialize" colorSchema="blue" style="marginTop:8px"
+                                                 onClick={() => this.initWorkspace(this.form.getValue())}/>
+                            </UU5.Forms.Form>
+                          </div>
+                          {(this.state.errorData) && <UU5.Common.Error errorData={this.state.errorData} />}
+                        </div>
+                      )
                     } else {
                       return (<UU5.Bricks.Error style="margin:auto; marginTop:200px; width: 800px" content="User is not authorized to initialize workspace."/>);
                     }
