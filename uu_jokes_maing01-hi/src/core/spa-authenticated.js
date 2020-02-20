@@ -17,7 +17,7 @@ import JokesProvider from "./jokes-provider.js";
 
 const SpaAuthenticated = UU5.Common.VisualComponent.create({
   //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin],
+  mixins: [UU5.Common.BaseMixin, UU5.Common.RouteMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
@@ -78,7 +78,6 @@ const SpaAuthenticated = UU5.Common.VisualComponent.create({
         break;
     }
 
-    console.log(content);
     return content;
   },
 

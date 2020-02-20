@@ -11,6 +11,7 @@ import SpaAuthenticated from "./spa-authenticated.js";
 import SpaNotAuthenticated from "./spa-not-authenticated.js";
 
 import "./spa.less";
+import InitAppWorkspace from "./init-app-workspace";
 //@@viewOff:imports
 
 const Spa = UU5.Common.VisualComponent.create({
@@ -53,7 +54,15 @@ const Spa = UU5.Common.VisualComponent.create({
           {({ identity }) => {
             let child;
             if (identity) {
-              child = <SpaAuthenticated {...this.getMainPropsToPass()} customComp={this.props.customComp} />;
+              child = (
+                <UU5.Common.Router
+                  route=""
+                  notFoundRoute="default"
+                  routes={{
+                    default: {component: <SpaAuthenticated {...this.getMainPropsToPass()} />},
+                    "sys/appWorkspace/initUve": {component: <SpaAuthenticated {...this.getMainPropsToPass()} customComp={<InitAppWorkspace/>} />}
+                  }}
+                />);
             } else if (identity === null) {
               child = <SpaNotAuthenticated {...this.getMainPropsToPass()} />;
             } else {

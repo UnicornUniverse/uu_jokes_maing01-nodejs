@@ -55,7 +55,7 @@ export const SpaReady = UU5.Common.VisualComponent.create({
       <JokesConsumer {...this.getMainPropsToPass()}>
         {({name}) => (
           <Plus4U5.App.Page
-            top={<Plus4U5.App.Top content={name}/>} // TopTitle
+            top={<Plus4U5.App.Top content={name ? name : "uuJokes"}/>} // TopTitle
             bottom={<Bottom/>}
             type={1}
             displayedLanguages={["cs", "en"]}
