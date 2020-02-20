@@ -2,6 +2,7 @@
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import "uu5g04-forms";
+import "uu5codekitg01";
 import {Session} from 'uu_appg01_oidc';
 import Calls from "calls";
 
@@ -78,12 +79,13 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                           <div style={{"textAlign": "center"}}>
                             <h1>Application is not initialized. You can initialize it now.</h1>
                             <UU5.Forms.Form>
-                              <UU5.Forms.TextArea controlled={false} rows={10}
-                                                  ref_={ref => this.form = ref}
-                                                  value='{
-                                                    "uuAppProfileAuthorities": "urn:uu:GGALL",
-                                                    "name": "Jokes Test"
-                                                  }'/>
+                              <UU5.CodeKit.JsonEditor
+                                rows={10}
+                                ref_={ref => this.form = ref}
+                                value='{
+                                  "uuAppProfileAuthorities": "urn:uu:GGALL",
+                                  "name": "Jokes Test"
+                                }'/>
                               <UU5.Bricks.Button content="Initialize" colorSchema="blue" style="marginTop:8px"
                                                  onClick={() => this.initWorkspace(this.form.getValue())}/>
                             </UU5.Forms.Form>
