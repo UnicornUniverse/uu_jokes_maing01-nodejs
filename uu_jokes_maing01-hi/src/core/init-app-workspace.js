@@ -6,6 +6,7 @@ import "uu5codekitg01";
 import Calls from "calls";
 import { dig } from "../helpers/object-utils";
 import Plus4U5 from "uu_plus4u5g01";
+import UuContentKit from "uu_contentkitg01";
 import LSI from "./spa-authenticated-lsi";
 
 //@@viewOff:imports
@@ -55,18 +56,18 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
         if (redirectPath) {
           redirectPath = decodeURIComponent(redirectPath);
         } else {
-          redirectPath = UU5.Common.Url.parse(window.location.href).set({useCase: ""}).toString();
+          redirectPath = UU5.Common.Url.parse(window.location.href).set({ useCase: "" }).toString();
         }
         window.location.replace(redirectPath);
       },
-      error => this.setState({errorData: error.dtoOut})
+      error => this.setState({ errorData: error.dtoOut })
     );
   },
 
   _getChild() {
     return (
       <UU5.Common.Loader onLoad={this._handleLoad}>
-        {({isLoading, isError, data}) => {
+        {({ isLoading, isError, data }) => {
           if (isError) {
             return (
               <Plus4U5.App.SpaError
@@ -82,21 +83,23 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
             if (Array.isArray(data.identityProfileList) && data.identityProfileList.includes("AwidLicenseOwner")) {
               return (
                 <div>
-                  <div style={{"textAlign": "center"}}>
-                    <h1>Application is not initialized. You can initialize it now.</h1>
+                  <div style={{ "margin": "auto", "textAlign": "center", "maxWidth": "1000px"}}>
+                    <UuContentKit.Bricks.BlockDefault icon="mdi-help-circle"><UU5.Bricks.Span>
+                      {this.getLsiComponent("appNotInitialized")}
+                    </UU5.Bricks.Span></UuContentKit.Bricks.BlockDefault>
                     <UU5.Forms.Form>
                       <UU5.CodeKit.JsonEditor
                         rows={10}
                         ref_={ref => this.form = ref}
-                        value='{
-                          "uuAppProfileAuthorities": "urn:uu:GGALL",
-                          "name": "Jokes Test"
-                        }'/>
+                        value={'{' +
+                        '\n  "name": "Jokes Test",' +
+                        '\n  "uuAppProfileAuthorities": "urn:uu:GGALL"' +
+                        '\n}'}/>
                       <UU5.Bricks.Button content="Initialize" colorSchema="blue" style="marginTop:8px"
                                          onClick={() => this.initWorkspace(this.form.getValue())}/>
                     </UU5.Forms.Form>
                   </div>
-                  {(this.state.errorData) && <UU5.Common.Error errorData={this.state.errorData} />}
+                  {(this.state.errorData) && <UU5.Common.Error errorData={this.state.errorData}/>}
                 </div>
               )
             } else {
@@ -105,7 +108,8 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                   {...this.getMainPropsToPass()}
                   error={data.dtoOut}
                   errorData={dig(data, "dtoOut", "uuAppErrorMap")}
-                  content={this.getLsiComponent("notAuthorized")}
+                  content={this.getLsiComponent("notAuthorizedForInit")}
+                  icon='uu5-alert-circle'
                 />
               );
             }
