@@ -6,6 +6,7 @@ import "uu5codekitg01";
 import Calls from "calls";
 import { dig } from "../helpers/object-utils";
 import Plus4U5 from "uu_plus4u5g01";
+import UuContentKit from "uu_contentkitg01";
 import LSI from "./spa-authenticated-lsi";
 
 //@@viewOff:imports
@@ -49,25 +50,23 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
       return data;
     });
   },
-
-  initWorkspace(dataIn) {
+  _initWorkspace(dataIn) {
     Calls.initWorkspace(JSON.parse(dataIn)).then(
       () => {
-        let newPath = new URLSearchParams(window.location.search).get("originalUrl");
-        if (!newPath || !RELATIVE_URI_REGEXP.test(newPath)) {
+        let redirectPath = new URLSearchParams(window.location.search).get("originalUrl");
+        if (!redirectPath || !RELATIVE_URI_REGEXP.test(redirectPath)) {
           const ucIndex = window.location.href.indexOf("sys/appWorkspace/initUve");
-          newPath = window.location.href.slice(0, ucIndex);
+          redirectPath = window.location.href.slice(0, ucIndex);
         }
-        window.location.replace(newPath);
+        window.location.replace(redirectPath);
       },
-      error => this.setState({errorData: error.dtoOut})
+      error => this.setState({ errorData: error.dtoOut })
     );
   },
-
   _getChild() {
     return (
       <UU5.Common.Loader onLoad={this._handleLoad}>
-        {({isLoading, isError, data}) => {
+        {({ isLoading, isError, data }) => {
           if (isError) {
             return (
               <Plus4U5.App.SpaError
@@ -78,50 +77,55 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
               />
             );
           } else if (isLoading) {
-            return <UU5.Bricks.Loading/>
+            return <UU5.Bricks.Loading />;
           } else {
             if (Array.isArray(data.identityProfileList) && data.identityProfileList.includes("AwidLicenseOwner")) {
               return (
                 <div>
-                  <div style={{"textAlign": "center"}}>
-                    <h1>Application is not initialized. You can initialize it now.</h1>
+                  <div style={{ margin: "auto", textAlign: "center", maxWidth: "1000px" }}>
+                    <UuContentKit.Bricks.BlockDefault icon="mdi-help-circle">
+                      <UU5.Bricks.Span>{this.getLsiComponent("appNotInitialized")}</UU5.Bricks.Span>
+                    </UuContentKit.Bricks.BlockDefault>
                     <UU5.Forms.Form>
                       <UU5.CodeKit.JsonEditor
                         rows={10}
-                        ref_={ref => this.form = ref}
-                        value='{
-                          "uuAppProfileAuthorities": "urn:uu:GGALL",
-                          "name": "Jokes Test"
-                        }'/>
-                      <UU5.Bricks.Button content="Initialize" colorSchema="blue" style="marginTop:8px"
-                                         onClick={() => this.initWorkspace(this.form.getValue())}/>
+                        ref_={ref => (this.form = ref)}
+                        value={
+                          "{" + '\n  "name": "Jokes Test",' + '\n  "uuAppProfileAuthorities": "urn:uu:GGALL"' + "\n}"
+                        }
+                      />
+                      <UU5.Bricks.Button
+                        content="Initialize"
+                        colorSchema="blue"
+                        style="marginTop:8px"
+                        onClick={() => this._initWorkspace(this.form.getValue())}
+                      />
                     </UU5.Forms.Form>
                   </div>
-                  {(this.state.errorData) && <UU5.Common.Error errorData={this.state.errorData} />}
+                  {this.state.errorData && <UU5.Common.Error errorData={this.state.errorData} />}
                 </div>
-              )
+              );
             } else {
               return (
                 <Plus4U5.App.SpaError
                   {...this.getMainPropsToPass()}
                   error={data.dtoOut}
                   errorData={dig(data, "dtoOut", "uuAppErrorMap")}
-                  content={this.getLsiComponent("notAuthorized")}
+                  content={this.getLsiComponent("notAuthorizedForInit")}
+                  icon="uu5-alert-circle"
                 />
               );
             }
           }
         }}
       </UU5.Common.Loader>
-    )
+    );
   },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
-    return (
-      this._getChild()
-    );
+    return this._getChild();
   }
   //@@viewOff:render
 });

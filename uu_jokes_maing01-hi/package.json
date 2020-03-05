@@ -13,7 +13,8 @@
     "uu_appg01_core": "^4.4.0",
     "uu_appg01_oidc": "^2.0.0",
     "uu_plus4u5g01": "^4.0.0",
-    "uu5codekitg01": "^1.0.0"
+    "uu5codekitg01": "^1.0.0",
+    "uu_contentkitg01": "^2.0.0"
   },
   "uuBuildSettings": {},
   "devDependencies": {
