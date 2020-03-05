@@ -10,6 +10,8 @@ import LSI from "./spa-authenticated-lsi";
 
 //@@viewOff:imports
 
+const RELATIVE_URI_REGEXP = new RegExp(/^\/[^/]/);
+
 export const InitAppWorkspace = UU5.Common.VisualComponent.create({
   //@@viewOn:mixins
   mixins: [UU5.Common.BaseMixin, UU5.Common.PureRenderMixin],
@@ -51,13 +53,12 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
   initWorkspace(dataIn) {
     Calls.initWorkspace(JSON.parse(dataIn)).then(
       () => {
-        let redirectPath = new URLSearchParams(window.location.search).get("originalUrl");
-        if (redirectPath) {
-          redirectPath = decodeURIComponent(redirectPath);
-        } else {
-          redirectPath = UU5.Common.Url.parse(window.location.href).set({useCase: ""}).toString();
+        let newPath = new URLSearchParams(window.location.search).get("originalUrl");
+        if (!newPath || !RELATIVE_URI_REGEXP.test(newPath)) {
+          const ucIndex = window.location.href.indexOf("sys/appWorkspace/initUve");
+          newPath = window.location.href.slice(0, ucIndex);
         }
-        window.location.replace(redirectPath);
+        window.location.replace(newPath);
       },
       error => this.setState({errorData: error.dtoOut})
     );
