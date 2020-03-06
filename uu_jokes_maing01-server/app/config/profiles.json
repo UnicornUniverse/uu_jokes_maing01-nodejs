@@ -1,34 +1,38 @@
 {
   "{asid}": {
-    "profileList": ["AsidOwner"],
+    "profileList": ["AsidAuthorities", "AsidExecutives"],
     "permissionMap": {
-      "{asidOwner}": ["AsidOwner"]
+      "{asidOwner}": ["AsidAuthorities"]
     },
     "useCaseMap": {
       "sys/getHealth": {
         "asidRuntimeModeList": ["restricted", "standard"],
-        "profileList": ["AsidOwner"]
+        "profileList": ["AsidAuthorities"]
       },
       "sys/getUseCases": {
         "asidRuntimeModeList": ["restricted", "standard"],
-        "profileList": ["AsidOwner"]
+        "profileList": ["AsidAuthorities"]
       },
       "sys/getConfiguration": {
         "asidRuntimeModeList": ["restricted", "standard"],
-        "profileList": ["AsidOwner"]
+        "profileList": ["AsidAuthorities"]
       },
       "sys/getEnvironment": {
         "asidRuntimeModeList": ["restricted", "standard"],
-        "profileList": ["AsidOwner"]
+        "profileList": ["AsidAuthorities"]
       },
       "sys/getStatistics": {
         "asidRuntimeModeList": ["restricted", "standard"],
-        "profileList": ["AsidOwner"]
+        "profileList": ["AsidAuthorities"]
+      },
+      "joke/list": {
+        "asidRuntimeModeList": ["restricted", "standard"],
+        "profileList": ["AsidExecutives"]
       }
     }
   },
   "*": {
-    "profileList": ["AwidOwner", "Authorities", "Executives", "Readers"],
+    "profileList": ["Authorities", "Authorities", "Executives", "Readers"],
     "useCaseMap": {
       "defaultUve": {
         "awidRuntimeModeList": ["standard"],
@@ -38,9 +42,13 @@
         "awidRuntimeModeList": ["standard"],
         "profileList": ["Public"]
       },
+      "sys/appWorkspace/get": {
+        "awidRuntimeModeList": ["standard"],
+        "profileList": ["Authorities"]
+      },
       "sys/appWorkspace/init": {
         "awidRuntimeModeList": ["standard"],
-        "profileList": ["AwidOwner"]
+        "profileList": ["Authorities"]
       },
       "jokesInstance/plugInBt": {
         "awidRuntimeModeList": ["standard"],
@@ -126,41 +134,45 @@
         "awidRuntimeModeList": ["standard"],
         "profileList": ["Authorities"]
       },
-      "sys/getProfile": {
+      "sys/appWorkspace/appProfile/get": {
         "awidRuntimeModeList": ["standard"],
-        "profileList": ["Authorities", "AwidOwner"]
+        "profileList": ["Authorities"]
       },
-      "sys/setProfile": {
+      "sys/appWorkspace/appProfile/set": {
         "awidRuntimeModeList": ["standard"],
-        "profileList": ["Authorities", "AwidOwner"]
+        "profileList": ["Authorities"]
       },
-      "sys/createPermission": {
+      "sys/appWorkspace/appProfile/list": {
         "awidRuntimeModeList": ["standard"],
-        "profileList": ["Authorities", "AwidOwner"]
+        "profileList": ["Authorities"]
       },
-      "sys/deletePermission": {
+      "sys/appWorkspace/permission/create": {
         "awidRuntimeModeList": ["standard"],
-        "profileList": ["Authorities", "AwidOwner"]
+        "profileList": ["Authorities"]
       },
-      "sys/listPermissions": {
+      "sys/appWorkspace/permission/delete": {
         "awidRuntimeModeList": ["standard"],
-        "profileList": ["Authorities", "AwidOwner"]
+        "profileList": ["Authorities"]
+      },
+      "sys/appWorkspace/permission/list": {
+        "awidRuntimeModeList": ["standard"],
+        "profileList": ["Authorities"]
       },
       "sys/getLicenseOwner": {
         "awidRuntimeModeList": ["standard"],
-        "profileList": ["Authorities", "AwidOwner", "Executives", "Readers"]
+        "profileList": ["Authorities", "Executives", "Readers"]
       },
       "sys/getAppWorkspaceConfig":  {
         "awidRuntimeModeList": ["standard"],
-        "profileList": ["Authorities", "AwidOwner", "Executives", "Readers"]
+        "profileList": ["Authorities", "Executives", "Readers"]
       },
       "sys/setAppWorkspaceConfig": {
         "awidRuntimeModeList": ["standard"],
-        "profileList": ["Authorities", "AwidOwner"]
+        "profileList": ["Authorities"]
       },
       "sys/clearAppWorkspaceConfig": {
         "awidRuntimeModeList": ["standard"],
-        "profileList": ["Authorities", "AwidOwner"]
+        "profileList": ["Authorities"]
       },
       "uu-app-binarystore/createBinary": {
         "awidRuntimeModeList": ["standard"],
@@ -184,11 +196,11 @@
       },
       "sys/listAuditLogRecordsByTimeAndSpp": {
         "awidRuntimeModeList": ["standard"],
-        "profileList": ["Authorities", "AwidOwner"]
+        "profileList": ["Authorities"]
       },
       "sys/listMyAuditLogRecordsByTime":  {
         "awidRuntimeModeList": ["standard"],
-        "profileList": ["Authorities", "AwidOwner", "Executives", "Readers"]
+        "profileList": ["Authorities", "Executives", "Readers"]
       }
     }
   }
