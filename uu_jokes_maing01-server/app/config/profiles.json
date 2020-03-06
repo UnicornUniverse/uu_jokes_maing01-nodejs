@@ -46,10 +46,6 @@
         "awidRuntimeModeList": ["standard"],
         "profileList": ["Authorities"]
       },
-      "sys/appWorkspace/init": {
-        "awidRuntimeModeList": ["standard"],
-        "profileList": ["Authorities"]
-      },
       "jokesInstance/plugInBt": {
         "awidRuntimeModeList": ["standard"],
         "profileList": ["Authorities", "Executives", "Readers"]

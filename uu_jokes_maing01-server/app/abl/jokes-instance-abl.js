@@ -267,7 +267,7 @@ class JokesInstanceAbl {
     // hds 7
     if (dtoIn.uuAppProfileAuthorities) {
       try {
-        await SysAppProfileAbl.setProfile(awid, { code: AUTHORITIES, roleUri: dtoIn.uuAppProfileAuthorities });
+        await SysAppProfileAbl.setAppProfile(awid, { appProfile: AUTHORITIES, roleGroupUri: dtoIn.uuAppProfileAuthorities });
       } catch (e) {
         // A7
         throw new Errors.Init.SysSetProfileFailed({ uuAppErrorMap }, { role: dtoIn.uuAppProfileAuthorities }, e);
