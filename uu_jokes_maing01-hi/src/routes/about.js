@@ -84,15 +84,17 @@ export const About = UU5.Common.VisualComponent.create({
       .getAwid()
       .toString();
     const {
-      fls_base_uri: flsBaseUri,
+      fls_base_uri: uuFlsUri,
       term_of_use_uri: termOfUseUri,
       technical_documentation_uri: technicalDocumentationUri,
-      product_code: productCode
+      product_code: productCode,
+      product_portal_uri : productPortalUri
     } = UU5.Environment;
 
-    const flsButton = UU5.Common.Tools.findComponent("UuFls.Bricks.CreateIssueButton", {
-      flsBaseUri,
+    const flsButton = UU5.Common.Tools.findComponent("Plus4U5.App.Support", {
+      uuFlsUri,
       productCode,
+      productPortalUri,
       borderRadius: "2px",
       colorSchema: "blue-rich",
       size: "m"

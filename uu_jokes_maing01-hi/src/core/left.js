@@ -121,7 +121,7 @@ export const Left = UU5.Common.VisualComponent.create({
                 {logos && logos.includes("16x9") ? (
                   this._getImage()
                 ) : (
-                  <UU5.Bricks.Image name="Logo" responsive src="assets/logos/16x9.png" />
+                  <UU5.Bricks.Image name="Logo" responsive src="assets/logos/16x9.jpeg" />
                 )}
               </UU5.Bricks.Link>
             )}

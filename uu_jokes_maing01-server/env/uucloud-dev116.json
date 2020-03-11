@@ -4,7 +4,7 @@
   "uuSubApp": {
     "code": "UU.JOKES.MAING01",
     "name": "uuJokes",
-    "version": "2.2.0-DEV",
+    "version": "2.2.0",
     "description": "Server project example for developing UAF application in Node.js",
     "license": "License Commercial",
     "asidRequired": true,

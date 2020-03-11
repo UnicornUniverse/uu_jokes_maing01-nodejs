@@ -641,7 +641,7 @@ class JokesInstanceAbl {
 
     // hds 2.1
     if (!dtoOut.stream) {
-      let filePath = Path.resolve(__dirname, `../../public/assets/logos/${type}.png`);
+      let filePath = Path.resolve(__dirname, `../../public/assets/logos/${type}.jpeg`);
       dtoOut.contentType = "image/png";
       dtoOut.stream = fs.createReadStream(filePath);
     }

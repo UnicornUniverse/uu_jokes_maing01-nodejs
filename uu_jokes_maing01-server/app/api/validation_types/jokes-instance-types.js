@@ -12,7 +12,7 @@ const jokesInstancePlugInBtDtoInType = shape({
 });
 
 const jokesInstanceSetLogoDtoInType = shape({
-  type: oneOf("16x9","3x2","4x3","2x3"),
+  type: oneOf("16x9","3x2","4x3","2x3","10x1","1x10"),
   logo: binary().isRequired()
 });
 
@@ -26,7 +26,7 @@ const jokeInstaceSetIconsDtoInType = shape({
 })
 
 const getProductLogoDtoInType = shape({
-  type: oneOf("16x9","3x2","4x3","2x3")
+  type: oneOf("16x9","3x2","4x3","2x3","10x1","1x10")
 });
 
 const jokeInstaceGetUveMetaDataDtoInType = shape({

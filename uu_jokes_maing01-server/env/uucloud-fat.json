@@ -2,15 +2,15 @@
   "schemaVersion": "1.0.0",
   "schemaSpecificationUri": "https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-289fcd2e11d34f3e9b2184bedb236ded/book/page?code=uuSubAppInstanceDescriptor",
   "uuSubApp": {
-    "code": "UU.JOKES.TESTMAING01",
+    "code": "UU.JOKES.MAING01",
     "name": "uuJokes",
-    "version": "2.2.0-DEV",
+    "version": "2.2.0",
     "description": "Server project example for developing UAF application in Node.js",
     "license": "License Commercial",
     "asidRequired": true,
     "awidCount": 1,
-    "resourcePoolUri": "ues:DEV0116-BT:FAMILY_UUSERVERKIT_FAT_RESOURCEPOOL_AWE",
-    "targetSlot": "",
+    "resourcePoolUri": "ues:UUAPPCE-BT:FAMILY_UUAPPCE_DEV_RESOURCEPOOL_AWE",
+    "targetSlot": "PRODUCTION",
     "uuAppNodeSetMap": {
       "CMD": {
         "nodeSize": "G1_S",
@@ -18,8 +18,8 @@
           "min": 1,
           "max": 1
         },
-        "appPackUri": "ues:UU-BT:UU.JOKES.TESTMAING01/APPBOX-2.1.0-dev:UU.JOKES.TESTMAING01/CMD-PACK",
-        "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.0"
+        "appPackUri": "ues:UU-BT:UU.JOKES.MAING01/APPBOX-2.2.0:UU.JOKES.MAING01/CMD-PACK",
+        "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.3"
       }
     },
     "uuAppObjectStoreMap": {
@@ -41,30 +41,31 @@
     "uuConfigMap": {
       "uu_app_oidc_providers_oidcg02_enabled": true,
       "uu_app_oidc_primary_provider": "oidcg02",
-      "asidLicenseOwnerList": [
-        "25-2295-1",
-        "12-470-1"
-      ]
+      "fls_base_uri": "https://uuapp.plus4u.net/uu-flsg01-main/8014eb79e8184ebb8942d96ce37b61b4/",
+      "term_of_use_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=license",
+      "technical_documentation_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book",
+      "product_code": "uuJokes",
+      "product_portal_uri": "ues:UU-BT:PRD.UU-JOKESG01/PORTAL"
     }
   },
   "uuSubAppInstance": {
-    "asid": "85288568b1814c48bb1c16d5ce0aa7a0",
-    "asidOwner": "25-2295-1",
     "awidList": [
       {
-        "awid": "d368ef2c3b79463383ea64f79eccab04",
-        "awidOwner": "25-2296-1"
+        "awid": "c70f3b9803594c19b7c920be37b42489",
+        "awidOwner": "25-5560-1"
       }
     ],
     "uuAppObjectStoreMap": {
       "OSID_1": {
-        "osid": "e10a40113e4442558e4ff4fd41f2dc2b"
+        "osid": "4a29fc671eda48589de6b6c0659add10"
       }
     },
     "uuAppBinaryStoreMap": {
       "BSID_1": {
-        "bsid": "f23b4d0772a84e17b9b00d1f58be7fca"
+        "bsid": "dd5e8609a8d84838b47ec3420940667f"
       }
-    }
+    },
+    "asid": "7e1c0956ce064b01bf414987858c14be",
+    "asidOwner": "25-5559-1"
   }
 }
