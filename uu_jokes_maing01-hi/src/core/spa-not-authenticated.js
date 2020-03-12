@@ -5,11 +5,8 @@ import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-app";
 
 import Config from "./config/config.js";
-import Left from "./left.js";
 import Bottom from "./bottom.js";
-import About from "../routes/about.js";
-import Login from "../routes/not-authenticated.js";
-
+import SpaUnauthorized from "./spa-unauthorized";
 import "./spa-not-authenticated.less";
 import LSI from "./spa-not-authenticated-lsi.js";
 //@@viewOff:imports
@@ -56,18 +53,8 @@ const SpaNotAuthenticated = UU5.Common.VisualComponent.create({
         bottom={<Bottom />}
         type={1}
         displayedLanguages={["cs", "en"]}
-        left={<Left />}
-        leftWidth="!xs-320px !s-320px !m-256px l-256px xl-256px"
       >
-        <UU5.Common.Router
-          route=""
-          notFoundRoute="login"
-          routes={{
-            login: { component: <Login /> },
-            "": "login",
-            about: { component: <About /> }
-          }}
-        />
+        <SpaUnauthorized icon="uu5-alert-circle" showLogin />
       </Plus4U5.App.Page>
     );
   }

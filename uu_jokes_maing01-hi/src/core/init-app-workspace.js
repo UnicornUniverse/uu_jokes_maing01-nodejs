@@ -8,6 +8,7 @@ import { dig } from "../helpers/object-utils";
 import Plus4U5 from "uu_plus4u5g01";
 import UuContentKit from "uu_contentkitg01";
 import LSI from "./spa-authenticated-lsi";
+import SpaUnauthorized from "./spa-unauthorized";
 
 //@@viewOff:imports
 
@@ -107,7 +108,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
               );
             } else {
               return (
-                <Plus4U5.App.SpaError
+                <SpaUnauthorized
                   {...this.getMainPropsToPass()}
                   error={data.dtoOut}
                   errorData={dig(data, "dtoOut", "uuAppErrorMap")}

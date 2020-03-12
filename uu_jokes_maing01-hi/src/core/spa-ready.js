@@ -12,6 +12,7 @@ import About from "../routes/about";
 
 import "./spa-ready.less";
 import {JokesConsumer} from "./jokes-provider.js";
+import LSI from "./spa-ready-lsi";
 //@@viewOff:imports
 
 export const SpaReady = UU5.Common.VisualComponent.create({
@@ -27,7 +28,8 @@ export const SpaReady = UU5.Common.VisualComponent.create({
     },
     opt: {
       pureRender: true // avoid re-render from parent
-    }
+    },
+    lsi: LSI
   },
   //@@viewOff:statics
 
@@ -55,7 +57,7 @@ export const SpaReady = UU5.Common.VisualComponent.create({
       <JokesConsumer {...this.getMainPropsToPass()}>
         {({name}) => (
           <Plus4U5.App.Page
-            top={<Plus4U5.App.Top content={name ? name : "uuJokes"}/>} // TopTitle
+            top={<Plus4U5.App.Top content={name ? name : this.getLsiComponent("appName")}/>} // TopTitle
             bottom={<Bottom/>}
             type={1}
             displayedLanguages={["cs", "en"]}
