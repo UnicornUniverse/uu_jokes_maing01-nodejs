@@ -9,7 +9,7 @@
     "license": "License Commercial",
     "asidRequired": true,
     "awidCount": 1,
-    "resourcePoolUri": "ues:DEV0116-BT:FAMILY_UUAPPCE_DEV_RESOURCEPOOL_AWE",
+    "resourcePoolUri": "ues:DEV0116-BT:FAMILY_UUSERVERKIT_FAT_RESOURCEPOOL_AWE",
     "targetSlot": "PRODUCTION",
     "uuAppNodeSetMap": {
       "CMD": {
@@ -18,7 +18,7 @@
           "min": 1,
           "max": 1
         },
-        "appPackUri": "ues:UU-BT:UU.JOKES.MAING01/APPBOX-2.2.0-DEV:UU.JOKES.MAING01/CMD-PACK",
+        "appPackUri": "ues:UU-BT:UU.JOKES.MAING01/APPBOX-2.2.0:UU.JOKES.MAING01/CMD-PACK",
         "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.3"
       }
     },
@@ -45,8 +45,11 @@
       "term_of_use_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=license",
       "technical_documentation_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book",
       "product_code": "uuJokes",
+      "uuapp.oidc.appserver.oidcabl.log_level": "debug",
       "product_portal_uri": "ues:UU-BT:PRD.UU-JOKESG01/PORTAL",
       "asidLicenseOwnerList": [
+        "25-2295-1",
+        "12-470-1",
         "1-2796-1",
         "12-5696-1"
       ]
