@@ -6,200 +6,200 @@
     },
     "useCaseMap": {
       "sys/getHealth": {
-        "asidRuntimeModeList": ["restricted", "standard"],
+        "sysStateList": ["restricted", "active"],
         "profileList": ["AsidAuthorities"]
       },
       "sys/getUseCases": {
-        "asidRuntimeModeList": ["restricted", "standard"],
+        "sysStateList": ["restricted", "active"],
         "profileList": ["AsidAuthorities"]
       },
       "sys/getConfiguration": {
-        "asidRuntimeModeList": ["restricted", "standard"],
+        "sysStateList": ["restricted", "active"],
         "profileList": ["AsidAuthorities"]
       },
       "sys/getEnvironment": {
-        "asidRuntimeModeList": ["restricted", "standard"],
+        "sysStateList": ["restricted", "active"],
         "profileList": ["AsidAuthorities"]
       },
       "sys/getStatistics": {
-        "asidRuntimeModeList": ["restricted", "standard"],
+        "sysStateList": ["restricted", "active"],
         "profileList": ["AsidAuthorities"]
       },
       "joke/list": {
-        "asidRuntimeModeList": ["restricted", "standard"],
+        "sysStateList": ["restricted", "active"],
         "profileList": ["AsidExecutives"]
       }
     }
   },
   "*": {
-    "profileList": ["Authorities", "Authorities", "Executives", "Readers"],
+    "profileList": ["Authorities", "Executives", "Readers"],
     "useCaseMap": {
       "defaultUve": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Public"]
       },
       "defaultUve/{route}": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Public"]
       },
       "sys/appWorkspace/get": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
       "sys/appWorkspace/init": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["created", "active"],
         "profileList": ["Authorities", "AwidLicenseOwner"]
       },
       "jokesInstance/plugInBt": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       },
       "jokesInstance/load": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       },
       "jokesInstance/update": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
       "jokesInstance/setLogo": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
       "jokesInstance/setIcons": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
       "jokesInstance/getUveMetaData": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Public"]
       },
       "joke/create": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active", "restricted"],
         "profileList": ["Authorities", "Executives"]
       },
       "joke/get": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       },
       "joke/update": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives"]
       },
       "joke/updateVisibility": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
       "joke/delete": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives"]
       },
       "joke/list": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       },
       "joke/addRating": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       },
       "category/create": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives"]
       },
       "category/get": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       },
       "category/update": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives"]
       },
       "category/delete": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives"]
       },
       "category/list": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       },
       "getProductInfo": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Public"]
       },
       "getProductLogo": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Public"]
       },
       "sys/getAppWorkspace": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
       "sys/appWorkspace/appProfile/get": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
       "sys/appWorkspace/appProfile/set": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
       "sys/appWorkspace/appProfile/list": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
       "sys/appWorkspace/permission/create": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
       "sys/appWorkspace/permission/delete": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
       "sys/appWorkspace/permission/list": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
       "sys/getLicenseOwner": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       },
       "sys/getAppWorkspaceConfig":  {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       },
       "sys/setAppWorkspaceConfig": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
       "sys/clearAppWorkspaceConfig": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
       "uu-app-binarystore/createBinary": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives"]
       },
       "uu-app-binarystore/getBinaryData": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       },
       "uu-app-binarystore/updateBinaryData": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives"]
       },
       "uu-app-binarystore/deleteBinary": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives"]
       },
       "uu-app-binarystore/listBinaries": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives"]
       },
       "sys/listAuditLogRecordsByTimeAndSpp": {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
       "sys/listMyAuditLogRecordsByTime":  {
-        "awidRuntimeModeList": ["standard"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       }
     }
