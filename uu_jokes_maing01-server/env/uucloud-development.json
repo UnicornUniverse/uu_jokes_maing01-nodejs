@@ -4,7 +4,7 @@
   "uuSubApp": {
     "code": "UU.JOKES.MAING01",
     "name": "uuJokes",
-    "version": "2.2.0",
+    "version": "2.2.3",
     "description": "Server project example for developing UAF application in Node.js",
     "license": "License Commercial",
     "asidRequired": true,
@@ -18,7 +18,7 @@
           "min": 1,
           "max": 1
         },
-        "appPackUri": "ues:UU-BT:UU.JOKES.MAING01/APPBOX-2.2.0:UU.JOKES.MAING01/CMD-PACK",
+        "appPackUri": "ues:UU-BT:UU.JOKES.MAING01/APPBOX-2.2.3:UU.JOKES.MAING01/CMD-PACK",
         "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.3"
       }
     },

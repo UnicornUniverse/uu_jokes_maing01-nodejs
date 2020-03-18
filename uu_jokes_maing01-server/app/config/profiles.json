@@ -19,7 +19,7 @@
       "defaultUve/{route}": ["Public"],
 
       "jokesInstance/init": ["AwidOwner"],
-      "jokesInstance/plugInBt": ["AwidOwner"],
+      "jokesInstance/plugInBt": ["AwidOwner", "Authorities"],
       "jokesInstance/load": ["Authorities", "Executives", "Readers"],
       "jokesInstance/update": ["Authorities"],
       "jokesInstance/setLogo": ["Authorities"],

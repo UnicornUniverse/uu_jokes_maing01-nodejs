@@ -2,7 +2,7 @@
   "code": "uu-jokes-maing01",
   "name": "uuJokes uuAppMetaModel",
   "desc": "uuJokes uuAppMetaModel",
-  "version": "0.1.0",
+  "version": "2.2.3",
   "defaultIcon": "uubml-artifact",
 
   "stateList": [
@@ -137,6 +137,15 @@
     "category/delete": "11000000-00000000-00000000-00000000",
     "category/list": "11100000-00000000-00000000-00000000",
 
+    "uu-app-binarystore/createBinary": "11000000-00000000-00000000-00000000",
+    "uu-app-binarystore/getBinaryData": "11100000-00000000-00000000-00000000",
+    "uu-app-binarystore/updateBinaryData": "11000000-00000000-00000000-00000000",
+    "uu-app-binarystore/deleteBinary": "11000000-00000000-00000000-00000000",
+    "uu-app-binarystore/listBinaries": "11000000-00000000-00000000-00000000",
+
+    "sys/listAuditLogRecordsByTimeAndSpp": ["Authorities", "AwidOwner"],
+    "sys/listMyAuditLogRecordsByTime": ["Authorities", "AwidOwner", "Executives", "Readers"],
+
     "sys/getAppWorkspace": "10000000-00000000-00000000-00000000",
     "sys/getProfile": "11000000-00000000-00000000-00000000",
     "sys/setProfile": "10000000-00000000-00000000-00000000",
@@ -144,8 +153,8 @@
     "sys/createPermission": "10000000-00000000-00000000-00000000",
     "sys/deletePermission": "10000000-00000000-00000000-00000000",
     "sys/listPermissions": "11000000-00000000-00000000-00000000",
-    "sys/getLicenseOwner": "11000000-00000000-00000000-00000000",
-    "sys/getAppWorkspaceConfig": "11000000-00000000-00000000-00000000",
+    "sys/getLicenseOwner": "11100000-00000000-00000000-00000000",
+    "sys/getAppWorkspaceConfig": "11100000-00000000-00000000-00000000",
     "sys/setAppWorkspaceConfig": "10000000-00000000-00000000-00000000",
     "sys/clearAppWorkspaceConfig": "10000000-00000000-00000000-00000000",
     "sys/calculateDataStoreStats": "10000000-00000000-00000000-00000000",
