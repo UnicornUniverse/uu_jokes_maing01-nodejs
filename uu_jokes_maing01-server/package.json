@@ -11,9 +11,7 @@
     "unzip-stream": "^0.3.0",
     "uu_appg01_binarystore-cmd": "^3.0.0",
     "uu_appg01_datastore": "^3.0.0",
-    "uu_appg01_oidc-cmd": "file:env/uu_appg01_oidc-cmd-3.1.0.tgz",
     "uu_appg01_server": "^5.0.0",
-    "uu_appg01_workspace": "file:env/uu_appg01_workspace-3.0.0.tgz",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {

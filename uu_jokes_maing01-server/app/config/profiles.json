@@ -1,9 +1,6 @@
 {
   "{asid}": {
     "profileList": ["AsidAuthorities", "AsidExecutives"],
-    "permissionMap": {
-      "{asidOwner}": ["AsidAuthorities"]
-    },
     "useCaseMap": {
       "sys/getHealth": {
         "sysStateList": ["restricted", "active"],
