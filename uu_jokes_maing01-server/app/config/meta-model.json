@@ -136,7 +136,37 @@
     "category/update": "11000000-00000000-00000000-00000000",
     "category/delete": "11000000-00000000-00000000-00000000",
     "category/list": "11100000-00000000-00000000-00000000",
+	
+	
+	"sys/appWorkspace/get": "11100000-00000000-00000000-00000000",
+	"sys/appWorkspace/set": "11000000-00000000-00000000-00000000",
+	
+	"sys/appWorkspace/setActiveSysState": "11000000-00000000-00000000-00000000",
+	"sys/appWorkspace/setRestrictedSysState": "11000000-00000000-00000000-00000000",
+	"sys/appWorkspace/setReadOnlySysState": "11000000-00000000-00000000-00000000",
+	
+	"sys/appWorkspace/appProfile/get": "11100000-00000000-00000000-00000000",
+	"sys/appWorkspace/appProfile/set": "10000000-00000000-00000000-00000000",
+	"sys/appWorkspace/appProfile/list": "10000000-00000000-00000000-00000000",	
+	"sys/appWorkspace/appProfile/update": "10000000-00000000-00000000-00000000",
+	
+	"sys/appWorkspace/permission/create": "10000000-00000000-00000000-00000000",
+	"sys/appWorkspace/permission/delete": "10000000-00000000-00000000-00000000",
+	"sys/appWorkspace/permission/list": "10000000-00000000-00000000-00000000",	
 
+	"sys/appWorkspace/getLicenceOwner": "11100000-00000000-00000000-00000000",
+	"sys/appWorkspace/setAthorizationStrategy": "10000000-00000000-00000000-00000000",		
+
+	"sys/appWorkspace/dump": "10000000-00000000-00000000-00000000",		
+	"sys/appWorkspace/restore": "10000000-00000000-00000000-00000000",		
+	"sys/appWorkspace/import": "10000000-00000000-00000000-00000000",			
+	
+	"sys/appWorkspace/listImportMappings": "10000000-00000000-00000000-00000000",		
+	"sys/appWorkspace/deleteImportMappings": "10000000-00000000-00000000-00000000",		
+	
+	"sys/dataStoreStats/calculate": "10000000-00000000-00000000-00000000",		
+	"sys/dataStoreStats/get": "10000000-00000000-00000000-00000000",					
+	
     "sys/getAppWorkspace": "10000000-00000000-00000000-00000000",
     "sys/getProfile": "11000000-00000000-00000000-00000000",
     "sys/setProfile": "10000000-00000000-00000000-00000000",
