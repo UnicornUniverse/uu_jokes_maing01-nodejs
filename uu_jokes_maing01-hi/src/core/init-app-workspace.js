@@ -92,7 +92,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                         rows={10}
                         ref_={ref => (this.form = ref)}
                         value={
-                          "{" + '\n  "name": "Jokes Test",' + '\n  "uuAppProfileAuthorities": "urn:uu:GGALL"' + "\n}"
+                          "{" + '\n  "name": "Jokes Test",' + '\n  "uuAppProfileAuthorities": "urn:uu:GGALL",'+ '\n  "uuBtLocationUri": ""' + "\n}"
                         }
                       />
                       <UU5.Bricks.Button

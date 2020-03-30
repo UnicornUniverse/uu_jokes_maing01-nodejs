@@ -201,17 +201,6 @@ class JokesInstanceAbl {
       DaoFactory.getDao("category").createSchema()
     ]);
 
-    // hds 4
-    try {
-      jokeInstance = await this.dao.create(dtoIn);
-    } catch (e) {
-      // A4
-      if (e instanceof ObjectStoreError) {
-        throw new Errors.Init.JokesInstanceDaoCreateFailed({ uuAppErrorMap }, e);
-      }
-      throw e;
-    }
-
     // hds 5
     if (dtoIn.logo) {
       let binary;
@@ -245,20 +234,27 @@ class JokesInstanceAbl {
       const appClientToken = await AppClientTokenService.createToken(uri, uuBtBaseUri);
       const callOpts = AppClientTokenService.setToken({ session }, appClientToken);
 
-      let awscDtoOut;
+      let awscId;
       try {
-        awscDtoOut = await AppClient.post(awscCreateUri, createAwscDtoIn, callOpts);
+        const awscDtoOut = await AppClient.post(awscCreateUri, createAwscDtoIn, callOpts);
+        awscId =  awscDtoOut.id;
       } catch (e) {
         // A6
-        throw new Errors.Init.CreateAwscFailed({ uuAppErrorMap }, { location: dtoIn.uuBtLocationUri }, e);
+        if (e.code.includes("applicationIsAlreadyConnected") && e.paramMap.id) {
+          logger.warn(`Awsc already exists id=${e.paramMap.id}.`, e);
+          awscId = e.paramMap.id;
+        } else {
+          throw new Errors.Init.CreateAwscFailed({ uuAppErrorMap }, { location: dtoIn.uuBtLocationUri }, e);
+        }
       }
 
-      const artifactUri = uuBtUriBuilder.setUseCase(null).clearParameters().setParameter("id", awscDtoOut.id).toUri();
+      const artifactUri = uuBtUriBuilder.setUseCase(null).clearParameters().setParameter("id", awscId).toUri();
 
       await SysAppWorkspaceAbl.connectArtifact(
         baseUri,
         {
-          artifactUri: artifactUri.toString()
+          artifactUri: artifactUri.toString(),
+          synchronizeArtifactBasicAttributes: false
         },
         session
       );
@@ -272,6 +268,16 @@ class JokesInstanceAbl {
         // A7
         throw new Errors.Init.SysSetProfileFailed({ uuAppErrorMap }, { role: dtoIn.uuAppProfileAuthorities }, e);
       }
+    }
+
+    try {
+      jokeInstance = await this.dao.create(dtoIn);
+    } catch (e) {
+      // A4
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.Init.JokesInstanceDaoCreateFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
     }
 
     // hds 8
