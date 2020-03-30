@@ -20,12 +20,6 @@ let Calls = {
       Calls.call("get", commandUri, { data: dtoInData, done: resolve, fail: reject });
     });
   },
-  loadLicenseOwner() {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("sys/getLicenseOwner");
-      Calls.call("get", commandUri, { data: {}, done: resolve, fail: reject });
-    });
-  },
 
   loadIdentityProfiles() {
     return new Promise((resolve, reject) => {
