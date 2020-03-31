@@ -16,7 +16,7 @@ const RELATIVE_URI_REGEXP = new RegExp(/^\/[^/]/);
 
 export const InitAppWorkspace = UU5.Common.VisualComponent.create({
   //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin, UU5.Common.PureRenderMixin],
+  mixins: [UU5.Common.BaseMixin, UU5.Common.PureRenderMixin, UU5.Common.CcrReaderMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
@@ -54,12 +54,10 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
   _initWorkspace(dataIn) {
     Calls.initWorkspace(JSON.parse(dataIn)).then(
       () => {
-        let redirectPath = new URLSearchParams(window.location.search).get("originalUrl");
-        if (!redirectPath || !RELATIVE_URI_REGEXP.test(redirectPath)) {
-          const ucIndex = window.location.href.indexOf("sys/appWorkspace/initUve");
-          redirectPath = window.location.href.slice(0, ucIndex);
-        }
-        window.location.replace(redirectPath);
+        let redirectPath = window.location.href;
+        const ucIndex = window.location.href.indexOf("sys/appWorkspace/initUve");
+        redirectPath = window.location.href.slice(0, ucIndex);
+        window.location.replace(redirectPath + "controlPanel");
       },
       error => this.setState({ errorData: error.dtoOut })
     );
