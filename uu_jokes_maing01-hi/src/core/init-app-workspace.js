@@ -7,7 +7,7 @@ import Calls from "calls";
 import { dig } from "../helpers/object-utils";
 import Plus4U5 from "uu_plus4u5g01";
 import UuContentKit from "uu_contentkitg01";
-import LSI from "./spa-authenticated-lsi";
+import LSI from "./init-app-workspace-lsi";
 import SpaUnauthorized from "./spa-unauthorized";
 import Config from "./config/config";
 
