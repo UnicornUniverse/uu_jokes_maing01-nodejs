@@ -55,7 +55,7 @@ export const ControlPanel = UU5.Common.VisualComponent.create({
         {({ isLoading, isError, data }) => {
           if (isError) {
             return (
-              <Plus4U5.App.SpaError
+              <Plus4U5.Bricks.Error
                 {...this.getMainPropsToPass()}
                 error={data.dtoOut}
                 errorData={dig(data, "dtoOut", "uuAppErrorMap")}

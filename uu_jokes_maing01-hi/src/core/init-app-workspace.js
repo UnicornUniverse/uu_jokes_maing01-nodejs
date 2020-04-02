@@ -9,21 +9,25 @@ import Plus4U5 from "uu_plus4u5g01";
 import UuContentKit from "uu_contentkitg01";
 import LSI from "./spa-authenticated-lsi";
 import SpaUnauthorized from "./spa-unauthorized";
+import Config from "./config/config";
 
+import "./init-app-workspace.less";
 //@@viewOff:imports
 
 const RELATIVE_URI_REGEXP = new RegExp(/^\/[^/]/);
 
 export const InitAppWorkspace = UU5.Common.VisualComponent.create({
   //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin, UU5.Common.PureRenderMixin, UU5.Common.CcrReaderMixin],
+  mixins: [UU5.Common.BaseMixin, UU5.Common.PureRenderMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
   statics: {
-    tagName: "InitAppWorkspace",
+    tagName: Config.TAG + "InitAppWorkspace",
     classNames: {
-      main: "InitAppWorkspace"
+      main: Config.CSS + "init-app-workspace",
+      form: Config.CSS + "init-app-workspace-form",
+      button: Config.CSS + "init-app-workspace-button"
     },
     lsi: LSI
   },
@@ -51,16 +55,26 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
       return data;
     });
   },
-  _initWorkspace(dataIn) {
-    Calls.initWorkspace(JSON.parse(dataIn)).then(
-      () => {
-        let redirectPath = window.location.href;
+  _initWorkspace() {
+    Calls.initWorkspace(JSON.parse(this.form.getValue())).then(
+      jokesInstance => {
         const ucIndex = window.location.href.indexOf("sys/appWorkspace/initUve");
-        redirectPath = window.location.href.slice(0, ucIndex);
-        window.location.replace(redirectPath + "controlPanel");
+        let redirectPath = window.location.href.slice(0, ucIndex);
+        if (jokesInstance.uuBtLocationUri) {
+          redirectPath = redirectPath + "controlPanel";
+        } else {
+          const originalUrl = new URLSearchParams(window.location.search).get("originalUrl");
+          if (originalUrl && RELATIVE_URI_REGEXP.test(originalUrl)) {
+            redirectPath = originalUrl;
+          }
+        }
+        window.location.replace(redirectPath);
       },
       error => this.setState({ errorData: error.dtoOut })
     );
+  },
+  _storeFormRef(ref) {
+    this.form = ref;
   },
   _getChild() {
     return (
@@ -81,23 +95,27 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
             if (Array.isArray(data.identityProfileList) && data.identityProfileList.includes("AwidLicenseOwner")) {
               return (
                 <div>
-                  <div style={{ margin: "auto", textAlign: "center", maxWidth: "1000px" }}>
+                  <div className={this.getClassName("form")}>
                     <UuContentKit.Bricks.BlockDefault icon="mdi-help-circle">
                       <UU5.Bricks.Span>{this.getLsiComponent("appNotInitialized")}</UU5.Bricks.Span>
                     </UuContentKit.Bricks.BlockDefault>
                     <UU5.Forms.Form>
                       <UU5.CodeKit.JsonEditor
                         rows={10}
-                        ref_={ref => (this.form = ref)}
+                        ref_={this._storeFormRef}
                         value={
-                          "{" + '\n  "name": "Jokes Test",' + '\n  "uuAppProfileAuthorities": "urn:uu:GGALL",'+ '\n  "uuBtLocationUri": ""' + "\n}"
+                          "{" +
+                          '\n  "name": "Jokes Test",' +
+                          '\n  "uuAppProfileAuthorities": "urn:uu:GGALL",' +
+                          '\n  "uuBtLocationUri": "https://uuappg01-eu-w-1.plus4u.net/uu-businessterritory-maing01/f69130799e8649ffa07eb81aae84bec5?id=5e7df2b47c0b32001c0b4bb4"' +
+                          "\n}"
                         }
                       />
                       <UU5.Bricks.Button
-                        content="Initialize"
+                        className={this.getClassName("button")}
                         colorSchema="blue"
-                        style="marginTop:8px"
-                        onClick={() => this._initWorkspace(this.form.getValue())}
+                        content="Initialize"
+                        onClick={this._initWorkspace}
                       />
                     </UU5.Forms.Form>
                   </div>
