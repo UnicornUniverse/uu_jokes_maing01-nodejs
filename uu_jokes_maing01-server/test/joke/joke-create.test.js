@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const { TestHelper } = require("uu_appg01_workspace-test");
+const { TestHelper } = require("uu_appg01_server-test");
 const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const {
   JOKES_INSTANCE_INIT,
@@ -23,9 +23,9 @@ afterAll(() => {
 
 beforeEach(async () => {
   await TestHelper.dropDatabase();
-  await TestHelper.initApp();
-  await TestHelper.initAppWorkspace();
-  await TestHelper.login("AwidOwner");
+  await TestHelper.initAppInstance();
+  await TestHelper.createAppWorkspace();
+  await TestHelper.login("Authorities", false, true);
 });
 
 afterEach(() => {
@@ -33,9 +33,8 @@ afterEach(() => {
 });
 
 test("HDS - no image, Authorities call", async () => {
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
-  await TestHelper.login("Authority");
 
+  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
   let name = "nejvtipnejsi vtip";
   let text = `
         /((((((\\\\

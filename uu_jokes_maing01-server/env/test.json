@@ -1,35 +1,44 @@
 {
-  "privilegedUserMap": {
-    "asidOwner": "14-2710-1"
-  },
   "tid": "00000000000000000000000000000000",
   "asid": "11111111111111111111111111111111",
+  "uuAppProfileAuthorities": "urn:uuIdentity:14-2710-1",
+  "uuAppProfileAsidAuthorities": "urn:uuIdentity:14-2710-1",
+  "asidLicenseOwnerList": ["14-2710-1"],
   "sysAppWorkspace": {
     "awid": "22222222222222222222222222222222",
-    "awidOwner": "14-2710-1",
-    "licenseOwner": {
-      "organization": {
-        "name": "Test Organization",
-        "oId": "ORG_OID",
-        "web": "www.test-organization.com"
-      },
-      "userList": [{
-        "uuIdentity": "14-2710-1",
-        "name": "AwidOwner"
-      }]
-    }
+    "name": "uuAppg01Server uuJokes Test",
+    "description": "uuAppg01Server uuJokes description",
+    "version": "1.0",
+    "awidLicense": "xs",
+    "awidLicenseOwnerList": ["14-2710-1"]
   },
   "userMap": {
-    "AsidOwner": {
+    "AsidLicenseOwner": {
       "accessCode1": "3yMhD1qzi0JUwsAJ7UOsWX2YtrGH_Olk5DxgWyssNW6e_WC4wjKrXODHES92cQXp",
       "accessCode2": "Cq%iaz#9w-#z7C8yZlZoC$DsebIK2JGWyDK8lg8J7vLFSKXtYFt5tn3eI3WthZtI",
       "uuIdentity": "14-2710-1"
     },
-    "AwidOwner": {
+    "AwidLicenseOwner": {
       "accessCode1": "3yMhD1qzi0JUwsAJ7UOsWX2YtrGH_Olk5DxgWyssNW6e_WC4wjKrXODHES92cQXp",
       "accessCode2": "Cq%iaz#9w-#z7C8yZlZoC$DsebIK2JGWyDK8lg8J7vLFSKXtYFt5tn3eI3WthZtI",
       "uuIdentity": "14-2710-1",
       "profileList": ["AwidOwner"]
+    },
+    "AsidAuthorities": {
+      "uuIdentity": "14-2710-1",
+      "accessCode1": "3yMhD1qzi0JUwsAJ7UOsWX2YtrGH_Olk5DxgWyssNW6e_WC4wjKrXODHES92cQXp",
+      "accessCode2": "Cq%iaz#9w-#z7C8yZlZoC$DsebIK2JGWyDK8lg8J7vLFSKXtYFt5tn3eI3WthZtI",
+      "profileList": [
+        "AsidAuthorities"
+      ]
+    },
+    "Authorities": {
+      "uuIdentity": "14-2710-1",
+      "accessCode1": "3yMhD1qzi0JUwsAJ7UOsWX2YtrGH_Olk5DxgWyssNW6e_WC4wjKrXODHES92cQXp",
+      "accessCode2": "Cq%iaz#9w-#z7C8yZlZoC$DsebIK2JGWyDK8lg8J7vLFSKXtYFt5tn3eI3WthZtI",
+      "profileList": [
+        "Authorities"
+      ]
     },
     "Authority": {
       "accessCode1": "UafUaf",

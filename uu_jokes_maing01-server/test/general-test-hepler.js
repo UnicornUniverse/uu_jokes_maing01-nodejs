@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 
-const JOKES_INSTANCE_INIT = "jokesInstance/init";
+const JOKES_INSTANCE_INIT = "sys/appWorkspace/init";
 const JOKES_INSTANCE_LOAD = "jokesInstance/load";
 const JOKES_INSTANCE_UPDATE = "jokesInstance/update";
 const JOKES_INSTANCE_SET_LOGO = "jokesInstance/setLogo";
