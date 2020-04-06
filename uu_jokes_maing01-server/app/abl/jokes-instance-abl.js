@@ -151,7 +151,6 @@ const DEFAULTS = {
 
 const logger = LoggerFactory.get("UuJokes.Models.JokesInstanceModel");
 
-const DEFAULT_NAME = "uuJokes";
 const AUTHORITIES = "Authorities";
 const EXECUTIVES = "Executives";
 const STATE_ACTIVE = "active";
@@ -193,6 +192,12 @@ class JokesInstanceAbl {
     dtoIn.name = dtoIn.name || DEFAULTS.name;
     dtoIn.awid = awid;
 
+    const uuBtLocationUri = dtoIn.uuBtLocationUri;
+    delete dtoIn.uuBtLocationUri;
+    const uuAppProfileAuthorities = dtoIn.uuAppProfileAuthorities;
+    delete dtoIn.uuAppProfileAuthorities;
+
+
     // hds 3
     await Promise.all([
       this.dao.createSchema(),
@@ -226,9 +231,9 @@ class JokesInstanceAbl {
     }
 
     // hds 6
-    if (dtoIn.uuBtLocationUri) {
+    if (uuBtLocationUri) {
       const baseUri = uri.getBaseUri();
-      const uuBtUriBuilder = UriBuilder.parse(dtoIn.uuBtLocationUri);
+      const uuBtUriBuilder = UriBuilder.parse(uuBtLocationUri);
       const location = uuBtUriBuilder.getParameters().id;
       const uuBtBaseUri = uuBtUriBuilder.toUri().getBaseUri();
 
@@ -250,7 +255,7 @@ class JokesInstanceAbl {
         awscDtoOut = await AppClient.post(awscCreateUri, createAwscDtoIn, callOpts);
       } catch (e) {
         // A6
-        throw new Errors.Init.CreateAwscFailed({ uuAppErrorMap }, { location: dtoIn.uuBtLocationUri }, e);
+        throw new Errors.Init.CreateAwscFailed({ uuAppErrorMap }, { location: uuBtLocationUri }, e);
       }
 
       const artifactUri = uuBtUriBuilder.setUseCase(null).clearParameters().setParameter("id", awscDtoOut.id).toUri();
@@ -265,12 +270,12 @@ class JokesInstanceAbl {
     }
 
     // hds 7
-    if (dtoIn.uuAppProfileAuthorities) {
+    if (uuAppProfileAuthorities) {
       try {
-        await SysProfileAbl.setProfile(awid, { code: AUTHORITIES, roleUri: dtoIn.uuAppProfileAuthorities });
+        await SysProfileAbl.setProfile(awid, { code: AUTHORITIES, roleUri: uuAppProfileAuthorities });
       } catch (e) {
         // A7
-        throw new Errors.Init.SysSetProfileFailed({ uuAppErrorMap }, { role: dtoIn.uuAppProfileAuthorities }, e);
+        throw new Errors.Init.SysSetProfileFailed({ uuAppErrorMap }, { role: uuAppProfileAuthorities }, e);
       }
     }
 
@@ -473,7 +478,7 @@ class JokesInstanceAbl {
     );
 
     let uveMetaData = jokesInstance.uveMetaData || {};
-    let name = jokesInstance.name || DEFAULT_NAME;
+    let name = jokesInstance.name || DEFAULTS.name;
 
     //HDS 3
     await UnzipHelper.unzip(
