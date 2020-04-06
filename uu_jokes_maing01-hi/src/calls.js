@@ -39,6 +39,17 @@ let Calls = {
     });
   },
 
+  getWorkspace(dtoInData) {
+    return new Promise((resolve, reject) => {
+      let commandUri = Calls.getCommandUri("sys/appWorkspace/get");
+      Calls.call("get", commandUri, {
+        data: dtoInData,
+        done: data => resolve({ ...data }),
+        fail: reject
+      });
+    });
+  },
+
   categoryList(dtoInData) {
     return new Promise((resolve, reject) => {
       let commandUri = Calls.getCommandUri("category/list");

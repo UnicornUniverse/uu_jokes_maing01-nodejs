@@ -5,8 +5,11 @@ import "uu_territoryg01-artifactifc";
 import "uu5g04-bricks";
 import "uu5g04-forms";
 import "uu5codekitg01";
-import LSI from "../core/spa-authenticated-lsi";
+import Plus4U5 from "uu_plus4u5g01";
 
+import Calls from "calls";
+import { dig } from "../helpers/object-utils";
+import LSI from "./control-panel-lsi";
 
 //@@viewOff:imports
 
@@ -42,8 +45,37 @@ export const ControlPanel = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
+  _handleLoad() {
+    return Calls.getWorkspace();
+  },
+
   _getChild() {
-    return (<UuTerritory.ArtifactIfc.Bricks.PermissionSettings territoryBaseUri="https://uuappg01-eu-w-1.plus4u.net/uu-businessterritory-maing01/f69130799e8649ffa07eb81aae84bec5" artifactId="5e7df2b47c0b32001c0b4bb4"/>);
+    return (
+      <UU5.Common.Loader onLoad={this._handleLoad}>
+        {({ isLoading, isError, data }) => {
+          if (isError) {
+            return (
+              <Plus4U5.Bricks.Error
+                {...this.getMainPropsToPass()}
+                error={data.dtoOut}
+                errorData={dig(data, "dtoOut", "uuAppErrorMap")}
+                content={this.getLsiComponent("rightsError")}
+              />
+            );
+          } else if (isLoading) {
+            return <UU5.Bricks.Loading />;
+          } else {
+            const url = new URL(data.artifactUri);
+            return (
+              <UuTerritory.ArtifactIfc.Bricks.PermissionSettings
+                territoryBaseUri={url.href.split("?")[0]}
+                artifactId={url.searchParams.get("id")}
+              />
+            );
+          }
+        }}
+      </UU5.Common.Loader>
+    );
   },
   //@@viewOff:private
 
