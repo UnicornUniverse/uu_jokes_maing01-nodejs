@@ -145,7 +145,7 @@
       },
       "sys/appWorkspace/permission/create": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities"]
+        "profileList": ["Authorities", "AwidLicenseOwner"]
       },
       "sys/appWorkspace/permission/delete": {
         "sysStateList": ["active"],

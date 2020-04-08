@@ -33,8 +33,8 @@ afterEach(() => {
 });
 
 test("HDS - no image, Authorities call", async () => {
-
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  // await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
   let name = "nejvtipnejsi vtip";
   let text = `
         /((((((\\\\
@@ -64,7 +64,7 @@ test("HDS - no image, Authorities call", async () => {
   let dtoOut = joke;
   expect(dtoOut.text).toEqual(text);
   expect(dtoOut.name).toEqual(name);
-  expect(dtoOut.uuIdentity).toEqual("19-7019-1");
+  expect(dtoOut.uuIdentity).toEqual("14-2710-1");
   expect(dtoOut.uuIdentityName).toBeTruthy();
   expect(dtoOut.averageRating).toEqual(0);
   expect(dtoOut.ratingCount).toEqual(0);

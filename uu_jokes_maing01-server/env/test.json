@@ -1,8 +1,5 @@
 {
-  "tid": "00000000000000000000000000000000",
   "asid": "11111111111111111111111111111111",
-  "uuAppProfileAuthorities": "urn:uuIdentity:14-2710-1",
-  "uuAppProfileAsidAuthorities": "urn:uuIdentity:14-2710-1",
   "asidLicenseOwnerList": ["14-2710-1"],
   "sysAppWorkspace": {
     "awid": "22222222222222222222222222222222",
