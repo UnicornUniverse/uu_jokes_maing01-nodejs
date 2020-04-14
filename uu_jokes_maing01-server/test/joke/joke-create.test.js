@@ -25,7 +25,6 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initAppInstance();
   await TestHelper.createAppWorkspace();
-  await TestHelper.login("Authorities", false, true);
 });
 
 afterEach(() => {
@@ -34,12 +33,12 @@ afterEach(() => {
 
 test("HDS - no image, Authorities call", async () => {
   await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
-  // await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  await TestHelper.login("Authorities");
   let name = "nejvtipnejsi vtip";
   let text = `
         /((((((\\\\
 =======((((((((((\\\\\\
-      ((           \\\\\\\\
+      ((           \\\\\\\\\\\\\\\\
       ( (*    _/      \\\\\\\\
        \    /  \      \\\\\\________________
         |  |   |       </                  ((\\\\
