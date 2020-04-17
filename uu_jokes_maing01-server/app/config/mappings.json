@@ -35,7 +35,10 @@
       "jokesInstance/setLogo": {
         "realization": "api/controllers/JokesInstanceController.setLogo",
         "httpMethod": "POST",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "type": "$.type"
+        }
       },
       "jokesInstance/setIcons": {
         "realization": "api/controllers/JokesInstanceController.setIcons",
@@ -50,27 +53,43 @@
       "joke/create": {
         "realization": "api/controllers/JokeController.create",
         "httpMethod": "POST",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "name": "$.name"
+        }
       },
       "joke/get": {
         "realization": "api/controllers/JokeController.get",
         "httpMethod": "GET",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "id": "$.id"
+        }
       },
       "joke/update": {
         "realization": "api/controllers/JokeController.update",
         "httpMethod": "POST",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "id": "$.id"
+        }
       },
       "joke/updateVisibility": {
         "realization": "api/controllers/JokeController.updateVisibility",
         "httpMethod": "POST",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "id": "$.id",
+          "visibility": "$.visibility"
+        }
       },
       "joke/delete": {
         "realization": "api/controllers/JokeController.delete",
         "httpMethod": "POST",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "id": "$.id"
+        }
       },
       "joke/list": {
         "realization": "api/controllers/JokeController.list",
@@ -80,27 +99,43 @@
       "joke/addRating": {
         "realization": "api/controllers/JokeController.addRating",
         "httpMethod": "POST",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "id": "$.id",
+          "rating": "$.rating"
+        }
       },
       "category/create": {
         "realization": "api/controllers/CategoryController.create",
         "httpMethod": "POST",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "name": "$.name"
+        }
       },
       "category/get": {
         "realization": "api/controllers/CategoryController.get",
         "httpMethod": "GET",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "id": "$.id"
+        }
       },
       "category/update": {
         "realization": "api/controllers/CategoryController.update",
         "httpMethod": "POST",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "id": "$.id"
+        }
       },
       "category/delete": {
         "realization": "api/controllers/CategoryController.delete",
         "httpMethod": "POST",
-        "type": "CMD"
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "id": "$.id"
+        }
       },
       "category/list": {
         "realization": "api/controllers/CategoryController.list",

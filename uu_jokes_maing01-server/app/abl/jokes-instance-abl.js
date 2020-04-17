@@ -429,6 +429,9 @@ class JokesInstanceAbl {
         // A5
         throw new Errors.SetLogo.UuBinaryCreateFailed(uuAppErrorMap, e);
       }
+      // hds 4
+      if (!jokesInstance.logos) jokesInstance.logos = [];
+      jokesInstance.logos.push(type);
     } else {
       // hds 3.2
       try {
@@ -439,9 +442,6 @@ class JokesInstanceAbl {
       }
     }
 
-    // hds 4
-    if (!jokesInstance.logos) jokesInstance.logos = [];
-    jokesInstance.logos.push(type);
     jokesInstance.awid = awid;
 
     try {
