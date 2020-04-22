@@ -5,7 +5,6 @@ const path = require("path");
 const { TestHelper } = require("uu_appg01_server-test");
 const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const {
-  JOKES_INSTANCE_INIT,
   JOKE_CREATE,
   getImageStream,
   mockDaoFactory,
@@ -75,7 +74,7 @@ test("HDS - no image, Authorities call", async () => {
 });
 
 test("HDS - no image, Executives call", async () => {
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
   await TestHelper.login("Executive");
 
   let dtoIn = {
@@ -86,13 +85,15 @@ test("HDS - no image, Executives call", async () => {
   expect(joke.status).toEqual(200);
   let dtoOut = joke;
   expect(dtoOut.uuIdentity).toEqual("14-2710-1");
-  expect(dtoOut.visibility).toEqual(false);
+  expect(dtoOut.name).toEqual(dtoIn.name);
+  expect(dtoOut.text).toEqual(dtoIn.text);
+  expect(dtoOut.visibility).toEqual(true);
   expect(dtoOut.uuAppErrorMap).toEqual({});
 });
 
 test("HDS - image", async () => {
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
-  await TestHelper.login("Authority");
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.login("Authorities");
 
   let dtoIn = {
     name: "nejm",
@@ -105,9 +106,9 @@ test("HDS - image", async () => {
   expect(dtoOut.uuAppErrorMap).toEqual({});
 });
 
-test("A1 - jokesInstance does nto exist", async () => {
+test("A1 - jokesInstance does not exist", async () => {
   expect.assertions(2);
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_CREATE, { name: "Smutny programator" });
   } catch (e) {
@@ -118,8 +119,8 @@ test("A1 - jokesInstance does nto exist", async () => {
 
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "closed" });
-  await TestHelper.login("Authority");
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: ".", state: "closed" });
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_CREATE, { name: "Vesely partyzan" });
   } catch (e) {
@@ -131,8 +132,8 @@ test("A2 - jokes instance is closed", async () => {
 });
 
 test("A3 - unsupported keys in dtoIn", async () => {
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
-  await TestHelper.login("Authority");
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.login("Authorities");
 
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "Hrebik v zasuvce", navic: "ja jsem navic" });
   expect(joke.status).toEqual(200);
@@ -145,8 +146,8 @@ test("A3 - unsupported keys in dtoIn", async () => {
 
 test("A4 - dtoIn is not valid", async () => {
   expect.assertions(2);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
-  await TestHelper.login("Authority");
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.login("Authorities");
 
   try {
     await TestHelper.executePostCommand(JOKE_CREATE, { name: "Nehorlavy petrolej", image: 4 });
@@ -157,8 +158,8 @@ test("A4 - dtoIn is not valid", async () => {
 });
 
 test("A5 - invalid image content type", async () => {
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
-  await TestHelper.login("Authority");
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.login("Authorities");
 
   let dtoIn = {
     name: "nejm",
@@ -193,8 +194,8 @@ test("A6 - creating image fails", async () => {
 });
 
 test("A7 - categories don't exist", async () => {
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
-  await TestHelper.login("Authority");
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.login("Authorities");
 
   let existingCategoryId = "012345678910111213141516";
   let nonExistentCategoryId = "171819202122232425262728";
