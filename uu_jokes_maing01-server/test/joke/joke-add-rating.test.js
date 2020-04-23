@@ -1,4 +1,4 @@
-const { TestHelper } = require("uu_appg01_workspace-test");
+const { TestHelper } = require("uu_appg01_server-test");
 const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const {
   JOKES_INSTANCE_INIT,
@@ -20,9 +20,10 @@ afterAll(() => {
 
 beforeEach(async () => {
   await TestHelper.dropDatabase();
-  await TestHelper.initApp();
+  await TestHelper.initAppInstance();
+  await TestHelper.createAppWorkspace();
   await TestHelper.initAppWorkspace();
-  await TestHelper.login("AwidOwner");
+  await TestHelper.login("AwidLicenseOwner", false);
 });
 
 afterEach(() => {
@@ -66,10 +67,10 @@ test("HDS - correct rating recalculating", async () => {
   // there is not enough testing identities => create joke straight in database
   await TestHelper.executeDbScript(
     `db.getCollection('joke').insert({
-        _id:ObjectId("${MONGO_ID}"), 
-        awid: "${TestHelper.getAwid()}", 
-        name:"A", 
-        averageRating:3.5, 
+        _id:ObjectId("${MONGO_ID}"),
+        awid: "${TestHelper.getAwid()}",
+        name:"A",
+        averageRating:3.5,
         ratingCount:4 })`
   );
 

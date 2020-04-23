@@ -1,4 +1,4 @@
-const { TestHelper } = require("uu_appg01_workspace-test");
+const { TestHelper } = require("uu_appg01_server-test");
 const { JOKES_INSTANCE_INIT, JOKE_CREATE, JOKE_GET, MONGO_ID } = require("../general-test-hepler");
 
 beforeAll(async () => {
@@ -11,9 +11,10 @@ afterAll(() => {
 
 beforeEach(async () => {
   await TestHelper.dropDatabase();
-  await TestHelper.initApp();
+  await TestHelper.initAppInstance();
+  await TestHelper.createAppWorkspace();
   await TestHelper.initAppWorkspace();
-  await TestHelper.login("AwidOwner");
+  await TestHelper.login("AwidLicenseOwner", false);
 });
 
 test("HDS", async () => {

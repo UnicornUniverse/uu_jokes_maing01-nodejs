@@ -1,4 +1,4 @@
-const { TestHelper } = require("uu_appg01_workspace-test");
+const { TestHelper } = require("uu_appg01_server-test");
 const { JOKES_INSTANCE_INIT, CATEGORY_CREATE, CATEGORY_UPDATE, MONGO_ID } = require("../general-test-hepler");
 
 beforeAll(async () => {
@@ -11,7 +11,8 @@ afterAll(() => {
 
 beforeEach(async () => {
   await TestHelper.dropDatabase();
-  await TestHelper.initApp();
+  await TestHelper.initAppInstance();
+  await TestHelper.createAppWorkspace();
   await TestHelper.initAppWorkspace();
 });
 
