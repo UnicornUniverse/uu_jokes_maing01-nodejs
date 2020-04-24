@@ -37,21 +37,13 @@
         "Authorities"
       ]
     },
-    "Readers": {
-      "uuIdentity": "14-2710-1",
-      "accessCode1": "3yMhD1qzi0JUwsAJ7UOsWX2YtrGH_Olk5DxgWyssNW6e_WC4wjKrXODHES92cQXp",
-      "accessCode2": "Cq%iaz#9w-#z7C8yZlZoC$DsebIK2JGWyDK8lg8J7vLFSKXtYFt5tn3eI3WthZtI",
-      "profileList": [
-        "Readers"
-      ]
-    },
     "Executives": {
       "accessCode1": "3yMhD1qzi0JUwsAJ7UOsWX2YtrGH_Olk5DxgWyssNW6e_WC4wjKrXODHES92cQXp",
       "accessCode2": "Cq%iaz#9w-#z7C8yZlZoC$DsebIK2JGWyDK8lg8J7vLFSKXtYFt5tn3eI3WthZtI",
       "uuIdentity": "14-2710-1",
       "profileList": ["Executives"]
     },
-    "Reader": {
+    "Readers": {
       "accessCode1": "UafUaf",
       "accessCode2": "tester4321",
       "uuIdentity": "19-7019-1",
