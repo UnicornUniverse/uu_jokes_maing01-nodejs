@@ -6,11 +6,6 @@
         "httpMethod": "GET",
         "type": "UVE"
       },
-      "workaround": {
-        "realization": "index.html",
-        "httpMethod": "GET",
-        "type": "UVE"
-      },
       "sys/appWorkspace/initUve": {
         "realization": "index.html",
         "httpMethod": "GET",
