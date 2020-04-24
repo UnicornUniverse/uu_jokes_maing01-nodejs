@@ -5,7 +5,7 @@ const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const { LoggerFactory } = require("uu_appg01_server").Logging;
-const { UuBinaryErrors, UuBinaryModel: UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
+const { UuBinaryErrors, UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
 const { SysAppProfileAbl, SysAppWorkspaceAbl, AppClientTokenService, SysAppClientTokenAbl } = require("uu_appg01_server").Workspace;
 
 const { UriBuilder } = require("uu_appg01_server").Uri;

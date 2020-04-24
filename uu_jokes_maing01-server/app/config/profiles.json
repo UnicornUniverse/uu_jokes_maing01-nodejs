@@ -1,32 +1,7 @@
 {
   "{asid}": {
-    "profileList": ["AsidAuthorities", "AsidExecutives"],
-    "useCaseMap": {
-      "sys/getHealth": {
-        "sysStateList": ["restricted", "active"],
-        "profileList": ["AsidAuthorities"]
-      },
-      "sys/getUseCases": {
-        "sysStateList": ["restricted", "active"],
-        "profileList": ["AsidAuthorities"]
-      },
-      "sys/getConfiguration": {
-        "sysStateList": ["restricted", "active"],
-        "profileList": ["AsidAuthorities"]
-      },
-      "sys/getEnvironment": {
-        "sysStateList": ["restricted", "active"],
-        "profileList": ["AsidAuthorities"]
-      },
-      "sys/getStatistics": {
-        "sysStateList": ["restricted", "active"],
-        "profileList": ["AsidAuthorities"]
-      },
-      "joke/list": {
-        "sysStateList": ["restricted", "active"],
-        "profileList": ["AsidExecutives"]
-      }
-    }
+    "profileList": ["AsidAuthorities", "AsidExecutives", "AsidAuditors"],
+    "useCaseMap": {}
   },
   "*": {
     "profileList": ["Authorities", "Executives", "Readers"],
@@ -38,14 +13,6 @@
       "defaultUve/{route}": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
-      },
-      "sys/appWorkspace/get": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
-      "sys/appWorkspace/init": {
-        "sysStateList": ["created", "active"],
-        "profileList": ["Authorities", "AwidLicenseOwner"]
       },
       "jokesInstance/plugInBt": {
         "sysStateList": ["active"],
@@ -127,50 +94,6 @@
         "sysStateList": ["active"],
         "profileList": ["Public"]
       },
-      "sys/getAppWorkspace": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
-      "sys/appWorkspace/appProfile/get": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
-      "sys/appWorkspace/appProfile/set": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
-      "sys/appWorkspace/appProfile/list": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
-      "sys/appWorkspace/permission/create": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities", "AwidLicenseOwner"]
-      },
-      "sys/appWorkspace/permission/delete": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
-      "sys/appWorkspace/permission/list": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
-      "sys/getLicenseOwner": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities", "Executives", "Readers"]
-      },
-      "sys/getAppWorkspaceConfig":  {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities", "Executives", "Readers"]
-      },
-      "sys/setAppWorkspaceConfig": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
-      "sys/clearAppWorkspaceConfig": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
       "uu-app-binarystore/createBinary": {
         "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives"]
@@ -195,7 +118,7 @@
         "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
-      "sys/listMyAuditLogRecordsByTime":  {
+      "sys/listMyAuditLogRecordsByTime": {
         "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       }
