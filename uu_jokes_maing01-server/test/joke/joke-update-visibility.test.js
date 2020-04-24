@@ -20,7 +20,6 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initAppInstance();
   await TestHelper.createAppWorkspace();
-  await TestHelper.initAppWorkspace();
   await TestHelper.login("AwidLicenseOwner", false);
 });
 
@@ -30,7 +29,7 @@ afterEach(() => {
 
 test("HDS", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, {
     name: "She lives with a broken man, a cracked polystyrene man"
   });
@@ -40,21 +39,10 @@ test("HDS", async () => {
   expect(joke.visibility).toEqual(false);
 });
 
-test("A1 - jokes instance does not exist", async () => {
-  expect.assertions(2);
-  await TestHelper.login("Authority");
-  try {
-    await TestHelper.executePostCommand(JOKE_UPDATE_VISIBILITY, {});
-  } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/joke/updateVisibility/jokesInstanceDoesNotExist");
-    expect(e.message).toEqual("JokesInstance does not exist.");
-  }
-});
-
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "closed" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_UPDATE_VISIBILITY, {});
   } catch (e) {
@@ -67,7 +55,7 @@ test("A2 - jokes instance is closed", async () => {
 
 test("A3 - unsupported keys in dtoIn", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "Predavkovali se smutnymi pribehy" });
   joke = await TestHelper.executePostCommand(JOKE_UPDATE_VISIBILITY, {
     id: joke.id,
@@ -82,7 +70,7 @@ test("A3 - unsupported keys in dtoIn", async () => {
 test("A4 - invalid dtoIn", async () => {
   expect.assertions(2);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_UPDATE_VISIBILITY, {});
   } catch (e) {

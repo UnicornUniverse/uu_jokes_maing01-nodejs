@@ -13,13 +13,12 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initAppInstance();
   await TestHelper.createAppWorkspace();
-  await TestHelper.initAppWorkspace();
   await TestHelper.login("AwidLicenseOwner", false);
 });
 
 test("HDS", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let result = await TestHelper.executeGetCommand(JOKES_INSTANCE_LOAD);
   expect(result.status).toBe(200);
   let dtoOut = result;
@@ -30,21 +29,10 @@ test("HDS", async () => {
   expect(dtoOut.authorizedProfileList).toEqual(["Authorities"]);
 });
 
-test("A1 - loading non existent jokes instance", async () => {
-  expect.assertions(2);
-  await TestHelper.login("Authority");
-  try {
-    await TestHelper.executeGetCommand(JOKES_INSTANCE_LOAD);
-  } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/jokesInstance/load/jokesInstanceDoesNotExist");
-    expect(e.message).toEqual("JokesInstance does not exist.");
-  }
-});
-
 test("A2 - closed jokes instance", async () => {
   expect.assertions(4);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "closed" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(JOKES_INSTANCE_LOAD);
   } catch (e) {
@@ -61,7 +49,7 @@ test("A3 - jokes instance is under construction and caller is a Reader", async (
     uuAppProfileAuthorities: ".",
     state: "underConstruction"
   });
-  await TestHelper.login("Reader");
+  await TestHelper.login("Readers");
   try {
     await TestHelper.executeGetCommand(JOKES_INSTANCE_LOAD);
   } catch (e) {

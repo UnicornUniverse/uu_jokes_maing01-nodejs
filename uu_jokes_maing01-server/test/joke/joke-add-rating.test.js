@@ -22,7 +22,6 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initAppInstance();
   await TestHelper.createAppWorkspace();
-  await TestHelper.initAppWorkspace();
   await TestHelper.login("AwidLicenseOwner", false);
 });
 
@@ -32,10 +31,9 @@ afterEach(() => {
 
 test("HDS - vote for the first time", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  let session = await TestHelper.login("Authorities");
   let response = await TestHelper.executePostCommand(JOKE_CREATE, { name: "And she knows that.." });
-  await TestHelper.login("Executive");
-  let ratedResponse = await TestHelper.executePostCommand(JOKE_ADD_RATING, { id: response.id, rating: 4 });
+  let ratedResponse = await TestHelper.executePostCommand(JOKE_ADD_RATING, { id: response.id, rating: 4 }, session);
   expect(ratedResponse.status).toEqual(200);
   expect(ratedResponse.averageRating).toEqual(4);
   expect(ratedResponse.ratingCount).toEqual(1);
@@ -45,10 +43,9 @@ test("HDS - vote for the first time", async () => {
 
 test("HDS - change the vote, it wasn't funny after all", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  let session = await TestHelper.login("Authorities");
   let response = await TestHelper.executePostCommand(JOKE_CREATE, { name: "it'd be tragic if thos eveil robots win" });
-  await TestHelper.login("Executive");
-  let ratedResponse = await TestHelper.executePostCommand(JOKE_ADD_RATING, { id: response.id, rating: 4 });
+  let ratedResponse = await TestHelper.executePostCommand(JOKE_ADD_RATING, { id: response.id, rating: 4 }, session);
   expect(ratedResponse.status).toEqual(200);
   expect(ratedResponse.averageRating).toEqual(4);
   expect(ratedResponse.ratingCount).toEqual(1);
@@ -62,7 +59,7 @@ test("HDS - change the vote, it wasn't funny after all", async () => {
 
 test("HDS - correct rating recalculating", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
 
   // there is not enough testing identities => create joke straight in database
   await TestHelper.executeDbScript(
@@ -87,21 +84,10 @@ test("HDS - correct rating recalculating", async () => {
   expect(response.ratingCount).toEqual(5);
 });
 
-test("A1 - jokes instance does not exist", async () => {
-  expect.assertions(2);
-  await TestHelper.login("Authority");
-  try {
-    await TestHelper.executePostCommand(JOKE_ADD_RATING, {});
-  } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/joke/addRating/jokesInstanceDoesNotExist");
-    expect(e.message).toEqual("JokesInstance does not exist.");
-  }
-});
-
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "closed" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_ADD_RATING, {});
   } catch (e) {
@@ -114,10 +100,9 @@ test("A2 - jokes instance is closed", async () => {
 
 test("A3 - unsupported keys in dtoIn", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
-  await TestHelper.login("Authority");
-  let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "walk in on your own feet, says the rover" });
-  await TestHelper.login("Executive");
-  joke = await TestHelper.executePostCommand(JOKE_ADD_RATING, { id: joke.id, rating: 3, dog: "woof" });
+  let session = await TestHelper.login("Authorities");
+  let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "walk in on your own feet, says the rover" }, session);
+  joke = await TestHelper.executePostCommand(JOKE_ADD_RATING, { id: joke.id, rating: 3, dog: "woof" }, session);
   expect(joke.status).toEqual(200);
   let warning = joke.uuAppErrorMap["uu-jokes-main/joke/addRating/unsupportedKeys"];
   expect(warning).toBeTruthy();
@@ -126,7 +111,7 @@ test("A3 - unsupported keys in dtoIn", async () => {
 test("A4 - invalid dtoIn", async () => {
   expect.assertions(2);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_ADD_RATING, {});
   } catch (e) {
@@ -138,7 +123,7 @@ test("A4 - invalid dtoIn", async () => {
 test("A5 - joke does not exist", async () => {
   expect.assertions(3);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_ADD_RATING, { id: MONGO_ID, rating: 5 });
   } catch (e) {
@@ -151,7 +136,7 @@ test("A5 - joke does not exist", async () => {
 test("A6 - Authorities trying to rate their own joke", async () => {
   expect.assertions(2);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "it's my way or the all leave, says the rover" });
   try {
     await TestHelper.executePostCommand(JOKE_ADD_RATING, { id: joke.id, rating: 5 });

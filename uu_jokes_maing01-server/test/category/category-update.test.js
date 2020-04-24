@@ -13,7 +13,6 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initAppInstance();
   await TestHelper.createAppWorkspace();
-  await TestHelper.initAppWorkspace();
 });
 
 afterEach(() => {
@@ -29,16 +28,6 @@ test("HDS", async () => {
   expect(response.status).toEqual(200);
   expect(response.name).toEqual(name);
   expect(response.icon).toEqual(icon);
-});
-
-test("A1 - jokes instance does not exist", async () => {
-  expect.assertions(2);
-  try {
-    await TestHelper.executePostCommand(CATEGORY_UPDATE, {});
-  } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/category/update/jokesInstanceDoesNotExist");
-    expect(e.message).toEqual("JokesInstance does not exist.");
-  }
 });
 
 test("A2 - jokes instance is closed", async () => {

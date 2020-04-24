@@ -13,7 +13,6 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initAppInstance();
   await TestHelper.createAppWorkspace();
-  await TestHelper.initAppWorkspace();
   await TestHelper.login("AwidLicenseOwner", false);
 });
 
@@ -22,22 +21,11 @@ test("HDS", async () => {
     uuAppProfileAuthorities: "jaJsemTakyUri",
     state: "active"
   });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let create = await TestHelper.executePostCommand(JOKE_CREATE, { name: "Silvester Stalin" });
   let get = await TestHelper.executeGetCommand(JOKE_GET, { id: create.id });
   expect(get.status).toEqual(200);
   expect(get).toEqual(create);
-});
-
-test("A1 - jokes instance does not exist", async () => {
-  expect.assertions(2);
-  await TestHelper.login("Authority");
-  try {
-    await TestHelper.executeGetCommand(JOKE_GET, { id: MONGO_ID });
-  } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/joke/get/jokesInstanceDoesNotExist");
-    expect(e.message).toEqual("JokesInstance does not exist.");
-  }
 });
 
 test("A2 - jokes instance is closed", async () => {
@@ -46,7 +34,7 @@ test("A2 - jokes instance is closed", async () => {
     uuAppProfileAuthorities: "vimperskeParky",
     state: "closed"
   });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(JOKE_GET, { id: MONGO_ID });
   } catch (e) {
@@ -63,7 +51,7 @@ test("A3 - jokes instance is under construction", async () => {
     uuAppProfileAuthorities: "jogurtovaCokolada",
     state: "underConstruction"
   });
-  await TestHelper.login("Reader");
+  await TestHelper.login("Readers");
   try {
     await TestHelper.executeGetCommand(JOKE_GET, { id: MONGO_ID });
   } catch (e) {
@@ -78,7 +66,7 @@ test("A4 - unsupported keys in dtoIn", async () => {
     uuAppProfileAuthorities: "konviceNaCaj",
     state: "active"
   });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "zelena okurka" });
   joke = await TestHelper.executeGetCommand(JOKE_GET, { id: joke.id, cosi: "to je jedno, co tu je" });
   expect(joke.status).toEqual(200);
@@ -95,7 +83,7 @@ test("A5 - invalid dtoIn", async () => {
     uuAppProfileAuthorities: "umeleSladidlo",
     state: "active"
   });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(JOKE_GET, {});
   } catch (e) {
@@ -110,7 +98,7 @@ test("A6 - joke does not exist", async () => {
     uuAppProfileAuthorities: "umeleSladidlo",
     state: "active"
   });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(JOKE_GET, { id: MONGO_ID });
   } catch (e) {

@@ -75,7 +75,7 @@ test("HDS - no image, Authorities call", async () => {
 
 test("HDS - no image, Executives call", async () => {
   await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
-  await TestHelper.login("Executive");
+  await TestHelper.login("Executives");
 
   let dtoIn = {
     name: "hmm",
@@ -104,17 +104,6 @@ test("HDS - image", async () => {
   let dtoOut = joke;
   expect(dtoOut.image).toBeTruthy();
   expect(dtoOut.uuAppErrorMap).toEqual({});
-});
-
-test("A1 - jokesInstance does not exist", async () => {
-  expect.assertions(2);
-  await TestHelper.login("Authorities");
-  try {
-    await TestHelper.executePostCommand(JOKE_CREATE, { name: "Smutny programator" });
-  } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/joke/create/jokesInstanceDoesNotExist");
-    expect(e.message).toEqual("JokesInstance does not exist.");
-  }
 });
 
 test("A2 - jokes instance is closed", async () => {

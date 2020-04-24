@@ -14,7 +14,6 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initAppInstance();
   await TestHelper.createAppWorkspace();
-  await TestHelper.initAppWorkspace();
 });
 
 afterEach(() => {
@@ -30,9 +29,9 @@ test("HDS with minimal dtoIn and without logo", async () => {
   expect(dtoOut.name).toEqual("uuJokes");
   expect(dtoOut.logos).toBeUndefined();
 
-  result = await TestHelper.executeGetCommand("sys/getProfile", { code: "Authorities" });
+  result = await TestHelper.executeGetCommand("sys/appWorkspace/appProfile/get", { appProfile: "Authorities" });
   expect(result.status).toBe(200);
-  expect(result.roleUri).toEqual(roleUri);
+  expect(result.roleGroupUri).toEqual(roleGroupUri);
 });
 
 test("HDS with minimal dtoIn and logo", async () => {
@@ -109,7 +108,7 @@ test("A4 - setProfile fails", async () => {
   expect.assertions(2);
 
   let { JokesInstanceAbl, SysProfileAbl } = mockAbl();
-  jest.spyOn(SysProfileAbl, "setProfile").mockImplementation(() => {
+  jest.spyOn(SysProfileAbl, "setAppProfile").mockImplementation(() => {
     throw new Error("kolobezka");
   });
 
@@ -128,7 +127,7 @@ test("A5 - creating uuBinary fails", async () => {
   expect.assertions(2);
 
   let { JokesInstanceAbl, SysProfileAbl, UuBinaryAbl } = mockAbl();
-  jest.spyOn(SysProfileAbl, "setProfile").mockImplementation(() => {});
+  jest.spyOn(SysProfileAbl, "setAppProfile").mockImplementation(() => {});
   jest.spyOn(UuBinaryAbl, "createBinary").mockImplementation(() => {
     throw new Error("kotrmelec");
   });
@@ -152,7 +151,7 @@ test("A6 - storing jokes instance fails", async () => {
   JokesInstanceAbl.dao.create = () => {
     throw new ObjectStoreError("it failed");
   };
-  jest.spyOn(SysProfileAbl, "setProfile").mockImplementation(() => {});
+  jest.spyOn(SysProfileAbl, "setAppProfile").mockImplementation(() => {});
   jest.spyOn(UuBinaryAbl, "createBinary").mockImplementation(() => {});
 
   let dtoIn = {

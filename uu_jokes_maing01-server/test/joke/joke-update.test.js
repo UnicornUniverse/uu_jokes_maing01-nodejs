@@ -23,7 +23,6 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initAppInstance();
   await TestHelper.createAppWorkspace();
-  await TestHelper.initAppWorkspace();
   await TestHelper.login("AwidLicenseOwner", false);
 });
 
@@ -33,7 +32,7 @@ afterEach(() => {
 
 test("HDS - no image", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "kostkovyCukr" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let string = "hmm";
   let create = await TestHelper.executePostCommand(JOKE_CREATE, { name: string });
   let update = await TestHelper.executePostCommand(JOKE_UPDATE, {
@@ -50,7 +49,7 @@ test("HDS - no image", async () => {
 
 test("HDS - create image", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "kostkovyCukr" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let create = await TestHelper.executePostCommand(JOKE_CREATE, { name: "mlzi se tu Okna" });
   let update = await TestHelper.executePostCommand(JOKE_UPDATE, { id: create.id, image: getImageStream() });
   expect(update.status).toEqual(200);
@@ -65,7 +64,7 @@ test("HDS - create image", async () => {
 
 test("HDS - update image", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "kostkovyCukr" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let create = await TestHelper.executePostCommand(JOKE_CREATE, {
     name: "Zapomnel jsem si salu a je mi zima na krk",
     image: getImageStream()
@@ -86,24 +85,13 @@ test("HDS - update image", async () => {
   expect(result.itemList[0].sys.rev).toEqual(1);
 });
 
-test("A1 - jokes instance does not exist", async () => {
-  expect.assertions(2);
-  await TestHelper.login("Authority");
-  try {
-    await TestHelper.executePostCommand(JOKE_UPDATE, {});
-  } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/joke/update/jokesInstanceDoesNotExist");
-    expect(e.message).toEqual("JokesInstance does not exist.");
-  }
-});
-
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, {
     uuAppProfileAuthorities: "energetickyNapoj",
     state: "closed"
   });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_UPDATE, {});
   } catch (e) {
@@ -116,7 +104,7 @@ test("A2 - jokes instance is closed", async () => {
 
 test("A3 - unsupported keys in dtoIn", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "vickoJeFuc" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "Velmi vtipny vtip, opet.." });
   joke = await TestHelper.executePostCommand(JOKE_UPDATE, { id: joke.id, zmatenyTurista: "kudy se dostanu na..." });
   expect(joke.status).toEqual(200);
@@ -127,7 +115,7 @@ test("A3 - unsupported keys in dtoIn", async () => {
 test("A4 - invalid dtoIn", async () => {
   expect.assertions(2);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "theMournfulWhy" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_UPDATE, {});
   } catch (e) {
@@ -139,7 +127,7 @@ test("A4 - invalid dtoIn", async () => {
 test("A5 - joke does not exist", async () => {
   expect.assertions(3);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "StellaWasADiver" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_UPDATE, { id: MONGO_ID });
   } catch (e) {
@@ -149,14 +137,14 @@ test("A5 - joke does not exist", async () => {
   }
 });
 
-test("A6 - Executives trying to update Authorities' joke", async () => {
+test("A6 - Readers trying to update Authorities' joke", async () => {
   expect.assertions(2);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "theMournfulWhy" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "It's different now, that I'm poor and aging." });
-  await TestHelper.login("Executive");
+  let session = await TestHelper.login("Readers");
   try {
-    await TestHelper.executePostCommand(JOKE_UPDATE, { id: joke.id });
+    await TestHelper.executePostCommand(JOKE_UPDATE, { id: joke.id }, session);
   } catch (e) {
     expect(e.code).toEqual("uu-jokes-main/joke/update/userNotAuthorized");
     expect(e.message).toEqual("User not authorized.");
@@ -165,7 +153,7 @@ test("A6 - Executives trying to update Authorities' joke", async () => {
 
 test("A7 - categories don't exist", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "theWholesomeMurder" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
 
   let existingCategoryId = "012345678910111213141516";
   let nonExistentCategoryId = "171819202122232425262728";

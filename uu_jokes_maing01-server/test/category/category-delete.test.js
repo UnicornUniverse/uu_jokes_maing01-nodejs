@@ -22,7 +22,6 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initAppInstance();
   await TestHelper.createAppWorkspace();
-  await TestHelper.initAppWorkspace();
 });
 
 afterEach(() => {
@@ -69,16 +68,6 @@ test("HDS - force delete category and checks that its removed from joke", async 
   // the deleted category is also deleted from joke
   let joke = await TestHelper.executeGetCommand(JOKE_GET, { id: MONGO_ID });
   expect(joke.categoryList).toEqual([categoryOne.id]);
-});
-
-test("A1 - jokesInstance does nto exist", async () => {
-  expect.assertions(2);
-  try {
-    await TestHelper.executePostCommand(CATEGORY_DELETE);
-  } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/category/delete/jokesInstanceDoesNotExist");
-    expect(e.message).toEqual("JokesInstance does not exist.");
-  }
 });
 
 test("A2 - jokes instance is closed", async () => {

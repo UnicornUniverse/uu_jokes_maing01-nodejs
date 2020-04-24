@@ -20,7 +20,6 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initAppInstance();
   await TestHelper.createAppWorkspace();
-  await TestHelper.initAppWorkspace();
 });
 
 afterEach(() => {
@@ -52,22 +51,12 @@ test("A1 - unsupported keys", async () => {
 
 test("A2 - invalid dtoIn", async () => {
   expect.assertions(2);
+  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
   try {
     await TestHelper.executePostCommand(JOKES_INSTANCE_UPDATE, { state: "Czech Republic" });
   } catch (e) {
     expect(e.code).toEqual("uu-jokes-main/jokesInstance/update/invalidDtoIn");
     expect(e.message).toEqual("DtoIn is not valid.");
-  }
-});
-
-test("A3 - updating logo, but jokes instance does not exist", async () => {
-  expect.assertions(2);
-  let dtoIn = { logo: getImageStream() };
-  try {
-    await TestHelper.executePostCommand(JOKES_INSTANCE_SET_LOGO, dtoIn);
-  } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/jokesInstance/setLogo/jokesInstanceDoesNotExist");
-    expect(e.message).toEqual("JokesInstance does not exist.");
   }
 });
 

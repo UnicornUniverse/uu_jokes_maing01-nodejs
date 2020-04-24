@@ -13,13 +13,12 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initAppInstance();
   await TestHelper.createAppWorkspace();
-  await TestHelper.initAppWorkspace();
   await TestHelper.login("AwidLicenseOwner", false);
 });
 
 test("HDS", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
 
   let nameOne = "cats";
   let nameTwo = "dogs";
@@ -38,7 +37,7 @@ test("HDS", async () => {
 
 test("HDS - custom pageInfo", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
 
   let nameOne = "birds";
   let nameTwo = "pokemons";
@@ -59,24 +58,13 @@ test("HDS - custom pageInfo", async () => {
   expect(list.itemList[0].name).toMatch(expectedNamePattern);
 });
 
-test("A1 - jokes instance does not exist", async () => {
-  expect.assertions(2);
-  await TestHelper.login("Authority");
-  try {
-    await TestHelper.executeGetCommand(CATEGORY_LIST);
-  } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/category/list/jokesInstanceDoesNotExist");
-    expect(e.message).toEqual("JokesInstance does not exist.");
-  }
-});
-
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, {
     uuAppProfileAuthorities: ".",
     state: "closed"
   });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(CATEGORY_LIST);
   } catch (e) {
@@ -93,7 +81,7 @@ test("A3 - jokes instance is under construction", async () => {
     uuAppProfileAuthorities: ".",
     state: "underConstruction"
   });
-  await TestHelper.login("Reader");
+  await TestHelper.login("Readers");
   try {
     await TestHelper.executeGetCommand(CATEGORY_LIST);
   } catch (e) {
@@ -105,7 +93,7 @@ test("A3 - jokes instance is under construction", async () => {
 
 test("A4 - unsupported keys in dtoIn", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let response = await TestHelper.executeGetCommand(CATEGORY_LIST, { brambor: true });
   expect(response.status).toEqual(200);
   let warning = response.uuAppErrorMap["uu-jokes-main/category/list/unsupportedKeys"];
@@ -118,7 +106,7 @@ test("A4 - unsupported keys in dtoIn", async () => {
 test("A5 - invalid dtoIn", async () => {
   expect.assertions(2);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(CATEGORY_LIST, { pageInfo: false });
   } catch (e) {

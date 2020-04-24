@@ -14,7 +14,6 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initAppInstance();
   await TestHelper.createAppWorkspace();
-  await TestHelper.initAppWorkspace();
   await TestHelper.login("AwidLicenseOwner", false);
 });
 
@@ -24,7 +23,7 @@ afterEach(() => {
 
 test("HDS", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let categoryName = "(Mg,Fe2+)2(Mg,Fe2+)5Si8O2(OH)2";
   let response = await TestHelper.executePostCommand(CATEGORY_CREATE, { name: categoryName });
   expect(response.status).toEqual(200);
@@ -35,21 +34,10 @@ test("HDS", async () => {
   expect(dtoOut.uuAppErrorMap).toEqual({});
 });
 
-test("A1 - jokesInstance does nto exist", async () => {
-  expect.assertions(2);
-  await TestHelper.login("Authority");
-  try {
-    await TestHelper.executePostCommand(CATEGORY_CREATE, { name: "He sings lovesongs on a Casio." });
-  } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/category/create/jokesInstanceDoesNotExist");
-    expect(e.message).toEqual("JokesInstance does not exist.");
-  }
-});
-
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "closed" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(CATEGORY_CREATE, { name: "I don't know anymore.." });
   } catch (e) {
@@ -62,7 +50,7 @@ test("A2 - jokes instance is closed", async () => {
 
 test("A3 - unsupported keys in dtoIn", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let response = await TestHelper.executePostCommand(CATEGORY_CREATE, {
     name: "I don't know anymore..",
     pche: "brm brm"
@@ -78,7 +66,7 @@ test("A3 - unsupported keys in dtoIn", async () => {
 test("A4 - dtoIn is not valid", async () => {
   expect.assertions(2);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(CATEGORY_CREATE, {});
   } catch (e) {
@@ -90,7 +78,7 @@ test("A4 - dtoIn is not valid", async () => {
 test("A5 - category with such name already exists", async () => {
   expect.assertions(3);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let name = "...";
   await TestHelper.executePostCommand(CATEGORY_CREATE, { name: name });
   try {

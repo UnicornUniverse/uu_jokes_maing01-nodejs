@@ -13,13 +13,12 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initAppInstance();
   await TestHelper.createAppWorkspace();
-  await TestHelper.initAppWorkspace();
   await TestHelper.login("AwidLicenseOwner", false);
 });
 
 test("HDS", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
 
   // create some jokes
   await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
@@ -40,7 +39,7 @@ test("HDS", async () => {
 
 test("HDS - default sort by (name), default order (ascending)", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
 
   // create some jokes
   await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
@@ -58,7 +57,7 @@ test("HDS - default sort by (name), default order (ascending)", async () => {
 
 test("HDS - default sort by (name), custom order", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
 
   // create some jokes
   await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
@@ -76,7 +75,7 @@ test("HDS - default sort by (name), custom order", async () => {
 
 test("HDS - custom sort by, default order (ascending)", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
 
   // rating the jokes is yet to be implemented => crate some jokes with rating in db
   await TestHelper.executeDbScript(
@@ -98,7 +97,7 @@ test("HDS - custom sort by, default order (ascending)", async () => {
 
 test("HDS - pageInfo", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
 
   // create some jokes
   await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
@@ -118,7 +117,7 @@ test("HDS - pageInfo", async () => {
 
 test("HDS - only pageSize in pageInfo", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
 
   // create some jokes
   await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
@@ -137,7 +136,7 @@ test("HDS - only pageSize in pageInfo", async () => {
 
 test("HDS - only pageIndex in pageInfo", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
 
   // create some jokes
   await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
@@ -156,7 +155,7 @@ test("HDS - only pageIndex in pageInfo", async () => {
 
 test("HDS - filter by category", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
 
   // category management commands are not yet implemented => creating something straight in the database
   await TestHelper.executeDbScript(
@@ -178,24 +177,13 @@ test("HDS - filter by category", async () => {
   expect(dtoOut.itemList[1].name).toEqual("C");
 });
 
-test("A1 - jokes instance does not exist", async () => {
-  expect.assertions(2);
-  await TestHelper.login("Authority");
-  try {
-    await TestHelper.executeGetCommand(JOKE_LIST);
-  } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/joke/list/jokesInstanceDoesNotExist");
-    expect(e.message).toEqual("JokesInstance does not exist.");
-  }
-});
-
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, {
     uuAppProfileAuthorities: ".",
     state: "closed"
   });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(JOKE_LIST);
   } catch (e) {
@@ -212,7 +200,7 @@ test("A3 - jokes instance is under construction", async () => {
     uuAppProfileAuthorities: ".",
     state: "underConstruction"
   });
-  await TestHelper.login("Reader");
+  await TestHelper.login("Readers");
   try {
     await TestHelper.executeGetCommand(JOKE_LIST);
   } catch (e) {
@@ -224,7 +212,7 @@ test("A3 - jokes instance is under construction", async () => {
 
 test("A4 - unsupported keys in dtoIn", async () => {
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   let response = await TestHelper.executeGetCommand(JOKE_LIST, { kedluben: true });
   expect(response.status).toEqual(200);
   let warning = response.uuAppErrorMap["uu-jokes-main/joke/list/unsupportedKeys"];
@@ -237,7 +225,7 @@ test("A4 - unsupported keys in dtoIn", async () => {
 test("A5 - invalid dtoIn", async () => {
   expect.assertions(2);
   await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
-  await TestHelper.login("Authority");
+  await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(JOKE_LIST, { order: true });
   } catch (e) {
