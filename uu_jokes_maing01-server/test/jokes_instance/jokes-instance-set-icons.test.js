@@ -1,6 +1,5 @@
 const { TestHelper } = require("uu_appg01_server-test");
 const {
-  JOKES_INSTANCE_INIT,
   JOKES_INSTANCE_SET_ICONS,
   JOKES_INSTANCE_GET_UVE_META_DATA
 } = require("../general-test-hepler");
@@ -28,7 +27,7 @@ afterEach(() => {
 
 test("HDS - upload icons", async () => {
   expect.assertions(18);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
 
   //created
   let dtoIn = { data: Fs.createReadStream(Path.join(__dirname, "icons-to-upload.zip")) };
@@ -65,7 +64,7 @@ test("HDS - upload icons", async () => {
 test("A1", async () => {
   expect.assertions(1);
 
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
 
   //created
   let dtoIn = { data: false };
@@ -79,7 +78,7 @@ test("A1", async () => {
 test("A5", async () => {
   expect.assertions(1);
 
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
 
   let dtoIn = { data: Fs.createReadStream(Path.join(__dirname, "invalid-icons-to-create.zip")) };
   let result = await TestHelper.executePostCommand(JOKES_INSTANCE_SET_ICONS, dtoIn);

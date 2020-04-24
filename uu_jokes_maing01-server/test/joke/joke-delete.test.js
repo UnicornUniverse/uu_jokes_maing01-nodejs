@@ -1,7 +1,6 @@
 const { TestHelper } = require("uu_appg01_server-test");
-const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
+
 const {
-  JOKES_INSTANCE_INIT,
   JOKE_CREATE,
   JOKE_DELETE,
   JOKE_GET,
@@ -33,7 +32,7 @@ afterEach(() => {
 
 test("HDS", async () => {
   expect.assertions(2);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "There should be unicorns" });
   let result = await TestHelper.executePostCommand(JOKE_DELETE, { id: joke.id });
@@ -47,7 +46,7 @@ test("HDS", async () => {
 
 test("HDS - deleting image", async () => {
   expect.assertions(3);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, {
     name: "The ones with the purple eyes",
@@ -66,7 +65,7 @@ test("HDS - deleting image", async () => {
 
 test("HDS - deleting ratings", async () => {
   expect.assertions(4);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "Not the green eyes" });
 
@@ -97,7 +96,7 @@ test("HDS - deleting ratings", async () => {
 
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "closed" });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "closed"});
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_DELETE, { id: MONGO_ID });
@@ -110,7 +109,7 @@ test("A2 - jokes instance is closed", async () => {
 });
 
 test("A3 - unsupported keys in dtoIn", async () => {
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "If the police shows up.." });
   joke = await TestHelper.executePostCommand(JOKE_DELETE, {
@@ -127,7 +126,7 @@ test("A3 - unsupported keys in dtoIn", async () => {
 
 test("A4 - invalid dtoIn", async () => {
   expect.assertions(2);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_DELETE, {});
@@ -139,7 +138,7 @@ test("A4 - invalid dtoIn", async () => {
 
 test("A5 - joke does nto exist", async () => {
   expect.assertions(2);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_DELETE, { id: MONGO_ID });
@@ -150,16 +149,15 @@ test("A5 - joke does nto exist", async () => {
 });
 
 test("A6 - Readers trying to delete Authorities' joke", async () => {
-  expect.assertions(2);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
+  expect.assertions(1);
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "..it will make them cry. And forgive us." });
   let session = await TestHelper.login("Readers");
   try {
     await TestHelper.executePostCommand(JOKE_DELETE, { id: joke.id }, session);
   } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/joke/delete/userNotAuthorized");
-    expect(e.message).toEqual("User not authorized.");
+    expect(e.code).toEqual("uu-appg01/authorization/accessDenied");
   }
 });
 

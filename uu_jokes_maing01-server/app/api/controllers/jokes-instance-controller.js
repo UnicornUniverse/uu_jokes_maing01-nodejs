@@ -6,7 +6,7 @@ const CACHE_VALUE = "public, max-age=86400, s-maxage=86400";
 
 class JokesInstanceController {
   static init(ucEnv) {
-    return JokesInstanceAbl.init(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession());
+    return JokesInstanceAbl.init(ucEnv.uri.getAwid(), ucEnv.getDtoIn(), ucEnv.getSession());
   }
 
   static plugInBt(ucEnv) {

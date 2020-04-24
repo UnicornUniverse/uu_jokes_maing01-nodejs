@@ -1,9 +1,7 @@
 const { TestHelper } = require("uu_appg01_server-test");
 const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const {
-  JOKES_INSTANCE_INIT,
   JOKES_INSTANCE_UPDATE,
-  JOKES_INSTANCE_SET_LOGO,
   getImageStream,
   mockDaoFactory
 } = require("../general-test-hepler");
@@ -27,7 +25,7 @@ afterEach(() => {
 });
 
 test("HDS - simple", async () => {
-  let result = await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  let result = await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
   expect(result.state).toEqual("underConstruction");
 
   let closed = "closed";
@@ -37,7 +35,7 @@ test("HDS - simple", async () => {
 });
 
 test("A1 - unsupported keys", async () => {
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
 
   let result = await TestHelper.executePostCommand(JOKES_INSTANCE_UPDATE, { something: "something" });
   expect(result.status).toBe(200);
@@ -51,7 +49,7 @@ test("A1 - unsupported keys", async () => {
 
 test("A2 - invalid dtoIn", async () => {
   expect.assertions(2);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
   try {
     await TestHelper.executePostCommand(JOKES_INSTANCE_UPDATE, { state: "Czech Republic" });
   } catch (e) {

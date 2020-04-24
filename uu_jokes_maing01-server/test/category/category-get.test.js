@@ -1,5 +1,5 @@
 const { TestHelper } = require("uu_appg01_server-test");
-const { JOKES_INSTANCE_INIT, CATEGORY_CREATE, CATEGORY_GET, MONGO_ID } = require("../general-test-hepler");
+const { CATEGORY_CREATE, CATEGORY_GET, MONGO_ID } = require("../general-test-hepler");
 
 beforeAll(async () => {
   await TestHelper.setup();
@@ -17,10 +17,11 @@ beforeEach(async () => {
 });
 
 test("HDS", async () => {
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, {
+  let dtoIn= {
     uuAppProfileAuthorities: "jaJsemTakyUri",
     state: "active"
-  });
+  };
+  await TestHelper.initAppWorkspace(dtoIn);
   await TestHelper.login("Authorities");
   let name = "Steven Senegal";
   let create = await TestHelper.executePostCommand(CATEGORY_CREATE, { name: name });
@@ -38,7 +39,7 @@ test("HDS", async () => {
 
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "closed" });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "closed"});
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(CATEGORY_GET, { id: MONGO_ID });
@@ -52,10 +53,11 @@ test("A2 - jokes instance is closed", async () => {
 
 test("A3 - jokes instance is under construction", async () => {
   expect.assertions(3);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, {
+  let dtoIn = {
     uuAppProfileAuthorities: ".",
     state: "underConstruction"
-  });
+  };
+  await TestHelper.initAppWorkspace(dtoIn);
   await TestHelper.login("Readers");
   try {
     await TestHelper.executeGetCommand(CATEGORY_GET, { id: MONGO_ID });
@@ -67,7 +69,7 @@ test("A3 - jokes instance is under construction", async () => {
 });
 
 test("A4 - unsupported keys in dtoIn", async () => {
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(CATEGORY_CREATE, { name: "..." });
   joke = await TestHelper.executeGetCommand(CATEGORY_GET, { id: joke.id, whatThe: "heck" });
@@ -81,7 +83,7 @@ test("A4 - unsupported keys in dtoIn", async () => {
 
 test("A5 - invalid dtoIn", async () => {
   expect.assertions(2);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(CATEGORY_GET, {});
@@ -93,7 +95,7 @@ test("A5 - invalid dtoIn", async () => {
 
 test("A6 - category does not exist", async () => {
   expect.assertions(8);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(CATEGORY_GET, { id: MONGO_ID });

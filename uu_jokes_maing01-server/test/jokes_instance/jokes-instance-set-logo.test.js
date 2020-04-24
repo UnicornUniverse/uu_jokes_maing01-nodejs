@@ -1,7 +1,6 @@
 const { TestHelper } = require("uu_appg01_server-test");
 const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const {
-  JOKES_INSTANCE_INIT,
   JOKES_INSTANCE_SET_LOGO,
   getImageStream,
   mockDaoFactory
@@ -28,7 +27,7 @@ afterEach(() => {
 });
 
 test("HDS - create logo", async () => {
-  let result = await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  let result = await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
   expect(result.logos).toBeUndefined();
   // there are no binaries yet
   result = await TestHelper.executeGetCommand("uu-app-binarystore/listBinaries");
@@ -47,7 +46,7 @@ test("HDS - create logo", async () => {
 
 test("HDS - create logo type 3x2", async () => {
   let type = "3x2";
-  let result = await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  let result = await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
   expect(result.logos).toBeUndefined();
   // there are no binaries yet
   result = await TestHelper.executeGetCommand("uu-app-binarystore/listBinaries");
@@ -66,7 +65,7 @@ test("HDS - create logo type 3x2", async () => {
 
 test("HDS - update logo", async () => {
   let dtoIn = { uuAppProfileAuthorities: ".", logo: getImageStream() };
-  let result = await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, dtoIn);
+  let result = await TestHelper.initAppWorkspace(dtoIn);
   expect(result.logos).toBeTruthy();
   expect([DEFAULT_LOGO_TYPE]).toEqual(expect.arrayContaining(result.logos));
 
@@ -86,7 +85,7 @@ test("HDS - update logo", async () => {
 });
 
 test("A1 - unsupported keys", async () => {
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
 
   let dtoIn = { logo: getImageStream(), something: "something" };
   let result = await TestHelper.executePostCommand(JOKES_INSTANCE_SET_LOGO, dtoIn);
@@ -101,7 +100,7 @@ test("A1 - unsupported keys", async () => {
 
 test("A2 - invalid dtoIn", async () => {
   expect.assertions(2);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
 
   try {
     await TestHelper.executePostCommand(JOKES_INSTANCE_SET_LOGO, { state: "Czech Republic" });

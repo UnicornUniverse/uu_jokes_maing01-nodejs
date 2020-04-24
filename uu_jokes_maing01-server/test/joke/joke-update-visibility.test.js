@@ -1,7 +1,6 @@
 const { TestHelper } = require("uu_appg01_server-test");
 const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const {
-  JOKES_INSTANCE_INIT,
   JOKE_CREATE,
   JOKE_UPDATE_VISIBILITY,
   MONGO_ID,
@@ -28,7 +27,7 @@ afterEach(() => {
 });
 
 test("HDS", async () => {
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, {
     name: "She lives with a broken man, a cracked polystyrene man"
@@ -41,7 +40,7 @@ test("HDS", async () => {
 
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "closed" });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: ".", state: "closed" });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_UPDATE_VISIBILITY, {});
@@ -54,7 +53,7 @@ test("A2 - jokes instance is closed", async () => {
 });
 
 test("A3 - unsupported keys in dtoIn", async () => {
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "Predavkovali se smutnymi pribehy" });
   joke = await TestHelper.executePostCommand(JOKE_UPDATE_VISIBILITY, {
@@ -69,7 +68,7 @@ test("A3 - unsupported keys in dtoIn", async () => {
 
 test("A4 - invalid dtoIn", async () => {
   expect.assertions(2);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_UPDATE_VISIBILITY, {});

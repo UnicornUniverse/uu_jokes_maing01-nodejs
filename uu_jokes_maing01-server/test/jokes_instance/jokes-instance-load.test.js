@@ -1,5 +1,5 @@
 const { TestHelper } = require("uu_appg01_server-test");
-const { JOKES_INSTANCE_INIT, JOKES_INSTANCE_LOAD } = require("../general-test-hepler");
+const { JOKES_INSTANCE_LOAD } = require("../general-test-hepler");
 
 beforeAll(async () => {
   await TestHelper.setup();
@@ -17,7 +17,7 @@ beforeEach(async () => {
 });
 
 test("HDS", async () => {
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: "." });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
   await TestHelper.login("Authorities");
   let result = await TestHelper.executeGetCommand(JOKES_INSTANCE_LOAD);
   expect(result.status).toBe(200);
@@ -31,7 +31,7 @@ test("HDS", async () => {
 
 test("A2 - closed jokes instance", async () => {
   expect.assertions(4);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: ".", state: "closed" });
+  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "closed"});
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(JOKES_INSTANCE_LOAD);
@@ -45,10 +45,11 @@ test("A2 - closed jokes instance", async () => {
 
 test("A3 - jokes instance is under construction and caller is a Reader", async () => {
   expect.assertions(3);
-  await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, {
+  let dtoIn =  {
     uuAppProfileAuthorities: ".",
     state: "underConstruction"
-  });
+  };
+  await TestHelper.initAppWorkspace(dtoIn);
   await TestHelper.login("Readers");
   try {
     await TestHelper.executeGetCommand(JOKES_INSTANCE_LOAD);

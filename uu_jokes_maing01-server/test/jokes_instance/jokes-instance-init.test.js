@@ -1,6 +1,6 @@
 const { TestHelper } = require("uu_appg01_server-test");
 const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
-const { JOKES_INSTANCE_INIT, getImageStream, mockDaoFactory } = require("../general-test-hepler");
+const { getImageStream, mockDaoFactory } = require("../general-test-hepler");
 
 beforeAll(async () => {
   await TestHelper.setup(null, { authEnabled: false });
@@ -21,8 +21,8 @@ afterEach(() => {
 });
 
 test("HDS with minimal dtoIn and without logo", async () => {
-  let roleUri = "kedluben"; //almost any string can pass as uri
-  let result = await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, { uuAppProfileAuthorities: roleUri });
+  let roleGroupUri = "kedluben"; //almost any string can pass as uri
+  let result = await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: roleGroupUri });
   expect(result.status).toBe(200);
   let dtoOut = result;
   expect(dtoOut.state).toEqual("underConstruction");
@@ -39,7 +39,7 @@ test("HDS with minimal dtoIn and logo", async () => {
     uuAppProfileAuthorities: "kombajn",
     logo: getImageStream()
   };
-  let result = await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, dtoIn);
+  let result = await TestHelper.initAppWorkspace(dtoIn);
   expect(result.status).toBe(200);
   let dtoOut = result;
   expect(dtoOut.state).toEqual("underConstruction");
@@ -59,22 +59,21 @@ test("HDS with more complete dtoIn", async () => {
     name,
     state
   };
-  let result = await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, dtoIn);
+  let result = await TestHelper.initAppWorkspace(dtoIn);
   expect(result.status).toBe(200);
-  let dtoOut = result;
-  expect(dtoOut.state).toEqual(state);
-  expect(dtoOut.name).toEqual(name);
-  expect(dtoOut.logos).toBeUndefined();
+  expect(result.state).toEqual(state);
+  expect(result.name).toEqual(name);
+  expect(result.logos).toBeUndefined();
 });
 
 test("A1 - jokesInstance already exists", async () => {
   expect.assertions(3);
   let dtoIn = { uuAppProfileAuthorities: "mrkev" };
-  let result = await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, dtoIn);
+  let result = await TestHelper.initAppWorkspace(dtoIn);
   expect(result.status).toBe(200);
 
   try {
-    await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, dtoIn);
+    await TestHelper.initAppWorkspace(dtoIn);
   } catch (e) {
     expect(e.code).toEqual("uu-jokes-main/jokesInstance/init/jokesInstanceAlreadyInitialized");
     expect(e.message).toEqual("JokesInstance is already initialized.");
@@ -83,7 +82,7 @@ test("A1 - jokesInstance already exists", async () => {
 
 test("A2 - unsupported keys", async () => {
   let dtoIn = { uuAppProfileAuthorities: "mrkev", something: "something more" };
-  let result = await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, dtoIn);
+  let result = await TestHelper.initAppWorkspace(dtoIn);
   expect(result.status).toBe(200);
 
   let errorMap = result.uuAppErrorMap;
@@ -97,7 +96,7 @@ test("A2 - unsupported keys", async () => {
 test("A3 - invalid dtoIn", async () => {
   expect.assertions(2);
   try {
-    await TestHelper.executePostCommand(JOKES_INSTANCE_INIT, {});
+    await TestHelper.initAppWorkspace({});
   } catch (e) {
     expect(e.code).toEqual("uu-jokes-main/jokesInstance/init/invalidDtoIn");
     expect(e.message).toEqual("DtoIn is not valid.");
@@ -107,8 +106,8 @@ test("A3 - invalid dtoIn", async () => {
 test("A4 - setProfile fails", async () => {
   expect.assertions(2);
 
-  let { JokesInstanceAbl, SysProfileAbl } = mockAbl();
-  jest.spyOn(SysProfileAbl, "setAppProfile").mockImplementation(() => {
+  let { JokesInstanceAbl, SysAppProfileAbl } = mockAbl();
+  jest.spyOn(SysAppProfileAbl, "setAppProfile").mockImplementation(() => {
     throw new Error("kolobezka");
   });
 
@@ -126,8 +125,8 @@ test("A4 - setProfile fails", async () => {
 test("A5 - creating uuBinary fails", async () => {
   expect.assertions(2);
 
-  let { JokesInstanceAbl, SysProfileAbl, UuBinaryAbl } = mockAbl();
-  jest.spyOn(SysProfileAbl, "setAppProfile").mockImplementation(() => {});
+  let { JokesInstanceAbl, SysAppProfileAbl, UuBinaryAbl } = mockAbl();
+  jest.spyOn(SysAppProfileAbl, "setAppProfile").mockImplementation(() => {});
   jest.spyOn(UuBinaryAbl, "createBinary").mockImplementation(() => {
     throw new Error("kotrmelec");
   });
@@ -147,11 +146,11 @@ test("A5 - creating uuBinary fails", async () => {
 test("A6 - storing jokes instance fails", async () => {
   expect.assertions(2);
 
-  let { JokesInstanceAbl, SysProfileAbl, UuBinaryAbl } = mockAbl();
+  let { JokesInstanceAbl, SysAppProfileAbl, UuBinaryAbl } = mockAbl();
   JokesInstanceAbl.dao.create = () => {
     throw new ObjectStoreError("it failed");
   };
-  jest.spyOn(SysProfileAbl, "setAppProfile").mockImplementation(() => {});
+  jest.spyOn(SysAppProfileAbl, "setAppProfile").mockImplementation(() => {});
   jest.spyOn(UuBinaryAbl, "createBinary").mockImplementation(() => {});
 
   let dtoIn = {
@@ -168,8 +167,8 @@ test("A6 - storing jokes instance fails", async () => {
 function mockAbl() {
   mockDaoFactory();
   const JokesInstanceAbl = require("../../app/abl/jokes-instance-abl");
-  const SysProfileAbl = require("uu_appg01_server").Workspace.SysProfileModel;
-  const UuBinaryAbl = require("uu_appg01_binarystore-cmd").UuBinaryModel;
+  const SysAppProfileAbl = require("uu_appg01_server").Workspace.SysAppProfileAbl;
+  const UuBinaryAbl = require("uu_appg01_binarystore-cmd").UuBinaryAbl;
   JokesInstanceAbl.dao.getByAwid = () => null;
-  return { JokesInstanceAbl, SysProfileAbl, UuBinaryAbl };
+  return { JokesInstanceAbl, SysAppProfileAbl, UuBinaryAbl };
 }

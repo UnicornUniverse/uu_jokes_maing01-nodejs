@@ -171,8 +171,7 @@ class JokesInstanceAbl {
     this.metaDataCache = new LruCache({ maxAge: DEFAULTS.ttl });
   }
 
-  async init(uri, dtoIn, session) {
-    const awid = uri.getAwid();
+  async init(awid, dtoIn, session) {
     // hds 1
     let jokeInstance = await this.dao.getByAwid(awid);
     // A1
