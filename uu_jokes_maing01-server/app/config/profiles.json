@@ -39,14 +39,6 @@
         "sysStateList": ["active"],
         "profileList": ["Public"]
       },
-      "sys/appWorkspace/get": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
-      "sys/appWorkspace/init": {
-        "sysStateList": ["created", "active"],
-        "profileList": ["Authorities", "AwidLicenseOwner"]
-      },
       "jokesInstance/plugInBt": {
         "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]

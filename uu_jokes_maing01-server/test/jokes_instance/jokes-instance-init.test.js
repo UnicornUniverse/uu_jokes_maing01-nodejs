@@ -75,8 +75,8 @@ test("A1 - jokesInstance already exists", async () => {
   try {
     await TestHelper.initAppWorkspace(dtoIn);
   } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/jokesInstance/init/jokesInstanceAlreadyInitialized");
-    expect(e.message).toEqual("JokesInstance is already initialized.");
+    expect(e.code).toEqual("uu-app-workspace/forbiddenAwidSysState");
+    expect(e.paramMap.sysState).toEqual("active");
   }
 });
 
