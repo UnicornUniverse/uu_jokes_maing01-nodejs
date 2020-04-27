@@ -1,6 +1,9 @@
 const { TestHelper } = require("uu_appg01_server-test");
 const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
+const { Uri } = require("uu_appg01_server").Uri;
 const { getImageStream, mockDaoFactory } = require("../general-test-hepler");
+
+const mockUri = Uri.parse("http://localhost/uu-jokes-maing01/11111111111111111111111111111111/sys/appWorkspace/init");
 
 beforeAll(async () => {
   await TestHelper.setup(null, { authEnabled: false });
@@ -115,7 +118,7 @@ test("A4 - setProfile fails", async () => {
     uuAppProfileAuthorities: "bicykl"
   };
   try {
-    await JokesInstanceAbl.init("awid", dtoIn);
+    await JokesInstanceAbl.init(mockUri, dtoIn);
   } catch (e) {
     expect(e.message).toEqual("Create uuAppProfile failed.");
     expect(e.code).toEqual("uu-jokes-main/jokesInstance/init/sys/setProfileFailed");
@@ -136,7 +139,7 @@ test("A5 - creating uuBinary fails", async () => {
     logo: getImageStream()
   };
   try {
-    await JokesInstanceAbl.init("awid", dtoIn);
+    await JokesInstanceAbl.init(mockUri, dtoIn);
   } catch (e) {
     expect(e.message).toEqual("Creating uuBinary failed.");
     expect(e.code).toEqual("uu-jokes-main/jokesInstance/init/uuBinaryCreateFailed");
@@ -157,7 +160,7 @@ test("A6 - storing jokes instance fails", async () => {
     uuAppProfileAuthorities: "someUri"
   };
   try {
-    await JokesInstanceAbl.init("awid", dtoIn);
+    await JokesInstanceAbl.init(mockUri, dtoIn);
   } catch (e) {
     expect(e.message).toEqual("Create jokesInstance by jokesInstance DAO create failed.");
     expect(e.code).toEqual("uu-jokes-main/jokesInstance/init/jokesInstanceDaoCreateFailed");
