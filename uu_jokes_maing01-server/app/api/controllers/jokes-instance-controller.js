@@ -13,24 +13,24 @@ class JokesInstanceController {
     return JokesInstanceAbl.plugInBt(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession());
   }
   static load(ucEnv) {
-    return JokesInstanceAbl.load(ucEnv.uri.getAwid(), ucEnv.getAuthorizationResult());
+    return JokesInstanceAbl.load(ucEnv.getUri().getAwid(), ucEnv.getAuthorizationResult());
   }
 
   static update(ucEnv) {
-    return JokesInstanceAbl.update(ucEnv.uri.getAwid(), ucEnv.parameters);
+    return JokesInstanceAbl.update(ucEnv.getUri().getAwid(), ucEnv.parameters);
   }
 
   static setLogo(ucEnv) {
-    return JokesInstanceAbl.setLogo(ucEnv.uri.getAwid(), ucEnv.parameters);
+    return JokesInstanceAbl.setLogo(ucEnv.getUri().getAwid(), ucEnv.parameters);
   }
 
   static setIcons(ucEnv) {
-    return JokesInstanceAbl.setIcons(ucEnv.uri.getAwid(), ucEnv.parameters, ucEnv.getUri());
+    return JokesInstanceAbl.setIcons(ucEnv.getUri().getAwid(), ucEnv.parameters, ucEnv.getUri());
   }
 
   static getProductInfo(ucEnv) {
     ucEnv.getResponse().setHeaders({ "Cache-Control": CACHE_VALUE });
-    return JokesInstanceAbl.getProductInfo(ucEnv.uri.getAwid());
+    return JokesInstanceAbl.getProductInfo(ucEnv.getUri().getAwid());
   }
 
   static async getProductLogo(ucEnv) {
@@ -47,7 +47,7 @@ class JokesInstanceController {
 
   static async getIndex(ucEnv) {
     ucEnv.getResponse().setHeaders({ "Cache-Control": CACHE_VALUE });
-    return JokesInstanceAbl.getIndex(ucEnv.uri.getAwid(), ucEnv.getUri());
+    return JokesInstanceAbl.getIndex(ucEnv.getUri().getAwid(), ucEnv.getUri());
   }
 }
 
