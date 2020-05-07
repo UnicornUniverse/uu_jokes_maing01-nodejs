@@ -4,7 +4,7 @@
     "primary": "mongodb://127.0.0.1:27017/JokesMainPrimary5x",
     "binary": "mongodb://127.0.0.1:27017/JokesMainBinary5x"
   },
-  "asid_license_owner_list": ["15-3374-1", "12-470-1", "12-5696-1", "8670-3464-1"],
+  "asidLicenseOwnerList": ["15-3374-1", "12-470-1", "12-5696-1", "8670-3464-1"],
   "asid": "11111111111111111111111111111111",
   "log_level": "INFO",
   "fls_base_uri": "https://uuapp.plus4u.net/uu-flsg01-main/8014eb79e8184ebb8942d96ce37b61b4/",
