@@ -9,7 +9,7 @@
     "license": "License Commercial",
     "asidRequired": true,
     "awidCount": 1,
-    "resourcePoolUri": "ues:DEV0116-BT:FAMILY_UUSERVERKIT_FAT_RESOURCEPOOL_AWE",
+    "resourcePoolUri": "ues:UUSERVERKIT-BT:FAMILY_UUSERVERKIT_FAT_RESOURCEPOOL_AWE",
     "targetSlot": "PRODUCTION",
     "uuAppNodeSetMap": {
       "CMD": {
@@ -49,11 +49,15 @@
         "25-2295-1",
         "12-470-1",
         "1-2796-1",
-        "12-5696-1"
+        "12-5696-1",
+        "7777-1"
       ]
     }
   },
   "uuSubAppInstance": {
+    "uuEeMap": {
+      "asidOwner": "25-2295-1"
+    },
     "awidList": [
       {
         "awid": "d368ef2c3b79463383ea64f79eccab04",

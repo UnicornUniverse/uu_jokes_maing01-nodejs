@@ -6,6 +6,7 @@ import "uu5g04-bricks";
 import "uu5g04-forms";
 import "uu5codekitg01";
 import Plus4U5 from "uu_plus4u5g01";
+import UuContentKit from "uu_contentkitg01";
 
 import Calls from "calls";
 import { dig } from "../helpers/object-utils";
@@ -15,7 +16,7 @@ import LSI from "./control-panel-lsi";
 
 export const ControlPanel = UU5.Common.VisualComponent.create({
   //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin, UU5.Common.PureRenderMixin],
+  mixins: [UU5.Common.BaseMixin, UU5.Common.PureRenderMixin, UU5.Common.RouteMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
@@ -63,14 +64,21 @@ export const ControlPanel = UU5.Common.VisualComponent.create({
               />
             );
           } else if (isLoading) {
-            return <UU5.Bricks.Loading />;
-          } else {
+            return <UU5.Bricks.Loading/>;
+          } else if (data.artifactUri) {
             const url = new URL(data.artifactUri);
             return (
               <UuTerritory.ArtifactIfc.Bricks.PermissionSettings
+                style={{ marginLeft: "30px", marginRight: "30px", width: "initial" }}
                 territoryBaseUri={url.href.split("?")[0]}
                 artifactId={url.searchParams.get("id")}
               />
+            );
+          } else {
+            return (
+              <UuContentKit.Bricks.BlockDanger>
+                {this.getLsiComponent("btNotConnected")}
+              </UuContentKit.Bricks.BlockDanger>
             );
           }
         }}
