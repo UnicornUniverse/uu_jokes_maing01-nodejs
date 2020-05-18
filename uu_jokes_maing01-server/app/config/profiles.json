@@ -113,14 +113,6 @@
       "uu-app-binarystore/listBinaries": {
         "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives"]
-      },
-      "sys/listAuditLogRecordsByTimeAndSpp": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
-      "sys/listMyAuditLogRecordsByTime": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities", "Executives", "Readers"]
       }
     }
   }
