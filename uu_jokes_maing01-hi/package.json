@@ -20,7 +20,7 @@
   },
   "uuBuildSettings": {},
   "devDependencies": {
-    "uu_appg01_devkit": "^2.0.0"
+    "uu_appg01_devkit": "^3.0.0"
   },
   "engines": {
     "node": ">=8.9.0"
