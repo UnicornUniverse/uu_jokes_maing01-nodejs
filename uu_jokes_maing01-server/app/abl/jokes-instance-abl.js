@@ -6,7 +6,7 @@ const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const { LoggerFactory } = require("uu_appg01_server").Logging;
 const { UuBinaryErrors, UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
-const { SysAppProfileAbl, SysAppWorkspaceAbl, AppClientTokenService, SysAppClientTokenAbl } = require("uu_appg01_server").Workspace;
+const { SysAppProfileAbl, AppClientTokenService, AppWorkspace } = require("uu_appg01_server").Workspace;
 
 const { UriBuilder } = require("uu_appg01_server").Uri;
 const { AppClient } = require("uu_appg01_server");
@@ -221,8 +221,6 @@ class JokesInstanceAbl {
       const location = uuBtUriBuilder.getParameters().id;
       const uuBtBaseUri = uuBtUriBuilder.toUri().getBaseUri();
 
-      await SysAppClientTokenAbl.initKeys(uri.getAwid());
-
       const createAwscDtoIn = {
         name: dtoIn.name,
         typeCode: "uu-jokes-maing01",
@@ -250,7 +248,7 @@ class JokesInstanceAbl {
 
       const artifactUri = uuBtUriBuilder.setUseCase(null).clearParameters().setParameter("id", awscId).toUri();
 
-      await SysAppWorkspaceAbl.connectArtifact(
+      await AppWorkspace.connectArtifact(
         baseUri,
         {
           artifactUri: artifactUri.toString(),
@@ -332,7 +330,7 @@ class JokesInstanceAbl {
 
     const artifactUri = uuBtUriBuilder.setUseCase(null).clearParameters().setParameter("id", awscDtoOut.id).toUri();
 
-    await SysAppWorkspaceAbl.connectArtifact(
+    await AppWorkspace.connectArtifact(
       baseUri,
       {
         artifactUri: artifactUri.toString()

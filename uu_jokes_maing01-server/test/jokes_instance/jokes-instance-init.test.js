@@ -79,7 +79,7 @@ test("A1 - jokesInstance already exists", async () => {
     await TestHelper.initAppWorkspace(dtoIn);
   } catch (e) {
     expect(e.code).toEqual("uu-app-workspace/forbiddenAwidSysState");
-    expect(e.paramMap.sysState).toEqual("active");
+    expect(e.paramMap.currentSysState).toEqual("active");
   }
 });
 
