@@ -2,160 +2,103 @@
  * Server calls of application client.
  */
 import { Uri } from "uu_appg01_core";
-import { Client } from "uu_appg01";
 import Plus4U5 from "uu_plus4u5g01";
-import * as UU5 from "uu5g04";
+import UU5 from "uu5g04";
 
 let Calls = {
   /** URL containing app base, e.g. "https://uuos9.plus4u.net/vnd-app/tid-awid/". */
   APP_BASE_URI: location.protocol + "//" + location.host + UU5.Environment.getAppBasePath(),
 
-  call(method, url, dtoIn, clientOptions) {
-    return Plus4U5.Common.Calls.call(method, url, dtoIn, clientOptions);
+  async call(method, url, dtoIn, clientOptions) {
+    let response = await Plus4U5.Common.Calls.call(method, url, dtoIn, clientOptions);
+    return response.data;
   },
 
-  loadApp(dtoInData={}) {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("jokesInstance/load");
-      Calls.call("get", commandUri, { data: dtoInData, done: resolve, fail: reject });
-    });
+  loadApp(dtoInData) {
+    let commandUri = Calls.getCommandUri("jokesInstance/load");
+    return Calls.call("get", commandUri, dtoInData);
   },
 
   loadIdentityProfiles() {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("sys/appWorkspace/initUve");
-      Calls.call("get", commandUri, { data: null, done: resolve, fail: reject });
-    });
+    let commandUri = Calls.getCommandUri("sys/appWorkspace/initUve");
+    return Calls.call("get", commandUri);
   },
 
   initWorkspace(dtoInData) {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("sys/appWorkspace/init");
-      Calls.call("post", commandUri, {
-        data: dtoInData,
-        done: data => resolve({ ...data}),
-        fail: reject
-      });
-    });
+    let commandUri = Calls.getCommandUri("sys/appWorkspace/init");
+    return Calls.call("post", commandUri, dtoInData);
   },
 
   getWorkspace(dtoInData) {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("sys/appWorkspace/get");
-      Calls.call("get", commandUri, {
-        data: dtoInData,
-        done: data => resolve({ ...data }),
-        fail: reject
-      });
-    });
+    let commandUri = Calls.getCommandUri("sys/appWorkspace/get");
+    return Calls.call("get", commandUri, dtoInData);
   },
 
   categoryList(dtoInData) {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("category/list");
-      Calls.call("get", commandUri, { data: dtoInData, done: resolve, fail: reject });
-    });
+    let commandUri = Calls.getCommandUri("category/list");
+    return Calls.call("get", commandUri, dtoInData);
   },
 
-  categoryCreate(dtoInData) {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("category/create");
-      Calls.call("post", commandUri, {
-        data: dtoInData,
-        done: data => resolve({ ...data, inProgress: false }),
-        fail: reject
-      });
-    });
+  async categoryCreate(dtoInData) {
+    let commandUri = Calls.getCommandUri("category/create");
+    let data = await Calls.call("post", commandUri, dtoInData);
+    return { ...data, inProgress: false };
   },
 
-  categoryUpdate(id, dtoInData) {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("category/update");
-      Calls.call("post", commandUri, {
-        data: dtoInData,
-        done: data => resolve({ ...data, inProgress: false }),
-        fail: reject
-      });
-    });
+  async categoryUpdate(id, dtoInData) {
+    let commandUri = Calls.getCommandUri("category/update");
+    let data = await Calls.call("post", commandUri, dtoInData);
+    return { ...data, inProgress: false };
   },
 
-  categoryDelete(id, { forceDelete }) {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("category/delete");
-      Calls.call("post", commandUri, {
-        data: { id, forceDelete },
-        done: data => resolve({ ...data, inProgress: false }),
-        fail: reject
-      });
-    });
+  async categoryDelete(id, { forceDelete }) {
+    let commandUri = Calls.getCommandUri("category/delete");
+    let data = await Calls.call("post", commandUri, { id, forceDelete });
+    return { ...data, inProgress: false };
   },
 
   jokeList(dtoInData) {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("joke/list");
-      Calls.call("get", commandUri, { data: dtoInData, done: resolve, fail: reject });
-    });
+    let commandUri = Calls.getCommandUri("joke/list");
+    return Calls.call("get", commandUri, dtoInData);
   },
 
-  jokeCreate(dtoInData) {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("joke/create");
-      Calls.call("post", commandUri, {
-        data: dtoInData,
-        done: data => resolve({ ...data, inProgress: false }),
-        fail: reject
-      });
-    });
+  async jokeCreate(dtoInData) {
+    let commandUri = Calls.getCommandUri("joke/create");
+    let data = await Calls.call("post", commandUri, dtoInData);
+    return { ...data, inProgress: false };
   },
 
   jokeDelete(id) {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("joke/delete");
-      Calls.call("post", commandUri, { data: { id }, done: resolve, fail: reject });
-    });
+    let commandUri = Calls.getCommandUri("joke/delete");
+    return Calls.call("post", commandUri, { id });
   },
 
-  updateJoke(id, dtoInData) {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("joke/update");
-      Calls.call("post", commandUri, {
-        data: dtoInData,
-        done: data => resolve({ ...data, inProgress: false }),
-        fail: reject
-      });
-    });
+  async updateJoke(id, dtoInData) {
+    let commandUri = Calls.getCommandUri("joke/update");
+    let data = await Calls.call("post", commandUri, dtoInData);
+    return { ...data, inProgress: false };
   },
 
-  updateJokeRating(id, dtoInData) {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("joke/addRating");
-      Calls.call("post", commandUri, {
-        data: dtoInData,
-        done: data => resolve({ ...data, inProgress: false }),
-        fail: reject
-      });
-    });
+  async updateJokeRating(id, dtoInData) {
+    let commandUri = Calls.getCommandUri("joke/addRating");
+    let data = await Calls.call("post", commandUri, dtoInData);
+    return { ...data, inProgress: false };
   },
 
-  updateJokeVisibility(id, dtoInData) {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("joke/updateVisibility");
-      Calls.call("post", commandUri, {
-        data: dtoInData,
-        done: data => resolve({ ...data, inProgress: false }),
-        fail: reject
-      });
-    });
+  async updateJokeVisibility(id, dtoInData) {
+    let commandUri = Calls.getCommandUri("joke/updateVisibility");
+    let data = await Calls.call("post", commandUri, dtoInData);
+    return { ...data, inProgress: false };
   },
 
   uploadFile(dtoIn) {
     let commandUri = Calls.getCommandUri("uu-app-binarystore/createBinary");
-    Calls.call("post", commandUri, dtoIn);
+    return Calls.call("post", commandUri, dtoIn);
   },
 
   deleteFile(dtoIn) {
     let commandUri = Calls.getCommandUri("uu-app-binarystore/deleteBinary");
-    Calls.call("post", commandUri, dtoIn);
+    return Calls.call("post", commandUri, dtoIn);
   },
 
   /*
@@ -199,9 +142,5 @@ let Calls = {
     return targetUriStr;
   }
 };
-
-function isIE() {
-  return !!window.MSInputMethodContext && !!document.documentMode;
-}
 
 export default Calls;

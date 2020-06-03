@@ -81,8 +81,8 @@ const SpaAuthenticated = UU5.Common.VisualComponent.create({
     return content;
   },
 
-  _handleLoad(data) {
-    return Calls.loadApp(data).then(data => {
+  _handleLoad(dtoIn) {
+    return Calls.loadApp(dtoIn.data).then(data => {
       // setup authorization service in Environment to access it across the application
       UU5.Environment.App.authorization = new Authorization(data.authorizedProfileList);
       return data;

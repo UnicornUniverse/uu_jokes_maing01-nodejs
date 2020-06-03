@@ -12,7 +12,8 @@ const appAssetsBaseUri = (
  */
 Calls.call = (method, url, dtoIn) => {
   let mockUrl = appAssetsBaseUri + "mock/data/" + url + ".json";
-  HttpClient.get(mockUrl, dtoIn.done, dtoIn.fail);
+  let responsePromise = HttpClient.get(mockUrl);
+  return dtoIn != null ? responsePromise.then(dtoIn.done, dtoIn.fail) : responsePromise;
 };
 
 Calls.getCommandUri = (aUseCase) => {

@@ -50,10 +50,8 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _handleLoad(data) {
-    return Calls.loadIdentityProfiles(data).then(data => {
-      return data;
-    });
+  _handleLoad(dtoIn) {
+    return Calls.loadIdentityProfiles(dtoIn.data);
   },
   _initWorkspace() {
     Calls.initWorkspace(JSON.parse(this.form.getValue())).then(
