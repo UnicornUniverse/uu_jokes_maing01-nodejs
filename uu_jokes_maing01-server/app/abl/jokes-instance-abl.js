@@ -3,7 +3,7 @@
 const { LruCache } = require("uu_appg01_server").Utils;
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
-const { ValidationHelper } = require("uu_appg01_server").AppServer;
+const { ValidationHelper, UveLoader } = require("uu_appg01_server").AppServer;
 const { LoggerFactory } = require("uu_appg01_server").Logging;
 const { UuBinaryErrors, UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
 const { SysAppProfileAbl, AppClientTokenService, AppWorkspace } = require("uu_appg01_server").Workspace;
@@ -703,13 +703,12 @@ class JokesInstanceAbl {
   }
 
   async getIndex(awid, uri) {
-    let readFilePromise = new Promise((resolve, reject) => {
-      return fs.readFile(Path.resolve(`./public/index.html`), "utf8", (err, contents) => {
-        if (err) throw new Errors.GetIndex.UnableToReadHtmlFile(err);
-        resolve(contents);
-      });
-    });
-    let indexHtml = await readFilePromise;
+    let indexHtml;
+    try {
+      indexHtml = await UveLoader.load("index.html")
+    } catch (e) {
+      throw new Errors.GetIndex.UnableToReadHtmlFile(e);
+    }
 
     let uveMetaData = this.metaDataCache.get(awid);
     if (!uveMetaData) {
