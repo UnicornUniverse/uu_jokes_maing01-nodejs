@@ -9,7 +9,7 @@
     "license": "License Commercial",
     "asidRequired": true,
     "awidCount": 1,
-    "resourcePoolUri": "ues:DEV0114-BT[84723967990073193]:AWE_DEMO[5c90a9904f1d8a75778df379]",
+    "resourcePoolUri": "ues:UUSERVERKIT-BT:FAMILY_UUSERVERKIT_FAT_RESOURCEPOOL_AWE",
     "targetSlot": "PRODUCTION",
     "uuAppNodeSetMap": {
       "CMD": {
@@ -18,8 +18,8 @@
           "min": 1,
           "max": 1
         },
-        "appPackUri": "ues:UU-BT:UU.JOKES.MAING01/APPBOX-2.2.0-DEV:UU.JOKES.MAING01/CMD-PACK",
-        "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.3"
+        "appPackUri": "ues:UU-BT:UU.JOKES.MAING01/APPBOX-2.2.3-dev:UU.JOKES.MAING01/CMD-PACK",
+        "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.4"
       }
     },
     "uuAppObjectStoreMap": {
@@ -44,36 +44,33 @@
       "fls_base_uri": "https://uuapp.plus4u.net/uu-flsg01-main/8014eb79e8184ebb8942d96ce37b61b4/",
       "term_of_use_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=license",
       "technical_documentation_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book",
-      "product_code": "uuJokes",
-      "product_portal_uri": "ues:UU-BT:PRD.UU-JOKESG01/PORTAL"
+      "product_code": "support/uuJokes",
+      "uuapp.oidc.appserver.oidcabl.log_level": "debug",
+      "uu_app_auditlog_max_record_count": 30,
+      "uu_app_auditlog_min_record_count": 20,
+      "uu_app_auditlog_record_limit_check_after": 10,
+      "uu_app_auditlog_app_logstore_uri": "https://uuapp.plus4u.net/uu-applogstore-maing01/68db014401c9421dba05c9d684f355fa",
+      "uu_app_auditlog_app_logstore_transfer_after_count": 5
     }
   },
   "uuSubAppInstance": {
-    "asid": "1ebf79d54d2e4e91a58b1376117fa623",
-    "asidOwner": "23-8392-1",
     "awidList": [
       {
-        "awid": "4ef6a7b01b5942ecbfb925b249af987f",
-        "awidOwner": "23-8393-1"
-      },
-      {
-        "awid": "415f0820c0e54f14962611fda4586e53",
-        "awidOwner": "24-9442-1"
-      },
-      {
-        "awid": "a471f66a66184280a7d3f5d079e9708e",
-        "awidOwner": "24-9443-1"
+        "awid": "76d6858f1af643768839c43576b48f1b",
+        "awidOwner": "25-5729-1"
       }
     ],
     "uuAppObjectStoreMap": {
       "OSID_1": {
-        "osid": "9607d315da254e2db2c5ac1c39371233"
+        "osid": "5533697f47ab4d60a04df0f0e4640997"
       }
     },
     "uuAppBinaryStoreMap": {
       "BSID_1": {
-        "bsid": "9b8559e348fa4df0851fb5e1896af4d7"
+        "bsid": "af2a3178036e4c93bb46bac912dc3335"
       }
-    }
+    },
+    "asid": "4107b6fa45be4f12a46f5b80836f9851",
+    "asidOwner": "25-5728-1"
   }
 }

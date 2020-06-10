@@ -106,17 +106,6 @@
         "realization": "api/controllers/CategoryController.list",
         "httpMethod": "GET",
         "type": "CMD"
-      },
-
-      "getProductInfo": {
-        "realization": "api/controllers/JokesInstanceController.getProductInfo",
-        "httpMethod": "GET",
-        "type": "CMD"
-      },
-      "getProductLogo": {
-        "realization": "api/controllers/JokesInstanceController.getProductLogo",
-        "httpMethod": "GET",
-        "type": "CMD"
       }
     }
   }

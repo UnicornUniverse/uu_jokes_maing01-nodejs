@@ -59,7 +59,10 @@
       "uu-app-binarystore/listBinaries": ["Authorities", "Executives"],
 
       "sys/listAuditLogRecordsByTimeAndSpp": ["Authorities", "AwidOwner"],
-      "sys/listMyAuditLogRecordsByTime": ["Authorities", "AwidOwner", "Executives", "Readers"]
+      "sys/listMyAuditLogRecordsByTime": ["Authorities", "AwidOwner", "Executives", "Readers"],
+
+      "sys/appWorkspace/productInfo/set": ["AwidOwner", "Authorities"],
+      "sys/appWorkspace/productLogo/set": ["AwidOwner", "Authorities"]
     }
   }
 }

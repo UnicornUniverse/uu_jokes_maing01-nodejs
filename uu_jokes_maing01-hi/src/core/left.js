@@ -100,7 +100,7 @@ export const Left = UU5.Common.VisualComponent.create({
   },
 
   _getImage() {
-    let imageUrl = Uri.getBinaryUrl("16x9");
+    let imageUrl = Uri.getProductLogo("16x9");
     return <UU5.Bricks.Image src={imageUrl} authenticate />;
   },
   //@@viewOff:private

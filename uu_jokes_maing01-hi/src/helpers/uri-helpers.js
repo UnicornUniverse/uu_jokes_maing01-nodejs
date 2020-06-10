@@ -17,6 +17,13 @@ const UriHelpers = {
     });
   },
 
+  getProductLogo(type) {
+    return UriHelpers.buildUrl({
+      useCase: "sys/appWorkspace/productLogo/get",
+      parameters: { type, language: "en" }
+    });
+  },
+
   buildUrl(data) {
     let url = UU5.Common.Url.parse();
     if (data.useCase) {
