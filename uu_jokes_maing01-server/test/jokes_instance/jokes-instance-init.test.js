@@ -109,8 +109,8 @@ test("A3 - invalid dtoIn", async () => {
 test("A4 - setProfile fails", async () => {
   expect.assertions(2);
 
-  let { JokesInstanceAbl, SysAppProfileAbl } = mockAbl();
-  jest.spyOn(SysAppProfileAbl, "setAppProfile").mockImplementation(() => {
+  let { JokesInstanceAbl, AppProfile } = mockAbl();
+  jest.spyOn(AppProfile, "set").mockImplementation(() => {
     throw new Error("kolobezka");
   });
 
@@ -128,8 +128,8 @@ test("A4 - setProfile fails", async () => {
 test("A5 - creating uuBinary fails", async () => {
   expect.assertions(2);
 
-  let { JokesInstanceAbl, SysAppProfileAbl, UuBinaryAbl } = mockAbl();
-  jest.spyOn(SysAppProfileAbl, "setAppProfile").mockImplementation(() => {});
+  let { JokesInstanceAbl, AppProfile, UuBinaryAbl } = mockAbl();
+  jest.spyOn(AppProfile, "set").mockImplementation(() => {});
   jest.spyOn(UuBinaryAbl, "createBinary").mockImplementation(() => {
     throw new Error("kotrmelec");
   });
@@ -149,11 +149,11 @@ test("A5 - creating uuBinary fails", async () => {
 test("A6 - storing jokes instance fails", async () => {
   expect.assertions(2);
 
-  let { JokesInstanceAbl, SysAppProfileAbl, UuBinaryAbl } = mockAbl();
+  let { JokesInstanceAbl, AppProfile, UuBinaryAbl } = mockAbl();
   JokesInstanceAbl.dao.create = () => {
     throw new ObjectStoreError("it failed");
   };
-  jest.spyOn(SysAppProfileAbl, "setAppProfile").mockImplementation(() => {});
+  jest.spyOn(AppProfile, "set").mockImplementation(() => {});
   jest.spyOn(UuBinaryAbl, "createBinary").mockImplementation(() => {});
 
   let dtoIn = {
@@ -170,8 +170,8 @@ test("A6 - storing jokes instance fails", async () => {
 function mockAbl() {
   mockDaoFactory();
   const JokesInstanceAbl = require("../../app/abl/jokes-instance-abl");
-  const SysAppProfileAbl = require("uu_appg01_server").Workspace.SysAppProfileAbl;
+  const AppProfile = require("uu_appg01_server").Workspace.AppProfile;
   const UuBinaryAbl = require("uu_appg01_binarystore-cmd").UuBinaryAbl;
   JokesInstanceAbl.dao.getByAwid = () => null;
-  return { JokesInstanceAbl, SysAppProfileAbl, UuBinaryAbl };
+  return { JokesInstanceAbl, AppProfile, UuBinaryAbl };
 }

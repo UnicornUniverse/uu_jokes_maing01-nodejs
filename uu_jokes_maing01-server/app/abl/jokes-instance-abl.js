@@ -6,7 +6,7 @@ const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore
 const { ValidationHelper, UveLoader } = require("uu_appg01_server").AppServer;
 const { LoggerFactory } = require("uu_appg01_server").Logging;
 const { UuBinaryErrors, UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
-const { SysAppProfileAbl, AppClientTokenService, AppWorkspace } = require("uu_appg01_server").Workspace;
+const { AppProfile, AppClientTokenService, AppWorkspace } = require("uu_appg01_server").Workspace;
 
 const { UriBuilder } = require("uu_appg01_server").Uri;
 const { AppClient } = require("uu_appg01_server");
@@ -261,7 +261,7 @@ class JokesInstanceAbl {
     // hds 7
     if (dtoIn.uuAppProfileAuthorities) {
       try {
-        await SysAppProfileAbl.setAppProfile(awid, { appProfile: AUTHORITIES, roleGroupUri: dtoIn.uuAppProfileAuthorities });
+        await AppProfile.set(awid, AUTHORITIES, dtoIn.uuAppProfileAuthorities);
       } catch (e) {
         // A7
         throw new Errors.Init.SysSetProfileFailed({ uuAppErrorMap }, { role: dtoIn.uuAppProfileAuthorities }, e);
