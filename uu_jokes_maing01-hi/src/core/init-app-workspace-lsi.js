@@ -9,6 +9,7 @@ export default {
   },
 
   notAuthorizedForInit: {
-    en: "Application uuJokes is running but was not initialized yet and you do not have sufficient rights to do so. You can buy your own awid here."
-  }
+    cs: "Aplikace běží, ale ještě nebyla inicializována a nemáte práva ji inicializovat.",
+    en: "The application is running but it was not initialized yet and you do not have sufficient rights to do so.",
+  },
 };

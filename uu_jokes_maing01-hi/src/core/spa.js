@@ -8,7 +8,6 @@ import "uu_plus4u5g01-app";
 import { Session } from "uu_oidcg01";
 import Config from "./config/config.js";
 import SpaAuthenticated from "./spa-authenticated.js";
-import SpaNotAuthenticated from "./spa-not-authenticated.js";
 
 import "./spa.less";
 import InitAppWorkspace from "./init-app-workspace";
@@ -53,7 +52,7 @@ const Spa = UU5.Common.VisualComponent.create({
         <UU5.Common.Identity>
           {({ identity }) => {
             let child;
-            if (identity) {
+            if (identity && identity.uuIdentity) {
               child = (
                 <UU5.Common.Router
                   route=""
@@ -63,8 +62,8 @@ const Spa = UU5.Common.VisualComponent.create({
                     "sys/appWorkspace/initUve": {component: <SpaAuthenticated {...this.getMainPropsToPass()} customComp={<InitAppWorkspace/>} />}
                   }}
                 />);
-            } else if (identity === null) {
-              child = <SpaNotAuthenticated {...this.getMainPropsToPass()} />;
+            } else if (identity) {
+              child = <Plus4U5.App.SpaNotAuthenticated {...this.getMainPropsToPass()} />;
             } else {
               child = <Plus4U5.App.SpaLoading {...this.getMainPropsToPass()}>uuJokes</Plus4U5.App.SpaLoading>;
             }

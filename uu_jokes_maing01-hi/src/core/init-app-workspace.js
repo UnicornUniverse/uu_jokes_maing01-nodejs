@@ -122,13 +122,9 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
               );
             } else {
               return (
-                <SpaUnauthorized
-                  {...this.getMainPropsToPass()}
-                  error={data.dtoOut}
-                  errorData={dig(data, "dtoOut", "uuAppErrorMap")}
-                  content={this.getLsiComponent("notAuthorizedForInit")}
-                  icon="uu5-alert-circle"
-                />
+                <SpaUnauthorized {...this.getMainPropsToPass()}>
+                  <UU5.Bricks.Lsi lsi={LSI.notAuthorizedForInit} />
+                </SpaUnauthorized>
               );
             }
           }
