@@ -8,7 +8,7 @@ import { dig } from "../helpers/object-utils";
 import Plus4U5 from "uu_plus4u5g01";
 import UuContentKit from "uu_contentkitg01";
 import LSI from "./init-app-workspace-lsi";
-import SpaUnauthorized from "./spa-unauthorized";
+import SpaUnauthorizedInit from "./spa-unauthorized-init";
 import Config from "./config/config";
 
 import "./init-app-workspace.less";
@@ -27,9 +27,9 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
     classNames: {
       main: Config.CSS + "init-app-workspace",
       form: Config.CSS + "init-app-workspace-form",
-      button: Config.CSS + "init-app-workspace-button"
+      button: Config.CSS + "init-app-workspace-button",
     },
-    lsi: LSI
+    lsi: LSI,
   },
   //@@viewOff:statics
 
@@ -55,7 +55,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
   },
   _initWorkspace() {
     Calls.initWorkspace(JSON.parse(this.form.getValue())).then(
-      jokesInstance => {
+      (jokesInstance) => {
         const ucIndex = window.location.href.indexOf("sys/appWorkspace/initUve");
         let redirectPath = window.location.href.slice(0, ucIndex);
         if (jokesInstance.uuBtLocationUri) {
@@ -68,7 +68,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
         }
         window.location.replace(redirectPath);
       },
-      error => this.setState({ errorData: error.dtoOut })
+      (error) => this.setState({ errorData: error.dtoOut })
     );
   },
   _storeFormRef(ref) {
@@ -121,11 +121,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                 </div>
               );
             } else {
-              return (
-                <SpaUnauthorized {...this.getMainPropsToPass()}>
-                  <UU5.Bricks.Lsi lsi={LSI.notAuthorizedForInit} />
-                </SpaUnauthorized>
-              );
+              return <SpaUnauthorizedInit {...this.getMainPropsToPass()} />;
             }
           }
         }}
@@ -137,7 +133,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
   //@@viewOn:render
   render() {
     return this._getChild();
-  }
+  },
   //@@viewOff:render
 });
 

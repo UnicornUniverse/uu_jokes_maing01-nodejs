@@ -16,7 +16,8 @@
     "uu5codekitg01": "^1.0.0",
     "uu_contentkitg01": "^2.0.0",
     "uu_territoryg01": "^1.0.0",
-    "uu5richtextg01": "^1.0.0"
+    "uu5richtextg01": "^1.0.0",
+    "uu_productcatalogueg01": "^1.0.0"
   },
   "uuBuildSettings": {},
   "devDependencies": {
