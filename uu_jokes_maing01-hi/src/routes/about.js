@@ -170,8 +170,8 @@ export const About = UU5.Common.VisualComponent.create({
                     <Plus4U5.App.Licence
                       textAlign="left"
                       organisation={{
-                        name: data.organization.name,
-                        uri: data.organization.web
+                        name: data.organization ? data.organization.name : "Unicorn a.s.",
+                        uri: data.organization ? data.organization.web : "https://unicorn.com/"
                       }}
                       authorities={this._getAuthorities(data.userList)}
                       awid={<UU5.Bricks.Link content={awid}/>}
