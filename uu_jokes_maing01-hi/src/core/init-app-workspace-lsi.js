@@ -5,8 +5,10 @@ export default {
   },
 
   appNotInitialized: {
-    en: `<uu5string/>Your uuApp is running, but requires initialization. If you need help with filling up this form, see 
-<UU5.Bricks.Link target="_blank" style="color: inherit" href="https://plus4u.net/ues/sesm?SessFree=ues:VPH-BT:101-1">Documentation</UU5.Bricks.Link>`
+    en: `<uu5string/>Your uuApp is running, but requires initialization. If you need help with filling up this form, see
+<UU5.Bricks.Link target="_blank" style="color: inherit" href="https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=uucmdinit">Documentation</UU5.Bricks.Link>`,
+    cs: `<uu5string/>Vaše uuApp běží, ale vyžaduje inicializaci. Pokud potřebujete pomoci s vyplněním tohoto formuláře, podívejte se do
+<UU5.Bricks.Link target="_blank" style="color: inherit" href="https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=uucmdinit">Dokumentace</UU5.Bricks.Link>`
   },
 
   notAuthorizedForInit: {
@@ -15,32 +17,30 @@ export default {
   },
 
   labelAuthorizationStrategy: {
-    cs: "",
+    cs: "Autorizační strategie",
     en: "Authorization strategy"
   },
 
   labelUuBtLocationUri: {
-    cs: "",
     en: "uuBtLocationUri"
   },
 
   labelUuAppProfileAuthorities: {
-    cs: "",
     en: "uuAppProfileAuthorities"
   },
 
   labelName: {
-    cs: "",
+    cs: "Název",
     en: "Name"
   },
 
   labelSysState: {
-    cs: "",
+    cs: "Stav",
     en: "State"
   },
 
   labelLogo: {
-    cs: "",
+    cs: "Logo",
     en: "Logo"
   },
 
