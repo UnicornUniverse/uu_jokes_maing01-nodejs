@@ -27,7 +27,8 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
     classNames: {
       main: Config.CSS + "init-app-workspace",
       form: Config.CSS + "init-app-workspace-form",
-      button: Config.CSS + "init-app-workspace-button",
+      formControls: Config.CSS + "init-app-workspace-form-controls",
+      textBlock: Config.CSS + "init-app-workspace-textblock"
     },
     lsi: LSI,
   },
@@ -41,6 +42,13 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
   //@@viewOff:getDefaultProps
 
   //@@viewOn:reactLifeCycle
+  getInitialState() {
+    return {
+      initType: "bt",
+      form: {
+      }
+    }
+  },
   //@@viewOff:reactLifeCycle
 
   //@@viewOn:interface
@@ -51,29 +59,16 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   _handleLoad(dtoIn) {
-    return Calls.loadIdentityProfiles(dtoIn.data);
+    return Calls.loadIdentityProfiles(dtoIn);
   },
-  _initWorkspace() {
-    Calls.initWorkspace(JSON.parse(this.form.getValue())).then(
-      (jokesInstance) => {
-        const ucIndex = window.location.href.indexOf("sys/appWorkspace/initUve");
-        let redirectPath = window.location.href.slice(0, ucIndex);
-        if (jokesInstance.uuBtLocationUri) {
-          redirectPath = redirectPath + "controlPanel";
-        } else {
-          const originalUrl = new URLSearchParams(window.location.search).get("originalUrl");
-          if (originalUrl && RELATIVE_URI_REGEXP.test(originalUrl)) {
-            redirectPath = originalUrl;
-          }
-        }
-        window.location.replace(redirectPath);
-      },
-      (error) => this.setState({ errorData: error.dtoOut })
+
+  _initWorkspace(opt) {
+    Calls.initWorkspace(opt.values).then(
+      this._form.saveDone,
+      this._form.saveFail,
     );
   },
-  _storeFormRef(ref) {
-    this.form = ref;
-  },
+
   _getChild() {
     return (
       <UU5.Common.Loader onLoad={this._handleLoad}>
@@ -93,31 +88,120 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
             if (Array.isArray(data.identityProfileList) && data.identityProfileList.includes("AwidLicenseOwner")) {
               return (
                 <div>
-                  <div className={this.getClassName("form")}>
-                    <UuContentKit.Bricks.BlockDefault icon="mdi-help-circle">
+                    <UuContentKit.Bricks.BlockDefault className={this.getClassName("textBlock")} icon="mdi-information">
                       <UU5.Bricks.Span>{this.getLsiComponent("appNotInitialized")}</UU5.Bricks.Span>
                     </UuContentKit.Bricks.BlockDefault>
-                    <UU5.Forms.Form>
-                      <UU5.CodeKit.JsonEditor
-                        rows={10}
-                        ref_={this._storeFormRef}
-                        value={
-                          "{" +
-                          '\n  "name": "Jokes Test",' +
-                          '\n  "uuAppProfileAuthorities": "urn:uu:GGALL",' +
-                          '\n  "uuBtLocationUri": "https://uuappg01-eu-w-1.plus4u.net/uu-businessterritory-maing01/f69130799e8649ffa07eb81aae84bec5?id=5e7df2b47c0b32001c0b4bb4"' +
-                          "\n}"
+                    <UU5.Forms.Form
+                      labelColWidth="m-12"
+                      inputColWidth="m-12"
+                      ref={(ref) => {
+                        this._form = ref;
+                      }}
+                      onSave={this._initWorkspace}
+                      onSaveFail={
+                        (opt) => {
+                          opt.component.getAlertBus().setAlert({
+                            content: "Saving was failed.",
+                            colorSchema: "danger"
+                          });
+                          this.setState({ errorData: opt.dtoOut.dtoOut })
                         }
+                      }
+                      onSaveDone={
+                          (opt) => {
+                            const { component, dtoOut: jokesInstance} = opt;
+
+                            const ucIndex = window.location.href.indexOf("sys/appWorkspace/initUve");
+                            let redirectPath = window.location.href.slice(0, ucIndex);
+                            if (jokesInstance.uuBtLocationUri) {
+                              redirectPath = redirectPath + "controlPanel";
+                            } else {
+                              const originalUrl = new URLSearchParams(window.location.search).get("originalUrl");
+                              if (originalUrl && RELATIVE_URI_REGEXP.test(originalUrl)) {
+                                redirectPath = originalUrl;
+                              }
+                            }
+                            window.location.replace(redirectPath);
+                          }
+                      }
+                      className={this.getClassName("form")}
+                    >
+                      <UU5.Forms.SwitchSelector
+                        label={this.getLsiValue("labelAuthorizationStrategy")}
+                        items={[
+                          {
+                            content: "uuBusinessTerritory",
+                            value: "bt"
+                          },
+                          {
+                            content: "uuRoleGroupInterface",
+                            value: "profiles"
+                          }
+                        ]}
+                        value={
+                          this.state.initType
+                        }
+
+                        onChange={ (opt) => {
+                          const { logo, state, name, uuAppProfileAuthorities, uuBtLocationUri} = this._form.getValues();
+                          this.setState({
+                            initType: opt.value,
+                            form: {
+                              logo,
+                              state,
+                              name,
+                              uuAppProfileAuthorities: uuAppProfileAuthorities || this.state.form.uuAppProfileAuthorities,
+                              uuBtLocationUri: uuBtLocationUri || this.state.form.uuBtLocationUri
+                            }
+                          });
+                        }}
                       />
-                      <UU5.Bricks.Button
-                        className={this.getClassName("button")}
-                        colorSchema="blue"
-                        content="Initialize"
-                        onClick={this._initWorkspace}
+                      {(
+                         this.state.initType === "bt"
+                           ? <UU5.Forms.Text required name="uuBtLocationUri" label={this.getLsiValue("labelUuBtLocationUri")} value={ this.state.form.uuBtLocationUri || ""} />
+                           : <UU5.Forms.Text required name="uuAppProfileAuthorities" label={this.getLsiValue("labelUuAppProfileAuthorities")} value={ this.state.form.uuAppProfileAuthorities || ""}/>
+                      )
+                      }
+                      <UU5.Forms.Text name="name" label={this.getLsiValue("labelName")} value={ this.state.form.name || ""}/>
+                      <UU5.Forms.SwitchSelector
+                        name="state"
+                        label={this.getLsiValue("labelSysState")}
+                        value={this.state.form.state || "active"}
+                        items={[
+                          {
+                            content: "Active",
+                            value: "active"
+                          },
+                          {
+                            content: "Under construction",
+                            value: "underConstruction"
+                          },
+                          {
+                            content: "Closed",
+                            value: "closed"
+                          }
+                        ]}
                       />
+                      <UU5.Forms.File
+                        name="logo"
+                        label={this.getLsiValue("labelLogo")}
+                        placeholder="Upload file"
+                      />
+                      <UU5.Bricks.Row display="flex">
+                        <UU5.Bricks.Column colWidth="m-12" className={this.getClassName("formControls")}
+                        >
+                        <UU5.Bricks.Button
+                          className={this.getClassName("formControls")}
+                          colorSchema="blue"
+                          content="Initialize"
+                          onClick={() => this._form.save()}
+                        />
+                      </UU5.Bricks.Column>
+                      </UU5.Bricks.Row>
+
+
                     </UU5.Forms.Form>
-                  </div>
-                  {this.state.errorData && <UU5.Common.Error errorData={this.state.errorData} />}
+                    {this.state.errorData && <UU5.Common.Error moreInfo={true} errorData={this.state.errorData} />}
                 </div>
               );
             } else {
