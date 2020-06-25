@@ -5,11 +5,11 @@ export default {
   },
 
   appNotInitialized: {
-    en: `<uu5string/>Your uuApp is running, but requires initialization. If you need help with filling up this form, see
-<UU5.Bricks.Link target="_blank" style="color: inherit" href="https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=uucmdinit">Documentation</UU5.Bricks.Link>`,
     cs: `<uu5string/>Vaše uuApp běží, ale vyžaduje inicializaci. Pokud potřebujete pomoci s vyplněním tohoto formuláře, podívejte se do
-<UU5.Bricks.Link target="_blank" style="color: inherit" href="https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=uucmdinit">Dokumentace</UU5.Bricks.Link>`
-  },
+<UU5.Bricks.Link target="_blank" style="color: inherit" href="https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=uucmdinit">Dokumentace</UU5.Bricks.Link>`,
+    en: `<uu5string/>Your uuApp is running, but requires initialization. If you need help with filling up this form, see
+<UU5.Bricks.Link target="_blank" style="color: inherit" href="https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=uucmdinit">Documentation</UU5.Bricks.Link>`
+    },
 
   notAuthorizedForInit: {
     cs: "Aplikace běží, ale ještě nebyla inicializována a nemáte práva ji inicializovat.",
@@ -22,10 +22,12 @@ export default {
   },
 
   labelUuBtLocationUri: {
+    cs: "uuBtLocationUri",
     en: "uuBtLocationUri"
   },
 
   labelUuAppProfileAuthorities: {
+    cs: "uuAppProfileAuthorities",
     en: "uuAppProfileAuthorities"
   },
 

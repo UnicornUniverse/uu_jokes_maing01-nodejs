@@ -158,8 +158,8 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                       />
                       {(
                          this.state.initType === "bt"
-                           ? <UU5.Forms.Text required name="uuBtLocationUri" label={this.getLsiValue("labelUuBtLocationUri")} value={ this.state.form.uuBtLocationUri || ""} />
-                           : <UU5.Forms.Text required name="uuAppProfileAuthorities" label={this.getLsiValue("labelUuAppProfileAuthorities")} value={ this.state.form.uuAppProfileAuthorities || ""}/>
+                           ? <UU5.Forms.Text required name="uuBtLocationUri" label="uuBtLocationUri" value={ this.state.form.uuBtLocationUri || ""} />
+                           : <UU5.Forms.Text required name="uuAppProfileAuthorities" label="uuAppProfileAuthorities" value={ this.state.form.uuAppProfileAuthorities || ""}/>
                       )
                       }
                       <UU5.Forms.Text name="name" label={this.getLsiValue("labelName")} value={ this.state.form.name || ""}/>
