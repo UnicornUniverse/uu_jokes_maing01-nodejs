@@ -36,7 +36,7 @@ let Calls = {
 
   categoryList(dtoInData) {
     let commandUri = Calls.getCommandUri("category/list");
-    return Calls.call("get", commandUri, dtoInData || {});
+    return Calls.call("get", commandUri, dtoInData);
   },
 
   async categoryCreate(dtoInData) {
@@ -59,7 +59,7 @@ let Calls = {
 
   jokeList(dtoInData) {
     let commandUri = Calls.getCommandUri("joke/list");
-    return Calls.call("get", commandUri, dtoInData || {});
+    return Calls.call("get", commandUri, dtoInData);
   },
 
   async jokeCreate(dtoInData) {
