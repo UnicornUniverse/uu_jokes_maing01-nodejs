@@ -162,7 +162,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                            : <UU5.Forms.Text required name="uuAppProfileAuthorities" label="uuAppProfileAuthorities" value={ this.state.form.uuAppProfileAuthorities || ""}/>
                       )
                       }
-                      <UU5.Forms.Text name="name" label={this.getLsiValue("labelName")} value={ this.state.form.name || ""}/>
+                      <UU5.Forms.Text name="name" label={this.getLsiValue("labelName")} value={ this.state.form.name || "uuJokes"}/>
                       <UU5.Forms.SwitchSelector
                         name="state"
                         label={this.getLsiValue("labelSysState")}
@@ -175,10 +175,6 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                           {
                             content: "Under construction",
                             value: "underConstruction"
-                          },
-                          {
-                            content: "Closed",
-                            value: "closed"
                           }
                         ]}
                       />

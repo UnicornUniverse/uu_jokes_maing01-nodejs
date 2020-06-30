@@ -27,8 +27,8 @@ export default {
   },
 
   labelUuAppProfileAuthorities: {
-    cs: "uuAppProfileAuthorities",
-    en: "uuAppProfileAuthorities"
+    cs: "uuAppProfile Authorities",
+    en: "uuAppProfile Authorities"
   },
 
   labelName: {
