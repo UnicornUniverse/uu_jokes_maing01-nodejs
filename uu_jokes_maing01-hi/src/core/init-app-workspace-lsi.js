@@ -41,9 +41,24 @@ export default {
     en: "State"
   },
 
+  activeSysState: {
+    cs: "Aktivní",
+    en: "Active"
+  },
+
+  underConstructionSysState: {
+    cs: "Rozpracováno",
+    en: "Under construction"
+  },
+
   labelLogo: {
     cs: "Logo",
     en: "Logo"
+  },
+
+  initializeButton: {
+    cs: "Inicializovat",
+    en: "Initialize"
   },
 
 };

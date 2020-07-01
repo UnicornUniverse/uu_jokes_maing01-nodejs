@@ -169,11 +169,11 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                         value={this.state.form.state || "active"}
                         items={[
                           {
-                            content: "Active",
+                            content: this.getLsiValue("activeSysState"),
                             value: "active"
                           },
                           {
-                            content: "Under construction",
+                            content: this.getLsiValue("underConstructionSysState"),
                             value: "underConstruction"
                           }
                         ]}
@@ -189,7 +189,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                         <UU5.Bricks.Button
                           className={this.getClassName("formControls")}
                           colorSchema="blue"
-                          content="Initialize"
+                          content={this.getLsiValue("initializeButton")}
                           onClick={() => this._form.save()}
                         />
                       </UU5.Bricks.Column>
