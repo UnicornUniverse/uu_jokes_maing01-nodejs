@@ -118,11 +118,7 @@ export const Left = UU5.Common.VisualComponent.create({
                 onCtrlClick={this._handleTabHome}
               >
                 {/* // Logo */}
-                {logos && logos.includes("16x9") ? (
-                  this._getImage()
-                ) : (
-                  <UU5.Bricks.Image name="Logo" responsive src="assets/logos/16x9.jpeg" />
-                )}
+                {this._getImage()}
               </UU5.Bricks.Link>
             )}
           </JokesConsumer>
