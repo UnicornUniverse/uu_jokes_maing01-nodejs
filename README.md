@@ -29,7 +29,7 @@
 1. In client project:
    4. Execute command  
    ```npm install```
-   in folder **uu_jokes_maing01-client**
+   in folder **uu_jokes_maing01-hi**
 ## 2. Configuring and running server
 13. Start mongoDB
 7. In config file **uu_jokes_maing01-server\env\development.json**, replace \<uuIdentity> in *privilegedUserMap.asidOwner* field with your uuIdentity. Connection strings can be optionally changed as well (fields *uuSubAppDataStoreMap.primary* and *uuSubAppDataStoreMap.binary*)

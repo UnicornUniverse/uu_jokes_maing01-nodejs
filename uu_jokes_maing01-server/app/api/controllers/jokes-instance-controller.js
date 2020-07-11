@@ -28,17 +28,6 @@ class JokesInstanceController {
     return JokesInstanceAbl.setIcons(ucEnv.getUri().getAwid(), ucEnv.parameters, ucEnv.getUri());
   }
 
-  static getProductInfo(ucEnv) {
-    ucEnv.getResponse().setHeaders({ "Cache-Control": CACHE_VALUE });
-    return JokesInstanceAbl.getProductInfo(ucEnv.getUri().getAwid());
-  }
-
-  static async getProductLogo(ucEnv) {
-    let dtoOut = await JokesInstanceAbl.getProductLogo(ucEnv.getUri().getAwid(), ucEnv.parameters);
-    ucEnv.getResponse().setHeaders({ "Cache-Control": CACHE_VALUE });
-    return ucEnv.setBinaryDtoOut(dtoOut);
-  }
-
   static async getUveMetaData(ucEnv) {
     let dtoOut = await JokesInstanceAbl.getUveMetaData(ucEnv.getUri().getAwid(), ucEnv.parameters);
     ucEnv.getResponse().setHeaders({ "Cache-Control": CACHE_VALUE });

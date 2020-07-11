@@ -163,6 +163,23 @@ export const About = UU5.Common.VisualComponent.create({
                 content={this.getLsiItem(usedTechnologies.content)}
               />
             </UU5.Bricks.Column>
+            <UU5.Bricks.Column colWidth="xs-12 s-12 m-6 l-6 xl-6">
+              <UU5.Common.Loader onLoad={Calls.loadLicenseOwner}>
+                {({ data }) => {
+                  return data ? (
+                    <Plus4U5.App.Licence
+                      textAlign="left"
+                      organisation={{
+                        name: data.organization ? data.organization.name : "Unicorn a.s.",
+                        uri: data.organization ? data.organization.web : "https://unicorn.com/"
+                      }}
+                      authorities={this._getAuthorities(data.userList)}
+                      awid={<UU5.Bricks.Link content={awid}/>}
+                    />
+                  ) : null;
+                }}
+              </UU5.Common.Loader>
+            </UU5.Bricks.Column>
           </UU5.Bricks.Row>
 
           <UU5.Bricks.Div className="center">

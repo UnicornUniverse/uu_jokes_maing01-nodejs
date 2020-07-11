@@ -8,6 +8,8 @@ const { LoggerFactory } = require("uu_appg01_server").Logging;
 const { UuBinaryErrors, UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
 const { AppProfile, AppClientTokenService, AppWorkspace } = require("uu_appg01_server").Workspace;
 
+const { SysProfileModel: SysProfileAbl, SysAppWorkspaceModel: SysAppWorkspaceAbl, AppClientTokenService, SysAppClientTokenModel: SysAppClientTokenAbl } = require("uu_appg01_server").Workspace;
+const { SysProductInfoAbl, SysProductLogoAbl } = require("uu_apprepresentationg01");
 const { UriBuilder } = require("uu_appg01_server").Uri;
 const { AppClient } = require("uu_appg01_server");
 
@@ -146,12 +148,12 @@ const DEFAULTS = {
   description:
     "Database of jokes in which users can create and update jokes, manage them, rate them and sort them into categories.",
   logoType: "16x9",
+  logoLanguage: "en",
   ttl: 60 * 60 * 1000
 };
 
 const logger = LoggerFactory.get("UuJokes.Models.JokesInstanceModel");
 
-const DEFAULT_NAME = "uuJokes";
 const AUTHORITIES = "Authorities";
 const EXECUTIVES = "Executives";
 const STATE_ACTIVE = "active";
@@ -193,6 +195,12 @@ class JokesInstanceAbl {
     dtoIn.name = dtoIn.name || DEFAULTS.name;
     dtoIn.awid = awid;
 
+    const uuBtLocationUri = dtoIn.uuBtLocationUri;
+    delete dtoIn.uuBtLocationUri;
+    const uuAppProfileAuthorities = dtoIn.uuAppProfileAuthorities;
+    delete dtoIn.uuAppProfileAuthorities;
+
+
     // hds 3
     await Promise.all([
       this.dao.createSchema(),
@@ -203,9 +211,8 @@ class JokesInstanceAbl {
 
     // hds 5
     if (dtoIn.logo) {
-      let binary;
       try {
-        binary = await UuBinaryAbl.createBinary(awid, { data: dtoIn.logo, code: "16x9" });
+        await SysProductLogoAbl.setProductLogo(awid, { logo: dtoIn.logo, language: DEFAULTS.logoLanguage, type: DEFAULTS.logoType })
       } catch (e) {
         // A5
         throw new Errors.Init.UuBinaryCreateFailed({ uuAppErrorMap }, e);
@@ -214,10 +221,17 @@ class JokesInstanceAbl {
       delete dtoIn.logo;
     }
 
+    try {
+      await SysProductInfoAbl.setProductInfo(awid, { name: {en: dtoIn.name}, desc: {en: dtoIn.desc || DEFAULTS.description} })
+    } catch (e) {
+      // A5
+      throw new Errors.Init.JokesInstanceDaoCreateFailed({ uuAppErrorMap }, e); // TODO use proper error
+    }
+
     // hds 6
-    if (dtoIn.uuBtLocationUri) {
+    if (uuBtLocationUri) {
       const baseUri = uri.getBaseUri();
-      const uuBtUriBuilder = UriBuilder.parse(dtoIn.uuBtLocationUri);
+      const uuBtUriBuilder = UriBuilder.parse(uuBtLocationUri);
       const location = uuBtUriBuilder.getParameters().id;
       const uuBtBaseUri = uuBtUriBuilder.toUri().getBaseUri();
 
@@ -259,12 +273,12 @@ class JokesInstanceAbl {
     }
 
     // hds 7
-    if (dtoIn.uuAppProfileAuthorities) {
+    if (uuAppProfileAuthorities) {
       try {
         await AppProfile.set(awid, AUTHORITIES, dtoIn.uuAppProfileAuthorities);
       } catch (e) {
         // A7
-        throw new Errors.Init.SysSetProfileFailed({ uuAppErrorMap }, { role: dtoIn.uuAppProfileAuthorities }, e);
+        throw new Errors.Init.SysSetProfileFailed({ uuAppErrorMap }, { role: uuAppProfileAuthorities }, e);
       }
     }
 
@@ -282,7 +296,6 @@ class JokesInstanceAbl {
     jokeInstance.uuAppErrorMap = uuAppErrorMap;
     return jokeInstance;
   }
-
 
   async plugInBt(uri, dtoIn, session) {
     const awid = uri.getAwid();
@@ -419,28 +432,18 @@ class JokesInstanceAbl {
 
     // hds 3
     let type = dtoIn.type ? dtoIn.type : DEFAULTS.logoType;
-    let binary;
-    if (!jokesInstance.logos || !jokesInstance.logos.includes(type)) {
-      // hds 3.1
-      try {
-        binary = await UuBinaryAbl.createBinary(awid, { data: dtoIn.logo, code: type });
-      } catch (e) {
-        // A5
-        throw new Errors.SetLogo.UuBinaryCreateFailed(uuAppErrorMap, e);
-      }
-    } else {
-      // hds 3.2
-      try {
-        binary = await UuBinaryAbl.updateBinaryData(awid, { data: dtoIn.logo, code: type, revisionStrategy: "NONE" });
-      } catch (e) {
-        // A6
-        throw new Errors.SetLogo.UuBinaryUpdateBinaryDataFailed(uuAppErrorMap, e);
-      }
+    let language = DEFAULTS.logoLanguage;
+
+    try {
+      await SysProductLogoAbl.setProductLogo(awid, { logo: dtoIn.logo, type, language });
+    } catch (e) {
+      // A5
+      throw new Errors.SetLogo.UuBinaryCreateFailed(uuAppErrorMap, e);
     }
 
     // hds 4
     if (!jokesInstance.logos) jokesInstance.logos = [];
-    jokesInstance.logos.push(type);
+    if (!jokesInstance.logos.includes(type)) jokesInstance.logos.push(type);
     jokesInstance.awid = awid;
 
     try {
@@ -477,7 +480,7 @@ class JokesInstanceAbl {
     );
 
     let uveMetaData = jokesInstance.uveMetaData || {};
-    let name = jokesInstance.name || DEFAULT_NAME;
+    let name = jokesInstance.name || DEFAULTS.name;
 
     //HDS 3
     await UnzipHelper.unzip(
@@ -604,57 +607,6 @@ class JokesInstanceAbl {
     return StreamHelper.stringToReadableStream(filledBrowserConfig);
   }
 
-  async getProductInfo(awid) {
-    // hds 1
-    let jokesInstance = await this.dao.getByAwid(awid);
-    // hds 2
-    return {
-      name: jokesInstance ? jokesInstance.name : DEFAULTS.name,
-      uuAppErrorMap: {}
-    };
-  }
-
-  async getProductLogo(awid, dtoIn) {
-    // hds 1
-    let validationResult = this.validator.validate("getProductLogoDtoInType", dtoIn);
-    // A1, A2
-    let uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      WARNINGS.getProductLogoUnsupportedKeys.code,
-      Errors.GetProductLogo.InvalidDtoIn
-    );
-
-    // hds 2
-    let type = dtoIn.type ? dtoIn.type : DEFAULTS.logoType;
-    let dtoOut = {};
-    let jokesInstance = await this.dao.getByAwid(awid);
-    if (jokesInstance && jokesInstance.logos && jokesInstance.logos.includes(type)) {
-      try {
-        dtoOut = await UuBinaryAbl.getBinaryData(awid, { code: type });
-      } catch (e) {
-        // A3
-        if (logger.isWarnLoggable()) {
-          logger.warn(`Unable to load uuBinary logo ${type} for jokes instance ${awid}. Error: ${e} `);
-        }
-        ValidationHelper.addWarning(uuAppErrorMap, WARNINGS.getProductLogoLogoDoesNotExists.code, {
-          type: type
-        });
-      }
-    }
-
-    // hds 2.1
-    if (!dtoOut.stream) {
-      let filePath = Path.resolve(__dirname, `../../public/assets/logos/${type}.jpeg`);
-      dtoOut.contentType = "image/png";
-      dtoOut.stream = fs.createReadStream(filePath);
-    }
-
-    // hds 3
-    dtoOut.uuAppErrorMap = uuAppErrorMap;
-    return dtoOut;
-  }
-
   async getUveMetaData(awid, dtoIn) {
     // hds 1
     let validationResult = this.validator.validate("jokeInstaceGetUveMetaDataDtoInType", dtoIn);
@@ -756,7 +708,7 @@ class JokesInstanceAbl {
     <meta name="application-name" content="${uveMetaData.name}">
     <meta name="msapplication-TileColor" content="${
       uveMetaData["tilecolor"] ? uveMetaData["tilecolor"] : DEFAULTS.metaData["tilecolor"]
-      }"/>
+    }"/>
     <meta name="msapplication-config" content="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=browserconfig"/>
 
     <link rel="mask-icon" href="${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=safari-pinned-tab" color="#d81e05"/>
