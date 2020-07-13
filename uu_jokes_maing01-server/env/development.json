@@ -1,19 +1,16 @@
 {
   "port": 8080,
   "uuSubAppDataStoreMap": {
-    "primary": "mongodb://127.0.0.1:27017/JokesMainPrimary5x",
-    "binary": "mongodb://127.0.0.1:27017/JokesMainBinary5x"
+    "primary": "mongodb://127.0.0.1:27017/jokesMainPrimary",
+    "binary": "mongodb://127.0.0.1:27017/jokesMainBinary"
   },
   "asid_license_owner_list": ["15-3374-1", "12-470-1", "12-5696-1", "8670-3464-1"],
   "asid": "11111111111111111111111111111111",
   "log_level": "INFO",
 
-  "uu_app_oidc_providers_oidcg02_enabled": true,
-  "uu_app_oidc_primary_provider": "oidcg02",
   "fls_base_uri": "https://uuapp.plus4u.net/uu-flsg01-main/8014eb79e8184ebb8942d96ce37b61b4/",
   "term_of_use_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=license",
   "technical_documentation_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book",
   "product_code": "uuJokes",
   "product_portal_uri": "ues:UU-BT:PRD.UU-JOKESG01/PORTAL"
-
 }
