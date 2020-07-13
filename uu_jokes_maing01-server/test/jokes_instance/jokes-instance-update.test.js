@@ -1,5 +1,8 @@
 const { TestHelper } = require("uu_appg01_server-test");
 const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
+const { Config } = require("uu_appg01_server").Utils;
+const path = require("path");
+
 const {
   JOKES_INSTANCE_UPDATE,
   getImageStream,
@@ -8,6 +11,7 @@ const {
 
 beforeAll(async () => {
   await TestHelper.setup(null, { authEnabled: false });
+  Config.set("server_root", path.resolve(__dirname, "..", ".."));
 });
 
 afterAll(() => {
@@ -82,7 +86,7 @@ test("A4 - creating logo fails", async () => {
 });
 
 test("A5 - updating logo fails", async () => {
-  expect.assertions(2);
+  expect.assertions(1);
 
   let { JokesInstanceAbl, UuBinaryAbl } = mockAbl();
   jest.spyOn(UuBinaryAbl, "updateBinary").mockImplementation(() => {
@@ -96,8 +100,7 @@ test("A5 - updating logo fails", async () => {
   try {
     await JokesInstanceAbl.setLogo("awid", dtoIn);
   } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/jokesInstance/setLogo/uuBinaryUpdateBinaryDataFailed");
-    expect(e.message).toEqual("Updating uuBinary data failed.");
+    expect(e.code).toEqual("uu-jokes-main/jokesInstance/setLogo/uuBinaryCreateFailed");
   }
 });
 

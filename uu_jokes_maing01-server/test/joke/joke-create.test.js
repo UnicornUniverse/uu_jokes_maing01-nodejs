@@ -12,6 +12,7 @@ const {
   getAuthzResultMock
 } = require("../general-test-hepler");
 
+
 beforeAll(async () => {
   await TestHelper.setup();
 });

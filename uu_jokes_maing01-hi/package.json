@@ -9,10 +9,15 @@
     "systemjs": "0.19.47",
     "uu5g04": "^1.0.0",
     "uu5tilesg01": "^3.0.0",
-    "uu_appg01": "^4.4.0",
-    "uu_appg01_core": "^4.4.0",
-    "uu_appg01_oidc": "^2.0.0",
-    "uu_plus4u5g01": "^4.0.0"
+    "uu_appg01": "^5.0.0",
+    "uu_appg01_core": "^5.0.0",
+    "uu_appg01_oidc": "^3.0.0",
+    "uu_plus4u5g01": "^4.0.0",
+    "uu5codekitg01": "^1.0.0",
+    "uu_contentkitg01": "^2.0.0",
+    "uu_territoryg01": "^1.0.0",
+    "uu5richtextg01": "^1.0.0",
+    "uu_productcatalogueg01": "^1.0.0"
   },
   "uuBuildSettings": {},
   "devDependencies": {

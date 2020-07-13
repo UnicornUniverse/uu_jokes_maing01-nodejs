@@ -1,11 +1,13 @@
 const path = require("path");
 const fs = require("fs");
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
+const { Config } = require("uu_appg01_server").Utils;
+Config.set("server_root", path.resolve(__dirname, ".."));
 
 const JOKES_INSTANCE_INIT = "sys/appWorkspace/init";
 const JOKES_INSTANCE_LOAD = "jokesInstance/load";
 const JOKES_INSTANCE_UPDATE = "jokesInstance/update";
-const JOKES_INSTANCE_SET_LOGO = "jokesInstance/setLogo";
+const JOKES_INSTANCE_SET_LOGO = "sys/uuAppWorkspace/productLogo/set";
 const JOKES_INSTANCE_SET_ICONS = "jokesInstance/setIcons";
 const JOKES_INSTANCE_GET_UVE_META_DATA = "jokesInstance/getUveMetaData";
 const JOKE_CREATE = "joke/create";
@@ -21,6 +23,7 @@ const CATEGORY_UPDATE = "category/update";
 const CATEGORY_DELETE = "category/delete";
 const CATEGORY_LIST = "category/list";
 const MONGO_ID = "012345678910111213141516";
+
 
 const getImageStream = () => {
   return fs.createReadStream(path.resolve(__dirname, "image.png"));

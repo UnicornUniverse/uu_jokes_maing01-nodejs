@@ -8,8 +8,7 @@ const { LoggerFactory } = require("uu_appg01_server").Logging;
 const { UuBinaryErrors, UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
 const { AppProfile, AppClientTokenService, AppWorkspace } = require("uu_appg01_server").Workspace;
 
-const { SysProfileModel: SysProfileAbl, SysAppWorkspaceModel: SysAppWorkspaceAbl, AppClientTokenService, SysAppClientTokenModel: SysAppClientTokenAbl } = require("uu_appg01_server").Workspace;
-const { SysProductInfoAbl, SysProductLogoAbl } = require("uu_apprepresentationg01");
+const { ProductInfo, ProductLogo } = require("uu_apprepresentationg01");
 const { UriBuilder } = require("uu_appg01_server").Uri;
 const { AppClient } = require("uu_appg01_server");
 
@@ -200,7 +199,6 @@ class JokesInstanceAbl {
     const uuAppProfileAuthorities = dtoIn.uuAppProfileAuthorities;
     delete dtoIn.uuAppProfileAuthorities;
 
-
     // hds 3
     await Promise.all([
       this.dao.createSchema(),
@@ -212,7 +210,7 @@ class JokesInstanceAbl {
     // hds 5
     if (dtoIn.logo) {
       try {
-        await SysProductLogoAbl.setProductLogo(awid, { logo: dtoIn.logo, language: DEFAULTS.logoLanguage, type: DEFAULTS.logoType })
+        await ProductLogo.set(awid, { logo: dtoIn.logo, language: DEFAULTS.logoLanguage, type: DEFAULTS.logoType })
       } catch (e) {
         // A5
         throw new Errors.Init.UuBinaryCreateFailed({ uuAppErrorMap }, e);
@@ -222,7 +220,7 @@ class JokesInstanceAbl {
     }
 
     try {
-      await SysProductInfoAbl.setProductInfo(awid, { name: {en: dtoIn.name}, desc: {en: dtoIn.desc || DEFAULTS.description} })
+      await ProductInfo.set(awid, { name: {en: dtoIn.name}, desc: {en: dtoIn.desc || DEFAULTS.description} });
     } catch (e) {
       // A5
       throw new Errors.Init.JokesInstanceDaoCreateFailed({ uuAppErrorMap }, e); // TODO use proper error
@@ -256,7 +254,7 @@ class JokesInstanceAbl {
           logger.warn(`Awsc already exists id=${e.paramMap.id}.`, e);
           awscId = e.paramMap.id;
         } else {
-          throw new Errors.Init.CreateAwscFailed({ uuAppErrorMap }, { location: dtoIn.uuBtLocationUri }, e);
+          throw new Errors.Init.CreateAwscFailed({ uuAppErrorMap }, { location: uuBtLocationUri }, e);
         }
       }
 
@@ -275,7 +273,7 @@ class JokesInstanceAbl {
     // hds 7
     if (uuAppProfileAuthorities) {
       try {
-        await AppProfile.set(awid, AUTHORITIES, dtoIn.uuAppProfileAuthorities);
+        await AppProfile.set(awid, AUTHORITIES, uuAppProfileAuthorities);
       } catch (e) {
         // A7
         throw new Errors.Init.SysSetProfileFailed({ uuAppErrorMap }, { role: uuAppProfileAuthorities }, e);
@@ -435,7 +433,7 @@ class JokesInstanceAbl {
     let language = DEFAULTS.logoLanguage;
 
     try {
-      await SysProductLogoAbl.setProductLogo(awid, { logo: dtoIn.logo, type, language });
+      await ProductLogo.set(awid, { logo: dtoIn.logo, type, language });
     } catch (e) {
       // A5
       throw new Errors.SetLogo.UuBinaryCreateFailed(uuAppErrorMap, e);

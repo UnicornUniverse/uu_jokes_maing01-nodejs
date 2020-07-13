@@ -1,12 +1,15 @@
 const { TestHelper } = require("uu_appg01_server-test");
 const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { Uri } = require("uu_appg01_server").Uri;
+const { Config } = require("uu_appg01_server").Utils;
 const { getImageStream, mockDaoFactory } = require("../general-test-hepler");
+const path = require("path");
 
 const mockUri = Uri.parse("http://localhost/uu-jokes-maing01/11111111111111111111111111111111/sys/appWorkspace/init");
 
 beforeAll(async () => {
   await TestHelper.setup(null, { authEnabled: false });
+  Config.set("server_root", path.resolve(__dirname, "..", ".."));
 });
 
 afterAll(() => {
@@ -50,7 +53,7 @@ test("HDS with minimal dtoIn and logo", async () => {
   expect(["16x9"]).toEqual(expect.arrayContaining(result.logos));
 
   //check if binary really exists
-  result = await TestHelper.executeGetCommand("uu-app-binarystore/getBinary", { code: "16x9" });
+  result = await TestHelper.executeGetCommand("sys/uuAppWorkspace/productLogo/get", { type: "16x9" });
   expect(result.status).toBe(200);
 });
 
@@ -172,6 +175,8 @@ function mockAbl() {
   const JokesInstanceAbl = require("../../app/abl/jokes-instance-abl");
   const AppProfile = require("uu_appg01_server").Workspace.AppProfile;
   const UuBinaryAbl = require("uu_appg01_binarystore-cmd").UuBinaryAbl;
+  const ProductInfo = require("uu_apprepresentationg01").ProductInfo;
+  ProductInfo.set = () => null;
   JokesInstanceAbl.dao.getByAwid = () => null;
   return { JokesInstanceAbl, AppProfile, UuBinaryAbl };
 }
