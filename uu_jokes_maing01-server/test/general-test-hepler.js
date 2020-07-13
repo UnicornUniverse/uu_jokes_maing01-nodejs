@@ -4,7 +4,7 @@ const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { Config } = require("uu_appg01_server").Utils;
 Config.set("server_root", path.resolve(__dirname, ".."));
 
-const JOKES_INSTANCE_INIT = "sys/appWorkspace/init";
+const JOKES_INSTANCE_INIT = "sys/uuAppWorkspace/init";
 const JOKES_INSTANCE_LOAD = "jokesInstance/load";
 const JOKES_INSTANCE_UPDATE = "jokesInstance/update";
 const JOKES_INSTANCE_SET_LOGO = "sys/uuAppWorkspace/productLogo/set";

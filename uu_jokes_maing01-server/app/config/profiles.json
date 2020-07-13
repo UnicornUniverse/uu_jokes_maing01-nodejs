@@ -14,6 +14,14 @@
         "sysStateList": ["active"],
         "profileList": ["Public"]
       },
+      "sys/uuAppWorkspace/init": {
+        "sysStateList": ["created"],
+        "profileList": ["AwidLicenseOwner"]
+      },
+      "sys/uuAppWorkspace/initUve": {
+        "sysStateList": ["created"],
+        "profileList": ["Public", "AwidLicenseOwner"]
+      },
       "jokesInstance/plugInBt": {
         "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]

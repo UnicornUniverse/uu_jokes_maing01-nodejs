@@ -5,7 +5,7 @@ const { Config } = require("uu_appg01_server").Utils;
 const { getImageStream, mockDaoFactory } = require("../general-test-hepler");
 const path = require("path");
 
-const mockUri = Uri.parse("http://localhost/uu-jokes-maing01/11111111111111111111111111111111/sys/appWorkspace/init");
+const mockUri = Uri.parse("http://localhost/uu-jokes-maing01/11111111111111111111111111111111/sys/uuAppWorkspace/init");
 
 beforeAll(async () => {
   await TestHelper.setup(null, { authEnabled: false });
@@ -35,7 +35,7 @@ test("HDS with minimal dtoIn and without logo", async () => {
   expect(dtoOut.name).toEqual("uuJokes");
   expect(dtoOut.logos).toBeUndefined();
 
-  result = await TestHelper.executeGetCommand("sys/appWorkspace/appProfile/get", { appProfile: "Authorities" });
+  result = await TestHelper.executeGetCommand("sys/uuAppWorkspace/profile/get", { profile: "Authorities" });
   expect(result.status).toBe(200);
   expect(result.roleGroupUri).toEqual(roleGroupUri);
 });
@@ -112,8 +112,8 @@ test("A3 - invalid dtoIn", async () => {
 test("A4 - setProfile fails", async () => {
   expect.assertions(2);
 
-  let { JokesInstanceAbl, AppProfile } = mockAbl();
-  jest.spyOn(AppProfile, "set").mockImplementation(() => {
+  let { JokesInstanceAbl, Profile } = mockAbl();
+  jest.spyOn(Profile, "set").mockImplementation(() => {
     throw new Error("kolobezka");
   });
 
@@ -131,8 +131,8 @@ test("A4 - setProfile fails", async () => {
 test("A5 - creating uuBinary fails", async () => {
   expect.assertions(2);
 
-  let { JokesInstanceAbl, AppProfile, UuBinaryAbl } = mockAbl();
-  jest.spyOn(AppProfile, "set").mockImplementation(() => {});
+  let { JokesInstanceAbl, Profile, UuBinaryAbl } = mockAbl();
+  jest.spyOn(Profile, "set").mockImplementation(() => {});
   jest.spyOn(UuBinaryAbl, "createBinary").mockImplementation(() => {
     throw new Error("kotrmelec");
   });
@@ -152,11 +152,11 @@ test("A5 - creating uuBinary fails", async () => {
 test("A6 - storing jokes instance fails", async () => {
   expect.assertions(2);
 
-  let { JokesInstanceAbl, AppProfile, UuBinaryAbl } = mockAbl();
+  let { JokesInstanceAbl, Profile, UuBinaryAbl } = mockAbl();
   JokesInstanceAbl.dao.create = () => {
     throw new ObjectStoreError("it failed");
   };
-  jest.spyOn(AppProfile, "set").mockImplementation(() => {});
+  jest.spyOn(Profile, "set").mockImplementation(() => {});
   jest.spyOn(UuBinaryAbl, "createBinary").mockImplementation(() => {});
 
   let dtoIn = {
@@ -173,10 +173,10 @@ test("A6 - storing jokes instance fails", async () => {
 function mockAbl() {
   mockDaoFactory();
   const JokesInstanceAbl = require("../../app/abl/jokes-instance-abl");
-  const AppProfile = require("uu_appg01_server").Workspace.AppProfile;
+  const Profile = require("uu_appg01_server").Workspace.Profile;
   const UuBinaryAbl = require("uu_appg01_binarystore-cmd").UuBinaryAbl;
   const ProductInfo = require("uu_apprepresentationg01").ProductInfo;
   ProductInfo.set = () => null;
   JokesInstanceAbl.dao.getByAwid = () => null;
-  return { JokesInstanceAbl, AppProfile, UuBinaryAbl };
+  return { JokesInstanceAbl, Profile, UuBinaryAbl };
 }

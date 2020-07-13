@@ -19,7 +19,7 @@ const UriHelpers = {
 
   getProductLogo(type) {
     return UriHelpers.buildUrl({
-      useCase: "sys/appWorkspace/productLogo/get",
+      useCase: "sys/uuAppWorkspace/productLogo/get",
       parameters: { type, language: "en" }
     });
   },

@@ -20,17 +20,17 @@ let Calls = {
   },
 
   loadIdentityProfiles(dtoInData) {
-    let commandUri = Calls.getCommandUri("sys/appWorkspace/initUve");
+    let commandUri = Calls.getCommandUri("sys/uuAppWorkspace/initUve");
     return Calls.call("get", commandUri, dtoInData);
   },
 
   initWorkspace(dtoInData) {
-    let commandUri = Calls.getCommandUri("sys/appWorkspace/init");
+    let commandUri = Calls.getCommandUri("sys/uuAppWorkspace/init");
     return Calls.call("post", commandUri, dtoInData);
   },
 
   getWorkspace(dtoInData) {
-    let commandUri = Calls.getCommandUri("sys/appWorkspace/get");
+    let commandUri = Calls.getCommandUri("sys/uuAppWorkspace/get");
     return Calls.call("get", commandUri, dtoInData);
   },
 

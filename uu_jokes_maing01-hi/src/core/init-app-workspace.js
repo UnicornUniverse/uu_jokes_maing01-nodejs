@@ -111,7 +111,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                           (opt) => {
                             const { component, dtoOut: jokesInstance} = opt;
 
-                            const ucIndex = window.location.href.indexOf("sys/appWorkspace/initUve");
+                            const ucIndex = window.location.href.indexOf("sys/uuAppWorkspace/initUve");
                             let redirectPath = window.location.href.slice(0, ucIndex);
                             if (jokesInstance.uuBtLocationUri) {
                               redirectPath = redirectPath + "controlPanel";
@@ -127,7 +127,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                       className={this.getClassName("form")}
                     >
                       <UU5.Forms.SwitchSelector
-                        label={this.getLsiValue("labelAuthorizationStrategy")}
+                        label={this.getLsiComponent("labelAuthorizationStrategy")}
                         items={[
                           {
                             content: "uuBusinessTerritory",
@@ -162,25 +162,25 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                            : <UU5.Forms.Text required name="uuAppProfileAuthorities" label="uuAppProfileAuthorities" value={ this.state.form.uuAppProfileAuthorities || ""}/>
                       )
                       }
-                      <UU5.Forms.Text name="name" label={this.getLsiValue("labelName")} value={ this.state.form.name || "uuJokes"}/>
+                      <UU5.Forms.Text name="name" label={this.getLsiComponent("labelName")} value={ this.state.form.name || "uuJokes"}/>
                       <UU5.Forms.SwitchSelector
                         name="state"
-                        label={this.getLsiValue("labelSysState")}
+                        label={this.getLsiComponent("labelSysState")}
                         value={this.state.form.state || "active"}
                         items={[
                           {
-                            content: this.getLsiValue("activeSysState"),
+                            content: this.getLsiComponent("activeSysState"),
                             value: "active"
                           },
                           {
-                            content: this.getLsiValue("underConstructionSysState"),
+                            content: this.getLsiComponent("underConstructionSysState"),
                             value: "underConstruction"
                           }
                         ]}
                       />
                       <UU5.Forms.File
                         name="logo"
-                        label={this.getLsiValue("labelLogo")}
+                        label={this.getLsiComponent("labelLogo")}
                         placeholder="Upload file"
                       />
                       <UU5.Bricks.Row display="flex">
@@ -189,7 +189,7 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
                         <UU5.Bricks.Button
                           className={this.getClassName("formControls")}
                           colorSchema="blue"
-                          content={this.getLsiValue("initializeButton")}
+                          content={this.getLsiComponent("initializeButton")}
                           onClick={() => this._form.save()}
                         />
                       </UU5.Bricks.Column>

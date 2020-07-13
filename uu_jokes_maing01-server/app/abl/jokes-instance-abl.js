@@ -6,7 +6,7 @@ const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore
 const { ValidationHelper, UveLoader } = require("uu_appg01_server").AppServer;
 const { LoggerFactory } = require("uu_appg01_server").Logging;
 const { UuBinaryErrors, UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
-const { AppProfile, AppClientTokenService, AppWorkspace } = require("uu_appg01_server").Workspace;
+const { Profile, AppClientTokenService, UuAppWorkspace } = require("uu_appg01_server").Workspace;
 
 const { ProductInfo, ProductLogo } = require("uu_apprepresentationg01");
 const { UriBuilder } = require("uu_appg01_server").Uri;
@@ -260,7 +260,7 @@ class JokesInstanceAbl {
 
       const artifactUri = uuBtUriBuilder.setUseCase(null).clearParameters().setParameter("id", awscId).toUri();
 
-      await AppWorkspace.connectArtifact(
+      await UuAppWorkspace.connectArtifact(
         baseUri,
         {
           artifactUri: artifactUri.toString(),
@@ -273,7 +273,7 @@ class JokesInstanceAbl {
     // hds 7
     if (uuAppProfileAuthorities) {
       try {
-        await AppProfile.set(awid, AUTHORITIES, uuAppProfileAuthorities);
+        await Profile.set(awid, AUTHORITIES, uuAppProfileAuthorities);
       } catch (e) {
         // A7
         throw new Errors.Init.SysSetProfileFailed({ uuAppErrorMap }, { role: uuAppProfileAuthorities }, e);
@@ -341,7 +341,7 @@ class JokesInstanceAbl {
 
     const artifactUri = uuBtUriBuilder.setUseCase(null).clearParameters().setParameter("id", awscDtoOut.id).toUri();
 
-    await AppWorkspace.connectArtifact(
+    await UuAppWorkspace.connectArtifact(
       baseUri,
       {
         artifactUri: artifactUri.toString()

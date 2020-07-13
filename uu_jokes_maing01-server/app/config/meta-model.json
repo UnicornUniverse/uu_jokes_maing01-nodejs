@@ -131,70 +131,49 @@
     "joke/delete": "11000000-00000000-00000000-00000000",
     "joke/list": "11100000-00000000-00000000-00000000",
     "joke/addRating": "11100000-00000000-00000000-00000000",
-    "category/create": "11100000-00000000-00000000-00000000",
+    "category/create": "11000000-00000000-00000000-00000000",
     "category/get": "11100000-00000000-00000000-00000000",
     "category/update": "11000000-00000000-00000000-00000000",
     "category/delete": "11000000-00000000-00000000-00000000",
     "category/list": "11100000-00000000-00000000-00000000",
-    "uu-app-binarystore/getBinaryData": "11100000-00000000-00000000-00000000",
-
-	"sys/appWorkspace/get": "11100000-00000000-00000000-00000000",
-	"sys/appWorkspace/set": "11000000-00000000-00000000-00000000",
-
-	"sys/appWorkspace/setActiveSysState": "11000000-00000000-00000000-00000000",
-	"sys/appWorkspace/setRestrictedSysState": "11000000-00000000-00000000-00000000",
-	"sys/appWorkspace/setReadOnlySysState": "11000000-00000000-00000000-00000000",
-
-	"sys/appWorkspace/appProfile/get": "11100000-00000000-00000000-00000000",
-	"sys/appWorkspace/appProfile/set": "10000000-00000000-00000000-00000000",
-	"sys/appWorkspace/appProfile/list": "10000000-00000000-00000000-00000000",
-	"sys/appWorkspace/appProfile/update": "10000000-00000000-00000000-00000000",
-
-	"sys/appWorkspace/permission/create": "10000000-00000000-00000000-00000000",
-	"sys/appWorkspace/permission/delete": "10000000-00000000-00000000-00000000",
-	"sys/appWorkspace/permission/list": "10000000-00000000-00000000-00000000",
-
-	"sys/appWorkspace/getLicenceOwner": "11100000-00000000-00000000-00000000",
-	"sys/appWorkspace/setAthorizationStrategy": "10000000-00000000-00000000-00000000",
-
-	"sys/appWorkspace/dump": "10000000-00000000-00000000-00000000",
-	"sys/appWorkspace/restore": "10000000-00000000-00000000-00000000",
-	"sys/appWorkspace/import": "10000000-00000000-00000000-00000000",
-
-	"sys/appWorkspace/listImportMappings": "10000000-00000000-00000000-00000000",
-	"sys/appWorkspace/deleteImportMappings": "10000000-00000000-00000000-00000000",
-
-	"sys/dataStoreStats/calculate": "10000000-00000000-00000000-00000000",
-	"sys/dataStoreStats/get": "10000000-00000000-00000000-00000000",
-
     "uu-app-binarystore/createBinary": "11000000-00000000-00000000-00000000",
+    "uu-app-binarystore/getBinary": "11100000-00000000-00000000-00000000",
     "uu-app-binarystore/getBinaryData": "11100000-00000000-00000000-00000000",
+    "uu-app-binarystore/listBinaries": "11100000-00000000-00000000-00000000",
     "uu-app-binarystore/updateBinaryData": "11000000-00000000-00000000-00000000",
     "uu-app-binarystore/deleteBinary": "11000000-00000000-00000000-00000000",
-    "uu-app-binarystore/listBinaries": "11000000-00000000-00000000-00000000",
 
-    "sys/listAuditLogRecordsByTimeAndSpp": "10000000-00000000-00000000-00000000",
-    "sys/listMyAuditLogRecordsByTime": "11100000-00000000-00000000-00000000",
+    "sys/uuAppWorkspace/get": "11100000-00000000-00000000-00000000",
+    "sys/uuAppWorkspace/set": "11000000-00000000-00000000-00000000",
 
-    "sys/getAppWorkspace": "10000000-00000000-00000000-00000000",
-    "sys/getProfile": "11000000-00000000-00000000-00000000",
-    "sys/setProfile": "10000000-00000000-00000000-00000000",
-    "sys/listProfiles": "11000000-00000000-00000000-00000000",
-    "sys/createPermission": "10000000-00000000-00000000-00000000",
-    "sys/deletePermission": "10000000-00000000-00000000-00000000",
-    "sys/listPermissions": "11000000-00000000-00000000-00000000",
-    "sys/getLicenseOwner": "11100000-00000000-00000000-00000000",
-    "sys/getAppWorkspaceConfig": "11100000-00000000-00000000-00000000",
-    "sys/setAppWorkspaceConfig": "10000000-00000000-00000000-00000000",
-    "sys/clearAppWorkspaceConfig": "10000000-00000000-00000000-00000000",
-    "sys/calculateDataStoreStats": "10000000-00000000-00000000-00000000",
-    "sys/getDataStoreStats": "11000000-00000000-00000000-00000000",
-    "sys/setAwidRuntimeMode": "10000000-00000000-00000000-00000000",
-    "sys/getAwidRuntimeMode": "11000000-00000000-00000000-00000000",
-    "sys/setAuthType": "10000000-00000000-00000000-00000000",
-    "sys/connectArtifact": "10000000-00000000-00000000-00000000",
-    "sys/awidDump": "10000000-00000000-00000000-00000000",
-    "sys/awidRestore": "10000000-00000000-00000000-00000000",
+    "sys/uuAppWorkspace/setActiveSysState": "11000000-00000000-00000000-00000000",
+    "sys/uuAppWorkspace/setRestrictedSysState": "11000000-00000000-00000000-00000000",
+    "sys/uuAppWorkspace/setReadOnlySysState": "11000000-00000000-00000000-00000000",
+
+    "sys/uuAppWorkspace/profile/get": "11100000-00000000-00000000-00000000",
+    "sys/uuAppWorkspace/profile/set": "10000000-00000000-00000000-00000000",
+    "sys/uuAppWorkspace/profile/list": "11100000-00000000-00000000-00000000",
+    "sys/uuAppWorkspace/profile/update": "10000000-00000000-00000000-00000000",
+
+    "sys/uuAppWorkspace/permission/create": "10000000-00000000-00000000-00000000",
+    "sys/uuAppWorkspace/permission/delete": "10000000-00000000-00000000-00000000",
+    "sys/uuAppWorkspace/permission/list": "11100000-00000000-00000000-00000000",
+
+    "sys/uuAppWorkspace/setAthorizationStrategy": "10000000-00000000-00000000-00000000",
+
+    "sys/uuAppWorkspace/dump": "10000000-00000000-00000000-00000000",
+    "sys/uuAppWorkspace/restore": "10000000-00000000-00000000-00000000",
+    "sys/uuAppWorkspace/import": "10000000-00000000-00000000-00000000",
+
+    "sys/uuAppWorkspace/listImportMappings": "11000000-00000000-00000000-00000000",
+    "sys/uuAppWorkspace/deleteImportMappings": "11000000-00000000-00000000-00000000",
+
+    "sys/uuAppDataStore/stats/calculate": "11000000-00000000-00000000-00000000",
+    "sys/uuAppDataStore/stats/get": "11000000-00000000-00000000-00000000",
+
+    "sys/logRecord/list": "10000000-00000000-00000000-00000000",
+    "sys/logRecord/delete": "10000000-00000000-00000000-00000000",
+
     "sys/appClientToken/initKeys": "10000000-00000000-00000000-00000000",
 
     "uu-businessterritory-maing01/uuAwsc/authorizeMe": "11100000-00000000-00000000-00000000",

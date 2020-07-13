@@ -59,7 +59,7 @@ const Spa = UU5.Common.VisualComponent.create({
                   notFoundRoute="default"
                   routes={{
                     default: {component: <SpaAuthenticated {...this.getMainPropsToPass()} />},
-                    "sys/appWorkspace/initUve": {component: <SpaAuthenticated {...this.getMainPropsToPass()} customComp={<InitAppWorkspace/>} />}
+                    "sys/uuAppWorkspace/initUve": {component: <SpaAuthenticated {...this.getMainPropsToPass()} customComp={<InitAppWorkspace/>} />}
                   }}
                 />);
             } else if (identity) {
