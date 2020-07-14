@@ -9,7 +9,7 @@
     "license": "License Commercial",
     "asidRequired": true,
     "awidCount": 1,
-    "resourcePoolUri": "ues:DEV0116-BT:FAMILY_UUAPPCE_DEV_RESOURCEPOOL_AWE",
+    "resourcePoolUri": "ues:UUSERVERKIT-BT:FAMILY_UUSERVERKIT_FAT_RESOURCEPOOL_AWE",
     "targetSlot": "PRODUCTION",
     "uuAppNodeSetMap": {
       "CMD": {
@@ -18,7 +18,7 @@
           "min": 1,
           "max": 1
         },
-        "appPackUri": "ues:UU-BT:UU.JOKES.MAING01/APPBOX-2.2.0-DEV:UU.JOKES.MAING01/CMD-PACK",
+        "appPackUri": "ues:UU-BT:UU.JOKES.MAING01/APPBOX-2.2.4-dev:UU.JOKES.MAING01/CMD-PACK",
         "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.3"
       }
     },
