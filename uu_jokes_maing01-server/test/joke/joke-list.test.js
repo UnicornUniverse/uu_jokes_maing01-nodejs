@@ -11,13 +11,13 @@ afterAll(() => {
 
 beforeEach(async () => {
   await TestHelper.dropDatabase();
-  await TestHelper.initAppInstance();
-  await TestHelper.createAppWorkspace();
+  await TestHelper.initUuSubAppInstance();
+  await TestHelper.createUuAppWorkspace();
   await TestHelper.login("AwidLicenseOwner", false);
 });
 
 test("HDS", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
 
   // create some jokes
@@ -38,7 +38,7 @@ test("HDS", async () => {
 });
 
 test("HDS - default sort by (name), default order (ascending)", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
 
   // create some jokes
@@ -56,7 +56,7 @@ test("HDS - default sort by (name), default order (ascending)", async () => {
 });
 
 test("HDS - default sort by (name), custom order", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
 
   // create some jokes
@@ -74,7 +74,7 @@ test("HDS - default sort by (name), custom order", async () => {
 });
 
 test("HDS - custom sort by, default order (ascending)", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
 
   // rating the jokes is yet to be implemented => crate some jokes with rating in db
@@ -96,7 +96,7 @@ test("HDS - custom sort by, default order (ascending)", async () => {
 });
 
 test("HDS - pageInfo", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
 
   // create some jokes
@@ -116,7 +116,7 @@ test("HDS - pageInfo", async () => {
 });
 
 test("HDS - only pageSize in pageInfo", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
 
   // create some jokes
@@ -135,7 +135,7 @@ test("HDS - only pageSize in pageInfo", async () => {
 });
 
 test("HDS - only pageIndex in pageInfo", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
 
   // create some jokes
@@ -154,7 +154,7 @@ test("HDS - only pageIndex in pageInfo", async () => {
 });
 
 test("HDS - filter by category", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
 
   // category management commands are not yet implemented => creating something straight in the database
@@ -179,7 +179,7 @@ test("HDS - filter by category", async () => {
 
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: ".", state: "closed" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "closed" });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(JOKE_LIST);
@@ -197,7 +197,7 @@ test("A3 - jokes instance is under construction", async () => {
     uuAppProfileAuthorities: ".",
     state: "underConstruction"
   };
-  await TestHelper.initAppWorkspace(dtoIn);
+  await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Readers");
   try {
     await TestHelper.executeGetCommand(JOKE_LIST);
@@ -209,7 +209,7 @@ test("A3 - jokes instance is under construction", async () => {
 });
 
 test("A4 - unsupported keys in dtoIn", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
   let response = await TestHelper.executeGetCommand(JOKE_LIST, { kedluben: true });
   expect(response.status).toEqual(200);
@@ -222,7 +222,7 @@ test("A4 - unsupported keys in dtoIn", async () => {
 
 test("A5 - invalid dtoIn", async () => {
   expect.assertions(2);
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(JOKE_LIST, { order: true });

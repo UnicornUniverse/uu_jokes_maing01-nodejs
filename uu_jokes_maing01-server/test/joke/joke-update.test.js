@@ -20,8 +20,8 @@ afterAll(() => {
 
 beforeEach(async () => {
   await TestHelper.dropDatabase();
-  await TestHelper.initAppInstance();
-  await TestHelper.createAppWorkspace();
+  await TestHelper.initUuSubAppInstance();
+  await TestHelper.createUuAppWorkspace();
   await TestHelper.login("AwidLicenseOwner", false);
 });
 
@@ -30,7 +30,7 @@ afterEach(() => {
 });
 
 test("HDS - no image", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "kostkovyCukr" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "kostkovyCukr" });
   await TestHelper.login("Authorities");
   let string = "hmm";
   let create = await TestHelper.executePostCommand(JOKE_CREATE, { name: string });
@@ -47,7 +47,7 @@ test("HDS - no image", async () => {
 });
 
 test("HDS - create image", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "kostkovyCukr" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "kostkovyCukr" });
   await TestHelper.login("Authorities");
   let create = await TestHelper.executePostCommand(JOKE_CREATE, { name: "mlzi se tu Okna" });
   let update = await TestHelper.executePostCommand(JOKE_UPDATE, { id: create.id, image: getImageStream() });
@@ -62,7 +62,7 @@ test("HDS - create image", async () => {
 });
 
 test("HDS - update image", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "kostkovyCukr" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "kostkovyCukr" });
   await TestHelper.login("Authorities");
   let create = await TestHelper.executePostCommand(JOKE_CREATE, {
     name: "Zapomnel jsem si salu a je mi zima na krk",
@@ -86,7 +86,7 @@ test("HDS - update image", async () => {
 
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "energetickyNapoj", state: "closed" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "energetickyNapoj", state: "closed" });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_UPDATE, {});
@@ -100,7 +100,7 @@ test("A2 - jokes instance is closed", async () => {
 
 test("A3 - unsupported keys in dtoIn", async () => {
 
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "vickoJeFuc" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "vickoJeFuc" });
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "Velmi vtipny vtip, opet.." });
   joke = await TestHelper.executePostCommand(JOKE_UPDATE, { id: joke.id, zmatenyTurista: "kudy se dostanu na..." });
@@ -111,7 +111,7 @@ test("A3 - unsupported keys in dtoIn", async () => {
 
 test("A4 - invalid dtoIn", async () => {
   expect.assertions(2);
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "theMournfulWhy" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "theMournfulWhy" });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_UPDATE, {});
@@ -123,7 +123,7 @@ test("A4 - invalid dtoIn", async () => {
 
 test("A5 - joke does not exist", async () => {
   expect.assertions(3);
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "StellaWasADiver" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "StellaWasADiver" });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_UPDATE, { id: MONGO_ID });
@@ -136,7 +136,7 @@ test("A5 - joke does not exist", async () => {
 
 test("A6 - Readers trying to update Authorities' joke", async () => {
   expect.assertions(1);
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "theMournfulWhy" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "theMournfulWhy" });
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "It's different now, that I'm poor and aging." });
   let session = await TestHelper.login("Readers");
@@ -148,7 +148,7 @@ test("A6 - Readers trying to update Authorities' joke", async () => {
 });
 
 test("A7 - categories don't exist", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "theWholesomeMurder" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "theWholesomeMurder" });
   await TestHelper.login("Authorities");
 
   let existingCategoryId = "012345678910111213141516";

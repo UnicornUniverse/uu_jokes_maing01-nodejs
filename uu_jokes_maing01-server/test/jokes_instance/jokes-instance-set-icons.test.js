@@ -17,8 +17,8 @@ afterAll(() => {
 
 beforeEach(async () => {
   await TestHelper.dropDatabase();
-  await TestHelper.initAppInstance();
-  await TestHelper.createAppWorkspace();
+  await TestHelper.initUuSubAppInstance();
+  await TestHelper.createUuAppWorkspace();
 });
 
 afterEach(() => {
@@ -27,7 +27,7 @@ afterEach(() => {
 
 test("HDS - upload icons", async () => {
   expect.assertions(18);
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
 
   //created
   let dtoIn = { data: Fs.createReadStream(Path.join(__dirname, "icons-to-upload.zip")) };
@@ -64,7 +64,7 @@ test("HDS - upload icons", async () => {
 test("A1", async () => {
   expect.assertions(1);
 
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
 
   //created
   let dtoIn = { data: false };
@@ -78,7 +78,7 @@ test("A1", async () => {
 test("A5", async () => {
   expect.assertions(1);
 
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
 
   let dtoIn = { data: Fs.createReadStream(Path.join(__dirname, "invalid-icons-to-create.zip")) };
   let result = await TestHelper.executePostCommand(JOKES_INSTANCE_SET_ICONS, dtoIn);

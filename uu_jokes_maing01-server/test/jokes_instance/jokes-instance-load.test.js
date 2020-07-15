@@ -11,13 +11,13 @@ afterAll(() => {
 
 beforeEach(async () => {
   await TestHelper.dropDatabase();
-  await TestHelper.initAppInstance();
-  await TestHelper.createAppWorkspace();
+  await TestHelper.initUuSubAppInstance();
+  await TestHelper.createUuAppWorkspace();
   await TestHelper.login("AwidLicenseOwner", false);
 });
 
 test("HDS", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
   await TestHelper.login("Authorities");
   let result = await TestHelper.executeGetCommand(JOKES_INSTANCE_LOAD);
   expect(result.status).toBe(200);
@@ -31,7 +31,7 @@ test("HDS", async () => {
 
 test("A2 - closed jokes instance", async () => {
   expect.assertions(4);
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "closed"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "closed"});
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(JOKES_INSTANCE_LOAD);
@@ -49,7 +49,7 @@ test("A3 - jokes instance is under construction and caller is a Reader", async (
     uuAppProfileAuthorities: ".",
     state: "underConstruction"
   };
-  await TestHelper.initAppWorkspace(dtoIn);
+  await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Readers");
   try {
     await TestHelper.executeGetCommand(JOKES_INSTANCE_LOAD);

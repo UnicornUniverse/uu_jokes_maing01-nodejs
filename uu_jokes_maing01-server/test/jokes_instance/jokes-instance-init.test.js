@@ -18,8 +18,8 @@ afterAll(() => {
 
 beforeEach(async () => {
   await TestHelper.dropDatabase();
-  await TestHelper.initAppInstance();
-  await TestHelper.createAppWorkspace();
+  await TestHelper.initUuSubAppInstance();
+  await TestHelper.createUuAppWorkspace();
 });
 
 afterEach(() => {
@@ -28,7 +28,7 @@ afterEach(() => {
 
 test("HDS with minimal dtoIn and without logo", async () => {
   let roleGroupUri = "kedluben"; //almost any string can pass as uri
-  let result = await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: roleGroupUri });
+  let result = await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: roleGroupUri });
   expect(result.status).toBe(200);
   let dtoOut = result;
   expect(dtoOut.state).toEqual("underConstruction");
@@ -45,7 +45,7 @@ test("HDS with minimal dtoIn and logo", async () => {
     uuAppProfileAuthorities: "kombajn",
     logo: getImageStream()
   };
-  let result = await TestHelper.initAppWorkspace(dtoIn);
+  let result = await TestHelper.initUuAppWorkspace(dtoIn);
   expect(result.status).toBe(200);
   let dtoOut = result;
   expect(dtoOut.state).toEqual("underConstruction");
@@ -65,7 +65,7 @@ test("HDS with more complete dtoIn", async () => {
     name,
     state
   };
-  let result = await TestHelper.initAppWorkspace(dtoIn);
+  let result = await TestHelper.initUuAppWorkspace(dtoIn);
   expect(result.status).toBe(200);
   expect(result.state).toEqual(state);
   expect(result.name).toEqual(name);
@@ -75,11 +75,11 @@ test("HDS with more complete dtoIn", async () => {
 test("A1 - jokesInstance already exists", async () => {
   expect.assertions(3);
   let dtoIn = { uuAppProfileAuthorities: "mrkev" };
-  let result = await TestHelper.initAppWorkspace(dtoIn);
+  let result = await TestHelper.initUuAppWorkspace(dtoIn);
   expect(result.status).toBe(200);
 
   try {
-    await TestHelper.initAppWorkspace(dtoIn);
+    await TestHelper.initUuAppWorkspace(dtoIn);
   } catch (e) {
     expect(e.code).toEqual("uu-app-workspace/forbiddenAwidSysState");
     expect(e.paramMap.currentSysState).toEqual("active");
@@ -88,7 +88,7 @@ test("A1 - jokesInstance already exists", async () => {
 
 test("A2 - unsupported keys", async () => {
   let dtoIn = { uuAppProfileAuthorities: "mrkev", something: "something more" };
-  let result = await TestHelper.initAppWorkspace(dtoIn);
+  let result = await TestHelper.initUuAppWorkspace(dtoIn);
   expect(result.status).toBe(200);
 
   let errorMap = result.uuAppErrorMap;
@@ -102,7 +102,7 @@ test("A2 - unsupported keys", async () => {
 test("A3 - invalid dtoIn", async () => {
   expect.assertions(2);
   try {
-    await TestHelper.initAppWorkspace({});
+    await TestHelper.initUuAppWorkspace({});
   } catch (e) {
     expect(e.code).toEqual("uu-jokes-main/jokesInstance/init/invalidDtoIn");
     expect(e.message).toEqual("DtoIn is not valid.");

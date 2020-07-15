@@ -20,8 +20,8 @@ afterAll(() => {
 
 beforeEach(async () => {
   await TestHelper.dropDatabase();
-  await TestHelper.initAppInstance();
-  await TestHelper.createAppWorkspace();
+  await TestHelper.initUuSubAppInstance();
+  await TestHelper.createUuAppWorkspace();
 });
 
 afterEach(() => {
@@ -29,7 +29,7 @@ afterEach(() => {
 });
 
 test("HDS - simple", async () => {
-  let result = await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  let result = await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
   expect(result.state).toEqual("underConstruction");
 
   let closed = "closed";
@@ -39,7 +39,7 @@ test("HDS - simple", async () => {
 });
 
 test("A1 - unsupported keys", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
 
   let result = await TestHelper.executePostCommand(JOKES_INSTANCE_UPDATE, { something: "something" });
   expect(result.status).toBe(200);
@@ -53,7 +53,7 @@ test("A1 - unsupported keys", async () => {
 
 test("A2 - invalid dtoIn", async () => {
   expect.assertions(2);
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
   try {
     await TestHelper.executePostCommand(JOKES_INSTANCE_UPDATE, { state: "Czech Republic" });
   } catch (e) {

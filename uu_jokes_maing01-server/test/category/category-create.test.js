@@ -12,8 +12,8 @@ afterAll(() => {
 
 beforeEach(async () => {
   await TestHelper.dropDatabase();
-  await TestHelper.initAppInstance();
-  await TestHelper.createAppWorkspace();
+  await TestHelper.initUuSubAppInstance();
+  await TestHelper.createUuAppWorkspace();
   await TestHelper.login("AwidLicenseOwner", false);
 });
 
@@ -22,7 +22,7 @@ afterEach(() => {
 });
 
 test("HDS", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
   await TestHelper.login("Authorities");
   let categoryName = "(Mg,Fe2+)2(Mg,Fe2+)5Si8O2(OH)2";
   let response = await TestHelper.executePostCommand(CATEGORY_CREATE, { name: categoryName });
@@ -36,7 +36,7 @@ test("HDS", async () => {
 
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "closed"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "closed"});
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(CATEGORY_CREATE, { name: "I don't know anymore.." });
@@ -49,7 +49,7 @@ test("A2 - jokes instance is closed", async () => {
 });
 
 test("A3 - unsupported keys in dtoIn", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
   await TestHelper.login("Authorities");
   let response = await TestHelper.executePostCommand(CATEGORY_CREATE, {
     name: "I don't know anymore..",
@@ -65,7 +65,7 @@ test("A3 - unsupported keys in dtoIn", async () => {
 
 test("A4 - dtoIn is not valid", async () => {
   expect.assertions(2);
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(CATEGORY_CREATE, {});
@@ -77,7 +77,7 @@ test("A4 - dtoIn is not valid", async () => {
 
 test("A5 - category with such name already exists", async () => {
   expect.assertions(3);
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
   await TestHelper.login("Authorities");
   let name = "...";
   await TestHelper.executePostCommand(CATEGORY_CREATE, { name: name });

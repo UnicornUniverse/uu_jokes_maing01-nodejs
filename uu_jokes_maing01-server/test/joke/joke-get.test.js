@@ -11,8 +11,8 @@ afterAll(() => {
 
 beforeEach(async () => {
   await TestHelper.dropDatabase();
-  await TestHelper.initAppInstance();
-  await TestHelper.createAppWorkspace();
+  await TestHelper.initUuSubAppInstance();
+  await TestHelper.createUuAppWorkspace();
   await TestHelper.login("AwidLicenseOwner", false);
 });
 
@@ -21,7 +21,7 @@ test("HDS", async () => {
     uuAppProfileAuthorities: "jaJsemTakyUri",
     state: "active"
   };
-  await TestHelper.initAppWorkspace(dtoIn);
+  await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Authorities");
   let create = await TestHelper.executePostCommand(JOKE_CREATE, { name: "Silvester Stalin" });
   let get = await TestHelper.executeGetCommand(JOKE_GET, { id: create.id });
@@ -35,7 +35,7 @@ test("A2 - jokes instance is closed", async () => {
     uuAppProfileAuthorities: "vimperskeParky",
     state: "closed"
   };
-  await TestHelper.initAppWorkspace(dtoIn);
+  await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(JOKE_GET, { id: MONGO_ID });
@@ -53,7 +53,7 @@ test("A3 - jokes instance is under construction", async () => {
     uuAppProfileAuthorities: "jogurtovaCokolada",
     state: "underConstruction"
   };
-  await TestHelper.initAppWorkspace(dtoIn);
+  await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Readers");
   try {
     await TestHelper.executeGetCommand(JOKE_GET, { id: MONGO_ID });
@@ -69,7 +69,7 @@ test("A4 - unsupported keys in dtoIn", async () => {
     uuAppProfileAuthorities: "konviceNaCaj",
     state: "active"
   };
-  await TestHelper.initAppWorkspace(dtoIn);
+  await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "zelena okurka" });
   joke = await TestHelper.executeGetCommand(JOKE_GET, { id: joke.id, cosi: "to je jedno, co tu je" });
@@ -87,7 +87,7 @@ test("A5 - invalid dtoIn", async () => {
     uuAppProfileAuthorities: "umeleSladidlo",
     state: "active"
   };
-  await TestHelper.initAppWorkspace(dtoIn);
+  await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(JOKE_GET, {});
@@ -103,7 +103,7 @@ test("A6 - joke does not exist", async () => {
     uuAppProfileAuthorities: "umeleSladidlo",
     state: "active"
   };
-  await TestHelper.initAppWorkspace(dtoIn);
+  await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(JOKE_GET, { id: MONGO_ID });

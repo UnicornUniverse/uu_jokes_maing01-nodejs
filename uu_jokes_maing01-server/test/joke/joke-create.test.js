@@ -23,8 +23,8 @@ afterAll(() => {
 
 beforeEach(async () => {
   await TestHelper.dropDatabase();
-  await TestHelper.initAppInstance();
-  await TestHelper.createAppWorkspace();
+  await TestHelper.initUuSubAppInstance();
+  await TestHelper.createUuAppWorkspace();
 });
 
 afterEach(() => {
@@ -32,7 +32,7 @@ afterEach(() => {
 });
 
 test("HDS - no image, Authorities call", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
   await TestHelper.login("Authorities");
   let name = "nejvtipnejsi vtip";
   let text = `
@@ -75,7 +75,7 @@ test("HDS - no image, Authorities call", async () => {
 });
 
 test("HDS - no image, Executives call", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
   await TestHelper.login("Executives");
 
   let dtoIn = {
@@ -93,7 +93,7 @@ test("HDS - no image, Executives call", async () => {
 });
 
 test("HDS - image", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
   await TestHelper.login("Authorities");
 
   let dtoIn = {
@@ -109,7 +109,7 @@ test("HDS - image", async () => {
 
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: ".", state: "closed" });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "closed" });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_CREATE, { name: "Vesely partyzan" });
@@ -122,7 +122,7 @@ test("A2 - jokes instance is closed", async () => {
 });
 
 test("A3 - unsupported keys in dtoIn", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
   await TestHelper.login("Authorities");
 
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "Hrebik v zasuvce", navic: "ja jsem navic" });
@@ -136,7 +136,7 @@ test("A3 - unsupported keys in dtoIn", async () => {
 
 test("A4 - dtoIn is not valid", async () => {
   expect.assertions(2);
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
   await TestHelper.login("Authorities");
 
   try {
@@ -148,7 +148,7 @@ test("A4 - dtoIn is not valid", async () => {
 });
 
 test("A5 - invalid image content type", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
   await TestHelper.login("Authorities");
 
   let dtoIn = {
@@ -184,7 +184,7 @@ test("A6 - creating image fails", async () => {
 });
 
 test("A7 - categories don't exist", async () => {
-  await TestHelper.initAppWorkspace({ uuAppProfileAuthorities: "." });
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
   await TestHelper.login("Authorities");
 
   let existingCategoryId = "012345678910111213141516";
