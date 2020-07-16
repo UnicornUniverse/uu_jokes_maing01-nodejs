@@ -47,7 +47,7 @@
         "profileList": ["Public"]
       },
       "joke/create": {
-        "sysStateList": ["active", "restricted"],
+        "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives"]
       },
       "joke/get": {
