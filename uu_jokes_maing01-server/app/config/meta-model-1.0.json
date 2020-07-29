@@ -1,46 +1,61 @@
 {
+  "schemaVersion": "1.0",
   "code": "uu-jokes-maing01",
   "name": "uuJokes uuAppMetaModel",
   "desc": "uuJokes uuAppMetaModel",
-  "version": "2.2.4",
+  "version": "2.3.0",
   "defaultIcon": "uubml-artifact",
+  "defaultCategory": "control",
 
   "stateList": [
     {
       "code": "active",
       "name": "<uu5string/><UU5.Bricks.Lsi><UU5.Bricks.Lsi.Item language='en'>Active</UU5.Bricks.Lsi.Item><UU5.Bricks.Lsi.Item language='cs'>Aktivní</UU5.Bricks.Lsi.Item></UU5.Bricks.Lsi>",
-      "type": "ACTIVE",
+      "ancestorStateMap": {
+        "uu-businessterritory-maing01/uuAwsc": "active"
+      },
       "icon": "uubml-state-s00-active"
     },
     {
       "code": "underConstruction",
-      "name": "<uu5string/><UU5.Bricks.Lsi><UU5.Bricks.Lsi.Item language='en'>Under Construction</UU5.Bricks.Lsi.Item><UU5.Bricks.Lsi.Item language='cs'>Rozpracováno</UU5.Bricks.Lsi.Item></UU5.Bricks.Lsi>",
-      "type": "ALTERNATIVE_ACTIVE",
-      "icon": "uubml-state-s00-alternative-active"
+      "name": "<uu5string/><UU5.Bricks.Lsi><UU5.Bricks.Lsi.Item language='en'>Under construction</UU5.Bricks.Lsi.Item><UU5.Bricks.Lsi.Item language='cs'>Rozpracováno</UU5.Bricks.Lsi.Item></UU5.Bricks.Lsi>",
+      "ancestorStateMap": {
+        "uu-businessterritory-maing01/uuAwsc": "active"
+      },
+      "icon": "uubml-state-s10-alternative-active"
     },
     {
       "code": "closed",
       "name": "<uu5string/><UU5.Bricks.Lsi><UU5.Bricks.Lsi.Item language='en'>Closed</UU5.Bricks.Lsi.Item><UU5.Bricks.Lsi.Item language='cs'>Uzavřeno</UU5.Bricks.Lsi.Item></UU5.Bricks.Lsi>",
-      "type": "FINAL",
+      "ancestorStateMap": {
+        "uu-businessterritory-maing01/uuAwsc": "final"
+      },
       "icon": "uubml-state-s00-final"
     }
+
   ],
 
   "profileList": [
     {
       "code": "Authorities",
       "name": "Authorities",
-      "desc": "Authorities"
+      "desc": "Authorities",
+      "disableImplicitPermissions": "false",
+      "enabledExplicitTypeList": ["uu-businessterritory-maing01/uuRoleGroupIfc"]
     },
     {
       "code": "Executives",
       "name": "Executives",
-      "desc": "Executives"
+      "desc": "Executives",
+      "disableImplicitPermissions": "false",
+      "enabledExplicitTypeList": ["uu-businessterritory-maing01/uuRoleGroupIfc"]
     },
     {
       "code": "Readers",
       "name": "Readers",
-      "desc": "Readers"
+      "desc": "Readers",
+      "disableImplicitPermissions": "false",
+      "enabledExplicitTypeList": ["uu-businessterritory-maing01/uuRoleGroupIfc"]
     }
   ],
 
@@ -50,131 +65,81 @@
     "00000000-00000000-00000000-00000011"
   ],
 
-
-  "ancestorPathMap": {
-    "uu-businessterritory-maing01/uuAwsc": [],
-    "uu-businessterritory-maing01/uuArtifactIfc": ["uu-businessterritory-maing01/uuAwsc"]
-  },
+  "ancestorPathList": [
+    "uu-businessterritory-maing01/uuAwsc"
+  ],
 
   "ancestorMap": {
     "uu-businessterritory-maing01/uuAwsc": {
       "interfaceUuCmdMap": {
-        "authorizeMe": "",
-        "authorizeUuIdentity": "",
-        "get": "",
-        "load": "jokesInstance/load",
-        "loadEnvironment": "",
-        "loadPermissions": "",
-        "getNavigation": "",
-        "getImplicitPermissions": "",
-        "setBasicAttributes": "",
-        "setVersion": "",
-        "setResponsibleRole": "",
-        "setHomeFolder": "",
-        "setState": "",
-        "setPermissions": "",
-        "setImplicitPermissions": "",
-        "find": "",
-        "connectAppWorkspace": "",
-        "delete": "",
-        "listStateHistory": "",
-        "listMyRoles":"",
-
-        "loadLifeCycle": "",
-        "listActivities": "",
-        "activity/create": "",
-        "activity/load": "",
-        "activity/setBasicAttributes": "",
-        "activity/setTypeSpecificData": "",
-        "activity/setSubmitter": "",
-        "activity/addSolver": "",
-        "activity/removeSolver": "",
-        "activity/reactivateSolver": "",
-        "activity/elementary/setSolver": "",
-        "activity/addNote": "",
-        "activity/elementary/addNote": "",
-        "activity/setNoteImportance": "",
-        "activity/removeNote": "",
-        "activity/propagateReadToDw": "",
-
-        "aar/create": "",
-        "aar/get": "",
-        "aar/update": "",
-        "aar/delete": "",
-        "aar/listByArtifactA": "",
-        "aar/listByArtifactB": "",
-
-        "contextProperty/create": "",
-        "contextProperty/setBasicAttributes": "",
-        "contextProperty/get": "",
-        "contextProperty/listByArtifact": "",
-        "contextProperty/load": "",
-        "contextProperty/delete": "",
-        "contextProperty/setValue": ""
+        "uu-businessterritory-maing01/uuAwsc/load": "uu-jokes-maing01/jokesInstance/load",
+        "uu-businessterritory-maing01/uuAwsc/setBasicAttributes": "uu-jokes-maing01/jokesInstance/update"
       }
     }
   },
 
   "synchronizeUuCmdMap": {
+    "uu-businessterritory-maing01/uuAwsc/synchronizeArtifactAttributes": "uu-jokes-maing01/jokesInstance/load"
   },
 
   "useCaseProfileMap": {
-    "jokesInstance/load": "11100000-00000000-00000000-00000000",
-    "jokesInstance/update": "10000000-00000000-00000000-00000000",
-    "jokesInstance/setLogo": "10000000-00000000-00000000-00000000",
-    "jokesInstance/setIcons": "10000000-00000000-00000000-00000000",
-    "jokesInstance/getUveMetaData": "11100000-00000000-00000000-00000000",
-    "joke/create": "11000000-00000000-00000000-00000000",
-    "joke/get": "11100000-00000000-00000000-00000000",
-    "joke/update": "11000000-00000000-00000000-00000000",
-    "joke/updateVisibility": "10000000-00000000-00000000-00000000",
-    "joke/delete": "11000000-00000000-00000000-00000000",
-    "joke/list": "11100000-00000000-00000000-00000000",
-    "joke/addRating": "11100000-00000000-00000000-00000000",
-    "category/create": "11000000-00000000-00000000-00000000",
-    "category/get": "11100000-00000000-00000000-00000000",
-    "category/update": "11000000-00000000-00000000-00000000",
-    "category/delete": "11000000-00000000-00000000-00000000",
-    "category/list": "11100000-00000000-00000000-00000000",
-    "uu-app-binarystore/createBinary": "11000000-00000000-00000000-00000000",
-    "uu-app-binarystore/getBinary": "11100000-00000000-00000000-00000000",
-    "uu-app-binarystore/getBinaryData": "11100000-00000000-00000000-00000000",
-    "uu-app-binarystore/listBinaries": "11100000-00000000-00000000-00000000",
-    "uu-app-binarystore/updateBinaryData": "11000000-00000000-00000000-00000000",
-    "uu-app-binarystore/deleteBinary": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/jokesInstance/load": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/jokesInstance/update": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/jokesInstance/setLogo": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/jokesInstance/setIcons": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/jokesInstance/getUveMetaData": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/joke/create": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/joke/get": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/joke/update": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/joke/updateVisibility": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/joke/delete": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/joke/list": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/joke/addRating": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/category/create": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/category/get": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/category/update": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/category/delete": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/category/list": "11100000-00000000-00000000-00000000",
 
-    "sys/uuAppWorkspace/get": "11100000-00000000-00000000-00000000",
-    "sys/uuAppWorkspace/set": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/uu-app-binarystore/createBinary": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/uu-app-binarystore/getBinary": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/uu-app-binarystore/getBinaryData": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/uu-app-binarystore/listBinaries": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/uu-app-binarystore/updateBinaryData": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/uu-app-binarystore/deleteBinary": "11000000-00000000-00000000-00000000",
 
-    "sys/uuAppWorkspace/setActiveSysState": "11000000-00000000-00000000-00000000",
-    "sys/uuAppWorkspace/setRestrictedSysState": "11000000-00000000-00000000-00000000",
-    "sys/uuAppWorkspace/setReadOnlySysState": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/get": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/set": "11000000-00000000-00000000-00000000",
 
-    "sys/uuAppWorkspace/profile/get": "11100000-00000000-00000000-00000000",
-    "sys/uuAppWorkspace/profile/set": "10000000-00000000-00000000-00000000",
-    "sys/uuAppWorkspace/profile/list": "11100000-00000000-00000000-00000000",
-    "sys/uuAppWorkspace/profile/update": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/setActiveSysState": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/setRestrictedSysState": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/setReadOnlySysState": "11000000-00000000-00000000-00000000",
 
-    "sys/uuAppWorkspace/permission/create": "10000000-00000000-00000000-00000000",
-    "sys/uuAppWorkspace/permission/delete": "10000000-00000000-00000000-00000000",
-    "sys/uuAppWorkspace/permission/list": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/profile/get": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/profile/set": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/profile/list": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/profile/update": "10000000-00000000-00000000-00000000",
 
-    "sys/uuAppWorkspace/setAthorizationStrategy": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/permission/create": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/permission/delete": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/permission/list": "11100000-00000000-00000000-00000000",
 
-    "sys/uuAppWorkspace/dump": "10000000-00000000-00000000-00000000",
-    "sys/uuAppWorkspace/restore": "10000000-00000000-00000000-00000000",
-    "sys/uuAppWorkspace/import": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/setAthorizationStrategy": "10000000-00000000-00000000-00000000",
 
-    "sys/uuAppWorkspace/listImportMappings": "11000000-00000000-00000000-00000000",
-    "sys/uuAppWorkspace/deleteImportMappings": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/dump": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/restore": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/import": "10000000-00000000-00000000-00000000",
 
-    "sys/uuAppDataStore/stats/calculate": "11000000-00000000-00000000-00000000",
-    "sys/uuAppDataStore/stats/get": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/listImportMappings": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/deleteImportMappings": "11000000-00000000-00000000-00000000",
 
-    "sys/logRecord/list": "10000000-00000000-00000000-00000000",
-    "sys/logRecord/delete": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppDataStore/stats/calculate": "11000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppDataStore/stats/get": "11000000-00000000-00000000-00000000",
 
-    "sys/appClientToken/initKeys": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/logRecord/list": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/logRecord/delete": "10000000-00000000-00000000-00000000",
+
+    "uu-jokes-maing01/sys/appClientToken/initKeys": "10000000-00000000-00000000-00000000",
 
     "uu-businessterritory-maing01/uuAwsc/authorizeMe": "11100000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/authorizeUuIdentity": "11000000-00000000-00000000-00000000",
@@ -212,6 +177,11 @@
     "uu-businessterritory-maing01/uuAwsc/activity/setNoteImportance": "11000000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/activity/removeNote": "11000000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/activity/propagateReadToDw": "11000000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/activity/setState": "11110000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/activity/createNote": "11110000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/activity/elementary/setState": "11110000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/activity/elementary/createNote": "11110000-00000000-00000000-00000000",
+
     "uu-businessterritory-maing01/uuAwsc/aar/create": "11000000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/aar/get": "11000000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/aar/update": "11000000-00000000-00000000-00000000",
@@ -229,21 +199,14 @@
     "uu-businessterritory-maing01/uuAwsc/synchronizeArtifactAttributes": "11000000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/synchronizeHomeUnit": "11000000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/synchronizeHomeFolder": "11000000-00000000-00000000-00000000",
-    "uu-businessterritory-maing01/uuAwsc/synchronizeResponsibleRole": "11000000-00000000-00000000-00000000"
+    "uu-businessterritory-maing01/uuAwsc/synchronizeResponsibleRole": "11000000-00000000-00000000-00000000",
+
+    "uu-businessterritory-maing01/uuAwsc/addExplicitPermission": "11000000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/removeExplicitPermission": "11000000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/getExplicitPermissions": "11000000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/checkIntegrityRules": "11000000-00000000-00000000-00000000"
   },
 
   "routeMap": {
-    "userGate/activityDetail": [
-      "userGate/activityDetail",
-      "UuTerritory.Activity.Routes.Detail"
-    ],
-    "userGate/activityList": [
-      "userGate/activityList",
-      "UuTerritory.Activity.Routes.ActivityList"
-    ]
-  },
-
-  "typeMap":{
-
   }
 }

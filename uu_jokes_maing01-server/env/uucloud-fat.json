@@ -4,7 +4,7 @@
   "uuSubApp": {
     "code": "UU.JOKES.MAING01",
     "name": "uuJokes",
-    "version": "2.2.4-dev",
+    "version": "2.3.0",
     "description": "Server project example for developing UAF application in Node.js",
     "license": "License Commercial",
     "asidRequired": true,
@@ -45,7 +45,11 @@
       "term_of_use_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=license",
       "technical_documentation_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book",
       "product_code": "uuJokes",
-      "product_portal_uri": "ues:UU-BT:PRD.UU-JOKESG01/PORTAL"
+      "product_portal_uri": "ues:UU-BT:PRD.UU-JOKESG01/PORTAL",
+      "asid_license_owner_list": [
+        "25-5559-1",
+        "4-1"
+      ]
     }
   },
   "uuSubAppInstance": {
@@ -65,7 +69,7 @@
         "bsid": "dd5e8609a8d84838b47ec3420940667f"
       }
     },
-    "asid": "7e1c0956ce064b01bf414987858c14be",
+    "asid": ";",
     "asidOwner": "25-5559-1"
   }
 }
