@@ -55,21 +55,21 @@
   "uuSubAppInstance": {
     "awidList": [
       {
-        "awid": "c70f3b9803594c19b7c920be37b42489",
-        "awidOwner": "25-5560-1"
+        "awid": "76d6858f1af643768839c43576b48f1b",
+        "awidOwner": "25-5729-1"
       }
     ],
     "uuAppObjectStoreMap": {
       "OSID_1": {
-        "osid": "4a29fc671eda48589de6b6c0659add10"
+        "osid": "5533697f47ab4d60a04df0f0e4640997"
       }
     },
     "uuAppBinaryStoreMap": {
       "BSID_1": {
-        "bsid": "dd5e8609a8d84838b47ec3420940667f"
+        "bsid": "af2a3178036e4c93bb46bac912dc3335"
       }
     },
-    "asid": ";",
-    "asidOwner": "25-5559-1"
+    "asid": "4107b6fa45be4f12a46f5b80836f9851",
+    "asidOwner": "25-5728-1"
   }
 }
