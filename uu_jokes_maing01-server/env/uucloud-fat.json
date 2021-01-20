@@ -9,7 +9,7 @@
     "license": "License Commercial",
     "asidRequired": true,
     "awidCount": 1,
-    "resourcePoolUri": "ues:DEV0116-BT:FAMILY_UUAPPCE_DEV_RESOURCEPOOL_AWE",
+    "resourcePoolUri": "ues:UUSERVERKIT-BT:FAMILY_UUSERVERKIT_FAT_RESOURCEPOOL_AWE",
     "targetSlot": "PRODUCTION",
     "uuAppNodeSetMap": {
       "CMD": {
