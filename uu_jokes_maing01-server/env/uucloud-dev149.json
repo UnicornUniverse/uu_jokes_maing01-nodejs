@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "1.0.0",
+  "schemaSpecificationUri": "https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-289fcd2e11d34f3e9b2184bedb236ded/book/page?code=uuSubAppInstanceDescriptor",
+  "uuSubApp": {
+    "code": "UU.JOKES.MAING01",
+    "name": "uuJokes",
+    "version": "2.4.0-dev",
+    "description": "Server project example for developing UAF application in Node.js",
+    "license": "License Commercial",
+    "asidRequired": true,
+    "awidCount": 1,
+    "resourcePoolUri": "ues:DEV0149-BT:SWFC2_UUJOKES2_AWE",
+    "targetSlot": "PRODUCTION",
+    "uuAppNodeSetMap": {
+      "CMD": {
+        "nodeSize": "G1_S",
+        "nodeCount": {
+          "min": 1,
+          "max": 1
+        },
+        "appPackUri": "",
+        "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.4"
+      }
+    },
+    "uuAppObjectStoreMap": {
+      "OSID_1": {
+        "size": 0.25,
+        "alias": "primary",
+        "technology": "MongoDB-4.0",
+        "backup": false
+      }
+    },
+    "uuAppBinaryStoreMap": {
+      "BSID_1": {
+        "size": 0.25,
+        "alias": "binary",
+        "technology": "MongoDB-4.0",
+        "backup": false
+      }
+    },
+    "uuConfigMap": {
+      "uu_app_oidc_providers_oidcg02_enabled": true,
+      "uu_app_oidc_primary_provider": "oidcg02",
+      "uuapp.auditlog.sysauditlogabl.log_level": "debug",
+      "uuapp.auditlog.logstoreclient.log_level": "debug",
+      "whiteListedUuEe": "26-5958-1"
+    }
+  },
+  "uuSubAppInstance": {
+    "uuEeMap": {
+      "whiteListedUuEe": "26-5958-1"
+    },
+    "asid": "229ad36af6b54f21bb43b361e33b6368",
+    "asidOwner": "26-5915-1",
+    "awidList": [
+      {
+        "awid": "c49a139a50ba4c15adb86cf205c6a38b",
+        "awidOwner": "26-5916-1"
+      }
+    ],
+    "uuAppObjectStoreMap": {
+      "OSID_1": {
+        "osid": "c8d37dea6a12419ca3d271d22eb80923"
+      }
+    },
+    "uuAppBinaryStoreMap": {
+      "BSID_1": {
+        "bsid": "de5b975b467240d2bda1708951d13231"
+      }
+    }
+  }
+}
