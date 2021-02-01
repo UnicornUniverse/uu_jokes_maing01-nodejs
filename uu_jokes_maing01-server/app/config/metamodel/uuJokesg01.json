@@ -1,36 +1,28 @@
 {
-  "schemaVersion": "1.0",
   "code": "uu-jokes-maing01",
   "name": "uuJokes uuAppMetaModel",
   "desc": "uuJokes uuAppMetaModel",
-  "version": "2.4.0-dev",
+  "version": "2.4.0.2",
   "defaultIcon": "uubml-artifact",
-  "defaultCategory": "control",
 
   "stateList": [
     {
       "code": "active",
       "name": "<uu5string/><UU5.Bricks.Lsi><UU5.Bricks.Lsi.Item language='en'>Active</UU5.Bricks.Lsi.Item><UU5.Bricks.Lsi.Item language='cs'>Aktivní</UU5.Bricks.Lsi.Item></UU5.Bricks.Lsi>",
-      "ancestorStateMap": {
-        "uu-businessterritory-maing01/uuAwsc": "active"
-      },
-      "icon": "uubml-state-s00-active"
+      "icon": "uubml-state-s00-active",
+      "type": "ACTIVE"
     },
     {
       "code": "underConstruction",
       "name": "<uu5string/><UU5.Bricks.Lsi><UU5.Bricks.Lsi.Item language='en'>Under construction</UU5.Bricks.Lsi.Item><UU5.Bricks.Lsi.Item language='cs'>Rozpracováno</UU5.Bricks.Lsi.Item></UU5.Bricks.Lsi>",
-      "ancestorStateMap": {
-        "uu-businessterritory-maing01/uuAwsc": "active"
-      },
-      "icon": "uubml-state-s10-alternative-active"
+      "icon": "uubml-state-s10-alternative-active",
+      "type": "ACTIVE"
     },
     {
       "code": "closed",
       "name": "<uu5string/><UU5.Bricks.Lsi><UU5.Bricks.Lsi.Item language='en'>Closed</UU5.Bricks.Lsi.Item><UU5.Bricks.Lsi.Item language='cs'>Uzavřeno</UU5.Bricks.Lsi.Item></UU5.Bricks.Lsi>",
-      "ancestorStateMap": {
-        "uu-businessterritory-maing01/uuAwsc": "final"
-      },
-      "icon": "uubml-state-s00-final"
+      "icon": "uubml-state-s00-final",
+      "type": "FINAL"
     }
 
   ],
@@ -65,21 +57,80 @@
     "00000000-00000000-00000000-00000011"
   ],
 
-  "ancestorPathList": [
-    "uu-businessterritory-maing01/uuAwsc"
-  ],
+  "ancestorPathMap": {
+    "uu-businessterritory-maing01/uuAwsc": [],
+    "uu-businessterritory-maing01/uuArtifactIfc": ["uu-businessterritory-maing01/uuAwsc"]
+  },
 
   "ancestorMap": {
     "uu-businessterritory-maing01/uuAwsc": {
       "interfaceUuCmdMap": {
-        "uu-businessterritory-maing01/uuAwsc/load": "uu-jokes-maing01/jokesInstance/load",
-        "uu-businessterritory-maing01/uuAwsc/setBasicAttributes": "uu-jokes-maing01/jokesInstance/update"
+        "authorizeMe": "",
+        "authorizeUuIdentity": "",
+        "authorizeRoleIfcList": "",
+        "get": "",
+        "load": "uu-jokes-maing01/jokesInstance/load",
+        "loadEnvironment": "",
+        "loadPermissions": "",
+        "getNavigation": "",
+        "getImplicitPermissions": "",
+        "setBasicAttributes": "uu-jokes-maing01/jokesInstance/update",
+        "setVersion": "",
+        "setResponsibleRole": "",
+        "setHomeFolder": "",
+        "setState": "",
+        "setPermissions": "",
+        "setImplicitPermissions": "",
+        "connectAppWorkspace": "",
+        "delete": "",
+        "listStateHistory": "",
+        "listMyRoles": "",
+
+        "checkDwr": "",
+        "loadLifeCycle": "",
+        "listActivities": "",
+        "activity/create": "",
+        "activity/load": "",
+        "activity/setBasicAttributes": "",
+        "activity/setTypeSpecificData": "",
+        "activity/setSubmitter": "",
+        "activity/setState": "",
+        "activity/addSolver": "",
+        "activity/removeSolver": "",
+        "activity/reactivateSolver": "",
+        "activity/elementary/setSolver": "",
+        "activity/addNote": "",
+        "activity/createNote": "",
+        "activity/elementary/addNote": "",
+        "activity/elementary/setState": "",
+        "activity/elementary/createNote": "",
+        "activity/setNoteImportance": "",
+        "activity/removeNote": "",
+        "activity/propagateReadToDw": "",
+
+        "aar/create": "",
+        "aar/createMirror": "",
+        "aar/get": "",
+        "aar/update": "",
+        "aar/updateMirror": "",
+        "aar/delete": "",
+        "aar/deleteMirror": "",
+        "aar/listByArtifactA": "",
+        "aar/listByArtifactB": "",
+
+        "contextProperty/create": "",
+        "contextProperty/setBasicAttributes": "",
+        "contextProperty/get": "",
+        "contextProperty/listByArtifact": "",
+        "contextProperty/load": "",
+        "contextProperty/delete": "",
+        "contextProperty/setValue": ""
       }
     }
   },
 
   "synchronizeUuCmdMap": {
-    "uu-businessterritory-maing01/uuAwsc/synchronizeArtifactAttributes": "uu-jokes-maing01/jokesInstance/load"
+    "uu-businessterritory-maing01/uuAwsc/synchronizeArtifactAttributes": "jokesInstance/load"
   },
 
   "useCaseProfileMap": {
@@ -208,5 +259,9 @@
   },
 
   "routeMap": {
-  }
+    "userGate/activityDetail": ["userGate/activityDetail", "UuTerritory.Activity.Routes.Detail"],
+    "userGate/activityList": ["userGate/activityList", "UuTerritory.Activity.Routes.ActivityList"]
+  },
+
+  "typeMap": {}
 }
