@@ -12,5 +12,8 @@
   "term_of_use_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=license",
   "technical_documentation_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book",
   "product_code": "uuJokes",
-  "product_portal_uri": "ues:UU-BT:PRD.UU-JOKESG01/PORTAL"
+  "product_portal_uri": "ues:UU-BT:PRD.UU-JOKESG01/PORTAL",
+
+  "uu_app_oidc_providers_oidcg02_authentication_type": "code",
+  "uu_app_oidc_providers_oidcg02_session_crossdomain_strategy": "forward"
 }
