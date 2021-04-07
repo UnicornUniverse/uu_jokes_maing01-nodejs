@@ -58,7 +58,8 @@ export const InitAppWorkspace = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _handleLoad(dtoIn) {
+  _handleLoad(dtoIn = {}) {
+    dtoIn.data = {...dtoIn.data, ts: Date.now()}
     return Calls.loadIdentityProfiles(dtoIn);
   },
 
