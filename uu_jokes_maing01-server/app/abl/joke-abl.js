@@ -400,6 +400,9 @@ class JokeAbl {
     if (!dtoIn.pageInfo.pageSize) dtoIn.pageInfo.pageSize = DEFAULTS.pageSize;
     if (!dtoIn.pageInfo.pageIndex) dtoIn.pageInfo.pageIndex = DEFAULTS.pageIndex;
 
+    if (dtoIn.sortBy === "rating") {
+      dtoIn.sortBy = "averageRating";
+    }
     // hds 3
     let list;
     if (dtoIn.categoryList) {

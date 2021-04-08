@@ -8,6 +8,7 @@ class JokeMongo extends UuObjectDao {
   async createSchema() {
     await super.createIndex({ awid: 1, _id: 1 }, { unique: true });
     await super.createIndex({ awid: 1, categoryList: 1 });
+    await super.createIndex({ awid: 1, averageRating: 1 });
   }
 
   async create(uuObject) {
