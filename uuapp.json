@@ -1,6 +1,6 @@
 {
   "product": "uu_jokes_maing01",
-  "version": "2.4.0",
+  "version": "2.5.0-dev",
   "license": "License Commercial",
   "description": {
     "en": "Server project example for developing UAF application in Node.js",
