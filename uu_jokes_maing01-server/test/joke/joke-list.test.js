@@ -80,9 +80,9 @@ test("HDS - custom sort by, default order (ascending)", async () => {
   // rating the jokes is yet to be implemented => crate some jokes with rating in db
   await TestHelper.executeDbScript(
     `db.getCollection('joke').insertMany([
-      {awid: "${TestHelper.getAwid()}", name:"A", rating:3.5},
-      {awid: "${TestHelper.getAwid()}", name:"B", rating:1.7},
-      {awid: "${TestHelper.getAwid()}", name:"C", rating:2.0}
+      {awid: "${TestHelper.getAwid()}", name:"A", averageRating:3.5},
+      {awid: "${TestHelper.getAwid()}", name:"B", averageRating:1.7},
+      {awid: "${TestHelper.getAwid()}", name:"C", averageRating:2.0}
     ])`
   );
 
