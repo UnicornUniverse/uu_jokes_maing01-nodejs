@@ -62,7 +62,7 @@ const Spa = UU5.Common.VisualComponent.create({
                     "sys/uuAppWorkspace/initUve": {component: <SpaAuthenticated {...this.getMainPropsToPass()} customComp={<InitAppWorkspace/>} />}
                   }}
                 />);
-            } else if (identity) {
+            } else if (identity === null) {
               child = <Plus4U5.App.SpaNotAuthenticated {...this.getMainPropsToPass()} />;
             } else {
               child = <Plus4U5.App.SpaLoading {...this.getMainPropsToPass()}>uuJokes</Plus4U5.App.SpaLoading>;
