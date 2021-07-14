@@ -1,5 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g04-hooks";
+import { useSubApp } from "uu_plus4u5g01-context";
+import UuJokesCore from "uu_jokesg01-core";
 import "uu_plus4u5g01-app";
 
 import Config from "./config/config.js";
@@ -23,13 +25,23 @@ export const SpaAuthenticated = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const { baseUri } = useSubApp();
     //@@viewOff:private
 
     //@@viewOn:interface
     //@@viewOff:interface
 
+    // TODO Remove baseUri after refactorining in uuJokesg01
     //@@viewOn:render
-    return <SpaReady />;
+    return (
+      <UuJokesCore.Jokes.JokesProvider baseUri={baseUri}>
+        {(jokesDataObject) => (
+          <UuJokesCore.Jokes.JokesPermissionProvider profileList={jokesDataObject.data?.authorizedProfileList}>
+            <SpaReady />
+          </UuJokesCore.Jokes.JokesPermissionProvider>
+        )}
+      </UuJokesCore.Jokes.JokesProvider>
+    );
     //@@viewOff:render
   },
 });
