@@ -2,12 +2,10 @@
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
 import { createVisualComponent } from "uu5g04-hooks";
-import * as UuProductCatalogue from "uu_productcatalogueg01";
 
 import Config from "./config/config.js";
 
-import "./spa-unauthorized-init.less";
-import Lsi from "./spa-unauthorized-init-lsi";
+import Lsi from "../config/lsi.js";
 //@@viewOff:imports
 
 const STATICS = {
@@ -17,10 +15,28 @@ const STATICS = {
 };
 
 const CLASS_NAMES = {
-  main: Config.CSS + "spaunauthorizedinit",
-  errorIcon: Config.CSS + "spaunauthorizedinit" + "-error-icon",
-  textError: Config.CSS + "spaunauthorizedinit" + "-text-error",
-  textErrorBig: Config.CSS + "spaunauthorizedinit" + "-text-error" + "-big",
+  main: () => Config.Css.css`
+    width: 390px;
+    max-width: 100%;
+    margin: 56px auto 0;
+    text-align: center;
+  `,
+  errorIcon: () => Config.Css.css`
+    font-size: 40px;
+    color: ${UU5.Environment.colors.grey.c500};
+  `,
+  textError: () => Config.Css.css`
+    margin: 16px 0 32px;
+    color: ${UU5.Environment.colors.grey.c600};
+  `,
+  textErrorBig: () => Config.Css.css`
+    margin: 16px 0 32px;
+    font-size: 22px;
+    color: ${UU5.Environment.colors.grey.c600};
+  `,
+  mall: () => Config.Css.css`
+    display: inline-flex;
+  `,
 };
 
 export const SpaUnauthorizedInit = createVisualComponent({
@@ -41,20 +57,17 @@ export const SpaUnauthorizedInit = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    const attrs = UU5.Common.VisualComponent.getAttrs(props, CLASS_NAMES.main);
+    const attrs = UU5.Common.VisualComponent.getAttrs(props, CLASS_NAMES.main());
     return (
       <div {...attrs}>
-        <UU5.Bricks.Icon className={CLASS_NAMES.errorIcon} icon="mdi-block-helper" />
-        <UU5.Bricks.Text className={CLASS_NAMES.textErrorBig}>
-          <UU5.Bricks.Lsi lsi={Lsi.notAuthorized} />
+        <UU5.Bricks.Icon className={CLASS_NAMES.errorIcon()} icon="mdi-block-helper" />
+        <UU5.Bricks.Text className={CLASS_NAMES.textErrorBig()}>
+          <UU5.Bricks.Lsi lsi={Lsi.unauthInit.notAuthorized} />
         </UU5.Bricks.Text>
-        <UU5.Bricks.Text className={CLASS_NAMES.textError}>
-          <UU5.Bricks.Lsi lsi={Lsi.buyYourOwn} />
+        <UU5.Bricks.Text className={CLASS_NAMES.textError()}>
+          <UU5.Bricks.Lsi lsi={Lsi.unauthInit.buyYourOwn} />
         </UU5.Bricks.Text>
-        <UuProductCatalogue.Bricks.ProductInfo
-          baseUri="https://uuos9.plus4u.net/uu-webkit-maing02/99923616732505139-7c9a436a0eef4c2a810a680d8de65b65/"
-          type="16x9"
-        />
+        {UU5.Common.Tools.findComponent("UuMall.Bricks.Product", { className: CLASS_NAMES.mall(), productCode: "" })}
       </div>
     );
     //@@viewOff:render

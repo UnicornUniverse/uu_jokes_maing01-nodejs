@@ -5,9 +5,9 @@ const Lsi = {
   },
 
   left: {
-    home: {
-      cs: "Vítejte",
-      en: "Welcome",
+    jokes: {
+      cs: "Vtipy",
+      en: "Jokes",
     },
     about: {
       cs: "O aplikaci",
@@ -45,10 +45,10 @@ const Lsi = {
 
     intro: {
       cs: `Tato šablona obsahuje připravenou klientskou a serverovou část. Jednotlivé komponety, které jsou zde zobrazeny,
-          jsou určeny k tomu, aby demonstrovaly možnosti a způsob použití. Je vhodné je upravit, zkopírovat či smazat pro
-          potřeby vyvíjené aplikace.`,
+            jsou určeny k tomu, aby demonstrovaly možnosti a způsob použití. Je vhodné je upravit, zkopírovat či smazat pro
+            potřeby vyvíjené aplikace.`,
       en: `This template consist of prepared client and server side. Shown components demonstrate possibilities and way of
-          using. For application developing purposes they are suitable for modifying, copying and deleting.`,
+            using. For application developing purposes they are suitable for modifying, copying and deleting.`,
     },
 
     clientSide: {
@@ -75,21 +75,21 @@ const Lsi = {
 
     intro: {
       cs: `<uu5string/>Tato šablona obsahuje připravenou klientskou a serverovou část. Jednotlivé komponety, které jsou zde zobrazeny,
-          jsou určeny k tomu, aby demonstrovaly možnosti a způsob použití. Je vhodné je upravit, zkopírovat či smazat pro
-          potřeby vyvíjené aplikace. Více o struktuře uuApp se dozvíte v dokumetaci viz&nbsp;
-          <UU5.Bricks.Link
-            href="https://uuapp.plus4u.net/uu-bookkit-maing01/e884539c8511447a977c7ff070e7f2cf/book"
-            target="_blank"
-            content="uuAppDevKit"
-          />.`,
+            jsou určeny k tomu, aby demonstrovaly možnosti a způsob použití. Je vhodné je upravit, zkopírovat či smazat pro
+            potřeby vyvíjené aplikace. Více o struktuře uuApp se dozvíte v dokumetaci viz&nbsp;
+            <UU5.Bricks.Link
+              href="https://uuapp.plus4u.net/uu-bookkit-maing01/e884539c8511447a977c7ff070e7f2cf/book"
+              target="_blank"
+              content="uuAppDevKit"
+            />.`,
       en: `<uu5string/>This template consist of prepared client and server side. Shown components demonstrate possibilities and way of
-          using. For application developing purposes they are suitable for modifying, copying and deleting. More about
-          uuApp Structure see documentation&nbsp;
-          <UU5.Bricks.Link
-            href="https://uuapp.plus4u.net/uu-bookkit-maing01/e884539c8511447a977c7ff070e7f2cf/book/page?code=stepByStepApp"
-            target="_blank"
-            content="uuAppDevKit"
-          />.`,
+            using. For application developing purposes they are suitable for modifying, copying and deleting. More about
+            uuApp Structure see documentation&nbsp;
+            <UU5.Bricks.Link
+              href="https://uuapp.plus4u.net/uu-bookkit-maing01/e884539c8511447a977c7ff070e7f2cf/book/page?code=stepByStepApp"
+              target="_blank"
+              content="uuAppDevKit"
+            />.`,
     },
 
     clientSide: {
@@ -99,17 +99,17 @@ const Lsi = {
 
     serverSide: {
       cs: `<uu5string/>Pro spuštení serverové části je potřeba provést inicializaci workspace podle návodu viz
-          <UU5.Bricks.Link
-            href="https://uuapp.plus4u.net/uu-bookkit-maing01/e884539c8511447a977c7ff070e7f2cf/book/page?code=stepByStepApp"
-            target="_blank"
-            content="uuApp Template Developer Guide"
-          />.`,
+            <UU5.Bricks.Link
+              href="https://uuapp.plus4u.net/uu-bookkit-maing01/e884539c8511447a977c7ff070e7f2cf/book/page?code=stepByStepApp"
+              target="_blank"
+              content="uuApp Template Developer Guide"
+            />.`,
       en: `<uu5string/>It is necessary to initialize application workspace for running server side. See manual
-          <UU5.Bricks.Link
-            href="https://uuapp.plus4u.net/uu-bookkit-maing01/e884539c8511447a977c7ff070e7f2cf/book/page?code=stepByStepApp"
-            target="_blank"
-            content="uuApp Template Developer Guide"
-          />.`,
+            <UU5.Bricks.Link
+              href="https://uuapp.plus4u.net/uu-bookkit-maing01/e884539c8511447a977c7ff070e7f2cf/book/page?code=stepByStepApp"
+              target="_blank"
+              content="uuApp Template Developer Guide"
+            />.`,
     },
   },
 

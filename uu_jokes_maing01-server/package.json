@@ -1,7 +1,7 @@
 {
   "name": "uu_jokes_maing01-server",
-  "version": "2.4.0-dev",
-  "description": "Server project example for developing UAF application in Node.js",
+  "version": "2.4.0",
+  "description": "uuJokes is reference application for educational purposes",
   "license": "License Commercial",
   "spec": "nodejs-app; uu_appg01_devkit@4.0.1",
   "dependencies": {

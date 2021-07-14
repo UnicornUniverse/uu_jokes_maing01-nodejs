@@ -27,7 +27,7 @@ const HttpClient = {
       };
       xhr.send(null);
     });
-  }
+  },
 };
 
 export default HttpClient;

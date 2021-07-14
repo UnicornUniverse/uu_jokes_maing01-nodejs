@@ -3,8 +3,8 @@
   "version": "2.4.0",
   "license": "License Commercial",
   "description": {
-    "en": "Server project example for developing UAF application in Node.js",
-    "cs": "Vzorová aplikace pro vývoj UAF v Node.js"
+    "en": "uuJokes is reference application for educational purposes",
+    "cs": "uuJokes je referenční aplikace pro vzdělávací účely"
   },
   "devkit": {
     "fat": {
@@ -30,11 +30,8 @@
     "tga": {
       "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX",
       "appDeploymentUri": "ues:TGA-BT[84723967990090703]:TRAINING_AWE[5dcc06ac0e2aca18bbbc392a]:UU.JOKES.MAING01[5f2161d5f439f9183a995c9a]"
-    },
-    "dev149": {}
+    }
   },
-  "uu_jokes_maing01-hi": {
-    "namespace": "UuJokes"
-  },
+  "uu_jokes_maing01-hi": {},
   "uu_jokes_maing01-server": {}
 }

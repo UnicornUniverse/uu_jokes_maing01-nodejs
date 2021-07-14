@@ -1,91 +1,87 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
+import "uu5g04-bricks";
+import { createVisualComponent, useState } from "uu5g04-hooks";
 import Plus4U5 from "uu_plus4u5g01";
 import "uu_plus4u5g01-app";
 
-import Config from "./config/config.js";
-import Bottom from "./bottom";
+import Config from "./config/config";
 import Left from "./left";
-import Jokes from "../routes/jokes";
-import CategoryManagement from "../routes/category-management";
-import ControlPanel from "../routes/control-panel";
-import About from "../routes/about";
-
-import "./spa-ready.less";
-import {JokesConsumer} from "./jokes-provider.js";
-import LSI from "./spa-ready-lsi";
+import Bottom from "./bottom";
 //@@viewOff:imports
 
-export const SpaReady = UU5.Common.VisualComponent.create({
-  //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin, UU5.Common.PureRenderMixin],
-  //@@viewOff:mixins
-
+const STATICS = {
   //@@viewOn:statics
-  statics: {
-    tagName: Config.TAG + "SpaReady",
-    classNames: {
-      main: Config.CSS + "spaready"
-    },
-    opt: {
-      pureRender: true // avoid re-render from parent
-    },
-    lsi: LSI
-  },
+  displayName: Config.TAG + "SpaReady",
   //@@viewOff:statics
+};
+
+const About = UU5.Common.Component.lazy(() => import("../routes/about"));
+const InitAppWorkspace = UU5.Common.Component.lazy(() => import("../routes/init-app-workspace"));
+const ControlPanel = UU5.Common.Component.lazy(() => import("../routes/control-panel"));
+const Jokes = UU5.Common.Component.lazy(() => import("../routes/jokes"));
+
+const DEFAULT_USE_CASE = "jokes";
+const ROUTES = {
+  "": DEFAULT_USE_CASE,
+  about: { component: <About /> },
+  "sys/uuAppWorkspace/initUve": { component: <InitAppWorkspace /> },
+  controlPanel: { component: <ControlPanel /> },
+  jokes: { component: <Jokes /> },
+};
+
+export const SpaAuthenticated = createVisualComponent({
+  ...STATICS,
 
   //@@viewOn:propTypes
   //@@viewOff:propTypes
 
-  //@@viewOn:getDefaultProps
-  //@@viewOff:getDefaultProps
+  //@@viewOn:defaultProps
+  //@@viewOff:defaultProps
 
-  //@@viewOn:reactLifeCycle
-  //@@viewOff:reactLifeCycle
+  render(props) {
+    //@@viewOn:private
+    let [initialActiveItemId] = useState(() => {
+      let url = UU5.Common.Url.parse(window.location.href);
+      return url.useCase || DEFAULT_USE_CASE;
+    });
+    //@@viewOff:private
 
-  //@@viewOn:interface
-  //@@viewOff:interface
+    //@@viewOn:interface
+    //@@viewOff:interface
 
-  //@@viewOn:overriding
-  //@@viewOff:overriding
-
-  //@@viewOn:private
-  //@@viewOff:private
-
-  //@@viewOn:render
-  render() {
+    //@@viewOn:render
     return (
-      <JokesConsumer {...this.getMainPropsToPass()}>
-        {({name}) => (
-          <Plus4U5.App.Page
-            top={<Plus4U5.App.Top content={name ? name : this.getLsiComponent("appName")}/>} // TopTitle
-            bottom={<Bottom/>}
-            type={1}
-            displayedLanguages={["cs", "en"]}
-            left={this.props.customComp ? null : <Left authenticated={true}/>}
-            leftWidth="!xs-320px !s-320px !m-256px l-256px xl-256px"
-          >
-            {this.props.customComp ? this.props.customComp :
-              <UU5.Common.Router
-                route=""
-                notFoundRoute="jokes"
-                routes={{
-                  jokes: {component: <Jokes/>},
-                  "": "jokes",
-                  controlPanel: {component: <ControlPanel/>},
-                  categoryManagement: {
-                    component: <CategoryManagement/>
-                  },
-                  about: {component: <About/>}
-                }}
-                controlled={false}
-              />}
-          </Plus4U5.App.Page>
-        )}
-      </JokesConsumer>
+      <Plus4U5.App.MenuProvider activeItemId={initialActiveItemId}>
+        <Plus4U5.App.Page
+          {...props}
+          top={<Plus4U5.App.TopBt />}
+          topFixed="smart"
+          bottom={<Bottom />}
+          type={3}
+          displayedLanguages={["cs", "en"]}
+          left={<Left />}
+          leftWidth="!xs-300px !s-300px !m-288px !l-288px !xl-288px"
+          leftFixed
+          leftRelative="m l xl"
+          leftResizable="m l xl"
+          leftResizableMinWidth={220}
+          leftResizableMaxWidth={500}
+          isLeftOpen="m l xl"
+          showLeftToggleButton
+          fullPage
+        >
+          <Plus4U5.App.MenuConsumer>
+            {({ setActiveItemId }) => {
+              let handleRouteChanged = ({ useCase, parameters }) => setActiveItemId(useCase || DEFAULT_USE_CASE);
+              return <UU5.Common.Router routes={ROUTES} controlled={false} onRouteChanged={handleRouteChanged} />;
+            }}
+          </Plus4U5.App.MenuConsumer>
+        </Plus4U5.App.Page>
+      </Plus4U5.App.MenuProvider>
     );
-  }
-  //@@viewOff:render
+    //@@viewOff:render
+  },
 });
 
-export default SpaReady;
+export default SpaAuthenticated;

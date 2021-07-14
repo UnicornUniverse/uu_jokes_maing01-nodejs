@@ -3,11 +3,5 @@
   "autoOpenInBrowser": false,
   "basePath": "/uu-jokes-main/0-0/",
   "useMockData": false,
-  "uu5Environment": {
-    "fls_base_uri": "",
-    "term_of_use_uri": "",
-    "technical_documentation_uri": "",
-    "product_code": "",
-    "product_portal_uri": ""
-  }
+  "uu5Environment": {}
 }
