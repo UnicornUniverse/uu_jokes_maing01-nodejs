@@ -21,22 +21,19 @@ const Jokes = createVisualComponent({
 
   render() {
     //@@viewOn:private
-    // TODO Remove baseUri after refactorining in uuJokesg01
-    const { baseUri } = useSubApp();
     const jokesDataObject = UuJokesCore.Jokes.useJokes();
     const jokesPermission = UuJokesCore.Jokes.useJokesPermission();
     //@@viewOff:private
 
     //@@viewOn:render
     return (
-      <UuJokesCore.Joke.JokeListProvider baseUri={baseUri}>
+      <UuJokesCore.Joke.JokeListProvider>
         {(jokeDataList) => (
           <UU5.Bricks.Container noSpacing>
             <UuJokesCore.Joke.JokeListView
               jokesDataObject={jokesDataObject}
               jokeDataList={jokeDataList}
               jokesPermission={jokesPermission}
-              baseUri={baseUri}
               cardView="none"
               elevation={0}
               style={{ padding: "0px 24px 0px 24px" }}

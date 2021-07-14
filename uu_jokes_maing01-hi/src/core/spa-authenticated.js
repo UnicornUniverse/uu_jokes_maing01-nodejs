@@ -25,7 +25,6 @@ export const SpaAuthenticated = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { baseUri } = useSubApp();
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -34,7 +33,7 @@ export const SpaAuthenticated = createVisualComponent({
     // TODO Remove baseUri after refactorining in uuJokesg01
     //@@viewOn:render
     return (
-      <UuJokesCore.Jokes.JokesProvider baseUri={baseUri}>
+      <UuJokesCore.Jokes.JokesProvider>
         {(jokesDataObject) => (
           <UuJokesCore.Jokes.JokesPermissionProvider profileList={jokesDataObject.data?.authorizedProfileList}>
             <SpaReady />
