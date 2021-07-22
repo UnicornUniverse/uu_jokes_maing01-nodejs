@@ -19,9 +19,15 @@ export const Left = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
+  propTypes: {
+    jokesDataObject: UU5.PropTypes.object.isRequired,
+  },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
+  defaultProps: {
+    jokesDataObject: undefined,
+  },
   //@@viewOff:defaultProps
 
   render(props) {
@@ -41,6 +47,7 @@ export const Left = createVisualComponent({
           title: "uuJokes",
           companyLogo: Plus4U5.Environment.basePath + "assets/img/unicorn-logo.svg",
           generation: "1",
+          subtitle: props.jokesDataObject.data.name,
         }}
         aboutItems={[{ content: <UU5.Bricks.Lsi lsi={Lsi.left.about} />, href: "about" }]}
         helpHref={null}

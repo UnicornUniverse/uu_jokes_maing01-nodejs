@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g04-hooks";
-import { useSubApp } from "uu_plus4u5g01-context";
+import Plus4U5 from "uu_plus4u5g01";
 import UuJokesCore from "uu_jokesg01-core";
 import "uu_plus4u5g01-app";
 
@@ -23,22 +23,26 @@ export const SpaAuthenticated = createVisualComponent({
   //@@viewOn:defaultProps
   //@@viewOff:defaultProps
 
-  render(props) {
+  render() {
     //@@viewOn:private
     //@@viewOff:private
 
     //@@viewOn:interface
     //@@viewOff:interface
 
-    // TODO Remove baseUri after refactorining in uuJokesg01
     //@@viewOn:render
     return (
       <UuJokesCore.Jokes.JokesProvider>
-        {(jokesDataObject) => (
-          <UuJokesCore.Jokes.JokesPermissionProvider profileList={jokesDataObject.data?.authorizedProfileList}>
-            <SpaReady />
-          </UuJokesCore.Jokes.JokesPermissionProvider>
-        )}
+        {(jokesDataObject) => {
+          switch (jokesDataObject.state) {
+            case "pendingNoData":
+              return <Plus4U5.App.SpaLoading>uuJokes</Plus4U5.App.SpaLoading>;
+            case "errorNoData":
+              return <Plus4U5.App.SpaError errorData={jokesDataObject.errorData} />;
+            default:
+              return <SpaReady jokesDataObject={jokesDataObject} />;
+          }
+        }}
       </UuJokesCore.Jokes.JokesProvider>
     );
     //@@viewOff:render
