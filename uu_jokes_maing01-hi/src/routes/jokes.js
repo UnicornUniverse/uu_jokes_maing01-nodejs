@@ -1,7 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
-import { useSubApp } from "uu_plus4u5g01-context";
 import UuJokesCore from "uu_jokesg01-core";
 import Config from "./config/config";
 //@@viewOff:imports

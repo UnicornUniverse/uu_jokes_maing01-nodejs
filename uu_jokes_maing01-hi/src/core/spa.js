@@ -1,7 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g04-hooks";
 import Plus4U5 from "uu_plus4u5g01";
-import { SubAppProvider } from "uu_plus4u5g01-context";
 import "uu_plus4u5g01-app";
 
 import Config from "./config/config.js";
