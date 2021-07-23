@@ -21,14 +21,14 @@ const Jokes = createVisualComponent({
 
   render() {
     //@@viewOn:private
-    const jokesDataObject = UuJokesCore.Jokes.useJokes();
+    const { jokesDataObject } = UuJokesCore.Jokes.useJokes();
     const jokesPermission = UuJokesCore.Jokes.useJokesPermission();
     //@@viewOff:private
 
     //@@viewOn:render
     return (
       <UuJokesCore.Joke.JokeListProvider>
-        {(jokeDataList) => (
+        {({ jokeDataList }) => (
           <UU5.Bricks.Container noSpacing>
             <UuJokesCore.Joke.JokeListView
               jokesDataObject={jokesDataObject}

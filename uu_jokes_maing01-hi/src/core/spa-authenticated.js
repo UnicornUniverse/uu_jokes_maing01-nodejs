@@ -33,7 +33,7 @@ export const SpaAuthenticated = createVisualComponent({
     //@@viewOn:render
     return (
       <UuJokesCore.Jokes.JokesProvider>
-        {(jokesDataObject) => {
+        {({jokesDataObject}) => {
           switch (jokesDataObject.state) {
             case "pendingNoData":
               return <Plus4U5.App.SpaLoading>uuJokes</Plus4U5.App.SpaLoading>;
