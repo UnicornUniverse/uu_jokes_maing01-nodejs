@@ -4,8 +4,8 @@
     "primary": "mongodb://127.0.0.1:27017/jokesMainPrimary",
     "binary": "mongodb://127.0.0.1:27017/jokesMainBinary"
   },
-  "asid_license_owner_list": ["4-1", "12-470-1", "12-5696-1", "6565-1"],
-  "asid": "11111111111111111111111111111111",
+  "asid_license_owner_list": ["4-1", "12-470-1", "12-5696-1", "5060-4766-9574-0000"],
+  "asid": "00000622a8d544a3badf16adac35799f",
   "log_level": "INFO",
 
   "fls_base_uri": "https://uuapp.plus4u.net/uu-flsg01-main/8014eb79e8184ebb8942d96ce37b61b4/",
@@ -15,5 +15,6 @@
   "product_portal_uri": "ues:UU-BT:PRD.UU-JOKESG01/PORTAL",
 
   "uu_app_oidc_providers_oidcg02_authentication_type": "code",
-  "uu_app_oidc_providers_oidcg02_session_crossdomain_strategy": "forward"
+  "uu_app_oidc_providers_oidcg02_session_crossdomain_strategy": "forward",
+  "uu_app_oidc_providers_oidcg02_uri": "https://uuapp.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc"
 }
