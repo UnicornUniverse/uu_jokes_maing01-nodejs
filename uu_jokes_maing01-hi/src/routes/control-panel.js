@@ -4,6 +4,7 @@ import { createVisualComponent, useData } from "uu5g04-hooks";
 import UuTerritory from "uu_territoryg01";
 import Plus4U5 from "uu_plus4u5g01";
 import UuContentKit from "uu_contentkitg01";
+import { Jokes } from "uu_jokesg01-core";
 import "uu5g04-bricks";
 import "uu5g04-forms";
 import "uu_territoryg01-artifactifc";
@@ -32,6 +33,8 @@ export const ControlPanel = createVisualComponent({
   render(props) {
     //@@viewOn:private
     let { viewState, asyncData: data } = useData({ onLoad: Calls.getWorkspace });
+    const { jokesDataObject } = Jokes.useJokes();
+    const jokesPermission = Jokes.useJokesPermission();
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -75,6 +78,7 @@ export const ControlPanel = createVisualComponent({
         {viewState !== "load" ? (
           <Plus4U5.App.ArtifactSetter territoryBaseUri={territoryBaseUri} artifactId={artifactId} />
         ) : null}
+        <Jokes.JokesBasicInfo jokesDataObject={jokesDataObject} jokesPermission={jokesPermission} />
         {child}
       </UU5.Common.Fragment>
     );
