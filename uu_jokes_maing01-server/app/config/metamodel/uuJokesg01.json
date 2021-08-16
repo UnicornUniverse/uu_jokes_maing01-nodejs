@@ -2,7 +2,7 @@
   "code": "uu-jokes-maing01",
   "name": "uuJokes uuAppMetaModel",
   "desc": "uuJokes uuAppMetaModel",
-  "version": "2.4.0.2",
+  "version": "2.4.0.3",
   "defaultIcon": "uubml-artifact",
 
   "stateList": [
@@ -24,7 +24,6 @@
       "icon": "uubml-state-s00-final",
       "type": "FINAL"
     }
-
   ],
 
   "profileList": [
@@ -69,7 +68,7 @@
         "authorizeUuIdentity": "",
         "authorizeRoleIfcList": "",
         "get": "",
-        "load": "uu-jokes-maing01/jokesInstance/load",
+        "load": "",
         "loadEnvironment": "",
         "loadPermissions": "",
         "getNavigation": "",

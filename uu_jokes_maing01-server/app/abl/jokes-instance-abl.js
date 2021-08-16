@@ -17,7 +17,7 @@ const {
 const { ProductInfo, ProductLogo } = require("uu_apprepresentationg01");
 const { Uri, UriBuilder } = require("uu_appg01_server").Uri;
 const { AppClient } = require("uu_appg01_server");
-const { UuBtHelper } = require("../helpers/uubt-helper.js");
+const { UuTerrClient } = require("uu_territory_clientg01");
 
 const Path = require("path");
 const fs = require("fs");
@@ -776,14 +776,14 @@ class JokesInstanceAbl {
     const awidData = await UuAppWorkspace.get(awid);
 
     // hds 6
-    const artifactId = UriBuilder.parse(awidData.artifactUri).getParameters().id;
-    const artifact = await UuBtHelper.loadAwsc(
-      awidData.artifactUri,
+    const artifactUri = UriBuilder.parse(awidData.artifactUri).toUri();
+    const artifactId = artifactUri.getParameters().id;
+    const btBaseUri = artifactUri.getBaseUri();
+    const terrClientOpts = { baseUri: btBaseUri.toString(), session };
+
+    const awsc = await UuTerrClient.Awsc.load(
       { id: artifactId, getTerritoryName: true, loadContext: true, loadVisualIdentification: true },
-      session,
-      (error) => {
-        throw new Errors.LoadWorkspace.LoadAwsArtifactFailed({ uuAppErrorMap }, {}, error);
-      }
+      terrClientOpts
     );
 
     // hds 7
@@ -812,7 +812,7 @@ class JokesInstanceAbl {
       },
       territoryData: {
         data: {
-          ...artifact,
+          ...awsc,
         },
       },
     };
