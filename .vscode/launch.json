@@ -1,0 +1,83 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug HI",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:8080/uu-jokes-maing01/22222222222222222222222222222222/",
+      "webRoot": "${workspaceFolder}/uu_jokes_maing01-hi"
+    },
+    {
+      "name": "Debug HI Test - All",
+      "type": "pwa-node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "test"],
+      "args": ["--", "--runInBand", "--watch"],
+      "cwd": "${workspaceFolder}/uu_jokes_maing01-hi",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/uu_jokes_maing01-hi/node_modules/**/*.js"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug HI Test - Current File",
+      "type": "pwa-node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "test"],
+      "args": ["${fileBasename}", "--", "--runInBand", "--watch"],
+      "cwd": "${workspaceFolder}/uu_jokes_maing01-hi",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/uu_jokes_maing01-hi/node_modules/**/*.js"
+      ],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug Server",
+      "type": "pwa-node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "start"],
+      "cwd": "${workspaceFolder}/uu_jokes_maing01-server",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/uu_jokes_maing01-server/node_modules/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Server Test - All",
+      "program": "${workspaceRoot}/uu_jokes_maing01-server/node_modules/jest/bin/jest",
+      "args": ["--runInBand", "--watch", "--config=./target/jest.config.js"],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceRoot}/uu_jokes_maing01-server",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/uu_jokes_maing01-server/node_modules/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Server Test - Current File",
+      "program": "${workspaceRoot}/uu_jokes_maing01-server/node_modules/jest/bin/jest",
+      "args": [
+        "--runInBand",
+        "--config=./target/jest.config.js",
+        "--watch",
+        "${fileBasename}"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceRoot}/uu_jokes_maing01-server",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/uu_jokes_maing01-server/node_modules/**/*.js"
+      ]
+    }
+  ]
+}
