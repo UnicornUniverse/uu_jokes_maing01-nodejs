@@ -42,6 +42,7 @@
       "request": "launch",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run-script", "start"],
+      "console": "integratedTerminal",
       "cwd": "${workspaceFolder}/uu_jokes_maing01-server",
       "skipFiles": [
         "<node_internals>/**",

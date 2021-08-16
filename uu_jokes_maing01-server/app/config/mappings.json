@@ -16,6 +16,11 @@
         "httpMethod": "POST",
         "type": "CMD"
       },
+      "sys/uuAppWorkspace/load": {
+        "realization": "api/controllers/JokesInstanceController.loadWorkspace",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
       "jokesInstance/plugInBt": {
         "realization": "api/controllers/JokesInstanceController.plugInBt",
         "httpMethod": "POST",

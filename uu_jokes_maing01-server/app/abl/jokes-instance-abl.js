@@ -6,11 +6,18 @@ const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore
 const { ValidationHelper, UveLoader } = require("uu_appg01_server").AppServer;
 const { LoggerFactory } = require("uu_appg01_server").Logging;
 const { UuBinaryErrors, UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
-const { Profile, AppClientTokenService, UuAppWorkspace } = require("uu_appg01_server").Workspace;
+const {
+  Profile,
+  AppClientTokenService,
+  UuAppWorkspace,
+  UuSubAppInstance,
+  WorkspaceAuthorizationService,
+} = require("uu_appg01_server").Workspace;
 
 const { ProductInfo, ProductLogo } = require("uu_apprepresentationg01");
-const { UriBuilder } = require("uu_appg01_server").Uri;
+const { Uri, UriBuilder } = require("uu_appg01_server").Uri;
 const { AppClient } = require("uu_appg01_server");
+const { UuBtHelper } = require("../helpers/uubt-helper.js");
 
 const Path = require("path");
 const fs = require("fs");
@@ -739,6 +746,78 @@ class JokesInstanceAbl {
       );
     }
     return jokesInstance;
+  }
+
+  async loadWorkspace(awid, uri, session, uuAppErrorMap = {}) {
+    // hds 1
+    const cmdUri = UriBuilder.parse(uri).setUseCase("jokesInstance/load").clearParameters();
+
+    const authorizationResult = await WorkspaceAuthorizationService.authorize(session, Uri.parse(cmdUri));
+
+    // hds 2
+    if (!authorizationResult.isAuthorized()) {
+      //TODO doplnit dtoOut pro neauthorizovane uzivatele
+      return {};
+    }
+
+    let jokes;
+    // hds 3
+    try {
+      jokes = await this.load(awid, authorizationResult);
+    } catch (error) {
+      // hds 3.1
+      throw new Errors.LoadWorkspace.JokesDoesNotExist({ uuAppErrorMap }, {}, error);
+    }
+
+    // hds 4
+    const asidData = await UuSubAppInstance.get();
+
+    // hds 5
+    const awidData = await UuAppWorkspace.get(awid);
+
+    // hds 6
+    const artifactId = UriBuilder.parse(awidData.artifactUri).getParameters().id;
+    const artifact = await UuBtHelper.loadAwsc(
+      awidData.artifactUri,
+      { id: artifactId, getTerritoryName: true, loadContext: true, loadVisualIdentification: true },
+      session,
+      (error) => {
+        throw new Errors.LoadWorkspace.LoadAwsArtifactFailed({ uuAppErrorMap }, {}, error);
+      }
+    );
+
+    // hds 7
+    const dtoOut = {
+      data: {
+        ...jokes,
+        relatedObjectsMap: {},
+      },
+      sysData: {
+        profileData: {
+          uuIdentityProfileList: authorizationResult.getIdentityProfiles(),
+          profileList: authorizationResult.getAuthorizedProfiles(),
+        },
+        relatedObjectsMap: {
+          uuAppUuFlsBaseUri: "",
+          uuAppUuSlsBaseUri: "",
+
+          uuAppBusinessModelUri: "",
+          uuAppApplicationModelUri: "",
+          uuAppBusinessRequestsUri: "",
+          uuAppUserGuideUri: "",
+          uuAppWebKitUri: "",
+        },
+        awidData,
+        asidData,
+      },
+      territoryData: {
+        data: {
+          ...artifact,
+        },
+      },
+    };
+    // hds 8
+    return dtoOut;
   }
 }
 

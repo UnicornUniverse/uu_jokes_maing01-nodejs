@@ -38,6 +38,10 @@ class JokesInstanceController {
     ucEnv.getResponse().setHeaders({ "Cache-Control": CACHE_VALUE });
     return JokesInstanceAbl.getIndex(ucEnv.getUri().getAwid(), ucEnv.getUri());
   }
+
+  static async loadWorkspace(ucEnv) {
+    return await JokesInstanceAbl.loadWorkspace(ucEnv.uri.getAwid(), ucEnv.getUri(), ucEnv.getSession());
+  }
 }
 
 module.exports = JokesInstanceController;

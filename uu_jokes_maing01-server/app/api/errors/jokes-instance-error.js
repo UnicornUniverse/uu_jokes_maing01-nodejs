@@ -217,6 +217,34 @@ const SetIcons = {
   },
 };
 
+const LoadWorkspace = {
+  UC_CODE: `${JOKES_INSTANCE_ERROR_PREFIX}loadWorkspace/`,
+
+  JokesDoesNotExist: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${LoadWorkspace.UC_CODE}jokesDoesNotExist`;
+      this.message = "Jokes does not exist.";
+    }
+  },
+
+  InvalidDtoIn: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${LoadWorkspace.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  LoadAwsArtifactFailed: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${LoadWorkspace.UC_CODE}loadAwsArtifactFailed`;
+      this.message = "Load Jokes AWSC artifact failed.";
+    }
+  },
+};
+
 module.exports = {
   Init,
   Load,
@@ -226,4 +254,5 @@ module.exports = {
   GetIndex,
   GetUveMetaData,
   SetIcons,
+  LoadWorkspace,
 };
