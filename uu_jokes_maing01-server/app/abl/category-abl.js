@@ -9,26 +9,26 @@ const Path = require("path");
 
 const WARNINGS = {
   createUnsupportedKeys: {
-    code: `${Errors.Create.UC_CODE}unsupportedKeys`
+    code: `${Errors.Create.UC_CODE}unsupportedKeys`,
   },
   getUnsupportedKeys: {
-    code: `${Errors.Get.UC_CODE}unsupportedKeys`
+    code: `${Errors.Get.UC_CODE}unsupportedKeys`,
   },
   updateUnsupportedKeys: {
-    code: `${Errors.Update.UC_CODE}unsupportedKeys`
+    code: `${Errors.Update.UC_CODE}unsupportedKeys`,
   },
   deleteUnsupportedKeys: {
-    code: `${Errors.Delete.UC_CODE}unsupportedKeys`
+    code: `${Errors.Delete.UC_CODE}unsupportedKeys`,
   },
   listUnsupportedKeys: {
-    code: `${Errors.List.UC_CODE}unsupportedKeys`
-  }
+    code: `${Errors.List.UC_CODE}unsupportedKeys`,
+  },
 };
 const DEFAULT_ICON = "mdi-label";
 const DEFAULTS = {
   order: "asc",
   pageIndex: 0,
-  pageSize: 100
+  pageSize: 100,
 };
 
 class CategoryAbl {

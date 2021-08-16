@@ -13,40 +13,40 @@ const FileHelper = require("../helpers/file-helper");
 
 const WARNINGS = {
   createUnsupportedKeys: {
-    code: `${Errors.Create.UC_CODE}unsupportedKeys`
+    code: `${Errors.Create.UC_CODE}unsupportedKeys`,
   },
   createCategoryDoesNotExist: {
     code: `${Errors.Create.UC_CODE}categoryDoesNotExist`,
-    message: "One or more categories with given categoryId do not exist."
+    message: "One or more categories with given categoryId do not exist.",
   },
   getUnsupportedKeys: {
-    code: `${Errors.Get.UC_CODE}unsupportedKeys`
+    code: `${Errors.Get.UC_CODE}unsupportedKeys`,
   },
   updateUnsupportedKeys: {
-    code: `${Errors.Update.UC_CODE}unsupportedKeys`
+    code: `${Errors.Update.UC_CODE}unsupportedKeys`,
   },
   updateCategoryDoesNotExist: {
     code: `${Errors.Update.UC_CODE}categoryDoesNotExist`,
-    message: "One or more categories with given categoryId do not exist."
+    message: "One or more categories with given categoryId do not exist.",
   },
   updateVisibilityUnsupportedKeys: {
-    code: `${Errors.UpdateVisibility.UC_CODE}unsupportedKeys`
+    code: `${Errors.UpdateVisibility.UC_CODE}unsupportedKeys`,
   },
   deleteUnsupportedKeys: {
-    code: `${Errors.Delete.UC_CODE}unsupportedKeys`
+    code: `${Errors.Delete.UC_CODE}unsupportedKeys`,
   },
   listUnsupportedKeys: {
-    code: `${Errors.List.UC_CODE}unsupportedKeys`
+    code: `${Errors.List.UC_CODE}unsupportedKeys`,
   },
   addRatingUnsupportedKeys: {
-    code: `${Errors.AddRating.UC_CODE}unsupportedKeys`
-  }
+    code: `${Errors.AddRating.UC_CODE}unsupportedKeys`,
+  },
 };
 const DEFAULTS = {
   sortBy: "name",
   order: "asc",
   pageIndex: 0,
-  pageSize: 100
+  pageSize: 100,
 };
 
 class JokeAbl {
@@ -252,7 +252,7 @@ class JokeAbl {
           binary = await UuBinaryAbl.updateBinaryData(awid, {
             data: dtoIn.image,
             code: joke.image,
-            revisionStrategy: "NONE"
+            revisionStrategy: "NONE",
           });
         } catch (e) {
           // A9
@@ -515,7 +515,7 @@ class JokeAbl {
     let categoryIndex;
     while (true) {
       categories = await this.categoryDao.listByCategoryIdList(awid, categoryList, pageInfo);
-      categories.itemList.forEach(category => {
+      categories.itemList.forEach((category) => {
         categoryIndex = categoryList.indexOf(category.id.toString());
         if (categoryIndex !== -1) {
           presentCategories.push(category.id.toString());

@@ -12,7 +12,7 @@ class JokeMongo extends UuObjectDao {
 
   async create(uuObject) {
     if (uuObject.categoryList) {
-      uuObject.categoryList = uuObject.categoryList.map(categoryId => new ObjectId(categoryId));
+      uuObject.categoryList = uuObject.categoryList.map((categoryId) => new ObjectId(categoryId));
     }
     return await super.insertOne(uuObject);
   }
@@ -24,13 +24,13 @@ class JokeMongo extends UuObjectDao {
   async getCountByCategoryId(awid, categoryId) {
     return await super.count({
       awid,
-      categoryList: ObjectId.isValid(categoryId) ? new ObjectId(categoryId) : categoryId
+      categoryList: ObjectId.isValid(categoryId) ? new ObjectId(categoryId) : categoryId,
     });
   }
 
   async update(uuObject) {
     if (uuObject.categoryList) {
-      uuObject.categoryList = uuObject.categoryList.map(categoryId => new ObjectId(categoryId));
+      uuObject.categoryList = uuObject.categoryList.map((categoryId) => new ObjectId(categoryId));
     }
     let filter = { id: uuObject.id, awid: uuObject.awid };
     return await super.findOneAndUpdate(filter, uuObject, "NONE");
@@ -56,24 +56,24 @@ class JokeMongo extends UuObjectDao {
 
   async list(awid, sortBy, order, pageInfo) {
     let sort = {
-      [sortBy]: order === "asc" ? 1 : -1
+      [sortBy]: order === "asc" ? 1 : -1,
     };
     return await super.find({ awid }, pageInfo, sort);
   }
 
   async listByCategoryIdList(awid, categoryIdList, sortBy, order, pageInfo) {
     let sort = {
-      [sortBy]: order === "asc" ? 1 : -1
+      [sortBy]: order === "asc" ? 1 : -1,
     };
     return await super.find(
       {
         awid,
         categoryList: {
-          $in: categoryIdList.map(id => {
+          $in: categoryIdList.map((id) => {
             if (!ObjectId.isValid(id)) return id;
             return new ObjectId(id);
-          })
-        }
+          }),
+        },
       },
       pageInfo,
       sort

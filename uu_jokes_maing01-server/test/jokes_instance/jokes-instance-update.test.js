@@ -3,11 +3,7 @@ const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { Config } = require("uu_appg01_server").Utils;
 const path = require("path");
 
-const {
-  JOKES_INSTANCE_UPDATE,
-  getImageStream,
-  mockDaoFactory
-} = require("../general-test-hepler");
+const { JOKES_INSTANCE_UPDATE, getImageStream, mockDaoFactory } = require("../general-test-hepler");
 
 beforeAll(async () => {
   await TestHelper.setup(null, { authEnabled: false });

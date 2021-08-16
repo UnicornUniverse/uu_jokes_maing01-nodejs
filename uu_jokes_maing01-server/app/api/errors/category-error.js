@@ -39,7 +39,7 @@ const Create = {
       this.code = `${Create.UC_CODE}categoryDaoCreateFailed`;
       this.message = "Create category by category DAO create failed.";
     }
-  }
+  },
 };
 
 const Get = {
@@ -78,7 +78,7 @@ const Get = {
       this.code = `${Get.UC_CODE}categoryDoesNotExist`;
       this.message = "Category does not exist.";
     }
-  }
+  },
 };
 
 const Update = {
@@ -117,7 +117,7 @@ const Update = {
       this.code = `${Update.UC_CODE}categoryDaoUpdateFailed`;
       this.message = "Update category by category Dao update failed.";
     }
-  }
+  },
 };
 
 const Delete = {
@@ -163,7 +163,7 @@ const Delete = {
       this.code = `${Delete.UC_CODE}jokeDaoRemoveCategoryFailed`;
       this.message = "Removing category by joke Dao removeCategory failed.";
     }
-  }
+  },
 };
 
 const List = {
@@ -195,7 +195,7 @@ const List = {
       this.code = `${List.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid.";
     }
-  }
+  },
 };
 
 module.exports = {
@@ -203,5 +203,5 @@ module.exports = {
   Get,
   Update,
   Delete,
-  List
+  List,
 };

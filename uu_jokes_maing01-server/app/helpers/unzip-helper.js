@@ -7,8 +7,8 @@ class UnzipHelper {
       let unzipStream = pump(data, unzip.Parse());
       let entryPromise;
 
-      unzipStream.on("entry", async entry => {
-        entryPromise = new Promise(async resolve => {
+      unzipStream.on("entry", async (entry) => {
+        entryPromise = new Promise(async (resolve) => {
           try {
             unzipStream.pause();
             entryPromise = await callback(entry);
@@ -20,7 +20,7 @@ class UnzipHelper {
         });
       });
 
-      unzipStream.on("error", e => {
+      unzipStream.on("error", (e) => {
         reject(e);
       });
 

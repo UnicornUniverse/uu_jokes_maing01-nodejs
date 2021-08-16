@@ -1,8 +1,5 @@
 const { TestHelper } = require("uu_appg01_server-test");
-const {
-  JOKES_INSTANCE_SET_ICONS,
-  JOKES_INSTANCE_GET_UVE_META_DATA
-} = require("../general-test-hepler");
+const { JOKES_INSTANCE_SET_ICONS, JOKES_INSTANCE_GET_UVE_META_DATA } = require("../general-test-hepler");
 
 const Fs = require("fs");
 const Path = require("path");
@@ -84,6 +81,7 @@ test("A5", async () => {
   let result = await TestHelper.executePostCommand(JOKES_INSTANCE_SET_ICONS, dtoIn);
   console.log(result.data.uuAppErrorMap["uu-jokes-main/jokesInstance/setIcons/unsupportedFileNames"]);
   expect(
-    result.data.uuAppErrorMap["uu-jokes-main/jokesInstance/setIcons/unsupportedFileNames"].message.unsupportedFileNameList
+    result.data.uuAppErrorMap["uu-jokes-main/jokesInstance/setIcons/unsupportedFileNames"].message
+      .unsupportedFileNameList
   ).toEqual(["android-chrome-512x512***"]);
 });

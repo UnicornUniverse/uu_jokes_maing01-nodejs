@@ -8,7 +8,7 @@ class StreamHelper {
   async readableStreamToString(stream) {
     return new Promise((resolve, reject) => {
       let streamData = "";
-      stream.on("data", data => {
+      stream.on("data", (data) => {
         console.log("data");
         streamData += data;
       });
@@ -21,7 +21,7 @@ class StreamHelper {
         }
       });
 
-      stream.on("error", error => {
+      stream.on("error", (error) => {
         reject(error);
       });
     });

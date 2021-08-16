@@ -21,134 +21,134 @@ const Errors = require("../api/errors/jokes-instance-error");
 
 const WARNINGS = {
   initUnsupportedKeys: {
-    code: `${Errors.Init.UC_CODE}unsupportedKeys`
+    code: `${Errors.Init.UC_CODE}unsupportedKeys`,
   },
   updateUnsupportedKeys: {
-    code: `${Errors.Update.UC_CODE}unsupportedKeys`
+    code: `${Errors.Update.UC_CODE}unsupportedKeys`,
   },
   setLogoUnsupportedKeys: {
-    code: `${Errors.SetLogo.UC_CODE}unsupportedKeys`
+    code: `${Errors.SetLogo.UC_CODE}unsupportedKeys`,
   },
   setInconsUnsupportedKeys: {
-    code: `${Errors.SetIcons.UC_CODE}unsupportedKeys`
+    code: `${Errors.SetIcons.UC_CODE}unsupportedKeys`,
   },
   getProductLogoUnsupportedKeys: {
-    code: `${Errors.GetProductLogo.UC_CODE}unsupportedKeys`
+    code: `${Errors.GetProductLogo.UC_CODE}unsupportedKeys`,
   },
   getProductLogoLogoDoesNotExists: {
-    code: `${Errors.GetProductLogo.UC_CODE}logoDoesNotExists`
+    code: `${Errors.GetProductLogo.UC_CODE}logoDoesNotExists`,
   },
   getUveMetaDataUnsupportedKeys: {
-    code: `${Errors.GetUveMetaData.UC_CODE}unsupportedKeys`
+    code: `${Errors.GetUveMetaData.UC_CODE}unsupportedKeys`,
   },
   getUveMetaDataDataDoesNotExists: {
-    code: `${Errors.GetUveMetaData.UC_CODE}dataDoesNotExists`
+    code: `${Errors.GetUveMetaData.UC_CODE}dataDoesNotExists`,
   },
   setIconsUnsupportedKeys: {
-    code: `${Errors.SetIcons.UC_CODE}unsupportedFileNames`
-  }
+    code: `${Errors.SetIcons.UC_CODE}unsupportedFileNames`,
+  },
 };
 
 const DEFAULTS = {
   metaData: {
     favicon: {
       type: "image/x-icon",
-      file: "../../public/assets/meta/favicon.ico"
+      file: "../../public/assets/meta/favicon.ico",
     },
     "favicon-16x16": {
       type: "image/png",
-      file: "../../public/assets/meta/favicon-16x16.png"
+      file: "../../public/assets/meta/favicon-16x16.png",
     },
     "favicon-32x32": {
       type: "image/png",
-      file: "../../public/assets/meta/favicon-32x32.png"
+      file: "../../public/assets/meta/favicon-32x32.png",
     },
     "favicon-96x96": {
       type: "image/png",
-      file: "../../public/assets/meta/favicon-96x96.png"
+      file: "../../public/assets/meta/favicon-96x96.png",
     },
     "favicon-194x194": {
       type: "image/png",
-      file: "../../public/assets/meta/favicon-194x194.png"
+      file: "../../public/assets/meta/favicon-194x194.png",
     },
 
     manifest: {
       type: "application/json",
-      file: "../../public/assets/meta/manifest.json"
+      file: "../../public/assets/meta/manifest.json",
     },
     "apple-touch-icon-57x57": {
       type: "image/png",
-      file: "../../public/assets/meta/apple-touch-icon-57x57.png"
+      file: "../../public/assets/meta/apple-touch-icon-57x57.png",
     },
     "apple-touch-icon-60x60": {
       type: "image/png",
-      file: "../../public/assets/meta/apple-touch-icon-60x60.png"
+      file: "../../public/assets/meta/apple-touch-icon-60x60.png",
     },
     "apple-touch-icon-72x72": {
       type: "image/png",
-      file: "../../public/assets/meta/apple-touch-icon-72x72.png"
+      file: "../../public/assets/meta/apple-touch-icon-72x72.png",
     },
     "apple-touch-icon-76x76": {
       type: "image/png",
-      file: "../../public/assets/meta/apple-touch-icon-76x76.png"
+      file: "../../public/assets/meta/apple-touch-icon-76x76.png",
     },
     "apple-touch-icon-114x114": {
       type: "image/png",
-      file: "../../public/assets/meta/apple-touch-icon-114x114.png"
+      file: "../../public/assets/meta/apple-touch-icon-114x114.png",
     },
     "apple-touch-icon-120x120": {
       type: "image/png",
-      file: "../../public/assets/meta/apple-touch-icon-120x120.png"
+      file: "../../public/assets/meta/apple-touch-icon-120x120.png",
     },
     "apple-touch-icon-144x144": {
       type: "image/png",
-      file: "../../public/assets/meta/apple-touch-icon-144x144.png"
+      file: "../../public/assets/meta/apple-touch-icon-144x144.png",
     },
     "apple-touch-icon-152x152": {
       type: "image/png",
-      file: "../../public/assets/meta/apple-touch-icon-152x152.png"
+      file: "../../public/assets/meta/apple-touch-icon-152x152.png",
     },
     "apple-touch-icon-180x180": {
       type: "image/png",
-      file: "../../public/assets/meta/apple-touch-icon-180x180.png"
+      file: "../../public/assets/meta/apple-touch-icon-180x180.png",
     },
     "apple-touch-icon-512x512": {
       type: "image/png",
-      file: "../../public/assets/meta/apple-touch-icon-512x512.png"
+      file: "../../public/assets/meta/apple-touch-icon-512x512.png",
     },
 
     tilecolor: "#014ca4",
     browserconfig: {
       type: "text/xml",
-      file: "../../public/assets/meta/browserconfig.xml"
+      file: "../../public/assets/meta/browserconfig.xml",
     },
     "mstile-144x144": {
       type: "image/png",
-      file: "../../public/assets/meta/mstile-144x144.png"
+      file: "../../public/assets/meta/mstile-144x144.png",
     },
     "mstile-150x150": {
       type: "image/png",
-      file: "../../public/assets/meta/mstile-150x150.png"
+      file: "../../public/assets/meta/mstile-150x150.png",
     },
     "mstile-310x150": {
       type: "image/png",
-      file: "../../public/assets/meta/mstile-310x150.png"
+      file: "../../public/assets/meta/mstile-310x150.png",
     },
     "mstile-310x310": {
       type: "image/png",
-      file: "../../public/assets/meta/mstile-310x310.png"
+      file: "../../public/assets/meta/mstile-310x310.png",
     },
     "safari-pinned-tab": {
       type: "image/svg+xml",
-      file: "../../public/assets/meta/safari-pinned-tab.svg"
-    }
+      file: "../../public/assets/meta/safari-pinned-tab.svg",
+    },
   },
   name: "uuJokes",
   description:
     "Database of jokes in which users can create and update jokes, manage them, rate them and sort them into categories.",
   logoType: "16x9",
   logoLanguage: "en",
-  ttl: 60 * 60 * 1000
+  ttl: 60 * 60 * 1000,
 };
 
 const logger = LoggerFactory.get("UuJokes.Models.JokesInstanceModel");
@@ -204,13 +204,13 @@ class JokesInstanceAbl {
       this.dao.createSchema(),
       DaoFactory.getDao("joke").createSchema(),
       DaoFactory.getDao("jokeRating").createSchema(),
-      DaoFactory.getDao("category").createSchema()
+      DaoFactory.getDao("category").createSchema(),
     ]);
 
     // hds 5
     if (dtoIn.logo) {
       try {
-        await ProductLogo.set(awid, { logo: dtoIn.logo, language: DEFAULTS.logoLanguage, type: DEFAULTS.logoType })
+        await ProductLogo.set(awid, { logo: dtoIn.logo, language: DEFAULTS.logoLanguage, type: DEFAULTS.logoType });
       } catch (e) {
         // A5
         throw new Errors.Init.UuBinaryCreateFailed({ uuAppErrorMap }, e);
@@ -220,7 +220,7 @@ class JokesInstanceAbl {
     }
 
     try {
-      await ProductInfo.set(awid, { name: {en: dtoIn.name}, desc: {en: dtoIn.desc || DEFAULTS.description} });
+      await ProductInfo.set(awid, { name: { en: dtoIn.name }, desc: { en: dtoIn.desc || DEFAULTS.description } });
     } catch (e) {
       // A5
       throw new Errors.Init.JokesInstanceDaoCreateFailed({ uuAppErrorMap }, e); // TODO use proper error
@@ -237,7 +237,7 @@ class JokesInstanceAbl {
         name: dtoIn.name,
         typeCode: "uu-jokes-maing01",
         location: location,
-        uuAppWorkspaceUri: baseUri
+        uuAppWorkspaceUri: baseUri,
       };
 
       const awscCreateUri = uuBtUriBuilder.setUseCase("uuAwsc/create").toUri();
@@ -247,7 +247,7 @@ class JokesInstanceAbl {
       let awscId;
       try {
         const awscDtoOut = await AppClient.post(awscCreateUri, createAwscDtoIn, callOpts);
-        awscId =  awscDtoOut.id;
+        awscId = awscDtoOut.id;
       } catch (e) {
         // A6
         if (e.code.includes("applicationIsAlreadyConnected") && e.paramMap.id) {
@@ -264,7 +264,7 @@ class JokesInstanceAbl {
         baseUri,
         {
           artifactUri: artifactUri.toString(),
-          synchronizeArtifactBasicAttributes: false
+          synchronizeArtifactBasicAttributes: false,
         },
         session
       );
@@ -324,7 +324,7 @@ class JokesInstanceAbl {
       name: jokeInstance.name,
       typeCode: "uu-jokes-maing01",
       location: location,
-      uuAppWorkspaceUri: baseUri
+      uuAppWorkspaceUri: baseUri,
     };
 
     const awscCreateUri = uuBtUriBuilder.setUseCase("uuAwsc/create").toUri();
@@ -344,7 +344,7 @@ class JokesInstanceAbl {
     await UuAppWorkspace.connectArtifact(
       baseUri,
       {
-        artifactUri: artifactUri.toString()
+        artifactUri: artifactUri.toString(),
       },
       session
     );
@@ -483,7 +483,7 @@ class JokesInstanceAbl {
     //HDS 3
     await UnzipHelper.unzip(
       dtoIn.data,
-      async data => (uveMetaData = await this._store(data, uveMetaData, uri, name, awid, uuAppErrorMap))
+      async (data) => (uveMetaData = await this._store(data, uveMetaData, uri, name, awid, uuAppErrorMap))
     );
 
     jokesInstance.uveMetaData = uveMetaData;
@@ -519,7 +519,7 @@ class JokesInstanceAbl {
       if (!code.match(codeReq)) {
         if (!uuAppErrorMap[WARNINGS.setIconsUnsupportedKeys.code]) {
           ValidationHelper.addWarning(uuAppErrorMap, WARNINGS.setIconsUnsupportedKeys.code, {
-            unsupportedFileNameList: [code]
+            unsupportedFileNameList: [code],
           });
         } else {
           uuAppErrorMap[WARNINGS.setIconsUnsupportedKeys.code].paramMap.unsupportedFileNameList.push(code);
@@ -533,7 +533,7 @@ class JokesInstanceAbl {
               data,
               code: underscoredCode,
               createVersion: false,
-              revisionStrategy: "NONE"
+              revisionStrategy: "NONE",
             });
           } else {
             //HDS 3.2.2
@@ -571,7 +571,7 @@ class JokesInstanceAbl {
     manifest.name = name;
     manifest.short_name = name;
     let icons = manifest.icons;
-    icons.forEach(icon => {
+    icons.forEach((icon) => {
       let iconCode = this._codeFromFileName(icon.src);
       icon.src = `${uri.getBaseUri()}/jokesInstance/getUveMetaData?type=${iconCode}`;
     });
@@ -588,7 +588,7 @@ class JokesInstanceAbl {
           reject(err);
         }
         let keys = Object.keys(data.browserconfig.msapplication[0].tile[0]);
-        keys.forEach(key => {
+        keys.forEach((key) => {
           let tile = data.browserconfig.msapplication[0].tile[0][key][0]["$"];
           if (tile) {
             let iconCode = this._codeFromFileName(tile.src);
@@ -635,7 +635,7 @@ class JokesInstanceAbl {
           logger.warn(`Unable to load uuBinary meta data ${dtoIn.type} for jokes instance ${awid}. Error: ${e} `);
         }
         ValidationHelper.addWarning(uuAppErrorMap, WARNINGS.getUveMetaDataDataDoesNotExists.code, {
-          type: dtoIn.type
+          type: dtoIn.type,
         });
       }
     }
@@ -655,7 +655,7 @@ class JokesInstanceAbl {
   async getIndex(awid, uri) {
     let indexHtml;
     try {
-      indexHtml = await UveLoader.load("index.html")
+      indexHtml = await UveLoader.load("index.html");
     } catch (e) {
       throw new Errors.GetIndex.UnableToReadHtmlFile(e);
     }
@@ -734,7 +734,7 @@ class JokesInstanceAbl {
         {},
         {
           state: jokesInstance.state,
-          expectedStateList: [STATE_ACTIVE, STATE_UNDER_CONSTRUCTION]
+          expectedStateList: [STATE_ACTIVE, STATE_UNDER_CONSTRUCTION],
         }
       );
     }

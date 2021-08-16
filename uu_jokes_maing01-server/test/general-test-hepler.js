@@ -24,7 +24,6 @@ const CATEGORY_DELETE = "category/delete";
 const CATEGORY_LIST = "category/list";
 const MONGO_ID = "012345678910111213141516";
 
-
 const getImageStream = () => {
   return fs.createReadStream(path.resolve(__dirname, "image.png"));
 };
@@ -38,19 +37,19 @@ const mockDaoFactory = () => {
   });
 };
 
-const getSessionMock = uuIdentity => {
+const getSessionMock = (uuIdentity) => {
   let identity = {
     getUuIdentity: () => uuIdentity,
-    getName: () => {}
+    getName: () => {},
   };
   return {
-    getIdentity: () => identity
+    getIdentity: () => identity,
   };
 };
 
 const getAuthzResultMock = () => {
   return {
-    getAuthorizedProfiles: () => []
+    getAuthorizedProfiles: () => [],
   };
 };
 
@@ -77,5 +76,5 @@ module.exports = {
   getImageStream,
   mockDaoFactory,
   getSessionMock,
-  getAuthzResultMock
+  getAuthzResultMock,
 };

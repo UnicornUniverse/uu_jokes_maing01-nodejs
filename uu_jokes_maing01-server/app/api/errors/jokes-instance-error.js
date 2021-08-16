@@ -46,7 +46,7 @@ const Init = {
       this.code = `${Init.UC_CODE}jokesInstanceDaoCreateFailed`;
       this.message = "Create jokesInstance by jokesInstance DAO create failed.";
     }
-  }
+  },
 };
 
 const Load = {
@@ -71,7 +71,7 @@ const Load = {
       this.code = `${Load.UC_CODE}jokesInstanceIsUnderConstruction`;
       this.message = "JokesInstance is in state underConstruction.";
     }
-  }
+  },
 };
 
 const Update = {
@@ -89,7 +89,7 @@ const Update = {
       this.code = `${Update.UC_CODE}jokesInstanceDaoUpdateByAwidFailed`;
       this.message = "Update jokesInstance by jokesInstance Dao updateByAwid failed.";
     }
-  }
+  },
 };
 
 const SetLogo = {
@@ -135,7 +135,7 @@ const SetLogo = {
       this.code = `${SetLogo.UC_CODE}jokesInstanceDaoUpdateByAwidFailed`;
       this.message = "Update jokesInstance by jokesInstance Dao updateByAwid failed.";
     }
-  }
+  },
 };
 
 const GetProductLogo = {
@@ -146,7 +146,7 @@ const GetProductLogo = {
       this.code = `${GetProductLogo.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid.";
     }
-  }
+  },
 };
 
 const GetIndex = {
@@ -157,7 +157,7 @@ const GetIndex = {
       this.code = `${GetIndex.UC_CODE}unableToReadHtmlFile`;
       this.message = "Unable to read html file.";
     }
-  }
+  },
 };
 
 const GetUveMetaData = {
@@ -168,7 +168,7 @@ const GetUveMetaData = {
       this.code = `${GetUveMetaData.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid.";
     }
-  }
+  },
 };
 
 const SetIcons = {
@@ -214,7 +214,7 @@ const SetIcons = {
       this.code = `${SetIcons.UC_CODE}jokesInstanceDaoUpdateByAwidFailed`;
       this.message = "Update jokesInstance by jokesInstance Dao updateByAwid failed.";
     }
-  }
+  },
 };
 
 module.exports = {
@@ -225,5 +225,5 @@ module.exports = {
   GetProductLogo,
   GetIndex,
   GetUveMetaData,
-  SetIcons
+  SetIcons,
 };

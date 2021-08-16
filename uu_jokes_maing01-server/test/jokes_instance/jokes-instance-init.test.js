@@ -43,7 +43,7 @@ test("HDS with minimal dtoIn and without logo", async () => {
 test("HDS with minimal dtoIn and logo", async () => {
   let dtoIn = {
     uuAppProfileAuthorities: "kombajn",
-    logo: getImageStream()
+    logo: getImageStream(),
   };
   let result = await TestHelper.initUuAppWorkspace(dtoIn);
   expect(result.status).toBe(200);
@@ -63,7 +63,7 @@ test("HDS with more complete dtoIn", async () => {
   let dtoIn = {
     uuAppProfileAuthorities: "kombajn",
     name,
-    state
+    state,
   };
   let result = await TestHelper.initUuAppWorkspace(dtoIn);
   expect(result.status).toBe(200);
@@ -118,7 +118,7 @@ test("A4 - setProfile fails", async () => {
   });
 
   let dtoIn = {
-    uuAppProfileAuthorities: "bicykl"
+    uuAppProfileAuthorities: "bicykl",
   };
   try {
     await JokesInstanceAbl.init(mockUri, dtoIn);
@@ -139,7 +139,7 @@ test("A5 - creating uuBinary fails", async () => {
 
   let dtoIn = {
     uuAppProfileAuthorities: "holomajzna",
-    logo: getImageStream()
+    logo: getImageStream(),
   };
   try {
     await JokesInstanceAbl.init(mockUri, dtoIn);
@@ -160,7 +160,7 @@ test("A6 - storing jokes instance fails", async () => {
   jest.spyOn(UuBinaryAbl, "createBinary").mockImplementation(() => {});
 
   let dtoIn = {
-    uuAppProfileAuthorities: "someUri"
+    uuAppProfileAuthorities: "someUri",
   };
   try {
     await JokesInstanceAbl.init(mockUri, dtoIn);

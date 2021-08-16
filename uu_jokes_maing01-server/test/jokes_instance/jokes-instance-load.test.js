@@ -31,7 +31,7 @@ test("HDS", async () => {
 
 test("A2 - closed jokes instance", async () => {
   expect.assertions(4);
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "closed"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "closed" });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(JOKES_INSTANCE_LOAD);
@@ -45,9 +45,9 @@ test("A2 - closed jokes instance", async () => {
 
 test("A3 - jokes instance is under construction and caller is a Reader", async () => {
   expect.assertions(3);
-  let dtoIn =  {
+  let dtoIn = {
     uuAppProfileAuthorities: ".",
-    state: "underConstruction"
+    state: "underConstruction",
   };
   await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Readers");

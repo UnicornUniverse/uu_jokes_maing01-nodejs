@@ -8,7 +8,7 @@ const {
   getImageStream,
   mockDaoFactory,
   getSessionMock,
-  getAuthzResultMock
+  getAuthzResultMock,
 } = require("../general-test-hepler");
 
 beforeAll(async () => {
@@ -32,7 +32,7 @@ afterEach(() => {
 
 test("HDS", async () => {
   expect.assertions(2);
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "There should be unicorns" });
   let result = await TestHelper.executePostCommand(JOKE_DELETE, { id: joke.id });
@@ -46,11 +46,11 @@ test("HDS", async () => {
 
 test("HDS - deleting image", async () => {
   expect.assertions(3);
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, {
     name: "The ones with the purple eyes",
-    image: getImageStream()
+    image: getImageStream(),
   });
   let result = await TestHelper.executePostCommand(JOKE_DELETE, { id: joke.id });
   expect(result.status).toEqual(200);
@@ -65,7 +65,7 @@ test("HDS - deleting image", async () => {
 
 test("HDS - deleting ratings", async () => {
   expect.assertions(4);
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "Not the green eyes" });
 
@@ -96,7 +96,7 @@ test("HDS - deleting ratings", async () => {
 
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "closed"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "closed" });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_DELETE, { id: MONGO_ID });
@@ -109,12 +109,12 @@ test("A2 - jokes instance is closed", async () => {
 });
 
 test("A3 - unsupported keys in dtoIn", async () => {
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "If the police shows up.." });
   joke = await TestHelper.executePostCommand(JOKE_DELETE, {
     id: joke.id,
-    continued: "..we will give them so much money.."
+    continued: "..we will give them so much money..",
   });
   expect(joke.status).toEqual(200);
   let warning = joke.uuAppErrorMap["uu-jokes-main/joke/delete/unsupportedKeys"];
@@ -126,7 +126,7 @@ test("A3 - unsupported keys in dtoIn", async () => {
 
 test("A4 - invalid dtoIn", async () => {
   expect.assertions(2);
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_DELETE, {});
@@ -138,7 +138,7 @@ test("A4 - invalid dtoIn", async () => {
 
 test("A5 - joke does nto exist", async () => {
   expect.assertions(2);
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executePostCommand(JOKE_DELETE, { id: MONGO_ID });
@@ -150,7 +150,7 @@ test("A5 - joke does nto exist", async () => {
 
 test("A6 - Readers trying to delete Authorities' joke", async () => {
   expect.assertions(1);
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "..it will make them cry. And forgive us." });
   let session = await TestHelper.login("Readers");
