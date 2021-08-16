@@ -18,6 +18,7 @@ const { ProductInfo, ProductLogo } = require("uu_apprepresentationg01");
 const { Uri, UriBuilder } = require("uu_appg01_server").Uri;
 const { AppClient } = require("uu_appg01_server");
 const { UuTerrClient } = require("uu_territory_clientg01");
+const { Config } = require("uu_appg01_server").Utils;
 
 const Path = require("path");
 const fs = require("fs");
@@ -798,14 +799,13 @@ class JokesInstanceAbl {
           profileList: authorizationResult.getAuthorizedProfiles(),
         },
         relatedObjectsMap: {
-          uuAppUuFlsBaseUri: "",
-          uuAppUuSlsBaseUri: "",
-
-          uuAppBusinessModelUri: "",
-          uuAppApplicationModelUri: "",
-          uuAppBusinessRequestsUri: "",
-          uuAppUserGuideUri: "",
-          uuAppWebKitUri: "",
+          uuAppUuFlsBaseUri: Config.get("fls_base_uri"),
+          uuAppUuSlsBaseUri: Config.get("sls_base_uri"),
+          uuAppBusinessRequestsUri: Config.get("business_request_uri"),
+          uuAppBusinessModelUri: Config.get("business_model_uri"),
+          uuAppApplicationModelUri: Config.get("application_model_uri"),
+          uuAppUserGuideUri: Config.get("user_guide_uri"),
+          uuAppWebKitUri: Config.get("web_uri"),
         },
         awidData,
         asidData,
