@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "Debug HI",
-      "type": "chrome",
+      "type": "pwa-chrome",
       "request": "launch",
       "url": "http://localhost:8080/uu-jokes-maing01/22222222222222222222222222222222/",
       "webRoot": "${workspaceFolder}/uu_jokes_maing01-hi"

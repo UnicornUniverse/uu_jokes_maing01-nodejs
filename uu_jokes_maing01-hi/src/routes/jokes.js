@@ -2,7 +2,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
-import { useSubAppData } from "uu_plus4u5g02";
 import { withRoute } from "uu_plus4u5g02-app";
 import UuJokesCore from "uu_jokesg01-core";
 import Config from "./config/config";
@@ -22,32 +21,18 @@ const Jokes = createVisualComponent({
   defaultProps: {},
   //@@viewOff:defaultProps
 
-  render(props) {
+  render() {
     //@@viewOn:private
-    const jokesDataObject = useSubAppData();
-    const jokesPermission = UuJokesCore.Jokes.useJokesPermission();
-
     //@@viewOff:private
 
     //@@viewOn:render
     return (
-      <UuJokesCore.Joke.JokeListProvider>
-        {({ jokeDataList }) => (
-          <div>
-            <RouteBar />
-            <UU5.Bricks.Container noSpacing>
-              <UuJokesCore.Joke.JokeListView
-                jokesDataObject={jokesDataObject}
-                jokeDataList={jokeDataList}
-                jokesPermission={jokesPermission}
-                cardView="none"
-                elevation={0}
-                style={{ padding: "40px 24px 0px 24px" }}
-              />
-            </UU5.Bricks.Container>
-          </div>
-        )}
-      </UuJokesCore.Joke.JokeListProvider>
+      <>
+        <RouteBar />
+        <UU5.Bricks.Container noSpacing>
+          <UuJokesCore.Joke.JokeList cardView="none" elevation={0} style={{ padding: "40px 24px 0px 24px" }} />
+        </UU5.Bricks.Container>
+      </>
     );
     //@@viewOff:render
   },
