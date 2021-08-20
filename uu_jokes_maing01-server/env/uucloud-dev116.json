@@ -4,7 +4,7 @@
   "uuSubApp": {
     "code": "UU.JOKES.MAING01",
     "name": "uuJokes",
-    "version": "2.4.0",
+    "version": "3.0.0-dev",
     "description": "uuJokes is reference application for educational purposes",
     "license": "License Commercial",
     "asidRequired": true,

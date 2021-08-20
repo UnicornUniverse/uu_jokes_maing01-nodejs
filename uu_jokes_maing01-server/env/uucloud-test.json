@@ -4,7 +4,7 @@
   "uuSubApp": {
     "code": "UU.JOKES.MAING01",
     "name": "uuJokes",
-    "version": "2.4.0",
+    "version": "3.0.0-dev",
     "description": "uuJokes is reference application for educational purposes",
     "license": "License Commercial",
     "asidRequired": true,
@@ -50,7 +50,13 @@
       "web_uri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/",
       "uuapp.oidc.appserver.oidcabl.log_level": "debug",
       "product_portal_uri": "https://uuapp.plus4u.net/uu-dockit-maing02/d112828dcd1445e2a916cdd59331a359/document?documentId=5fb577cf1d97660025f9023b",
-      "asid_license_owner_list": ["25-2295-1", "12-470-1", "1-2796-1", "11-8580-1", "7777-1"]
+      "asid_license_owner_list": [
+        "25-2295-1",
+        "12-470-1",
+        "1-2796-1",
+        "11-8580-1",
+        "7777-1"
+      ]
     }
   },
   "uuSubAppInstance": {
