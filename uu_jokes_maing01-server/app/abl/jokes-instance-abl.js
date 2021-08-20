@@ -755,10 +755,39 @@ class JokesInstanceAbl {
 
     const authorizationResult = await WorkspaceAuthorizationService.authorize(session, Uri.parse(cmdUri));
 
+    let dtoOut = {};
     // hds 2
-    if (!authorizationResult.isAuthorized()) {
-      //TODO doplnit dtoOut pro neauthorizovane uzivatele
-      return {};
+    // if (!authorizationResult.isAuthorized()) {
+    //   //TODO doplnit dtoOut pro neauthorizovane uzivatele
+    //   return {};
+    // }
+
+    // TODO Refactor and finish command, replace standard load
+    const asidData = await UuSubAppInstance.get();
+    const awidData = await UuAppWorkspace.get(awid);
+
+    // ISSUE The uuAppProductPortalUri is not allowed in this map by official documentation but should be
+    // https://uuapp.plus4u.net/uu-sls-maing01/3f1ef221518d49f2ac936f53f83ebd84/issueDetail?id=611f6bdf545e5300294e5ed1
+    const relatedObjectsMap = {
+      uuAppUuFlsBaseUri: Config.get("fls_base_uri"),
+      uuAppUuSlsBaseUri: Config.get("sls_base_uri"),
+      uuAppBusinessRequestsUri: Config.get("business_request_uri"),
+      uuAppBusinessModelUri: Config.get("business_model_uri"),
+      uuAppApplicationModelUri: Config.get("application_model_uri"),
+      uuAppUserGuideUri: Config.get("user_guide_uri"),
+      uuAppWebKitUri: Config.get("web_uri"),
+      uuAppProductPortalUri: Config.get("product_portal_uri"),
+    };
+
+    const profileData = {
+      uuIdentityProfileList: authorizationResult.getIdentityProfiles(),
+      profileList: authorizationResult.getAuthorizedProfiles(),
+    };
+
+    dtoOut.sysData = { asidData, awidData, relatedObjectsMap, profileData };
+
+    if (awidData.sysState === "created") {
+      return dtoOut;
     }
 
     let jokes;
@@ -770,13 +799,8 @@ class JokesInstanceAbl {
       throw new Errors.LoadWorkspace.JokesDoesNotExist({ uuAppErrorMap }, {}, error);
     }
 
-    // hds 4
-    const asidData = await UuSubAppInstance.get();
+    dtoOut.data = { ...jokes, relatedObjectsMap: {} };
 
-    // hds 5
-    const awidData = await UuAppWorkspace.get(awid);
-
-    // hds 6
     const artifactUri = UriBuilder.parse(awidData.artifactUri).toUri();
     const artifactId = artifactUri.getParameters().id;
     const btBaseUri = artifactUri.getBaseUri();
@@ -787,36 +811,8 @@ class JokesInstanceAbl {
       terrClientOpts
     );
 
-    // hds 7
-    const dtoOut = {
-      data: {
-        ...jokes,
-        relatedObjectsMap: {},
-      },
-      sysData: {
-        profileData: {
-          uuIdentityProfileList: authorizationResult.getIdentityProfiles(),
-          profileList: authorizationResult.getAuthorizedProfiles(),
-        },
-        relatedObjectsMap: {
-          uuAppUuFlsBaseUri: Config.get("fls_base_uri"),
-          uuAppUuSlsBaseUri: Config.get("sls_base_uri"),
-          uuAppBusinessRequestsUri: Config.get("business_request_uri"),
-          uuAppBusinessModelUri: Config.get("business_model_uri"),
-          uuAppApplicationModelUri: Config.get("application_model_uri"),
-          uuAppUserGuideUri: Config.get("user_guide_uri"),
-          uuAppWebKitUri: Config.get("web_uri"),
-        },
-        awidData,
-        asidData,
-      },
-      territoryData: {
-        data: {
-          ...awsc,
-        },
-      },
-    };
-    // hds 8
+    dtoOut.territoryData = { data: awsc };
+
     return dtoOut;
   }
 }

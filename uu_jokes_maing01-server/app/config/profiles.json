@@ -23,7 +23,7 @@
         "profileList": ["Public", "AwidLicenseOwner"]
       },
       "sys/uuAppWorkspace/load": {
-        "sysStateList": ["active"],
+        "sysStateList": ["created", "active", "restricted", "readOnly", "closed", "suspended"],
         "profileList": ["Public"]
       },
       "jokesInstance/plugInBt": {

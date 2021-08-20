@@ -1,17 +1,15 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useData } from "uu5g04-hooks";
+import { createVisualComponent } from "uu5g04-hooks";
+import { useSubAppData, useTerritoryData } from "uu_plus4u5g02";
+import { withRoute } from "uu_plus4u5g02-app";
 import UuTerritory from "uu_territoryg01";
-import Plus4U5 from "uu_plus4u5g01";
 import UuContentKit from "uu_contentkitg01";
 import { Jokes } from "uu_jokesg01-core";
-import "uu5g04-bricks";
-import "uu5g04-forms";
 import "uu_territoryg01-artifactifc";
-import "uu_plus4u5g01-app";
-import Calls from "calls";
 
 import Config from "./config/config.js";
+import RouteBar from "../core/route-bar";
 import Lsi from "../config/lsi.js";
 //@@viewOff:imports
 
@@ -21,7 +19,7 @@ const STATICS = {
   //@@viewOff:statics
 };
 
-export const ControlPanel = createVisualComponent({
+const ControlPanel = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
@@ -32,58 +30,39 @@ export const ControlPanel = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    let { viewState, asyncData: data } = useData({ onLoad: Calls.getWorkspace });
-    const { jokesDataObject } = Jokes.useJokes();
+    const jokesDataObject = useSubAppData();
     const jokesPermission = Jokes.useJokesPermission();
+    const territoryDataObject = useTerritoryData();
+    const territory = territoryDataObject.data.data;
     //@@viewOff:private
 
     //@@viewOn:interface
     //@@viewOff:interface
 
     //@@viewOn:render
-    let attrs = UU5.Common.VisualComponent.getAttrs(props);
-    let child;
-    let territoryBaseUri;
-    let artifactId;
-    if (viewState === "error") {
-      child = (
-        <Plus4U5.Bricks.Error error={data.dtoOut} errorData={data?.dtoOut?.uuAppErrorMap}>
-          <UU5.Bricks.Lsi lsi={Lsi.controlPanel.rightsError} />
-        </Plus4U5.Bricks.Error>
-      );
-    } else if (viewState === "load") {
-      child = <UU5.Bricks.Loading />;
-    } else if (data.artifactUri) {
-      const url = new URL(data.artifactUri);
-      url.pathname = url.pathname.split("/", 3).join("/");
-      territoryBaseUri = url.href.split("?")[0];
-      artifactId = url.searchParams.get("id");
-      child = (
-        <UuTerritory.ArtifactIfc.Bricks.PermissionSettings
-          {...attrs}
-          style={{ marginLeft: "30px", marginRight: "30px", width: "initial" }} // TODO Use className when uu_territory gets fixed (it ignores it now)
-          territoryBaseUri={territoryBaseUri}
-          artifactId={artifactId}
-        />
-      );
-    } else {
-      child = (
-        <UuContentKit.Bricks.BlockDanger>
-          <UU5.Bricks.Lsi lsi={Lsi.controlPanel.btNotConnected} />
-        </UuContentKit.Bricks.BlockDanger>
-      );
-    }
     return (
-      <UU5.Common.Fragment>
-        {viewState !== "load" ? (
-          <Plus4U5.App.ArtifactSetter territoryBaseUri={territoryBaseUri} artifactId={artifactId} />
-        ) : null}
-        <Jokes.JokesBasicInfo jokesDataObject={jokesDataObject} jokesPermission={jokesPermission} />
-        {child}
-      </UU5.Common.Fragment>
+      <>
+        <RouteBar />
+        <UU5.Bricks.Container noSpacing>
+          <UU5.Bricks.Section header="Control Panel" style={{ padding: "0px 24px 0px 24px" }}>
+            {/* <Jokes.JokesBasicInfo jokesDataObject={jokesDataObject} jokesPermission={jokesPermission} /> */}
+            {territory.artifact && (
+              <UuTerritory.ArtifactIfc.Bricks.PermissionSettings
+                territoryBaseUri={territory.uuTerritoryBaseUri}
+                artifactId={territory.artifact.id}
+                cardView="full"
+              />
+            )}
+            {!territory.artifact && (
+              <UuContentKit.Bricks.BlockDanger>
+                <UU5.Bricks.Lsi lsi={Lsi.controlPanel.btNotConnected} />
+              </UuContentKit.Bricks.BlockDanger>
+            )}
+          </UU5.Bricks.Section>
+        </UU5.Bricks.Container>
+      </>
     );
-    //@@viewOff:render
   },
 });
 
-export default ControlPanel;
+export default withRoute(ControlPanel);

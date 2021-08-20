@@ -53,11 +53,9 @@ export const SpaUnauthorizedInit = createVisualComponent({
     //@@viewOn:private
     //@@viewOff:private
 
-    //@@viewOn:interface
-    //@@viewOff:interface
-
     //@@viewOn:render
     const attrs = UU5.Common.VisualComponent.getAttrs(props, CLASS_NAMES.main());
+
     return (
       <div {...attrs}>
         <UU5.Bricks.Icon className={CLASS_NAMES.errorIcon()} icon="mdi-block-helper" />

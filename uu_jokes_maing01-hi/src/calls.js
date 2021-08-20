@@ -13,24 +13,9 @@ let Calls = {
     return response.data;
   },
 
-  loadIdentityProfiles() {
-    let commandUri = Calls.getCommandUri("sys/uuAppWorkspace/initUve");
-    return Calls.call("get", commandUri, {});
-  },
-
-  initWorkspace(dtoInData) {
+  initWorkspace(dtoIn) {
     let commandUri = Calls.getCommandUri("sys/uuAppWorkspace/init");
-    return Calls.call("post", commandUri, dtoInData);
-  },
-
-  getWorkspace() {
-    let commandUri = Calls.getCommandUri("sys/uuAppWorkspace/get");
-    return Calls.call("get", commandUri, {});
-  },
-
-  async initAndGetWorkspace(dtoInData) {
-    await Calls.initWorkspace(dtoInData);
-    return await Calls.getWorkspace();
+    return Calls.call("post", commandUri, dtoIn);
   },
 
   /*

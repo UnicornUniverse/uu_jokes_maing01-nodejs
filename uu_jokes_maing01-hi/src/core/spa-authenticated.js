@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g04-hooks";
-import Plus4U5 from "uu_plus4u5g01";
-import UuJokesCore from "uu_jokesg01-core";
+import { useSubAppData } from "uu_plus4u5g02";
+import { RoutePending, SpaError } from "uu_plus4u5g02-app";
 import "uu_plus4u5g01-app";
 
 import Config from "./config/config.js";
@@ -25,26 +25,19 @@ export const SpaAuthenticated = createVisualComponent({
 
   render() {
     //@@viewOn:private
+    const subApp = useSubAppData();
     //@@viewOff:private
 
-    //@@viewOn:interface
-    //@@viewOff:interface
-
     //@@viewOn:render
-    return (
-      <UuJokesCore.Jokes.JokesProvider>
-        {({ jokesDataObject }) => {
-          switch (jokesDataObject.state) {
-            case "pendingNoData":
-              return <Plus4U5.App.SpaLoading>uuJokes</Plus4U5.App.SpaLoading>;
-            case "errorNoData":
-              return <Plus4U5.App.SpaError errorData={jokesDataObject.errorData} />;
-            default:
-              return <SpaReady jokesDataObject={jokesDataObject} />;
-          }
-        }}
-      </UuJokesCore.Jokes.JokesProvider>
-    );
+
+    switch (subApp.state) {
+      case "pending":
+        return <RoutePending />;
+      case "error":
+        return <SpaError error={subApp.errorData} />;
+      default:
+        return <SpaReady />;
+    }
     //@@viewOff:render
   },
 });

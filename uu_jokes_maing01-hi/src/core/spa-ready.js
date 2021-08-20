@@ -1,15 +1,20 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState } from "uu5g04-hooks";
-import Plus4U5 from "uu_plus4u5g01";
+import { createVisualComponent } from "uu5g04-hooks";
+import { useSystemData } from "uu_plus4u5g02";
+import Plus4U5App from "uu_plus4u5g02-app";
 import UuJokesCore from "uu_jokesg01-core";
 import "uu5g04-bricks";
-import "uu_plus4u5g01-app";
 
 import Config from "./config/config";
-import Left from "./left";
-import Bottom from "./bottom";
+import withSuspense from "./withSuspense";
 //@@viewOff:imports
+
+const Jokes = withSuspense(UU5.Common.Component.lazy(() => import("../routes/jokes")));
+const Categories = withSuspense(UU5.Common.Component.lazy(() => import("../routes/categories")));
+const ControlPanel = withSuspense(UU5.Common.Component.lazy(() => import("../routes/control-panel")));
+const InitAppWorkspace = withSuspense(UU5.Common.Component.lazy(() => import("../routes/init-app-workspace")));
+const About = withSuspense(UU5.Common.Component.lazy(() => import("../routes/about")));
 
 const STATICS = {
   //@@viewOn:statics
@@ -17,77 +22,40 @@ const STATICS = {
   //@@viewOff:statics
 };
 
-const About = UU5.Common.Component.lazy(() => import("../routes/about"));
-const InitAppWorkspace = UU5.Common.Component.lazy(() => import("../routes/init-app-workspace"));
-const ControlPanel = UU5.Common.Component.lazy(() => import("../routes/control-panel"));
-const Jokes = UU5.Common.Component.lazy(() => import("../routes/jokes"));
-
-const DEFAULT_USE_CASE = "jokes";
-const ROUTES = {
-  "": DEFAULT_USE_CASE,
-  about: { component: <About /> },
-  "sys/uuAppWorkspace/initUve": { component: <InitAppWorkspace /> },
-  controlPanel: { component: <ControlPanel /> },
-  jokes: { component: <Jokes /> },
-};
-
-export const SpaAuthenticated = createVisualComponent({
+export const SpaReady = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
-  propTypes: {
-    jokesDataObject: UU5.PropTypes.object.isRequired,
-  },
+  propTypes: {},
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-    jokesDataObject: undefined,
-  },
+  defaultProps: {},
   //@@viewOff:defaultProps
 
-  render(props) {
+  render() {
     //@@viewOn:private
-    let [initialActiveItemId] = useState(() => {
-      let url = UU5.Common.Url.parse(window.location.href);
-      return url.useCase || DEFAULT_USE_CASE;
-    });
+    const { data: system } = useSystemData();
     //@@viewOff:private
 
     //@@viewOn:render
+    const routeMap = {
+      [Config.Routes.JOKES]: () => <Jokes />,
+      [Config.Routes.CATEGORIES]: () => <Categories />,
+      [Config.Routes.CONTROL_PANEL]: () => <ControlPanel />,
+      [Config.Routes.INIT_APP_WORKSPACE]: () => <InitAppWorkspace />,
+      [Config.Routes.ABOUT]: () => <About />,
+      "": { redirect: Config.Routes.JOKES },
+      "*": { redirect: Config.Routes.JOKES },
+    };
+
     return (
-      <UuJokesCore.Jokes.JokesPermissionProvider profileList={props.jokesDataObject.data.authorizedProfileList}>
-        <Plus4U5.App.MenuProvider activeItemId={initialActiveItemId}>
-          <Plus4U5.App.Page
-            {...props}
-            top={<Plus4U5.App.TopBt />}
-            topFixed="smart"
-            bottom={<Bottom />}
-            type={3}
-            displayedLanguages={["cs", "en"]}
-            left={<Left jokesDataObject={props.jokesDataObject} />}
-            leftWidth="!xs-300px !s-300px !m-288px !l-288px !xl-288px"
-            leftFixed
-            leftRelative="m l xl"
-            leftResizable="m l xl"
-            leftResizableMinWidth={220}
-            leftResizableMaxWidth={500}
-            isLeftOpen="m l xl"
-            showLeftToggleButton
-            fullPage
-          >
-            <Plus4U5.App.MenuConsumer>
-              {({ setActiveItemId }) => {
-                let handleRouteChanged = ({ useCase, parameters }) => setActiveItemId(useCase || DEFAULT_USE_CASE);
-                return <UU5.Common.Router routes={ROUTES} controlled={false} onRouteChanged={handleRouteChanged} />;
-              }}
-            </Plus4U5.App.MenuConsumer>
-          </Plus4U5.App.Page>
-        </Plus4U5.App.MenuProvider>
+      <UuJokesCore.Jokes.JokesPermissionProvider profileList={system.profileData.uuIdentityProfileList}>
+        <Plus4U5App.Spa routeMap={routeMap} />
       </UuJokesCore.Jokes.JokesPermissionProvider>
     );
     //@@viewOff:render
   },
 });
 
-export default SpaAuthenticated;
+export default SpaReady;
