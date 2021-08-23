@@ -1,11 +1,11 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
-import { useTerritoryData } from "uu_plus4u5g02";
-import { withRoute } from "uu_plus4u5g02-app";
+import {createVisualComponent} from "uu5g04-hooks";
+import {useTerritoryData} from "uu_plus4u5g02";
+import {withRoute} from "uu_plus4u5g02-app";
 import UuTerritory from "uu_territoryg01";
 import UuContentKit from "uu_contentkitg01";
-import { Jokes } from "uu_jokesg01-core";
+import {Jokes} from "uu_jokesg01-core";
 import "uu_territoryg01-artifactifc";
 
 import Config from "./config/config.js";
@@ -19,6 +19,8 @@ const STATICS = {
   //@@viewOff:statics
 };
 
+const CONTEXT_TYPE = "none";
+
 const ControlPanel = createVisualComponent({
   ...STATICS,
 
@@ -30,7 +32,7 @@ const ControlPanel = createVisualComponent({
 
   render() {
     //@@viewOn:private
-    const { data: territory } = useTerritoryData();
+    const {data: territory} = useTerritoryData();
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -39,20 +41,39 @@ const ControlPanel = createVisualComponent({
     //@@viewOn:render
     return (
       <>
-        <RouteBar />
+        <RouteBar/>
         <UU5.Bricks.Container noSpacing>
-          <UU5.Bricks.Section header="Control Panel" style={{ padding: "0px 24px 0px 24px" }}>
-            <Jokes.JokesBasicInfo />
+          <UU5.Bricks.Section header="Control Panel" style={{padding: "0px 24px 0px 24px"}}>
+            <Jokes.JokesBasicInfo/>
             {territory && territory.data.artifact && (
-              <UuTerritory.ArtifactIfc.Bricks.PermissionSettings
-                territoryBaseUri={territory.data.uuTerritoryBaseUri}
-                artifactId={territory.data.artifact.id}
-                cardView="full"
-              />
+              <>
+                <UuTerritory.ArtifactIfc.Bricks.PermissionSettings
+                  territoryBaseUri={territory.data.uuTerritoryBaseUri}
+                  artifactId={territory.data.artifact.id}
+                  cardView="full"
+                />
+
+                {territory.data.uuBtBaseUri && (
+                  <>
+                    <UuTerritory.ArtifactIfc.Bricks.StateHistory
+                      territoryBaseUri={territory.data.uuBtBaseUri}
+                      contextType={CONTEXT_TYPE}
+                      artifactId={territory.data.artifact.id || territory.data.artifact.id}
+                      cardView
+                    />
+                    <UuTerritory.ArtifactIfc.Bricks.ActivityList
+                      territoryBaseUri={territory.data.uuBtBaseUri}
+                      contextType={CONTEXT_TYPE}
+                      artifactId={territory.data.artifact.id || territory.data.artifact.id}
+                      cardView
+                    />
+                  </>
+                )}
+              </>
             )}
             {!territory && (
               <UuContentKit.Bricks.BlockDanger>
-                <UU5.Bricks.Lsi lsi={Lsi.controlPanel.btNotConnected} />
+                <UU5.Bricks.Lsi lsi={Lsi.controlPanel.btNotConnected}/>
               </UuContentKit.Bricks.BlockDanger>
             )}
           </UU5.Bricks.Section>
