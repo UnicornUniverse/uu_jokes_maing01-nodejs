@@ -1,10 +1,10 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
+import UuTerritory from "uu_territoryg01";
+import UuContentKit from "uu_contentkitg01";
 import { createVisualComponent } from "uu5g04-hooks";
 import { useTerritoryData } from "uu_plus4u5g02";
 import { withRoute } from "uu_plus4u5g02-app";
-import UuTerritory from "uu_territoryg01";
-import UuContentKit from "uu_contentkitg01";
 import { Jokes } from "uu_jokesg01-core";
 import "uu_territoryg01-artifactifc";
 
@@ -47,15 +47,15 @@ const ControlPanel = createVisualComponent({
               <>
                 <UuTerritory.ArtifactIfc.Bricks.StateHistory
                   territoryBaseUri={territory.data.uuTerritoryBaseUri}
-                  contextType="none"
                   artifactId={territory.data.artifact.id}
-                  cardView
+                  contextType="none"
+                  cardView="full"
                 />
-                <UuTerritory.ArtifactIfc.Bricks.ActivityList
+                <UuTerritory.Activity.Bricks.ActivityList
                   territoryBaseUri={territory.data.uuTerritoryBaseUri}
-                  contextType="none"
                   artifactId={territory.data.artifact.id}
-                  cardView
+                  contextType="none"
+                  cardView="full"
                 />
                 <UuTerritory.ArtifactIfc.Bricks.PermissionSettings
                   territoryBaseUri={territory.data.uuTerritoryBaseUri}

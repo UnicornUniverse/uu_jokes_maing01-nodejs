@@ -8,12 +8,12 @@
   "spec": "uu5-app; uu_appg01_devkit@4.0.1",
   "dependencies": {
     "systemjs": "0.19.47",
-    "uu_contentkitg01": "^2.0.0",
+    "uu_contentkitg01": "^2.15.1",
     "uu_plus4u5g01": "^4.22.0",
-    "uu_plus4u5g02": "^0.6.0",
-    "uu_plus4u5g02-app": "^0.6.0",
-    "uu_territoryg01": "^1.0.0",
-    "uu5g04": "^1.19.0"
+    "uu_plus4u5g02": "^0.6.1",
+    "uu_plus4u5g02-app": "^0.6.1",
+    "uu_territoryg01": "^2.14.0",
+    "uu5g04": "^1.49.0"
   },
   "uuBuildSettings": {
     "externals": {
