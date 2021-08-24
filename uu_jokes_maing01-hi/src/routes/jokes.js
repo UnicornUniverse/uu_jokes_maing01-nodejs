@@ -30,7 +30,7 @@ const Jokes = createVisualComponent({
       <>
         <RouteBar />
         <UU5.Bricks.Container noSpacing>
-          <UuJokesCore.Joke.JokeList cardView="none" elevation={0} style={{ padding: "40px 24px 0px 24px" }} />
+          <UuJokesCore.Joke.List cardView="none" elevation={0} style={{ padding: "40px 24px 0px 24px" }} />
         </UU5.Bricks.Container>
       </>
     );

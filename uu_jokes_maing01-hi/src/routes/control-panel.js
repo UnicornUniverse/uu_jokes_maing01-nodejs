@@ -42,7 +42,7 @@ const ControlPanel = createVisualComponent({
         <RouteBar />
         <UU5.Bricks.Container noSpacing>
           <UU5.Bricks.Section header="Control Panel" style={{ padding: "0px 24px 0px 24px" }}>
-            <Jokes.JokesBasicInfo />
+            <Jokes.BasicInfo />
             {territory && (
               <>
                 <UuTerritory.ArtifactIfc.Bricks.StateHistory

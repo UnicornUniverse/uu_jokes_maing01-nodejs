@@ -30,7 +30,7 @@ const Categories = createVisualComponent({
       <>
         <RouteBar />
         <UU5.Bricks.Container noSpacing>
-          <UuJokesCore.Category.CategoryList cardView="none" elevation={0} style={{ padding: "40px 24px 0px 24px" }} />
+          <UuJokesCore.Category.List cardView="none" elevation={0} style={{ padding: "40px 24px 0px 24px" }} />
         </UU5.Bricks.Container>
       </>
     );

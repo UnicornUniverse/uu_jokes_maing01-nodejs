@@ -50,9 +50,9 @@ export const SpaReady = createVisualComponent({
     };
 
     return (
-      <UuJokesCore.Jokes.JokesPermissionProvider profileList={system.profileData.uuIdentityProfileList}>
+      <UuJokesCore.Jokes.PermissionProvider profileList={system.profileData.uuIdentityProfileList}>
         <Plus4U5App.Spa routeMap={routeMap} />
-      </UuJokesCore.Jokes.JokesPermissionProvider>
+      </UuJokesCore.Jokes.PermissionProvider>
     );
     //@@viewOff:render
   },
