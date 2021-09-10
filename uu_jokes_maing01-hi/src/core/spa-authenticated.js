@@ -31,9 +31,9 @@ export const SpaAuthenticated = createVisualComponent({
     //@@viewOn:render
 
     switch (subAppDataObj.state) {
-      case "pending":
+      case "pendingNoData":
         return <RoutePending />;
-      case "error":
+      case "errorNoData":
         return <SpaError error={subAppDataObj.errorData} />;
       default:
         return <SpaReady />;

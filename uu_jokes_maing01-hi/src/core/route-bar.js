@@ -26,7 +26,7 @@ export const RouteBar = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { route, setRoute } = useRoute();
+    const [route, setRoute] = useRoute();
     const { data: system } = useSystemData();
     const { data: jokes } = useSubAppData();
 

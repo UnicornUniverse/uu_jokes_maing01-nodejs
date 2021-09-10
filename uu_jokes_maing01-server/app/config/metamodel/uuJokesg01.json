@@ -73,7 +73,7 @@
         "loadPermissions": "",
         "getNavigation": "",
         "getImplicitPermissions": "",
-        "setBasicAttributes": "uu-jokes-maing01/jokesInstance/update",
+        "setBasicAttributes": "uu-jokes-maing01/jokes/update",
         "setVersion": "",
         "setResponsibleRole": "",
         "setHomeFolder": "",
@@ -129,7 +129,7 @@
   },
 
   "synchronizeUuCmdMap": {
-    "uu-businessterritory-maing01/uuAwsc/synchronizeArtifactAttributes": "jokesInstance/load"
+    "uu-businessterritory-maing01/uuAwsc/synchronizeArtifactAttributes": "jokes/load"
   },
 
   "useCaseProfileMap": {

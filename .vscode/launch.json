@@ -53,10 +53,10 @@
       "type": "node",
       "request": "launch",
       "name": "Debug Server Test - All",
-      "program": "${workspaceRoot}/uu_jokes_maing01-server/node_modules/jest/bin/jest",
+      "program": "${workspaceFolder}/uu_jokes_maing01-server/node_modules/jest/bin/jest",
       "args": ["--runInBand", "--watch", "--config=./target/jest.config.js"],
       "console": "integratedTerminal",
-      "cwd": "${workspaceRoot}/uu_jokes_maing01-server",
+      "cwd": "${workspaceFolder}/uu_jokes_maing01-server",
       "skipFiles": [
         "<node_internals>/**",
         "${workspaceFolder}/uu_jokes_maing01-server/node_modules/**/*.js"
@@ -66,7 +66,7 @@
       "type": "node",
       "request": "launch",
       "name": "Debug Server Test - Current File",
-      "program": "${workspaceRoot}/uu_jokes_maing01-server/node_modules/jest/bin/jest",
+      "program": "${workspaceFolder}/uu_jokes_maing01-server/node_modules/jest/bin/jest",
       "args": [
         "--runInBand",
         "--config=./target/jest.config.js",
@@ -74,7 +74,7 @@
         "${fileBasename}"
       ],
       "console": "integratedTerminal",
-      "cwd": "${workspaceRoot}/uu_jokes_maing01-server",
+      "cwd": "${workspaceFolder}/uu_jokes_maing01-server",
       "skipFiles": [
         "<node_internals>/**",
         "${workspaceFolder}/uu_jokes_maing01-server/node_modules/**/*.js"

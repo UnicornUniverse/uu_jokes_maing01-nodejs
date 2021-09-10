@@ -2,7 +2,7 @@
   "{vendor}-{uuApp}-{uuSubApp}": {
     "useCaseMap": {
       "defaultUve": {
-        "realization": "api/controllers/JokesInstanceController.getIndex",
+        "realization": "index.html",
         "httpMethod": "GET",
         "type": "UVE"
       },
@@ -12,38 +12,33 @@
         "type": "UVE"
       },
       "sys/uuAppWorkspace/init": {
-        "realization": "api/controllers/JokesInstanceController.init",
+        "realization": "api/controllers/JokesController.init",
         "httpMethod": "POST",
         "type": "CMD"
       },
       "sys/uuAppWorkspace/load": {
-        "realization": "api/controllers/JokesInstanceController.loadWorkspace",
+        "realization": "api/controllers/JokesController.load",
         "httpMethod": "GET",
         "type": "CMD"
       },
-      "jokesInstance/plugInBt": {
-        "realization": "api/controllers/JokesInstanceController.plugInBt",
+      "jokes/plugInBt": {
+        "realization": "api/controllers/JokesController.plugInBt",
         "httpMethod": "POST",
         "type": "CMD"
       },
-      "jokesInstance/load": {
-        "realization": "api/controllers/JokesInstanceController.load",
+      "jokes/load": {
+        "realization": "api/controllers/JokesController.load",
         "httpMethod": "GET",
         "type": "CMD"
       },
-      "jokesInstance/update": {
-        "realization": "api/controllers/JokesInstanceController.update",
+      "jokes/update": {
+        "realization": "api/controllers/JokesController.update",
         "httpMethod": "POST",
         "type": "CMD"
       },
-      "jokesInstance/setIcons": {
-        "realization": "api/controllers/JokesInstanceController.setIcons",
+      "jokes/setState": {
+        "realization": "api/controllers/JokesController.setState",
         "httpMethod": "POST",
-        "type": "CMD"
-      },
-      "jokesInstance/getUveMetaData": {
-        "realization": "api/controllers/JokesInstanceController.getUveMetaData",
-        "httpMethod": "GET",
         "type": "CMD"
       },
       "joke/create": {

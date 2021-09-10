@@ -6,7 +6,8 @@ const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const { UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
-const JokesInstanceAbl = require("./jokes-instance-abl");
+// TODO Add InstanceChecker
+//const JokesInstanceAbl = require("./jokes-instance-abl");
 const Errors = require("../api/errors/joke-error");
 const Path = require("path");
 const FileHelper = require("../helpers/file-helper");
@@ -59,11 +60,12 @@ class JokeAbl {
 
   async create(awid, dtoIn, session, authorizationResult) {
     // hds 1, A1, hds 1.1, A2
-    await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.Create.JokesInstanceDoesNotExist,
-      Errors.Create.JokesInstanceNotInProperState
-    );
+    // TODO Add InstanceChecer
+    // await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.Create.JokesInstanceDoesNotExist,
+    //   Errors.Create.JokesInstanceNotInProperState
+    // );
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("jokeCreateDtoInType", dtoIn);
@@ -77,7 +79,8 @@ class JokeAbl {
     // hds 2.4
     dtoIn.averageRating = 0;
     dtoIn.ratingCount = 0;
-    dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(JokesInstanceAbl.AUTHORITIES);
+    // TODO Read from constants and uncommenth
+    //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(JokesInstanceAbl.AUTHORITIES);
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
     dtoIn.uuIdentityName = session.getIdentity().getName();
     dtoIn.awid = awid;
@@ -148,20 +151,21 @@ class JokeAbl {
 
   async get(awid, dtoIn, authorizationResult) {
     // hds 1, A1, hds 1.1, A2
-    let jokesInstance = await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.Get.JokesInstanceDoesNotExist,
-      Errors.Get.JokesInstanceNotInProperState
-    );
+    // TODO Add InstanceChecker
+    // let jokesInstance = await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.Get.JokesInstanceDoesNotExist,
+    //   Errors.Get.JokesInstanceNotInProperState
+    // );
     // A3
-    let authorizedProfiles = authorizationResult.getAuthorizedProfiles();
-    if (
-      jokesInstance.state === JokesInstanceAbl.STATE_UNDER_CONSTRUCTION &&
-      !authorizedProfiles.includes(JokesInstanceAbl.AUTHORITIES) &&
-      !authorizedProfiles.includes(JokesInstanceAbl.EXECUTIVES)
-    ) {
-      throw new Errors.Get.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
-    }
+    // let authorizedProfiles = authorizationResult.getAuthorizedProfiles();
+    // if (
+    //   jokesInstance.state === JokesInstanceAbl.STATE_UNDER_CONSTRUCTION &&
+    //   !authorizedProfiles.includes(JokesInstanceAbl.AUTHORITIES) &&
+    //   !authorizedProfiles.includes(JokesInstanceAbl.EXECUTIVES)
+    // ) {
+    //   throw new Errors.Get.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
+    // }
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("jokeGetDtoInType", dtoIn);
@@ -187,11 +191,12 @@ class JokeAbl {
 
   async update(awid, dtoIn, session, authorizationResult) {
     // hds 1, A1, hds 1.1, A2
-    await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.Update.JokesInstanceDoesNotExist,
-      Errors.Update.JokesInstanceNotInProperState
-    );
+    // TODO Add InstanceChecker
+    // await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.Update.JokesInstanceDoesNotExist,
+    //   Errors.Update.JokesInstanceNotInProperState
+    // );
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("jokeUpdateDtoInType", dtoIn);
@@ -214,8 +219,10 @@ class JokeAbl {
     let uuId = session.getIdentity().getUuIdentity();
     // A6
     if (
-      uuId !== joke.uuIdentity &&
-      !authorizationResult.getAuthorizedProfiles().includes(JokesInstanceAbl.AUTHORITIES)
+      uuId !== joke.uuIdentity
+      // &&
+      // TODO Read from constants and uncomment
+      //!authorizationResult.getAuthorizedProfiles().includes(JokesInstanceAbl.AUTHORITIES)
     ) {
       throw new Errors.Update.UserNotAuthorized({ uuAppErrorMap });
     }
@@ -281,11 +288,12 @@ class JokeAbl {
 
   async updateVisibility(awid, dtoIn) {
     // hds 1, A1, hds 1.1, A2
-    await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.UpdateVisibility.JokesInstanceDoesNotExist,
-      Errors.UpdateVisibility.JokesInstanceNotInProperState
-    );
+    // TODO Add InstanceChecker
+    // await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.UpdateVisibility.JokesInstanceDoesNotExist,
+    //   Errors.UpdateVisibility.JokesInstanceNotInProperState
+    // );
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("jokeUpdateVisibilityDtoInType", dtoIn);
@@ -316,11 +324,12 @@ class JokeAbl {
 
   async delete(awid, dtoIn, session, authorizationResult) {
     // hds 1, A1, hds 1.1, A2
-    await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.Delete.JokesInstanceDoesNotExist,
-      Errors.Delete.JokesInstanceNotInProperState
-    );
+    // TODO Add InstanceChecker
+    // await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.Delete.JokesInstanceDoesNotExist,
+    //   Errors.Delete.JokesInstanceNotInProperState
+    // );
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("jokeDeleteDtoInType", dtoIn);
@@ -341,8 +350,10 @@ class JokeAbl {
 
     // hds 4, A6
     if (
-      session.getIdentity().getUuIdentity() !== joke.uuIdentity &&
-      !authorizationResult.getAuthorizedProfiles().includes(JokesInstanceAbl.AUTHORITIES)
+      session.getIdentity().getUuIdentity() !== joke.uuIdentity
+      // &&
+      // TODO Add constants and uncomment
+      // !authorizationResult.getAuthorizedProfiles().includes(JokesInstanceAbl.AUTHORITIES)
     ) {
       throw new Errors.Delete.UserNotAuthorized({ uuAppErrorMap });
     }
@@ -369,20 +380,21 @@ class JokeAbl {
 
   async list(awid, dtoIn, authorizationResult) {
     // hds 1, A1, hds 1.1, A2
-    let jokesInstance = await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.List.JokesInstanceDoesNotExist,
-      Errors.List.JokesInstanceNotInProperState
-    );
-    // A3
-    let authorizedProfiles = authorizationResult.getAuthorizedProfiles();
-    if (
-      jokesInstance.state === JokesInstanceAbl.STATE_UNDER_CONSTRUCTION &&
-      !authorizedProfiles.includes(JokesInstanceAbl.AUTHORITIES) &&
-      !authorizedProfiles.includes(JokesInstanceAbl.EXECUTIVES)
-    ) {
-      throw new Errors.List.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
-    }
+    // TODO Add InstanceChecker
+    // let jokesInstance = await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.List.JokesInstanceDoesNotExist,
+    //   Errors.List.JokesInstanceNotInProperState
+    // );
+    // // A3
+    // let authorizedProfiles = authorizationResult.getAuthorizedProfiles();
+    // if (
+    //   jokesInstance.state === JokesInstanceAbl.STATE_UNDER_CONSTRUCTION &&
+    //   !authorizedProfiles.includes(JokesInstanceAbl.AUTHORITIES) &&
+    //   !authorizedProfiles.includes(JokesInstanceAbl.EXECUTIVES)
+    // ) {
+    //   throw new Errors.List.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
+    // }
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("jokeListDtoInType", dtoIn);
@@ -415,11 +427,12 @@ class JokeAbl {
 
   async addRating(awid, dtoIn, session) {
     // hds 1, A1, hds 1.1, A2
-    await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.AddRating.JokesInstanceDoesNotExist,
-      Errors.AddRating.JokesInstanceNotInProperState
-    );
+    // TODO Add InstanceChecker
+    // await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.AddRating.JokesInstanceDoesNotExist,
+    //   Errors.AddRating.JokesInstanceNotInProperState
+    // );
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("jokeAddRatingDtoInType", dtoIn);

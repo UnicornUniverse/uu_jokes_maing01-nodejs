@@ -3,7 +3,8 @@
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError, DuplicateKey } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
-const JokesInstanceAbl = require("./jokes-instance-abl");
+// TODO Fix
+//const JokesInstanceAbl = require("./jokes-instance-abl");
 const Errors = require("../api/errors/category-error");
 const Path = require("path");
 
@@ -40,11 +41,12 @@ class CategoryAbl {
 
   async create(awid, dtoIn) {
     // hds 1, A1, hds 1.1, A2
-    await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.Create.JokesInstanceDoesNotExist,
-      Errors.Create.JokesInstanceNotInProperState
-    );
+    // TODO Add InstanceChecker
+    // await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.Create.JokesInstanceDoesNotExist,
+    //   Errors.Create.JokesInstanceNotInProperState
+    // );
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("categoryCreateDtoInType", dtoIn);
@@ -81,21 +83,22 @@ class CategoryAbl {
   }
 
   async get(awid, dtoIn, authorizationResult) {
+    // TODO Add InstanceChecker
     // hds 1, A1, hds 1.1, A2
-    let jokesInstance = await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.Get.JokesInstanceDoesNotExist,
-      Errors.Get.JokesInstanceNotInProperState
-    );
-    // A3
-    let authorizedProfiles = authorizationResult.getAuthorizedProfiles();
-    if (
-      jokesInstance.state === JokesInstanceAbl.STATE_UNDER_CONSTRUCTION &&
-      !authorizedProfiles.includes(JokesInstanceAbl.AUTHORITIES) &&
-      !authorizedProfiles.includes(JokesInstanceAbl.EXECUTIVES)
-    ) {
-      throw new Errors.Get.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
-    }
+    // let jokesInstance = await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.Get.JokesInstanceDoesNotExist,
+    //   Errors.Get.JokesInstanceNotInProperState
+    // );
+    // // A3
+    // let authorizedProfiles = authorizationResult.getAuthorizedProfiles();
+    // if (
+    //   jokesInstance.state === JokesInstanceAbl.STATE_UNDER_CONSTRUCTION &&
+    //   !authorizedProfiles.includes(JokesInstanceAbl.AUTHORITIES) &&
+    //   !authorizedProfiles.includes(JokesInstanceAbl.EXECUTIVES)
+    // ) {
+    //   throw new Errors.Get.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
+    // }
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("categoryGetDtoInType", dtoIn);
@@ -129,11 +132,12 @@ class CategoryAbl {
 
   async update(awid, dtoIn) {
     // hds 1, A1, hds 1.1, A2
-    await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.Update.JokesInstanceDoesNotExist,
-      Errors.Update.JokesInstanceNotInProperState
-    );
+    // TODO Add InstanceChecker
+    // await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.Update.JokesInstanceDoesNotExist,
+    //   Errors.Update.JokesInstanceNotInProperState
+    // );
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("categoryUpdateDtoInType", dtoIn);
@@ -169,11 +173,12 @@ class CategoryAbl {
 
   async delete(awid, dtoIn) {
     // hds 1, A1, hds 1.1, A2
-    await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.Delete.JokesInstanceDoesNotExist,
-      Errors.Delete.JokesInstanceNotInProperState
-    );
+    // TODO Add InstanceChecker
+    // await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.Delete.JokesInstanceDoesNotExist,
+    //   Errors.Delete.JokesInstanceNotInProperState
+    // );
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("categoryDeleteDtoInType", dtoIn);
@@ -224,20 +229,21 @@ class CategoryAbl {
 
   async list(awid, dtoIn, authorizationResult) {
     // hds 1, A1, hds 1.1, A2
-    let jokesInstance = await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.List.JokesInstanceDoesNotExist,
-      Errors.List.JokesInstanceNotInProperState
-    );
-    // A3
-    let authorizedProfiles = authorizationResult.getAuthorizedProfiles();
-    if (
-      jokesInstance.state === JokesInstanceAbl.STATE_UNDER_CONSTRUCTION &&
-      !authorizedProfiles.includes(JokesInstanceAbl.AUTHORITIES) &&
-      !authorizedProfiles.includes(JokesInstanceAbl.EXECUTIVES)
-    ) {
-      throw new Errors.List.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
-    }
+    // TODO Add InstanceChecker
+    // let jokesInstance = await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.List.JokesInstanceDoesNotExist,
+    //   Errors.List.JokesInstanceNotInProperState
+    // );
+    // // A3
+    // let authorizedProfiles = authorizationResult.getAuthorizedProfiles();
+    // if (
+    //   jokesInstance.state === JokesInstanceAbl.STATE_UNDER_CONSTRUCTION &&
+    //   !authorizedProfiles.includes(JokesInstanceAbl.AUTHORITIES) &&
+    //   !authorizedProfiles.includes(JokesInstanceAbl.EXECUTIVES)
+    // ) {
+    //   throw new Errors.List.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
+    // }
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("categoryListDtoInType", dtoIn);

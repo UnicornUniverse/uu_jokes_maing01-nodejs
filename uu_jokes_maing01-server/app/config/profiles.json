@@ -4,51 +4,39 @@
     "useCaseMap": {}
   },
   "*": {
-    "profileList": ["Authorities", "Executives", "Readers"],
+    "profileList": ["Authorities", "Executives", "Readers", "AwidLicenseOwner"],
     "useCaseMap": {
       "defaultUve": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
       },
-      "defaultUve/{route}": {
-        "sysStateList": ["active"],
+      "sys/uuAppWorkspace/initUve": {
+        "sysStateList": ["created"],
         "profileList": ["Public"]
       },
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created"],
         "profileList": ["AwidLicenseOwner"]
       },
-      "sys/uuAppWorkspace/initUve": {
-        "sysStateList": ["created"],
-        "profileList": ["Public", "AwidLicenseOwner"]
-      },
       "sys/uuAppWorkspace/load": {
         "sysStateList": ["created", "active", "restricted", "readOnly", "closed", "suspended"],
         "profileList": ["Public"]
       },
-      "jokesInstance/plugInBt": {
+      "jokes/plugInBt": {
         "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       },
-      "jokesInstance/load": {
+      "jokes/load": {
         "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       },
-      "jokesInstance/update": {
+      "jokes/update": {
         "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
-      "jokesInstance/setLogo": {
+      "jokes/setState": {
         "sysStateList": ["active"],
         "profileList": ["Authorities"]
-      },
-      "jokesInstance/setIcons": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities"]
-      },
-      "jokesInstance/getUveMetaData": {
-        "sysStateList": ["active"],
-        "profileList": ["Public"]
       },
       "joke/create": {
         "sysStateList": ["active"],
