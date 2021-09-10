@@ -89,7 +89,6 @@ class InitAbl {
     if (dtoIn.uuBtLocationUri) {
       // HDS 5.1
       const awsc = await this._createAwsc(awid, uuBtBaseUri, dtoIn, uuBtUriParams, uuAppErrorMap, uri, session);
-      jokes.artifactId = awsc.id;
 
       // HDS 5.3
       try {

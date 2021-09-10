@@ -54,6 +54,7 @@ class LoadAbl {
     dtoOut.sysData = { asidData, awidData, relatedObjectsMap, profileData };
 
     // HDS 6
+    // TODO Return with uuAppErrorMap
     if (awidData.sysState === "created") {
       return dtoOut;
     }

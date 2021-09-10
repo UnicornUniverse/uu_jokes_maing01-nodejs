@@ -48,13 +48,6 @@ export const About = {
       },
     },
     {
-      name: "Lucie Melounová",
-      uuIdentity: "3-5444-1",
-      role: {
-        en: "Designer",
-      },
-    },
-    {
       name: "Milan Martinek",
       uuIdentity: "6-138-1",
       role: {
@@ -96,27 +89,6 @@ export const About = {
       uuIdentity: "7709-1",
       role: {
         en: "UX Designer",
-      },
-    },
-    {
-      name: "Petr Bartoš",
-      uuIdentity: "192-168-0000-1",
-      role: {
-        en: "Developer",
-      },
-    },
-    {
-      name: "Václav Pruner",
-      uuIdentity: "12-9488-1",
-      role: {
-        en: "Developer",
-      },
-    },
-    {
-      name: "Mykhaylo Komarichyn",
-      uuIdentity: "11-8571-1",
-      role: {
-        en: "Developer",
       },
     },
   ],
