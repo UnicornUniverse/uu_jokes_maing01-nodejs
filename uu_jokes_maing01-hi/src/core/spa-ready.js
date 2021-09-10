@@ -7,6 +7,7 @@ import UuJokesCore from "uu_jokesg01-core";
 import "uu5g04-bricks";
 
 import Config from "./config/config";
+import RouteBar from "./route-bar";
 import withSuspense from "./withSuspense";
 //@@viewOff:imports
 
@@ -51,7 +52,10 @@ export const SpaReady = createVisualComponent({
 
     return (
       <UuJokesCore.Jokes.PermissionProvider profileList={system.profileData.uuIdentityProfileList}>
-        <Plus4U5App.Spa routeMap={routeMap} />
+        <Plus4U5App.Spa>
+          <RouteBar />
+          <Plus4U5App.Router routeMap={routeMap} />
+        </Plus4U5App.Spa>
       </UuJokesCore.Jokes.PermissionProvider>
     );
     //@@viewOff:render

@@ -9,7 +9,6 @@ import { Jokes } from "uu_jokesg01-core";
 import "uu_territoryg01-artifactifc";
 
 import Config from "./config/config.js";
-import RouteBar from "../core/route-bar";
 import Lsi from "../config/lsi.js";
 //@@viewOff:imports
 
@@ -39,7 +38,6 @@ const ControlPanel = createVisualComponent({
     //@@viewOn:render
     return (
       <>
-        <RouteBar />
         <UU5.Bricks.Container noSpacing>
           <UU5.Bricks.Section header="Control Panel" style={{ padding: "0px 24px 0px 24px" }}>
             <Jokes.BasicInfo />

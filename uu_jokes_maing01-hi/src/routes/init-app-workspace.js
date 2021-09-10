@@ -7,7 +7,6 @@ import { Core } from "uu_jokesg01-core";
 import "uu5g04-forms";
 import Calls from "calls";
 import Config from "./config/config.js";
-import RouteBar from "../core/route-bar";
 import SpaUnauthorizedInit from "../core/spa-unauthorized-init.js";
 import Lsi from "./init-app-workspace-lsi.js";
 //@@viewOff:imports
@@ -91,7 +90,6 @@ export const InitAppWorkspace = createVisualComponent({
 
     return (
       <>
-        <RouteBar />
         <UU5.Bricks.Container noSpacing>
           <UU5.Forms.ContextSection
             {...attrs}

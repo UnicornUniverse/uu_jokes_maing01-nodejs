@@ -5,7 +5,6 @@ import { createVisualComponent } from "uu5g04-hooks";
 import { withRoute } from "uu_plus4u5g02-app";
 import UuJokesCore from "uu_jokesg01-core";
 import Config from "./config/config";
-import RouteBar from "../core/route-bar";
 //@@viewOff:imports
 
 const Jokes = createVisualComponent({
@@ -28,7 +27,6 @@ const Jokes = createVisualComponent({
     //@@viewOn:render
     return (
       <>
-        <RouteBar />
         <UU5.Bricks.Container noSpacing>
           <UuJokesCore.Joke.List cardView="none" elevation={0} style={{ padding: "40px 24px 0px 24px" }} />
         </UU5.Bricks.Container>

@@ -8,7 +8,6 @@ import { withRoute } from "uu_plus4u5g02-app";
 import "uu_plus4u5g01-app";
 
 import Config from "./config/config.js";
-import RouteBar from "../core/route-bar.js";
 import Lsi from "../config/lsi.js";
 import AboutCfg from "../config/about.js";
 //@@viewOff:imports
@@ -99,7 +98,6 @@ export const About = createVisualComponent({
     const attrs = UU5.Common.VisualComponent.getAttrs(props, CLASS_NAMES.main());
     return (
       <>
-        <RouteBar />
         <UU5.Bricks.Section {...attrs}>
           <Plus4U5.App.About header={header} content={about} />
 
