@@ -48,13 +48,6 @@ export const About = {
       },
     },
     {
-      name: "Milan Martinek",
-      uuIdentity: "6-138-1",
-      role: {
-        en: "Developer",
-      },
-    },
-    {
       name: "Martin Farkaš",
       uuIdentity: "6565-1",
       role: {
@@ -89,6 +82,20 @@ export const About = {
       uuIdentity: "7709-1",
       role: {
         en: "UX Designer",
+      },
+    },
+    {
+      name: "Ladislav Kašša",
+      uuIdentity: "6399-5018-1",
+      role: {
+        en: "Developer",
+      },
+    },
+    {
+      name: "Simona Klučková",
+      uuIdentity: "4891-4363-1",
+      role: {
+        en: "Designer",
       },
     },
   ],
