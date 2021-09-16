@@ -2,7 +2,7 @@
   "code": "uu-jokes-maing01",
   "name": "uuJokes uuAppMetaModel",
   "desc": "uuJokes uuAppMetaModel",
-  "version": "3.0.0.0",
+  "version": "3.0.0.1",
   "defaultIcon": "uubml-artifact",
 
   "stateList": [
@@ -133,11 +133,9 @@
   },
 
   "useCaseProfileMap": {
-    "uu-jokes-maing01/jokesInstance/load": "11100000-00000000-00000000-00000000",
-    "uu-jokes-maing01/jokesInstance/update": "10000000-00000000-00000000-00000000",
-    "uu-jokes-maing01/jokesInstance/setLogo": "10000000-00000000-00000000-00000000",
-    "uu-jokes-maing01/jokesInstance/setIcons": "10000000-00000000-00000000-00000000",
-    "uu-jokes-maing01/jokesInstance/getUveMetaData": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/load": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/jokes/update": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/jokes/setState": "10000000-00000000-00000000-00000000",
     "uu-jokes-maing01/joke/create": "11000000-00000000-00000000-00000000",
     "uu-jokes-maing01/joke/get": "11100000-00000000-00000000-00000000",
     "uu-jokes-maing01/joke/update": "11000000-00000000-00000000-00000000",

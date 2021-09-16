@@ -14,7 +14,7 @@ class JokesController {
   }
 
   static load(ucEnv) {
-    return LoadAbl.load(ucEnv.getUri(), ucEnv.getSession(), ucEnv.getAuthorizationResult());
+    return LoadAbl.load(ucEnv.getUri(), ucEnv.getSession());
   }
 
   static update(ucEnv) {

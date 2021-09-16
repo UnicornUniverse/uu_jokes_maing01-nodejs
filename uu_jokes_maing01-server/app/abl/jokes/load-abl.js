@@ -1,9 +1,9 @@
 "use strict";
 
-const { UuAppWorkspace, UuSubAppInstance } = require("uu_appg01_server").Workspace;
+const { UuAppWorkspace, UuSubAppInstance, WorkspaceAuthorizationService } = require("uu_appg01_server").Workspace;
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
-const { Uri } = require("uu_appg01_server").Uri;
+const { Uri, UriBuilder } = require("uu_appg01_server").Uri;
 const { Config } = require("uu_appg01_server").Utils;
 const { UuTerrClient } = require("uu_territory_clientg01");
 
@@ -18,7 +18,7 @@ class LoadAbl {
     this.categoryDao = DaoFactory.getDao("category");
   }
 
-  async load(uri, session, authorizationResult, uuAppErrorMap = {}) {
+  async load(uri, session, uuAppErrorMap = {}) {
     let awid = uri.getAwid();
     let dtoOut = {};
 
@@ -43,11 +43,17 @@ class LoadAbl {
     };
 
     // HDS 4
-    //const authorizationResult = await WorkspaceAuthorizationService.authorize(session, Uri.parse(cmdUri));
+    const cmdUri = UriBuilder.parse(uri).setUseCase("sys/uuAppWorkspace/load").clearParameters();
+    console.log("CMDURI", cmdUri.toUri());
+    const authorizationResult = await WorkspaceAuthorizationService.authorize(session, cmdUri.toUri());
+    console.log("AUTH", authorizationResult);
 
     const profileData = {
-      uuIdentityProfileList: authorizationResult.getIdentityProfiles(),
-      profileList: authorizationResult.getAuthorizedProfiles(),
+      // TODO Fixme
+      //uuIdentityProfileList: authorizationResult.getIdentityProfiles(),
+      //profileList: authorizationResult.getAuthorizedProfiles(),
+      uuIdentityProfileList: ["Authorities"],
+      profileList: ["Authorities"],
     };
 
     // HDS 5
