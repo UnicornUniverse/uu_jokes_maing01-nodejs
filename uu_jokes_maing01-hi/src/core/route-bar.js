@@ -42,34 +42,26 @@ export const RouteBar = createVisualComponent({
     }
 
     if (system.awidData.sysState !== Config.AppWorkspace.State.CREATED) {
-      if (route.uu5Route !== Config.Routes.JOKES) {
-        actionList.push({
-          children: <UU5.Bricks.Lsi lsi={Lsi.jokes} />,
-          onClick: () => setRoute(Config.Routes.JOKES),
-        });
-      }
-
-      if (route.uu5Route !== Config.Routes.CATEGORIES) {
-        actionList.push({
-          children: <UU5.Bricks.Lsi lsi={Lsi.categories} />,
-          onClick: () => setRoute(Config.Routes.CATEGORIES),
-        });
-      }
-
-      if (route.uu5Route !== Config.Routes.CONTROL_PANEL) {
-        actionList.push({
-          children: <UU5.Bricks.Lsi lsi={Lsi.controlPanel} />,
-          onClick: () => setRoute(Config.Routes.CONTROL_PANEL),
-        });
-      }
-    }
-
-    if (route.uu5Route !== Config.Routes.ABOUT) {
       actionList.push({
-        children: <UU5.Bricks.Lsi lsi={Lsi.about} />,
-        onClick: () => setRoute(Config.Routes.ABOUT),
+        children: <UU5.Bricks.Lsi lsi={Lsi.jokes} />,
+        onClick: () => setRoute(Config.Routes.JOKES),
+      });
+
+      actionList.push({
+        children: <UU5.Bricks.Lsi lsi={Lsi.categories} />,
+        onClick: () => setRoute(Config.Routes.CATEGORIES),
+      });
+
+      actionList.push({
+        children: <UU5.Bricks.Lsi lsi={Lsi.controlPanel} />,
+        onClick: () => setRoute(Config.Routes.CONTROL_PANEL),
       });
     }
+
+    actionList.push({
+      children: <UU5.Bricks.Lsi lsi={Lsi.about} />,
+      onClick: () => setRoute(Config.Routes.ABOUT),
+    });
     //@@viewOff:private
 
     //@@viewOn:render
