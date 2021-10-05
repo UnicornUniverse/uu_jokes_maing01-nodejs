@@ -12,7 +12,7 @@
     "uu_appg01_binarystore-cmd": "^3.0.0",
     "uu_appg01_datastore": "^3.0.0",
     "uu_appg01_server": "^5.0.0",
-    "uu_apprepresentationg01": "^2.0.0",
+    "uu_apprepresentationg01": "^2.2.0",
     "uu_territory_clientg01": "^1.0.0",
     "xml2js": "^0.4.19"
   },
