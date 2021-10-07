@@ -30,44 +30,52 @@ export const RouteBar = createVisualComponent({
     const { data: system } = useSystemData();
     const { data: jokes } = useSubAppData();
 
-    const actionList = [];
+    const actionMap = {};
 
     if (system.awidData.sysState === Config.AppWorkspace.State.CREATED) {
-      if (route.uu5Route !== Config.Routes.INIT_APP_WORKSPACE) {
-        actionList.push({
-          children: <UU5.Bricks.Lsi lsi={Lsi.initAppWorkspace} />,
-          onClick: () => setRoute(Config.Routes.INIT_APP_WORKSPACE),
-        });
-      }
-    }
-
-    if (system.awidData.sysState !== Config.AppWorkspace.State.CREATED) {
-      actionList.push({
+      actionMap[Config.Routes.INIT_APP_WORKSPACE] = {
+        children: <UU5.Bricks.Lsi lsi={Lsi.initAppWorkspace} />,
+        onClick: () => setRoute(Config.Routes.INIT_APP_WORKSPACE),
+      };
+    } else {
+      actionMap[Config.Routes.JOKES] = {
         children: <UU5.Bricks.Lsi lsi={Lsi.jokes} />,
         onClick: () => setRoute(Config.Routes.JOKES),
-      });
+        icon: "mdi-emoticon-happy",
+      };
 
-      actionList.push({
+      actionMap[Config.Routes.CATEGORIES] = {
         children: <UU5.Bricks.Lsi lsi={Lsi.categories} />,
         onClick: () => setRoute(Config.Routes.CATEGORIES),
-      });
+        icon: "mdi-shape",
+      };
 
-      actionList.push({
+      actionMap[Config.Routes.CONTROL_PANEL] = {
         children: <UU5.Bricks.Lsi lsi={Lsi.controlPanel} />,
         onClick: () => setRoute(Config.Routes.CONTROL_PANEL),
-      });
+        icon: "mdi-tune",
+      };
     }
 
-    actionList.push({
+    actionMap[Config.Routes.ABOUT] = {
       children: <UU5.Bricks.Lsi lsi={Lsi.about} />,
       onClick: () => setRoute(Config.Routes.ABOUT),
-    });
+      icon: "mdi-information",
+      collapsed: true,
+    };
+
+    const activeAction = actionMap[route.uu5Route];
+
+    if (activeAction) {
+      activeAction.significance = "highlighted";
+      activeAction.colorScheme = "primary";
+    }
     //@@viewOff:private
 
     //@@viewOn:render
     const attrs = UU5.Common.VisualComponent.getAttrs(props);
     return (
-      <Plus4U5App.RouteBar appActionList={actionList} {...attrs}>
+      <Plus4U5App.RouteBar appActionList={Object.values(actionMap)} {...attrs}>
         <Plus4U5App.RouteHeader title={jokes?.name ?? Lsi.namePlaceholder} />
       </Plus4U5App.RouteBar>
     );

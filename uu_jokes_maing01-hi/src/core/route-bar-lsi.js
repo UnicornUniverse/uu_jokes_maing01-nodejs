@@ -17,7 +17,7 @@ export default {
   },
   about: {
     cs: "O aplikaci",
-    en: "About",
+    en: "About Application",
   },
   namePlaceholder: {
     cs: "uuJokes",
