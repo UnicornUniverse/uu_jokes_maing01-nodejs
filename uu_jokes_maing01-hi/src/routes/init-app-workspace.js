@@ -2,6 +2,7 @@
 import UU5 from "uu5g04";
 import { createVisualComponent, useCallback, useLsiValues, useSession } from "uu5g04-hooks";
 import { useSystemData } from "uu_plus4u5g02";
+import { withRoute } from "uu_plus4u5g02-app";
 import { Core } from "uu_jokesg01-core";
 
 import "uu5g04-forms";
@@ -130,3 +131,8 @@ export const InitAppWorkspace = createVisualComponent({
 });
 
 export default InitAppWorkspace;
+
+// ISSUE Visual Identification doesn't work when withRoute is used
+// https://uuapp.plus4u.net/uu-sls-maing01/558dcc308da34b82bbe044d94074802f/issueDetail?id=616473e9a57edb002a90cd1b
+
+//export default withRoute(InitAppWorkspace, { authenticated: true });

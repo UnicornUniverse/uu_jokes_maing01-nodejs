@@ -2,7 +2,7 @@
 import { createVisualComponent } from "uu5g04-hooks";
 import Plus4U5 from "uu_plus4u5g02";
 import Config from "./config/config.js";
-import SpaAuthenticated from "./spa-authenticated";
+import SpaReady from "./spa-ready";
 //@@viewOff:imports
 
 const STATICS = {
@@ -30,7 +30,7 @@ export const Spa = createVisualComponent({
     //@@viewOn:render
     return (
       <Plus4U5.SpaProvider initialLanguageList={["en", "cs"]}>
-        <SpaAuthenticated />
+        <SpaReady />
       </Plus4U5.SpaProvider>
     );
     //@@viewOff:render

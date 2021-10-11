@@ -36,7 +36,7 @@ export const SpaReady = createVisualComponent({
 
   render() {
     //@@viewOn:private
-    const { data: system } = useSystemData();
+    const { data: system, state } = useSystemData() || {};
     //@@viewOff:private
 
     //@@viewOn:render
@@ -51,9 +51,9 @@ export const SpaReady = createVisualComponent({
     };
 
     return (
-      <UuJokesCore.Jokes.PermissionProvider profileList={system.profileData.uuIdentityProfileList}>
+      <UuJokesCore.Jokes.PermissionProvider profileList={system?.profileData.uuIdentityProfileList}>
         <Plus4U5App.Spa>
-          <RouteBar />
+          {state === "ready" && <RouteBar />}
           <Plus4U5App.Router routeMap={routeMap} />
         </Plus4U5App.Spa>
       </UuJokesCore.Jokes.PermissionProvider>

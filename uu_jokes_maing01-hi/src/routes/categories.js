@@ -36,4 +36,9 @@ const Categories = createVisualComponent({
   },
 });
 
-export default withRoute(Categories);
+export default Categories;
+
+// ISSUE Visual Identification doesn't work when withRoute is used
+// https://uuapp.plus4u.net/uu-sls-maing01/558dcc308da34b82bbe044d94074802f/issueDetail?id=616473e9a57edb002a90cd1b
+
+//export default withRoute(Categories, { authenticated: true });
