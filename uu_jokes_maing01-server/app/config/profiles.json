@@ -20,7 +20,7 @@
       },
       "sys/uuAppWorkspace/load": {
         "sysStateList": ["created", "active", "restricted", "readOnly", "closed", "suspended"],
-        "profileList": ["Public"]
+        "profileList": ["Authorities", "Executives", "Readers", "AwidLicenseOwner"]
       },
       "jokes/plugInBt": {
         "sysStateList": ["active"],

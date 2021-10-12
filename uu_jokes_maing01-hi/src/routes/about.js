@@ -142,9 +142,4 @@ export const About = createVisualComponent({
   //@@viewOff:render
 });
 
-export default About;
-
-// ISSUE Visual Identification doesn't work when withRoute is used
-// https://uuapp.plus4u.net/uu-sls-maing01/558dcc308da34b82bbe044d94074802f/issueDetail?id=616473e9a57edb002a90cd1b
-
-//export default withRoute(About, { authenticated: true });
+export default withRoute(About, { authenticated: true, requireSubAppData: true });

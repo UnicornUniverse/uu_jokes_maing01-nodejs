@@ -26,10 +26,10 @@
         "cdnBaseUri": "https://cdn.plus4u.net/uu-uu5tilesg02/1.0.0/"
       },
       "uu_plus4u5g02": {
-        "cdnBaseUri": "https://cdn.plus4u.net/uu-plus4u5g02/0.0.0/"
+        "cdnBaseUri": "https://cdn.plus4u.net/beta/uu-plus4u5g02/0.0.0/"
       },
       "uu_plus4u5g02-app": {
-        "cdnBaseUri": "https://cdn.plus4u.net/uu-plus4u5g02/0.0.0/"
+        "cdnBaseUri": "https://cdn.plus4u.net/beta/uu-plus4u5g02/0.0.0/"
       }
     }
   },
