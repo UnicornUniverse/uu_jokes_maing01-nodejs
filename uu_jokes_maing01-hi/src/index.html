@@ -14,7 +14,7 @@
 
     <link type="text/css" rel="stylesheet" href="https://cdn.plus4u.net/libs/clearsans/2.0.0/fonts/clear-sans.min.css">
     <link rel="preconnect" href="https://uuidentity.plus4u.net">
-    <script src="~systemjs/system.js" crossorigin="anonymous"></script>
+    <script src="~uu5loaderg01" crossorigin="anonymous"></script>
 
     <meta name="apple-mobile-web-app-title" content="uuJokes">
     <meta name="application-name" content="uuJokes">
@@ -87,8 +87,8 @@
 %>
 
     <script>
-      if (!window.SystemJS) handleUuAppScriptError(new Error("SystemJS failed to load."));
-      else SystemJS.import("./index.js").then(function (Index) {
+      if (!window.Uu5Loader) handleUuAppScriptError(new Error("Uu5Loader failed to load."));
+      else Uu5Loader.import("./index.js").then(function (Index) {
         Index.render("uuApp");
       }).catch(handleUuAppScriptError);
     </script>
