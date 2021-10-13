@@ -89,7 +89,6 @@ test("A3 - invalid dtoIn", async () => {
     await TestHelper.initUuAppWorkspace({});
   } catch (e) {
     expect(e.code).toEqual("uu-jokes-main/sys/uuAppWorkspace/init/invalidDtoIn");
-    console.log(e.message);
     expect(e.message).toEqual("DtoIn is not valid.");
   }
 });

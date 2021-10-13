@@ -44,9 +44,7 @@ class LoadAbl {
 
     // HDS 4
     const cmdUri = UriBuilder.parse(uri).setUseCase("sys/uuAppWorkspace/load").clearParameters();
-    console.log("CMDURI", cmdUri.toUri());
     const authorizationResult = await WorkspaceAuthorizationService.authorize(session, cmdUri.toUri());
-    console.log("AUTH", authorizationResult);
 
     const profileData = {
       // TODO Fixme
