@@ -17,3 +17,5 @@ const jokesUpdateDtoInType = shape({
 const jokesSetStateDtoInType = shape({
   state: oneOf(["active", "underConstruction", "closed"]),
 });
+
+const jokesMigrateDtoInType = shape({});

@@ -523,23 +523,17 @@ class JokeAbl {
    */
   async _checkCategoriesExistence(awid, categoryList) {
     let categories;
-    let pageInfo = { pageIndex: 0 };
     let presentCategories = [];
     let categoryIndex;
-    while (true) {
-      categories = await this.categoryDao.listByCategoryIdList(awid, categoryList, pageInfo);
-      categories.itemList.forEach((category) => {
-        categoryIndex = categoryList.indexOf(category.id.toString());
-        if (categoryIndex !== -1) {
-          presentCategories.push(category.id.toString());
-          categoryList.splice(categoryIndex, 1);
-        }
-      });
-      if (categories.itemList < categories.pageInfo.pageSize || categoryList.length === 0) {
-        break;
+    categories = await this.categoryDao.listByCategoryIdList(awid, categoryList);
+    categories.itemList.forEach((category) => {
+      categoryIndex = categoryList.indexOf(category.id.toString());
+      if (categoryIndex !== -1) {
+        presentCategories.push(category.id.toString());
+        categoryList.splice(categoryIndex, 1);
       }
-      pageInfo.pageIndex += 1;
-    }
+    });
+
     return presentCategories;
   }
 }

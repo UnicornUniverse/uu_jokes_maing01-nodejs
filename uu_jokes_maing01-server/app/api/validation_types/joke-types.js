@@ -28,7 +28,7 @@ const jokeDeleteDtoInType = shape({
 });
 
 const jokeListDtoInType = shape({
-  sortBy: oneOf(["name", "rating"]),
+  sortBy: oneOf(["name", "averageRating"]),
   order: oneOf(["asc", "desc"]),
   categoryList: array(id(), 10),
   pageInfo: shape({

@@ -41,6 +41,11 @@
         "httpMethod": "POST",
         "type": "CMD"
       },
+      "jokes/migrate": {
+        "realization": "api/controllers/JokesController.migrate",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
       "joke/create": {
         "realization": "api/controllers/JokeController.create",
         "httpMethod": "POST",

@@ -245,9 +245,46 @@ const SetState = {
   },
 };
 
+const Migrate = {
+  UC_CODE: `${JOKES_ERROR_PREFIX}migrate/`,
+
+  InvalidDtoIn: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Migrate.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  JokesDoesNotExist: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Migrate.UC_CODE}jokesDoesNotExist`;
+      this.message = "Jokes does not exist.";
+    }
+  },
+
+  JokesIsNotInCorrectState: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Migrate.UC_CODE}jokesIsNotInCorrectState`;
+      this.message = "Jokes is in final state.";
+    }
+  },
+
+  SchemaDaoMigrateSchemaFailed: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Migrate.UC_CODE}schemaDaoCreateSchemaFailed`;
+      this.message = "Migration of schema by Dao createSchema failed.";
+    }
+  },
+};
+
 module.exports = {
   Init,
   Load,
   Update,
   SetState,
+  Migrate,
 };

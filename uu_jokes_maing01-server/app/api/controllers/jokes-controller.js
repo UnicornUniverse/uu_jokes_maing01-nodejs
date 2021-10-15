@@ -3,6 +3,7 @@ const PlugInBtAbl = require("../../abl/jokes/plug-in-bt-abl");
 const LoadAbl = require("../../abl/jokes/load-abl");
 const UpdateAbl = require("../../abl/jokes/update-abl");
 const SetStateAbl = require("../../abl/jokes/set-state-abl");
+const MigrateAbl = require("../../abl/jokes/migrate-abl");
 
 class JokesController {
   static init(ucEnv) {
@@ -23,6 +24,10 @@ class JokesController {
 
   static setState(ucEnv) {
     return SetStateAbl.setState(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession());
+  }
+
+  static migrate(ucEnv) {
+    return MigrateAbl.migrate(ucEnv.getDtoIn());
   }
 }
 

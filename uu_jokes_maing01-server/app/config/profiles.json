@@ -1,7 +1,12 @@
 {
   "{asid}": {
     "profileList": ["AsidAuthorities", "AsidExecutives", "AsidAuditors"],
-    "useCaseMap": {}
+    "useCaseMap": {
+      "jokes/migrate": {
+        "sysStateList": ["restricted"],
+        "profileList": ["AsidAuthorities", "AsidExecutives"]
+      }
+    }
   },
   "*": {
     "profileList": ["Authorities", "Executives", "Readers", "AwidLicenseOwner"],
