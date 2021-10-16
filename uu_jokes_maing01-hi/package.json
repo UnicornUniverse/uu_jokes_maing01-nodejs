@@ -50,6 +50,7 @@
     "generate": "uu_appg01_devkit generate",
     "lsiExport": "uu_appg01_devkit lsiExport",
     "lsiImport": "uu_appg01_devkit lsiImport",
+    "vulnerabilityScan": "uu_appg01_devkit vulnerabilityScan",
     "uuAppDevKitUpgrade": "uu_appg01_devkit uuAppDevKitUpgrade"
   },
   "prettier": {
