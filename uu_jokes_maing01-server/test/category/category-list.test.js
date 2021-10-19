@@ -17,7 +17,7 @@ beforeEach(async () => {
 });
 
 test("HDS", async () => {
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
 
   let nameOne = "cats";
@@ -36,7 +36,7 @@ test("HDS", async () => {
 });
 
 test("HDS - custom pageInfo", async () => {
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
 
   let nameOne = "birds";
@@ -47,7 +47,7 @@ test("HDS - custom pageInfo", async () => {
   let pageSize = 1;
   let pageIndex = 1;
   let list = await TestHelper.executeGetCommand(CATEGORY_LIST, {
-    pageInfo: { pageSize: pageSize, pageIndex: pageIndex }
+    pageInfo: { pageSize: pageSize, pageIndex: pageIndex },
   });
   expect(list.status).toEqual(200);
   expect(list.pageInfo.total).toEqual(2);
@@ -62,7 +62,7 @@ test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
   let dtoIn = {
     uuAppProfileAuthorities: ".",
-    state: "closed"
+    state: "closed",
   };
   await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Authorities");
@@ -80,7 +80,7 @@ test("A3 - jokes instance is under construction", async () => {
   expect.assertions(3);
   let dtoIn = {
     uuAppProfileAuthorities: ".",
-    state: "underConstruction"
+    state: "underConstruction",
   };
   await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Readers");
@@ -94,7 +94,7 @@ test("A3 - jokes instance is under construction", async () => {
 });
 
 test("A4 - unsupported keys in dtoIn", async () => {
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
   let response = await TestHelper.executeGetCommand(CATEGORY_LIST, { brambor: true });
   expect(response.status).toEqual(200);
@@ -107,7 +107,7 @@ test("A4 - unsupported keys in dtoIn", async () => {
 
 test("A5 - invalid dtoIn", async () => {
   expect.assertions(2);
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(CATEGORY_LIST, { pageInfo: false });

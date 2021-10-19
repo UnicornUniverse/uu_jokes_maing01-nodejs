@@ -1,9 +1,8 @@
 "use strict";
-
-const { UuObjectDao } = require("uu_appg01_server").ObjectStore;
 const { ObjectId } = require("bson");
+const UuJokesDao = require("./uu-jokes-dao");
 
-class JokeRatingMongo extends UuObjectDao {
+class JokeRatingMongo extends UuJokesDao {
   async createSchema() {
     await super.createIndex({ awid: 1, _id: 1 }, { unique: true });
     await super.createIndex({ awid: 1, jokeId: 1, uuIdentity: 1 }, { unique: true });

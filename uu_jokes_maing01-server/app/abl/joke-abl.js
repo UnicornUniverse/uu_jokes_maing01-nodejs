@@ -6,47 +6,48 @@ const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const { UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
-const JokesInstanceAbl = require("./jokes-instance-abl");
+// TODO Add InstanceChecker
+//const JokesInstanceAbl = require("./jokes-instance-abl");
 const Errors = require("../api/errors/joke-error");
 const Path = require("path");
 const FileHelper = require("../helpers/file-helper");
 
 const WARNINGS = {
   createUnsupportedKeys: {
-    code: `${Errors.Create.UC_CODE}unsupportedKeys`
+    code: `${Errors.Create.UC_CODE}unsupportedKeys`,
   },
   createCategoryDoesNotExist: {
     code: `${Errors.Create.UC_CODE}categoryDoesNotExist`,
-    message: "One or more categories with given categoryId do not exist."
+    message: "One or more categories with given categoryId do not exist.",
   },
   getUnsupportedKeys: {
-    code: `${Errors.Get.UC_CODE}unsupportedKeys`
+    code: `${Errors.Get.UC_CODE}unsupportedKeys`,
   },
   updateUnsupportedKeys: {
-    code: `${Errors.Update.UC_CODE}unsupportedKeys`
+    code: `${Errors.Update.UC_CODE}unsupportedKeys`,
   },
   updateCategoryDoesNotExist: {
     code: `${Errors.Update.UC_CODE}categoryDoesNotExist`,
-    message: "One or more categories with given categoryId do not exist."
+    message: "One or more categories with given categoryId do not exist.",
   },
   updateVisibilityUnsupportedKeys: {
-    code: `${Errors.UpdateVisibility.UC_CODE}unsupportedKeys`
+    code: `${Errors.UpdateVisibility.UC_CODE}unsupportedKeys`,
   },
   deleteUnsupportedKeys: {
-    code: `${Errors.Delete.UC_CODE}unsupportedKeys`
+    code: `${Errors.Delete.UC_CODE}unsupportedKeys`,
   },
   listUnsupportedKeys: {
-    code: `${Errors.List.UC_CODE}unsupportedKeys`
+    code: `${Errors.List.UC_CODE}unsupportedKeys`,
   },
   addRatingUnsupportedKeys: {
-    code: `${Errors.AddRating.UC_CODE}unsupportedKeys`
-  }
+    code: `${Errors.AddRating.UC_CODE}unsupportedKeys`,
+  },
 };
 const DEFAULTS = {
   sortBy: "name",
   order: "asc",
   pageIndex: 0,
-  pageSize: 100
+  pageSize: 100,
 };
 
 class JokeAbl {
@@ -59,11 +60,12 @@ class JokeAbl {
 
   async create(awid, dtoIn, session, authorizationResult) {
     // hds 1, A1, hds 1.1, A2
-    await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.Create.JokesInstanceDoesNotExist,
-      Errors.Create.JokesInstanceNotInProperState
-    );
+    // TODO Add InstanceChecer
+    // await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.Create.JokesInstanceDoesNotExist,
+    //   Errors.Create.JokesInstanceNotInProperState
+    // );
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("jokeCreateDtoInType", dtoIn);
@@ -77,7 +79,8 @@ class JokeAbl {
     // hds 2.4
     dtoIn.averageRating = 0;
     dtoIn.ratingCount = 0;
-    dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(JokesInstanceAbl.AUTHORITIES);
+    // TODO Read from constants and uncommenth
+    //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(JokesInstanceAbl.AUTHORITIES);
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
     dtoIn.uuIdentityName = session.getIdentity().getName();
     dtoIn.awid = awid;
@@ -148,20 +151,21 @@ class JokeAbl {
 
   async get(awid, dtoIn, authorizationResult) {
     // hds 1, A1, hds 1.1, A2
-    let jokesInstance = await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.Get.JokesInstanceDoesNotExist,
-      Errors.Get.JokesInstanceNotInProperState
-    );
+    // TODO Add InstanceChecker
+    // let jokesInstance = await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.Get.JokesInstanceDoesNotExist,
+    //   Errors.Get.JokesInstanceNotInProperState
+    // );
     // A3
-    let authorizedProfiles = authorizationResult.getAuthorizedProfiles();
-    if (
-      jokesInstance.state === JokesInstanceAbl.STATE_UNDER_CONSTRUCTION &&
-      !authorizedProfiles.includes(JokesInstanceAbl.AUTHORITIES) &&
-      !authorizedProfiles.includes(JokesInstanceAbl.EXECUTIVES)
-    ) {
-      throw new Errors.Get.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
-    }
+    // let authorizedProfiles = authorizationResult.getAuthorizedProfiles();
+    // if (
+    //   jokesInstance.state === JokesInstanceAbl.STATE_UNDER_CONSTRUCTION &&
+    //   !authorizedProfiles.includes(JokesInstanceAbl.AUTHORITIES) &&
+    //   !authorizedProfiles.includes(JokesInstanceAbl.EXECUTIVES)
+    // ) {
+    //   throw new Errors.Get.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
+    // }
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("jokeGetDtoInType", dtoIn);
@@ -187,11 +191,12 @@ class JokeAbl {
 
   async update(awid, dtoIn, session, authorizationResult) {
     // hds 1, A1, hds 1.1, A2
-    await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.Update.JokesInstanceDoesNotExist,
-      Errors.Update.JokesInstanceNotInProperState
-    );
+    // TODO Add InstanceChecker
+    // await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.Update.JokesInstanceDoesNotExist,
+    //   Errors.Update.JokesInstanceNotInProperState
+    // );
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("jokeUpdateDtoInType", dtoIn);
@@ -214,8 +219,10 @@ class JokeAbl {
     let uuId = session.getIdentity().getUuIdentity();
     // A6
     if (
-      uuId !== joke.uuIdentity &&
-      !authorizationResult.getAuthorizedProfiles().includes(JokesInstanceAbl.AUTHORITIES)
+      uuId !== joke.uuIdentity
+      // &&
+      // TODO Read from constants and uncomment
+      //!authorizationResult.getAuthorizedProfiles().includes(JokesInstanceAbl.AUTHORITIES)
     ) {
       throw new Errors.Update.UserNotAuthorized({ uuAppErrorMap });
     }
@@ -252,7 +259,7 @@ class JokeAbl {
           binary = await UuBinaryAbl.updateBinaryData(awid, {
             data: dtoIn.image,
             code: joke.image,
-            revisionStrategy: "NONE"
+            revisionStrategy: "NONE",
           });
         } catch (e) {
           // A9
@@ -281,11 +288,12 @@ class JokeAbl {
 
   async updateVisibility(awid, dtoIn) {
     // hds 1, A1, hds 1.1, A2
-    await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.UpdateVisibility.JokesInstanceDoesNotExist,
-      Errors.UpdateVisibility.JokesInstanceNotInProperState
-    );
+    // TODO Add InstanceChecker
+    // await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.UpdateVisibility.JokesInstanceDoesNotExist,
+    //   Errors.UpdateVisibility.JokesInstanceNotInProperState
+    // );
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("jokeUpdateVisibilityDtoInType", dtoIn);
@@ -316,11 +324,12 @@ class JokeAbl {
 
   async delete(awid, dtoIn, session, authorizationResult) {
     // hds 1, A1, hds 1.1, A2
-    await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.Delete.JokesInstanceDoesNotExist,
-      Errors.Delete.JokesInstanceNotInProperState
-    );
+    // TODO Add InstanceChecker
+    // await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.Delete.JokesInstanceDoesNotExist,
+    //   Errors.Delete.JokesInstanceNotInProperState
+    // );
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("jokeDeleteDtoInType", dtoIn);
@@ -341,8 +350,10 @@ class JokeAbl {
 
     // hds 4, A6
     if (
-      session.getIdentity().getUuIdentity() !== joke.uuIdentity &&
-      !authorizationResult.getAuthorizedProfiles().includes(JokesInstanceAbl.AUTHORITIES)
+      session.getIdentity().getUuIdentity() !== joke.uuIdentity
+      // &&
+      // TODO Add constants and uncomment
+      // !authorizationResult.getAuthorizedProfiles().includes(JokesInstanceAbl.AUTHORITIES)
     ) {
       throw new Errors.Delete.UserNotAuthorized({ uuAppErrorMap });
     }
@@ -369,20 +380,21 @@ class JokeAbl {
 
   async list(awid, dtoIn, authorizationResult) {
     // hds 1, A1, hds 1.1, A2
-    let jokesInstance = await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.List.JokesInstanceDoesNotExist,
-      Errors.List.JokesInstanceNotInProperState
-    );
-    // A3
-    let authorizedProfiles = authorizationResult.getAuthorizedProfiles();
-    if (
-      jokesInstance.state === JokesInstanceAbl.STATE_UNDER_CONSTRUCTION &&
-      !authorizedProfiles.includes(JokesInstanceAbl.AUTHORITIES) &&
-      !authorizedProfiles.includes(JokesInstanceAbl.EXECUTIVES)
-    ) {
-      throw new Errors.List.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
-    }
+    // TODO Add InstanceChecker
+    // let jokesInstance = await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.List.JokesInstanceDoesNotExist,
+    //   Errors.List.JokesInstanceNotInProperState
+    // );
+    // // A3
+    // let authorizedProfiles = authorizationResult.getAuthorizedProfiles();
+    // if (
+    //   jokesInstance.state === JokesInstanceAbl.STATE_UNDER_CONSTRUCTION &&
+    //   !authorizedProfiles.includes(JokesInstanceAbl.AUTHORITIES) &&
+    //   !authorizedProfiles.includes(JokesInstanceAbl.EXECUTIVES)
+    // ) {
+    //   throw new Errors.List.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
+    // }
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("jokeListDtoInType", dtoIn);
@@ -418,11 +430,12 @@ class JokeAbl {
 
   async addRating(awid, dtoIn, session) {
     // hds 1, A1, hds 1.1, A2
-    await JokesInstanceAbl.checkInstance(
-      awid,
-      Errors.AddRating.JokesInstanceDoesNotExist,
-      Errors.AddRating.JokesInstanceNotInProperState
-    );
+    // TODO Add InstanceChecker
+    // await JokesInstanceAbl.checkInstance(
+    //   awid,
+    //   Errors.AddRating.JokesInstanceDoesNotExist,
+    //   Errors.AddRating.JokesInstanceNotInProperState
+    // );
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("jokeAddRatingDtoInType", dtoIn);
@@ -513,23 +526,17 @@ class JokeAbl {
    */
   async _checkCategoriesExistence(awid, categoryList) {
     let categories;
-    let pageInfo = { pageIndex: 0 };
     let presentCategories = [];
     let categoryIndex;
-    while (true) {
-      categories = await this.categoryDao.listByCategoryIdList(awid, categoryList, pageInfo);
-      categories.itemList.forEach(category => {
-        categoryIndex = categoryList.indexOf(category.id.toString());
-        if (categoryIndex !== -1) {
-          presentCategories.push(category.id.toString());
-          categoryList.splice(categoryIndex, 1);
-        }
-      });
-      if (categories.itemList < categories.pageInfo.pageSize || categoryList.length === 0) {
-        break;
+    categories = await this.categoryDao.listByCategoryIdList(awid, categoryList);
+    categories.itemList.forEach((category) => {
+      categoryIndex = categoryList.indexOf(category.id.toString());
+      if (categoryIndex !== -1) {
+        presentCategories.push(category.id.toString());
+        categoryList.splice(categoryIndex, 1);
       }
-      pageInfo.pageIndex += 1;
-    }
+    });
+
     return presentCategories;
   }
 }

@@ -4,7 +4,6 @@ const fileType = require("file-type");
 const IMAGE_MIME_TYPE_PREFIX = "image/";
 
 class FileHelper {
-
   validateImageBuffer(buffer) {
     let result = fileType(buffer);
     if (result && result.mime.includes(IMAGE_MIME_TYPE_PREFIX)) {

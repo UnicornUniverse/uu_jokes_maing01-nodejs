@@ -19,7 +19,7 @@ beforeEach(async () => {
 test("HDS", async () => {
   let dtoIn = {
     uuAppProfileAuthorities: "jaJsemTakyUri",
-    state: "active"
+    state: "active",
   };
   await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Authorities");
@@ -33,7 +33,7 @@ test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
   let dtoIn = {
     uuAppProfileAuthorities: "vimperskeParky",
-    state: "closed"
+    state: "closed",
   };
   await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Authorities");
@@ -51,7 +51,7 @@ test("A3 - jokes instance is under construction", async () => {
   expect.assertions(3);
   let dtoIn = {
     uuAppProfileAuthorities: "jogurtovaCokolada",
-    state: "underConstruction"
+    state: "underConstruction",
   };
   await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Readers");
@@ -67,7 +67,7 @@ test("A3 - jokes instance is under construction", async () => {
 test("A4 - unsupported keys in dtoIn", async () => {
   let dtoIn = {
     uuAppProfileAuthorities: "konviceNaCaj",
-    state: "active"
+    state: "active",
   };
   await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Authorities");
@@ -85,7 +85,7 @@ test("A5 - invalid dtoIn", async () => {
   expect.assertions(2);
   let dtoIn = {
     uuAppProfileAuthorities: "umeleSladidlo",
-    state: "active"
+    state: "active",
   };
   await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Authorities");
@@ -101,7 +101,7 @@ test("A6 - joke does not exist", async () => {
   expect.assertions(3);
   let dtoIn = {
     uuAppProfileAuthorities: "umeleSladidlo",
-    state: "active"
+    state: "active",
   };
   await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Authorities");

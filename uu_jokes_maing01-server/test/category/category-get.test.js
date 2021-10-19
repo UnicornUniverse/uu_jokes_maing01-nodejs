@@ -17,9 +17,9 @@ beforeEach(async () => {
 });
 
 test("HDS", async () => {
-  let dtoIn= {
+  let dtoIn = {
     uuAppProfileAuthorities: "jaJsemTakyUri",
-    state: "active"
+    state: "active",
   };
   await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Authorities");
@@ -39,7 +39,7 @@ test("HDS", async () => {
 
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "closed"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "closed" });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(CATEGORY_GET, { id: MONGO_ID });
@@ -55,7 +55,7 @@ test("A3 - jokes instance is under construction", async () => {
   expect.assertions(3);
   let dtoIn = {
     uuAppProfileAuthorities: ".",
-    state: "underConstruction"
+    state: "underConstruction",
   };
   await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Readers");
@@ -69,7 +69,7 @@ test("A3 - jokes instance is under construction", async () => {
 });
 
 test("A4 - unsupported keys in dtoIn", async () => {
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(CATEGORY_CREATE, { name: "..." });
   joke = await TestHelper.executeGetCommand(CATEGORY_GET, { id: joke.id, whatThe: "heck" });
@@ -83,7 +83,7 @@ test("A4 - unsupported keys in dtoIn", async () => {
 
 test("A5 - invalid dtoIn", async () => {
   expect.assertions(2);
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(CATEGORY_GET, {});
@@ -95,7 +95,7 @@ test("A5 - invalid dtoIn", async () => {
 
 test("A6 - category does not exist", async () => {
   expect.assertions(8);
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   await TestHelper.login("Authorities");
   try {
     await TestHelper.executeGetCommand(CATEGORY_GET, { id: MONGO_ID });

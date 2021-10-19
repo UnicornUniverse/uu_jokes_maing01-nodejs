@@ -1,19 +1,23 @@
 "use strict";
-
-const { UuObjectDao } = require("uu_appg01_server").ObjectStore;
 const { ObjectId } = require("bson");
 const { DbConnection } = require("uu_appg01_datastore");
+const UuJokesDao = require("./uu-jokes-dao");
+class JokeMongo extends UuJokesDao {
+  constructor(...args) {
+    super(...args);
+    this._collation = { locale: "en", strength: 1 };
+  }
 
-class JokeMongo extends UuObjectDao {
   async createSchema() {
     await super.createIndex({ awid: 1, _id: 1 }, { unique: true });
     await super.createIndex({ awid: 1, categoryList: 1 });
+    await super.createIndex({ awid: 1, name: 1 }, { collation: this.collation });
     await super.createIndex({ awid: 1, averageRating: 1 });
   }
 
   async create(uuObject) {
     if (uuObject.categoryList) {
-      uuObject.categoryList = uuObject.categoryList.map(categoryId => new ObjectId(categoryId));
+      uuObject.categoryList = uuObject.categoryList.map((categoryId) => new ObjectId(categoryId));
     }
     return await super.insertOne(uuObject);
   }
@@ -25,13 +29,13 @@ class JokeMongo extends UuObjectDao {
   async getCountByCategoryId(awid, categoryId) {
     return await super.count({
       awid,
-      categoryList: ObjectId.isValid(categoryId) ? new ObjectId(categoryId) : categoryId
+      categoryList: ObjectId.isValid(categoryId) ? new ObjectId(categoryId) : categoryId,
     });
   }
 
   async update(uuObject) {
     if (uuObject.categoryList) {
-      uuObject.categoryList = uuObject.categoryList.map(categoryId => new ObjectId(categoryId));
+      uuObject.categoryList = uuObject.categoryList.map((categoryId) => new ObjectId(categoryId));
     }
     let filter = { id: uuObject.id, awid: uuObject.awid };
     return await super.findOneAndUpdate(filter, uuObject, "NONE");
@@ -56,29 +60,31 @@ class JokeMongo extends UuObjectDao {
   }
 
   async list(awid, sortBy, order, pageInfo) {
-    let sort = {
-      [sortBy]: order === "asc" ? 1 : -1
+    const filter = { awid };
+
+    const sort = {
+      [sortBy]: order === "asc" ? 1 : -1,
     };
-    return await super.find({ awid }, pageInfo, sort);
+
+    return await super.find(filter, pageInfo, sort);
   }
 
   async listByCategoryIdList(awid, categoryIdList, sortBy, order, pageInfo) {
-    let sort = {
-      [sortBy]: order === "asc" ? 1 : -1
-    };
-    return await super.find(
-      {
-        awid,
-        categoryList: {
-          $in: categoryIdList.map(id => {
-            if (!ObjectId.isValid(id)) return id;
-            return new ObjectId(id);
-          })
-        }
+    const filter = {
+      awid,
+      categoryList: {
+        $in: categoryIdList.map((id) => {
+          if (!ObjectId.isValid(id)) return id;
+          return new ObjectId(id);
+        }),
       },
-      pageInfo,
-      sort
-    );
+    };
+
+    const sort = {
+      [sortBy]: order === "asc" ? 1 : -1,
+    };
+
+    return await super.find(filter, pageInfo, sort);
   }
 }
 

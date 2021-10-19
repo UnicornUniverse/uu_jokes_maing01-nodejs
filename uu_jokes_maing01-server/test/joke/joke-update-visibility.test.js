@@ -1,11 +1,6 @@
 const { TestHelper } = require("uu_appg01_server-test");
 const { ObjectStoreError } = require("uu_appg01_server").ObjectStore;
-const {
-  JOKE_CREATE,
-  JOKE_UPDATE_VISIBILITY,
-  MONGO_ID,
-  mockDaoFactory
-} = require("../general-test-hepler");
+const { JOKE_CREATE, JOKE_UPDATE_VISIBILITY, MONGO_ID, mockDaoFactory } = require("../general-test-hepler");
 
 beforeAll(async () => {
   await TestHelper.setup();
@@ -30,7 +25,7 @@ test("HDS", async () => {
   await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, {
-    name: "She lives with a broken man, a cracked polystyrene man"
+    name: "She lives with a broken man, a cracked polystyrene man",
   });
   expect(joke.visibility).toEqual(true);
   joke = await TestHelper.executePostCommand(JOKE_UPDATE_VISIBILITY, { id: joke.id, visibility: false });
@@ -59,7 +54,7 @@ test("A3 - unsupported keys in dtoIn", async () => {
   joke = await TestHelper.executePostCommand(JOKE_UPDATE_VISIBILITY, {
     id: joke.id,
     visibility: true,
-    ema: "mele maso"
+    ema: "mele maso",
   });
   expect(joke.status).toEqual(200);
   let warning = joke.uuAppErrorMap["uu-jokes-main/joke/updateVisibility/unsupportedKeys"];
@@ -90,12 +85,12 @@ test("A5 - the update in db fails", async () => {
   JokeAbl.dao = {
     updateVisibility: () => {
       throw new ObjectStoreError("it failed");
-    }
+    },
   };
 
   let dtoIn = {
     id: MONGO_ID,
-    visibility: true
+    visibility: true,
   };
 
   try {

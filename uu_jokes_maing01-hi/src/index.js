@@ -1,9 +1,7 @@
 import { AppContainer } from "react-hot-loader";
-import * as UU5 from "uu5g04";
+import UU5 from "uu5g04";
 
 import Spa from "./core/spa.js";
-
-import "./index.less";
 
 // propagate app version into environment
 UU5.Environment["appVersion"] = process.env.VERSION;
@@ -12,7 +10,7 @@ UU5.Environment["appVersion"] = process.env.VERSION;
 if (!navigator.userAgent.match(/iPhone|iPad|iPod/)) {
   let link = document.createElement("link");
   link.rel = "manifest";
-  link.href = "assets/manifest.json.json";
+  link.href = "assets/manifest.json";
   document.head.appendChild(link);
 }
 

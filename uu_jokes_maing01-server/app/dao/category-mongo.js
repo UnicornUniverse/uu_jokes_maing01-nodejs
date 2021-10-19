@@ -1,9 +1,13 @@
 "use strict";
-
-const { UuObjectDao } = require("uu_appg01_server").ObjectStore;
 const { ObjectId } = require("bson");
+const UuJokesDao = require("./uu-jokes-dao");
 
-class CategoryMongo extends UuObjectDao {
+class CategoryMongo extends UuJokesDao {
+  constructor(...args) {
+    super(...args);
+    this._collation = { locale: "en", strength: 1 };
+  }
+
   async createSchema() {
     await super.createIndex({ awid: 1, _id: 1 }, { unique: true });
     await super.createIndex({ awid: 1, name: 1 }, { unique: true });
@@ -31,21 +35,24 @@ class CategoryMongo extends UuObjectDao {
   }
 
   async list(awid, order, pageInfo) {
-    let sort = { name: order === "asc" ? 1 : -1 };
-    return await super.find({ awid }, pageInfo, sort);
+    const filter = { awid };
+    const sort = { name: order === "asc" ? 1 : -1 };
+
+    return await super.find(filter, pageInfo, sort);
   }
 
-  async listByCategoryIdList(awid, categoryIdList, pageInfo) {
-    let query = {
+  async listByCategoryIdList(awid, categoryIdList) {
+    const filter = {
       awid,
       _id: {
-        $in: categoryIdList.map(id => {
+        $in: categoryIdList.map((id) => {
           if (!ObjectId.isValid(id)) return id;
           return new ObjectId(id);
-        })
-      }
+        }),
+      },
     };
-    return await super.find(query, pageInfo);
+
+    return await super.find(filter);
   }
 }
 

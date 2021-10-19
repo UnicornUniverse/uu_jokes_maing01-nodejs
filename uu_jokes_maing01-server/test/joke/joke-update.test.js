@@ -7,7 +7,7 @@ const {
   getImageStream,
   mockDaoFactory,
   getSessionMock,
-  getAuthzResultMock
+  getAuthzResultMock,
 } = require("../general-test-hepler");
 
 beforeAll(async () => {
@@ -37,7 +37,7 @@ test("HDS - no image", async () => {
   let update = await TestHelper.executePostCommand(JOKE_UPDATE, {
     id: create.id,
     name: `${string}${string}`,
-    text: `${string}${string}${string}`
+    text: `${string}${string}${string}`,
   });
   expect(update.status).toEqual(200);
   expect(update.name).not.toEqual(create.name);
@@ -66,7 +66,7 @@ test("HDS - update image", async () => {
   await TestHelper.login("Authorities");
   let create = await TestHelper.executePostCommand(JOKE_CREATE, {
     name: "Zapomnel jsem si salu a je mi zima na krk",
-    image: getImageStream()
+    image: getImageStream(),
   });
 
   // check if binary was created
@@ -99,7 +99,6 @@ test("A2 - jokes instance is closed", async () => {
 });
 
 test("A3 - unsupported keys in dtoIn", async () => {
-
   await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "vickoJeFuc" });
   await TestHelper.login("Authorities");
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, { name: "Velmi vtipny vtip, opet.." });
@@ -158,12 +157,12 @@ test("A7 - categories don't exist", async () => {
   );
 
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, {
-    name: "My best friend is a butcher, he has sixteen knives"
+    name: "My best friend is a butcher, he has sixteen knives",
   });
 
   joke = await TestHelper.executePostCommand(JOKE_UPDATE, {
     id: joke.id,
-    categoryList: [existingCategoryId, nonExistentCategoryId]
+    categoryList: [existingCategoryId, nonExistentCategoryId],
   });
 
   expect(joke.status).toEqual(200);
@@ -184,14 +183,14 @@ test("A8 - creating binary fails", async () => {
   JokeAbl.dao = {
     get: () => {
       return {
-        uuIdentity: "19-7019-1"
+        uuIdentity: "19-7019-1",
       };
-    }
+    },
   };
 
   let dtoIn = {
     id: MONGO_ID,
-    image: getImageStream()
+    image: getImageStream(),
   };
 
   try {
@@ -212,14 +211,14 @@ test("A9 - updating binary fails", async () => {
     get: () => {
       return {
         uuIdentity: "19-7019-1",
-        image: true
+        image: true,
       };
-    }
+    },
   };
 
   let dtoIn = {
     id: MONGO_ID,
-    image: getImageStream()
+    image: getImageStream(),
   };
 
   try {
@@ -236,12 +235,12 @@ test("A10 - updating joke fails", async () => {
   JokeAbl.dao = {
     get: () => {
       return {
-        uuIdentity: "19-7019-1"
+        uuIdentity: "19-7019-1",
       };
     },
     update: () => {
       throw new ObjectStoreError("it failed");
-    }
+    },
   };
 
   try {

@@ -3,8 +3,8 @@ const path = require("path");
 
 module.exports = {
   hooks: {
-    readPackage
-  }
+    readPackage,
+  },
 };
 
 // handle "bad" packages that require() things that aren't in their package.json
@@ -12,32 +12,32 @@ module.exports = {
 // NOTE To apply changes added to this map: remove node_modules/, shrinkwrap.yaml and run "pnpm install" again.
 const depFixes = {
   "jest-runner": {
-    "jest-environment-jsdom": "23.4.0" // jest -> jest-cli -> jest-config -> jest-environment-jsdom
+    "jest-environment-jsdom": "^26.0.0", // jest -> jest-cli -> jest-config -> jest-environment-jsdom
   },
   "@webassemblyjs/helper-module-context": {
-    "debug": "from-other-deps" // copy from peerDependencies / devDependencies
+    debug: "from-other-deps", // copy from peerDependencies / devDependencies
   },
   "@webassemblyjs/wasm-parser": {
-    "@webassemblyjs/utf8": "from-other-deps"
+    "@webassemblyjs/utf8": "from-other-deps",
   },
   // mini-css-extract-plugin in "some" installations on Windows fails with
   // "Cannot destructure property `createHash` of 'undefined' or 'null'." when importing "webpack"
   // (as in https://github.com/webpack-contrib/mini-css-extract-plugin/issues/69) - add "webpack"
   // to its dependencies
   "mini-css-extract-plugin": {
-    "webpack": "from-other-deps"
+    webpack: "from-other-deps",
   },
   // "request-promise@4.x" uses "request" but has it only as peerDependency
   // (generating nodejs-app was failing in postinstall script in mongodb-memory-server@1.8.0)
   "request-promise-native": {
-    "request": "from-other-deps"
+    request: "from-other-deps",
   },
   "postcss-minify-params": {
-    "browserslist": "from-other-deps"
+    browserslist: "from-other-deps",
   },
   "postcss-normalize-unicode": {
-    "browserslist": "from-other-deps"
-  }
+    browserslist: "from-other-deps",
+  },
 };
 let customNpmTag;
 let useCustomNpmTag;
@@ -66,7 +66,8 @@ function readPackage(pkg) {
     for (let k in depFixes[pkg.name]) {
       let v = depFixes[pkg.name][k];
       if (v === "from-other-deps" && pkg.dependencies && pkg.dependencies[k]) continue;
-      let version = (v !== "from-other-deps" ? v : (pkg.peerDependencies || {})[k] || (pkg.devDependencies || {})[k] || "*");
+      let version =
+        v !== "from-other-deps" ? v : (pkg.peerDependencies || {})[k] || (pkg.devDependencies || {})[k] || "*";
       if (version) {
         if (!pkg.dependencies) pkg.dependencies = {};
         pkg.dependencies[k] = version;
@@ -76,7 +77,7 @@ function readPackage(pkg) {
 
   // Jest has dependency on "babel-core@^6.x.y || ^7.0.0-0", but it should be "^7.0.0-bridge" instead.
   if (pkg.name.match(/jest/)) {
-    let babelCoreVersion = pkg.dependencies && pkg.dependencies["babel-core"]
+    let babelCoreVersion = pkg.dependencies && pkg.dependencies["babel-core"];
     if (babelCoreVersion && babelCoreVersion.match(/7\.0\.0-0/)) {
       pkg.dependencies["babel-core"] = "^7.0.0-bridge";
     }

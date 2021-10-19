@@ -46,7 +46,7 @@ const Create = {
       this.code = `${Create.UC_CODE}invalidPhotoContentType`;
       this.message = "ContentType of new photo is invalid.";
     }
-  }
+  },
 };
 
 const Get = {
@@ -85,7 +85,7 @@ const Get = {
       this.code = `${Get.UC_CODE}jokeDoesNotExist`;
       this.message = "Joke does not exist.";
     }
-  }
+  },
 };
 
 const Update = {
@@ -145,7 +145,7 @@ const Update = {
       this.code = `${Update.UC_CODE}jokeDaoUpdateFailed`;
       this.message = "Update joke by joke Dao update failed.";
     }
-  }
+  },
 };
 
 const UpdateVisibility = {
@@ -177,7 +177,7 @@ const UpdateVisibility = {
       this.code = `${UpdateVisibility.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid.";
     }
-  }
+  },
 };
 
 const Delete = {
@@ -223,7 +223,7 @@ const Delete = {
       this.code = `${Delete.UC_CODE}uuBinaryDeleteFailed`;
       this.message = "Deleting uuBinary failed.";
     }
-  }
+  },
 };
 
 const List = {
@@ -255,7 +255,7 @@ const List = {
       this.code = `${List.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid.";
     }
-  }
+  },
 };
 
 const AddRating = {
@@ -315,7 +315,7 @@ const AddRating = {
       this.code = `${AddRating.UC_CODE}jokeDaoUpdateFailed`;
       this.message = "Update joke by joke DAO update failed.";
     }
-  }
+  },
 };
 
 module.exports = {

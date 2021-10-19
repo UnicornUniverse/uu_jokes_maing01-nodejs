@@ -6,7 +6,7 @@ const {
   CATEGORY_GET,
   JOKE_GET,
   MONGO_ID,
-  mockDaoFactory
+  mockDaoFactory,
 } = require("../general-test-hepler");
 
 beforeAll(async () => {
@@ -36,7 +36,7 @@ test("HDS - delete succeeds even when there is nothing to delete", async () => {
 
 test("HDS - create category then delete it, no jokes involved", async () => {
   expect.assertions(3);
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
   let category = await TestHelper.executePostCommand(CATEGORY_CREATE, { name: ".." });
   let response = await TestHelper.executePostCommand(CATEGORY_DELETE, { id: category.id });
   expect(response.status).toEqual(200);
@@ -50,7 +50,7 @@ test("HDS - create category then delete it, no jokes involved", async () => {
 
 test("HDS - force delete category and checks that its removed from joke", async () => {
   expect.assertions(3);
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "active"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "active" });
 
   // create two categories
   let categoryOne = await TestHelper.executePostCommand(CATEGORY_CREATE, { name: ".." });
@@ -71,7 +71,7 @@ test("HDS - force delete category and checks that its removed from joke", async 
 
 test("A2 - jokes instance is closed", async () => {
   expect.assertions(4);
-  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." , state: "closed"});
+  await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: ".", state: "closed" });
   try {
     await TestHelper.executePostCommand(CATEGORY_DELETE, {});
   } catch (e) {
@@ -160,7 +160,7 @@ function mockAbl() {
 
 // calling joke/create doesn't work with disabled authorization/authentication, this is a shortcut
 async function createCategoriedJokeDb(categoryList) {
-  categoryList = categoryList.map(category => {
+  categoryList = categoryList.map((category) => {
     return `ObjectId("${category}")`;
   });
   await TestHelper.executeDbScript(

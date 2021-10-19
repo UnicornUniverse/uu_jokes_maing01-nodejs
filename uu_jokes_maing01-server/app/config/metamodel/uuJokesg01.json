@@ -2,7 +2,7 @@
   "code": "uu-jokes-maing01",
   "name": "uuJokes uuAppMetaModel",
   "desc": "uuJokes uuAppMetaModel",
-  "version": "2.4.0.2",
+  "version": "3.0.0.1",
   "defaultIcon": "uubml-artifact",
 
   "stateList": [
@@ -24,7 +24,6 @@
       "icon": "uubml-state-s00-final",
       "type": "FINAL"
     }
-
   ],
 
   "profileList": [
@@ -52,7 +51,7 @@
   ],
 
   "defaultPermissionMatrix": [
-    "11000000-00000000-00000000-00000100",
+    "11000000-00000000-00000000-00001000",
     "00100000-00000000-00000000-00000000",
     "00000000-00000000-00000000-00000011"
   ],
@@ -69,12 +68,12 @@
         "authorizeUuIdentity": "",
         "authorizeRoleIfcList": "",
         "get": "",
-        "load": "uu-jokes-maing01/jokesInstance/load",
+        "load": "",
         "loadEnvironment": "",
         "loadPermissions": "",
         "getNavigation": "",
         "getImplicitPermissions": "",
-        "setBasicAttributes": "uu-jokes-maing01/jokesInstance/update",
+        "setBasicAttributes": "uu-jokes-maing01/jokes/update",
         "setVersion": "",
         "setResponsibleRole": "",
         "setHomeFolder": "",
@@ -130,15 +129,13 @@
   },
 
   "synchronizeUuCmdMap": {
-    "uu-businessterritory-maing01/uuAwsc/synchronizeArtifactAttributes": "jokesInstance/load"
+    "uu-businessterritory-maing01/uuAwsc/synchronizeArtifactAttributes": "jokes/load"
   },
 
   "useCaseProfileMap": {
-    "uu-jokes-maing01/jokesInstance/load": "11100000-00000000-00000000-00000000",
-    "uu-jokes-maing01/jokesInstance/update": "10000000-00000000-00000000-00000000",
-    "uu-jokes-maing01/jokesInstance/setLogo": "10000000-00000000-00000000-00000000",
-    "uu-jokes-maing01/jokesInstance/setIcons": "10000000-00000000-00000000-00000000",
-    "uu-jokes-maing01/jokesInstance/getUveMetaData": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/sys/uuAppWorkspace/load": "11100000-00000000-00000000-00000000",
+    "uu-jokes-maing01/jokes/update": "10000000-00000000-00000000-00000000",
+    "uu-jokes-maing01/jokes/setState": "10000000-00000000-00000000-00000000",
     "uu-jokes-maing01/joke/create": "11000000-00000000-00000000-00000000",
     "uu-jokes-maing01/joke/get": "11100000-00000000-00000000-00000000",
     "uu-jokes-maing01/joke/update": "11000000-00000000-00000000-00000000",

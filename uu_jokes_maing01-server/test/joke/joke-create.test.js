@@ -9,9 +9,8 @@ const {
   getImageStream,
   mockDaoFactory,
   getSessionMock,
-  getAuthzResultMock
+  getAuthzResultMock,
 } = require("../general-test-hepler");
-
 
 beforeAll(async () => {
   await TestHelper.setup();
@@ -56,7 +55,7 @@ test("HDS - no image, Authorities call", async () => {
                                    /_|       /_|`;
   let dtoIn = {
     name,
-    text
+    text,
   };
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, dtoIn);
   expect(joke.status).toEqual(200);
@@ -80,7 +79,7 @@ test("HDS - no image, Executives call", async () => {
 
   let dtoIn = {
     name: "hmm",
-    text: "joo"
+    text: "joo",
   };
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, dtoIn);
   expect(joke.status).toEqual(200);
@@ -98,7 +97,7 @@ test("HDS - image", async () => {
 
   let dtoIn = {
     name: "nejm",
-    image: getImageStream()
+    image: getImageStream(),
   };
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, dtoIn);
   expect(joke.status).toEqual(200);
@@ -153,7 +152,7 @@ test("A5 - invalid image content type", async () => {
 
   let dtoIn = {
     name: "nejm",
-    image: fs.createReadStream(path.resolve(__dirname, "..", "invalid.svg"))
+    image: fs.createReadStream(path.resolve(__dirname, "..", "invalid.svg")),
   };
   try {
     await TestHelper.executePostCommand(JOKE_CREATE, dtoIn);
@@ -191,7 +190,7 @@ test("A7 - categories don't exist", async () => {
   let nonExistentCategoryId = "171819202122232425262728";
   let dtoIn = {
     name: "Uz mi dochazi jmena vtipu",
-    categoryList: [existingCategoryId, nonExistentCategoryId]
+    categoryList: [existingCategoryId, nonExistentCategoryId],
   };
 
   await TestHelper.executeDbScript(

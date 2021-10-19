@@ -1,97 +1,77 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import UuTerritory from "uu_territoryg01";
-import "uu_territoryg01-artifactifc";
-import "uu5g04-bricks";
-import "uu5g04-forms";
-import "uu5codekitg01";
-import Plus4U5 from "uu_plus4u5g01";
 import UuContentKit from "uu_contentkitg01";
+import { createVisualComponent } from "uu5g04-hooks";
+import { useTerritoryData } from "uu_plus4u5g02";
+import { withRoute } from "uu_plus4u5g02-app";
+import { Jokes } from "uu_jokesg01-core";
+import "uu_territoryg01-artifactifc";
 
-import Calls from "calls";
-import { dig } from "../helpers/object-utils";
-import LSI from "./control-panel-lsi";
-
+import Config from "./config/config.js";
+import Lsi from "../config/lsi.js";
 //@@viewOff:imports
 
-export const ControlPanel = UU5.Common.VisualComponent.create({
-  //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin, UU5.Common.PureRenderMixin, UU5.Common.RouteMixin],
-  //@@viewOff:mixins
-
+const STATICS = {
   //@@viewOn:statics
-  statics: {
-    tagName: "ControlPanel",
-    classNames: {
-      main: "ControlPanel"
-    },
-    lsi: LSI
-  },
+  displayName: Config.TAG + "ControlPanel",
   //@@viewOff:statics
+};
+
+const ControlPanel = createVisualComponent({
+  ...STATICS,
 
   //@@viewOn:propTypes
-  propTypes: {},
   //@@viewOff:propTypes
 
-  //@@viewOn:getDefaultProps
-  //@@viewOff:getDefaultProps
+  //@@viewOn:defaultProps
+  //@@viewOff:defaultProps
 
-  //@@viewOn:reactLifeCycle
-  //@@viewOff:reactLifeCycle
+  render() {
+    //@@viewOn:private
+    const { data: territory } = useTerritoryData();
+    //@@viewOff:private
 
-  //@@viewOn:interface
-  //@@viewOff:interface
+    //@@viewOn:interface
+    //@@viewOff:interface
 
-  //@@viewOn:overriding
-  //@@viewOff:overriding
-
-  //@@viewOn:private
-  _handleLoad() {
-    return Calls.getWorkspace();
-  },
-
-  _getChild() {
+    //@@viewOn:render
     return (
-      <UU5.Common.Loader onLoad={this._handleLoad}>
-        {({ isLoading, isError, data }) => {
-          if (isError) {
-            return (
-              <Plus4U5.Bricks.Error
-                {...this.getMainPropsToPass()}
-                error={data.dtoOut}
-                errorData={dig(data, "dtoOut", "uuAppErrorMap")}
-                content={this.getLsiComponent("rightsError")}
-              />
-            );
-          } else if (isLoading) {
-            return <UU5.Bricks.Loading/>;
-          } else if (data.artifactUri) {
-            const url = new URL(data.artifactUri);
-            return (
-              <UuTerritory.ArtifactIfc.Bricks.PermissionSettings
-                style={{ marginLeft: "30px", marginRight: "30px", width: "initial" }}
-                territoryBaseUri={url.href.split("?")[0]}
-                artifactId={url.searchParams.get("id")}
-              />
-            );
-          } else {
-            return (
+      <>
+        <UU5.Bricks.Container noSpacing>
+          <UU5.Bricks.Section header="Control Panel" style={{ padding: "0px 24px 0px 24px" }}>
+            <Jokes.BasicInfo />
+            {territory && (
+              <>
+                <UuTerritory.ArtifactIfc.Bricks.StateHistory
+                  territoryBaseUri={territory.data.uuTerritoryBaseUri}
+                  artifactId={territory.data.artifact.id}
+                  contextType="none"
+                  cardView="full"
+                />
+                <UuTerritory.Activity.Bricks.ActivityList
+                  territoryBaseUri={territory.data.uuTerritoryBaseUri}
+                  artifactId={territory.data.artifact.id}
+                  contextType="none"
+                  cardView="full"
+                />
+                <UuTerritory.ArtifactIfc.Bricks.PermissionSettings
+                  territoryBaseUri={territory.data.uuTerritoryBaseUri}
+                  artifactId={territory.data.artifact.id}
+                  cardView="full"
+                />
+              </>
+            )}
+            {!territory && (
               <UuContentKit.Bricks.BlockDanger>
-                {this.getLsiComponent("btNotConnected")}
+                <UU5.Bricks.Lsi lsi={Lsi.controlPanel.btNotConnected} />
               </UuContentKit.Bricks.BlockDanger>
-            );
-          }
-        }}
-      </UU5.Common.Loader>
+            )}
+          </UU5.Bricks.Section>
+        </UU5.Bricks.Container>
+      </>
     );
   },
-  //@@viewOff:private
-
-  //@@viewOn:render
-  render() {
-    return this._getChild();
-  }
-  //@@viewOff:render
 });
 
-export default ControlPanel;
+export default withRoute(ControlPanel, { authenticated: true, requireSubAppData: true });

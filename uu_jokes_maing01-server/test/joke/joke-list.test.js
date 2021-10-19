@@ -195,7 +195,7 @@ test("A3 - jokes instance is under construction", async () => {
   expect.assertions(3);
   let dtoIn = {
     uuAppProfileAuthorities: ".",
-    state: "underConstruction"
+    state: "underConstruction",
   };
   await TestHelper.initUuAppWorkspace(dtoIn);
   await TestHelper.login("Readers");

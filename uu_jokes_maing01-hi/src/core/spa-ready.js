@@ -1,91 +1,65 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import Plus4U5 from "uu_plus4u5g01";
-import "uu_plus4u5g01-app";
+import { createVisualComponent } from "uu5g04-hooks";
+import { useSystemData } from "uu_plus4u5g02";
+import Plus4U5App from "uu_plus4u5g02-app";
+import UuJokesCore from "uu_jokesg01-core";
+import "uu5g04-bricks";
 
-import Config from "./config/config.js";
-import Bottom from "./bottom";
-import Left from "./left";
-import Jokes from "../routes/jokes";
-import CategoryManagement from "../routes/category-management";
-import ControlPanel from "../routes/control-panel";
-import About from "../routes/about";
-
-import "./spa-ready.less";
-import {JokesConsumer} from "./jokes-provider.js";
-import LSI from "./spa-ready-lsi";
+import Config from "./config/config";
+import RouteBar from "./route-bar";
+import withSuspense from "./withSuspense";
 //@@viewOff:imports
 
-export const SpaReady = UU5.Common.VisualComponent.create({
-  //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin, UU5.Common.PureRenderMixin],
-  //@@viewOff:mixins
+const Jokes = withSuspense(UU5.Common.Component.lazy(() => import("../routes/jokes")));
+const Categories = withSuspense(UU5.Common.Component.lazy(() => import("../routes/categories")));
+const ControlPanel = withSuspense(UU5.Common.Component.lazy(() => import("../routes/control-panel")));
+const InitAppWorkspace = withSuspense(UU5.Common.Component.lazy(() => import("../routes/init-app-workspace")));
+const About = withSuspense(UU5.Common.Component.lazy(() => import("../routes/about")));
 
+const STATICS = {
   //@@viewOn:statics
-  statics: {
-    tagName: Config.TAG + "SpaReady",
-    classNames: {
-      main: Config.CSS + "spaready"
-    },
-    opt: {
-      pureRender: true // avoid re-render from parent
-    },
-    lsi: LSI
-  },
+  displayName: Config.TAG + "SpaReady",
   //@@viewOff:statics
+};
+
+export const SpaReady = createVisualComponent({
+  ...STATICS,
 
   //@@viewOn:propTypes
+  propTypes: {},
   //@@viewOff:propTypes
 
-  //@@viewOn:getDefaultProps
-  //@@viewOff:getDefaultProps
+  //@@viewOn:defaultProps
+  defaultProps: {},
+  //@@viewOff:defaultProps
 
-  //@@viewOn:reactLifeCycle
-  //@@viewOff:reactLifeCycle
-
-  //@@viewOn:interface
-  //@@viewOff:interface
-
-  //@@viewOn:overriding
-  //@@viewOff:overriding
-
-  //@@viewOn:private
-  //@@viewOff:private
-
-  //@@viewOn:render
   render() {
+    //@@viewOn:private
+    const { data: system, state } = useSystemData() || {};
+    //@@viewOff:private
+
+    //@@viewOn:render
+    const routeMap = {
+      [Config.Routes.JOKES]: () => <Jokes />,
+      [Config.Routes.CATEGORIES]: () => <Categories />,
+      [Config.Routes.CONTROL_PANEL]: () => <ControlPanel />,
+      [Config.Routes.INIT_APP_WORKSPACE]: () => <InitAppWorkspace />,
+      [Config.Routes.ABOUT]: () => <About />,
+      "": { redirect: Config.Routes.JOKES },
+      "*": { redirect: Config.Routes.JOKES },
+    };
+
     return (
-      <JokesConsumer {...this.getMainPropsToPass()}>
-        {({name}) => (
-          <Plus4U5.App.Page
-            top={<Plus4U5.App.Top content={name ? name : this.getLsiComponent("appName")}/>} // TopTitle
-            bottom={<Bottom/>}
-            type={1}
-            displayedLanguages={["cs", "en"]}
-            left={this.props.customComp ? null : <Left authenticated={true}/>}
-            leftWidth="!xs-320px !s-320px !m-256px l-256px xl-256px"
-          >
-            {this.props.customComp ? this.props.customComp :
-              <UU5.Common.Router
-                route=""
-                notFoundRoute="jokes"
-                routes={{
-                  jokes: {component: <Jokes/>},
-                  "": "jokes",
-                  controlPanel: {component: <ControlPanel/>},
-                  categoryManagement: {
-                    component: <CategoryManagement/>
-                  },
-                  about: {component: <About/>}
-                }}
-                controlled={false}
-              />}
-          </Plus4U5.App.Page>
-        )}
-      </JokesConsumer>
+      <UuJokesCore.Jokes.PermissionProvider profileList={system?.profileData.uuIdentityProfileList}>
+        <Plus4U5App.Spa>
+          {state === "ready" && <RouteBar />}
+          <Plus4U5App.Router routeMap={routeMap} />
+        </Plus4U5App.Spa>
+      </UuJokesCore.Jokes.PermissionProvider>
     );
-  }
-  //@@viewOff:render
+    //@@viewOff:render
+  },
 });
 
 export default SpaReady;

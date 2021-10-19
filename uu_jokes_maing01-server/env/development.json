@@ -4,16 +4,20 @@
     "primary": "mongodb://127.0.0.1:27017/jokesMainPrimary",
     "binary": "mongodb://127.0.0.1:27017/jokesMainBinary"
   },
-  "asid_license_owner_list": ["4-1", "12-470-1", "12-5696-1"],
-  "asid": "11111111111111111111111111111111",
+  "asid_license_owner_list": ["4-1", "12-470-1", "12-5696-1", "5060-4766-9574-0000"],
+  "asid": "00000622a8d544a3badf16adac35799f",
   "log_level": "INFO",
 
   "fls_base_uri": "https://uuapp.plus4u.net/uu-flsg01-main/8014eb79e8184ebb8942d96ce37b61b4/",
-  "term_of_use_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=license",
-  "technical_documentation_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book",
-  "product_code": "uuJokes",
-  "product_portal_uri": "ues:UU-BT:PRD.UU-JOKESG01/PORTAL",
+  "sls_base_uri": "https://uuapp.plus4u.net/uu-sls-maing01/3c440c47fc1f4ba4bc78e64f571835dc/",
+  "business_request_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/a04c8463649b425fb8b46076c0c5e5d0/",
+  "business_model_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/a129e74e3bcc4fe4a4a95f5e4bb494ed/",
+  "application_model_uri": "https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-71f8d7b5cfdc4336b0abfe47b3cb237b/",
+  "user_guide_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/233edf4ed51e4c0eb0c2caad2c270e8a/",
+  "web_uri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/",
+  "product_portal_uri": "https://uuapp.plus4u.net/uu-dockit-maing02/d112828dcd1445e2a916cdd59331a359/document?documentId=5fb577cf1d97660025f9023b",
 
   "uu_app_oidc_providers_oidcg02_authentication_type": "code",
-  "uu_app_oidc_providers_oidcg02_session_crossdomain_strategy": "forward"
+  "uu_app_oidc_providers_oidcg02_session_crossdomain_strategy": "forward",
+  "uu_app_oidc_providers_oidcg02_uri": "https://uuapp.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc"
 }
