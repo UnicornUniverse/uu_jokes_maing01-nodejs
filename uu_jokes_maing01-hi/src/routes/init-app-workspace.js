@@ -130,4 +130,4 @@ export const InitAppWorkspace = createVisualComponent({
   //@@viewOff:render
 });
 
-export default withRoute(InitAppWorkspace, { authenticated: true, requireSubAppData: true  });
+export default withRoute(InitAppWorkspace, { authenticated: true, requireSubAppData: true });
