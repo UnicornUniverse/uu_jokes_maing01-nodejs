@@ -19,7 +19,7 @@
     },
     {
       "label": "eslint-all",
-      "dependsOn": ["eslint-client", "eslint-server"],
+      "dependsOn": ["eslint-hi", "eslint-server"],
       "dependsOrder": "sequence",
       "problemMatcher": "$eslint-stylish",
       "runOptions": { "runOn": "folderOpen" }
