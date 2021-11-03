@@ -7,7 +7,7 @@ const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const { UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
 // TODO Add InstanceChecker
-//const JokesInstanceAbl = require("./jokes-instance-abl");
+const { Profiles } = require("./constants");
 const Errors = require("../api/errors/joke-error");
 const Path = require("path");
 const FileHelper = require("../helpers/file-helper");
@@ -218,12 +218,7 @@ class JokeAbl {
     // hds 4
     let uuId = session.getIdentity().getUuIdentity();
     // A6
-    if (
-      uuId !== joke.uuIdentity
-      // &&
-      // TODO Read from constants and uncomment
-      //!authorizationResult.getAuthorizedProfiles().includes(JokesInstanceAbl.AUTHORITIES)
-    ) {
+    if (uuId !== joke.uuIdentity && !authorizationResult.getAuthorizedProfiles().includes(Profiles.AUTHORITIES)) {
       throw new Errors.Update.UserNotAuthorized({ uuAppErrorMap });
     }
 
