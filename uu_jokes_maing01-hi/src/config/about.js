@@ -41,22 +41,6 @@ export const About = {
       },
     },
     {
-      name: "Radek Dolejš",
-      uuIdentity: "4-1",
-      role: {
-        en: "Product Manager",
-      },
-    },
-    {
-      name: "Martin Farkaš",
-      uuIdentity: "6565-1",
-      role: {
-        en: "Developer",
-      },
-    },
-  ],
-  otherAuthors: [
-    {
       name: "David Kimr",
       uuIdentity: "2-1",
       role: {
@@ -71,6 +55,22 @@ export const About = {
       },
     },
     {
+      name: "Radek Dolejš",
+      uuIdentity: "4-1",
+      role: {
+        en: "Product Manager",
+      },
+    },
+  ],
+  otherAuthors: [
+    {
+      name: "Martin Farkaš",
+      uuIdentity: "6565-1",
+      role: {
+        en: "Developer",
+      },
+    },
+    {
       name: "Klára Hniličková",
       uuIdentity: "13-2340-1",
       role: {
@@ -82,6 +82,13 @@ export const About = {
       uuIdentity: "7709-1",
       role: {
         en: "UX Designer",
+      },
+    },
+    {
+      name: "Petr Příhoda",
+      uuIdentity: "21-7222-1",
+      role: {
+        en: "Developer",
       },
     },
     {
