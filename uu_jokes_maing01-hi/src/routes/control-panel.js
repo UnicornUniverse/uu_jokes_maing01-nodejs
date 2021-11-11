@@ -9,7 +9,7 @@ import { Jokes } from "uu_jokesg01-core";
 import "uu_territoryg01-artifactifc";
 
 import Config from "./config/config.js";
-import Lsi from "../config/lsi.js";
+import Lsi from "./control-panel-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -39,7 +39,7 @@ const ControlPanel = createVisualComponent({
     return (
       <>
         <UU5.Bricks.Container noSpacing>
-          <UU5.Bricks.Section header="Control Panel" style={{ padding: "0px 24px 0px 24px" }}>
+          <UU5.Bricks.Section header={<UU5.Bricks.Lsi lsi={Lsi.title} />} style={{ padding: "0px 24px 0px 24px" }}>
             <Jokes.BasicInfo />
             {territory && (
               <>
@@ -58,13 +58,14 @@ const ControlPanel = createVisualComponent({
                 <UuTerritory.ArtifactIfc.Bricks.PermissionSettings
                   territoryBaseUri={territory.data.uuTerritoryBaseUri}
                   artifactId={territory.data.artifact.id}
+                  contextType="none"
                   cardView="full"
                 />
               </>
             )}
             {!territory && (
               <UuContentKit.Bricks.BlockDanger>
-                <UU5.Bricks.Lsi lsi={Lsi.controlPanel.btNotConnected} />
+                <UU5.Bricks.Lsi lsi={Lsi.btNotConnected} />
               </UuContentKit.Bricks.BlockDanger>
             )}
           </UU5.Bricks.Section>

@@ -134,18 +134,6 @@ const Lsi = {
       en: "You don't have rights to initialize this uuJokes.",
     },
   },
-
-  controlPanel: {
-    rightsError: {
-      cs: "K zobrazení komponenty nemáte dostatečná práva.",
-      en: "You do not have sufficient rights to display this component.",
-    },
-
-    btNotConnected: {
-      cs: "Aplikace není napojená na Business Territory",
-      en: "The application is not connected to a Business Territory",
-    },
-  },
 };
 
 export default Lsi;
