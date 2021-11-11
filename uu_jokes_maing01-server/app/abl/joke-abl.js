@@ -345,10 +345,8 @@ class JokeAbl {
 
     // hds 4, A6
     if (
-      session.getIdentity().getUuIdentity() !== joke.uuIdentity
-      // &&
-      // TODO Add constants and uncomment
-      // !authorizationResult.getAuthorizedProfiles().includes(JokesInstanceAbl.AUTHORITIES)
+      session.getIdentity().getUuIdentity() !== joke.uuIdentity &&
+      !authorizationResult.getAuthorizedProfiles().includes(Profiles.AUTHORITIES)
     ) {
       throw new Errors.Delete.UserNotAuthorized({ uuAppErrorMap });
     }
