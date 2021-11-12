@@ -79,8 +79,7 @@ class JokeAbl {
     // hds 2.4
     dtoIn.averageRating = 0;
     dtoIn.ratingCount = 0;
-    // TODO Read from constants and uncommenth
-    //dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(JokesInstanceAbl.AUTHORITIES);
+    dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(Profiles.AUTHORITIES);
     dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
     dtoIn.uuIdentityName = session.getIdentity().getName();
     dtoIn.awid = awid;

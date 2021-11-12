@@ -44,14 +44,11 @@ class LoadAbl {
 
     // HDS 4
     const cmdUri = UriBuilder.parse(uri).setUseCase("sys/uuAppWorkspace/load").clearParameters();
-    // const authorizationResult = await WorkspaceAuthorizationService.authorize(session, cmdUri.toUri());
+    const authorizationResult = await WorkspaceAuthorizationService.authorize(session, cmdUri.toUri());
 
     const profileData = {
-      // TODO Fixme
-      //uuIdentityProfileList: authorizationResult.getIdentityProfiles(),
-      //profileList: authorizationResult.getAuthorizedProfiles(),
-      uuIdentityProfileList: ["Authorities"],
-      profileList: ["Authorities"],
+      uuIdentityProfileList: authorizationResult.getIdentityProfiles(),
+      profileList: authorizationResult.getAuthorizedProfiles(),
     };
 
     // HDS 5
@@ -69,7 +66,6 @@ class LoadAbl {
     // HDS 8
     dtoOut.data = { ...jokes, relatedObjectsMap: {} };
 
-    // TODO Temporary fix, remove categoryList from load
     const categoryList = await this.categoryDao.list(awid);
     dtoOut.data.categoryList = categoryList.itemList;
 
