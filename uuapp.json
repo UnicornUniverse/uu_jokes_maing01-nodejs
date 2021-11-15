@@ -7,14 +7,6 @@
     "cs": "uuJokes je referenční aplikace pro vzdělávací účely"
   },
   "devkit": {
-    "fat": {
-      "appBoxLocationUri": "ues:UU-BT:PRD.UU-APPG01-SERVER-NODEJS/APPBOX_TESTING",
-      "appDeploymentUri": "ues:UUSERVERKIT-BT[98234766881292020]:FAMILY_UUSERVERKIT_FAT_RESOURCEPOOL_AWE[5e564263d24a21c771cc0d24]:UU.JOKES.MAING01[5e70ebcb3c0e09f18cb480cb]"
-    },
-    "test": {
-      "appBoxLocationUri": "ues:UU-BT:PRD.UU-APPG01-SERVER-NODEJS/APPBOX_TESTING",
-      "appDeploymentUri": "ues:UUSERVERKIT-BT[98234766881292020]:FAMILY_UUSERVERKIT_FAT_RESOURCEPOOL_AWE[5e564263d24a21c771cc0d24]:UU.JOKES.MAING01[5eaa8eebf439f9fb4e98dfd3]"
-    },
     "development": {
       "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX",
       "appDeploymentUri": "ues:EMF-BT[52816343470606949]:FAMILY_EM_DEV_RESOURCEPOOL_AWE[60378981f90380f4b78eef93]:UU.JOKES.MAING01[611f7600566164380e3891c4]"
@@ -22,14 +14,6 @@
     "demo": {
       "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX",
       "appDeploymentUri": "ues:DEV0114-BT[84723967990073193]:AWE_DEMO[5c90a9904f1d8a75778df379]:UU.JOKES.MAING01[5c90e6584f1d8ad5648df40c]"
-    },
-    "dev116": {
-      "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX",
-      "appDeploymentUri": "ues:DEV0116-BT[84723967990075193]:AWE_HUB.UUAPPFRAMEWORK-DEV-POOL[5d1330410e2acae931bbafb5]:UU.JOKES.MAING01[5d9c54090e2aca3656bc096a]"
-    },
-    "tga": {
-      "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX",
-      "appDeploymentUri": "ues:TGA-BT[84723967990090703]:TRAINING_AWE[5dcc06ac0e2aca18bbbc392a]:UU.JOKES.MAING01[5f2161d5f439f9183a995c9a]"
     }
   },
   "uu_jokes_maing01-hi": {},
