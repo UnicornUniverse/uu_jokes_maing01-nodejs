@@ -1,21 +1,21 @@
 {
   "name": "uu_jokes_maing01-hi",
-  "version": "3.0.0-dev",
+  "version": "3.0.0",
   "private": true,
   "description": "uuJokes is reference application for educational purposes",
   "license": "License Commercial",
   "namespace": "UuJokes",
   "spec": "uu5-app; uu_appg01_devkit@4.3.0",
   "dependencies": {
-    "uu5loaderg01": "^1.0.1",
-    "uu5g04": "^1.49.5",
-    "uu5g05": "^1.0.0",
+    "uu_contentkitg01": "^2.15.1",
+    "uu_jokesg01-core": "^0.2.0",
     "uu_plus4u5g01": "^4.22.0",
     "uu_plus4u5g02": "^0.7.0",
     "uu_plus4u5g02-app": "^0.7.0",
-    "uu_jokesg01-core": "^0.2.0",
     "uu_territoryg01": "^2.14.0",
-    "uu_contentkitg01": "^2.15.1"
+    "uu5g04": "^1.49.5",
+    "uu5g05": "^1.0.0",
+    "uu5loaderg01": "^1.0.1"
   },
   "uuBuildSettings": {
     "externals": {}
