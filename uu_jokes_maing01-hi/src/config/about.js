@@ -58,7 +58,14 @@ export const About = {
       name: "Radek Dolejš",
       uuIdentity: "4-1",
       role: {
-        en: "Product Manager",
+        en: "Evangelist Hub Manager",
+      },
+    },
+    {
+      name: "Klára Hniličková",
+      uuIdentity: "13-2340-1",
+      role: {
+        en: "Educational Materials Family Manager",
       },
     },
   ],
@@ -68,13 +75,6 @@ export const About = {
       uuIdentity: "6565-1",
       role: {
         en: "Developer",
-      },
-    },
-    {
-      name: "Klára Hniličková",
-      uuIdentity: "13-2340-1",
-      role: {
-        en: "Designer",
       },
     },
     {
@@ -126,19 +126,15 @@ export const About = {
     },
     content: {
       cs: [
-        `<uu5string/>Dále byly použity technologie: <UU5.Bricks.LinkHTML5/>, <UU5.Bricks.LinkCSS/>, <UU5.Bricks.LinkJavaScript/>, <UU5.Bricks.LinkBootstrap/>,
-        <UU5.Bricks.LinkReact/>, <UU5.Bricks.LinkRuby/>, <UU5.Bricks.LinkPuma/> a <UU5.Bricks.LinkDocker/>.
-        Aplikace je provozována v rámci internetové služby <UU5.Bricks.LinkPlus4U/> s využitím cloudu <UU5.Bricks.LinkMSAzure/>.
-        Uživatelská dokumentace aplikace je popsána v knize <UU5.Bricks.Link href="" target="_blank" content='"Zde doplňte odkaz na dokumentaci"' />.
-        Technickou dokumentaci lze nalézt v knize <UU5.Bricks.Link href="" target="_blank" content='"Zde doplňte odkaz na dokumentaci"' />.`,
+        `<uu5string/>Dále byly použity technologie: <UU5.Bricks.LinkHTML5/>, <UU5.Bricks.LinkCSS/>, <UU5.Bricks.LinkJavaScript/>,
+        <UU5.Bricks.LinkReact/> a <UU5.Bricks.LinkDocker/>.
+        Aplikace je provozována v rámci internetové služby <UU5.Bricks.LinkPlus4U/> s využitím cloudu <UU5.Bricks.LinkMSAzure/>.`,
       ],
       en: [
-        `<uu5string/>Other used technologies: <UU5.Bricks.LinkHTML5/>, <UU5.Bricks.LinkCSS/>, <UU5.Bricks.LinkJavaScript/>, <UU5.Bricks.LinkBootstrap/>,
-        <UU5.Bricks.LinkReact/>, <UU5.Bricks.LinkRuby/>, <UU5.Bricks.LinkPuma/> a <UU5.Bricks.LinkDocker/>.
-        Application is operated in the <UU5.Bricks.LinkPlus4U/> internet service with the usage of <UU5.Bricks.LinkMSAzure/> cloud.
-        The application user guide is located in <UU5.Bricks.Link href="" target="_blank" content='"Documentation link put here"' />.
-        Technical documentation can be found in <UU5.Bricks.Link href="" target="_blank" content='"Documentation link put here"' />.`,
-      ],
+        `<uu5string/>Other used technologies: <UU5.Bricks.LinkHTML5/>, <UU5.Bricks.LinkCSS/>, <UU5.Bricks.LinkJavaScript/>,
+        <UU5.Bricks.LinkReact/> a <UU5.Bricks.LinkDocker/>.
+        Application is operated in the <UU5.Bricks.LinkPlus4U/> internet service with the usage of <UU5.Bricks.LinkMSAzure/> cloud.`
+      ]
     },
   },
 };
