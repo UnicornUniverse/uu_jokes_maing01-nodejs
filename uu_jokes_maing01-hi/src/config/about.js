@@ -132,8 +132,8 @@ export const About = {
       ],
       en: [
         `<uu5string/>Other used technologies: <UU5.Bricks.LinkHTML5/>, <UU5.Bricks.LinkCSS/>, <UU5.Bricks.LinkJavaScript/>,
-        <UU5.Bricks.LinkReact/> a <UU5.Bricks.LinkDocker/>.
-        Application is operated in the <UU5.Bricks.LinkPlus4U/> internet service with the usage of <UU5.Bricks.LinkMSAzure/> cloud.`
+        <UU5.Bricks.LinkReact/> a <UU5.Bricks.LinkDocker/>.`,
+        `<uu5string/>Application is operated in the <UU5.Bricks.LinkPlus4U/> internet service with the usage of <UU5.Bricks.LinkMSAzure/> cloud.`
       ]
     },
   },
