@@ -115,7 +115,7 @@ class JokeAbl {
     }
 
     // hds 4
-    if (dtoIn.categoryList) {
+    if (dtoIn.categoryList && dtoIn.categoryList.length) {
       let presentCategories = await this._checkCategoriesExistence(awid, dtoIn.categoryList);
       // A7
       if (dtoIn.categoryList.length > 0) {
