@@ -5,10 +5,10 @@ const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const { UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
 // TODO Add InstanceChecker
-const { Profiles } = require("./constants");
-const Errors = require("../api/errors/joke-error");
+const { Profiles } = require("../constants");
+const Errors = require("../../api/errors/joke-error");
 const Path = require("path");
-const FileHelper = require("../helpers/file-helper");
+const FileHelper = require("../../helpers/file-helper");
 
 const WARNINGS = {
   createUnsupportedKeys: {
