@@ -22,7 +22,7 @@ const WARNINGS = {
 
 class CreateAbl {
   constructor() {
-    this.validator = new Validator(Path.join(__dirname, "..", "api", "validation_types", "joke-types.js"));
+    this.validator = new Validator(Path.join(__dirname, "..", "..", "api", "validation_types", "joke-types.js"));
     this.dao = DaoFactory.getDao("joke");
     this.categoryDao = DaoFactory.getDao("category");
   }

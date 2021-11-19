@@ -4,8 +4,8 @@ const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const { UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
 // TODO Add InstanceChecker
-const { Profiles } = require("./constants");
-const Errors = require("../api/errors/joke-error");
+const { Profiles } = require("../constants");
+const Errors = require("../../api/errors/joke-error");
 const Path = require("path");
 
 const WARNINGS = {
@@ -23,7 +23,7 @@ const WARNINGS = {
 
 class UpdateAbl {
   constructor() {
-    this.validator = new Validator(Path.join(__dirname, "..", "api", "validation_types", "joke-types.js"));
+    this.validator = new Validator(Path.join(__dirname, "..", "..", "api", "validation_types", "joke-types.js"));
     this.dao = DaoFactory.getDao("joke");
     this.categoryDao = DaoFactory.getDao("category");
   }

@@ -3,7 +3,7 @@ const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 // TODO Add InstanceChecker
-const Errors = require("../api/errors/joke-error");
+const Errors = require("../../api/errors/joke-error");
 const Path = require("path");
 
 const WARNINGS = {
@@ -14,7 +14,7 @@ const WARNINGS = {
 
 class JokeAbl {
   constructor() {
-    this.validator = new Validator(Path.join(__dirname, "..", "api", "validation_types", "joke-types.js"));
+    this.validator = new Validator(Path.join(__dirname, "..", "..", "api", "validation_types", "joke-types.js"));
     this.dao = DaoFactory.getDao("joke");
   }
 
