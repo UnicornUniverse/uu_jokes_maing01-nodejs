@@ -4,11 +4,11 @@ const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const { UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
-// TODO Add InstanceChecker
 const { Profiles } = require("../constants");
 const Errors = require("../../api/errors/joke-error");
 const Path = require("path");
 const FileHelper = require("../../helpers/file-helper");
+const InstanceChecker = require("../../helpers/instance-checker");
 
 const WARNINGS = {
   createUnsupportedKeys: {
@@ -29,12 +29,11 @@ class CreateAbl {
 
   async create(awid, dtoIn, session, authorizationResult) {
     // hds 1, A1, hds 1.1, A2
-    // TODO Add InstanceChecer
-    // await JokesInstanceAbl.checkInstance(
-    //   awid,
-    //   Errors.Create.JokesInstanceDoesNotExist,
-    //   Errors.Create.JokesInstanceNotInProperState
-    // );
+    await InstanceChecker.checkInstance(
+      awid,
+      Errors.Create.JokesInstanceDoesNotExist,
+      Errors.Create.JokesInstanceNotInProperState
+    );
 
     // hds 2, 2.1
     let validationResult = this.validator.validate("jokeCreateDtoInType", dtoIn);
