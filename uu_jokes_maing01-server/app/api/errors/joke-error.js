@@ -242,13 +242,6 @@ const List = {
       this.message = "JokesInstance is not in proper state [active|underConstruction].";
     }
   },
-  JokesInstanceIsUnderConstruction: class extends UuJokesError {
-    constructor() {
-      super(...arguments);
-      this.code = `${List.UC_CODE}jokesInstanceIsUnderConstruction`;
-      this.message = "JokesInstance is in state underConstruction.";
-    }
-  },
   InvalidDtoIn: class extends UuJokesError {
     constructor() {
       super(...arguments);
