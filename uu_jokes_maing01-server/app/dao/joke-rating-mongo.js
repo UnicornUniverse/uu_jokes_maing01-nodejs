@@ -14,7 +14,7 @@ class JokeRatingMongo extends UuJokesDao {
   }
 
   async getByJokeIdAndUuIdentity(awid, jokeId, uuIdentity) {
-    return await super.findOne({ awid, jokeId, uuIdentity });
+    return await super.findOne({ awid, jokeId: new ObjectId(jokeId), uuIdentity });
   }
 
   async update(uuObject) {

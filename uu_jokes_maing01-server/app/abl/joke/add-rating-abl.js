@@ -2,66 +2,95 @@
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
-// TODO Add InstanceChecker
 const Errors = require("../../api/errors/joke-error");
-const Path = require("path");
-
-const WARNINGS = {
-  addRatingUnsupportedKeys: {
-    code: `${Errors.AddRating.UC_CODE}unsupportedKeys`,
-  },
-};
+const Warnings = require("../../api/warnings/joke-warning");
+const InstanceChecker = require("../components/instance-checker");
+const Constants = require("../constants");
 
 class AddRatingAbl {
   constructor() {
-    this.validator = new Validator(Path.join(__dirname, "..", "..", "api", "validation_types", "joke-types.js"));
-    this.dao = DaoFactory.getDao("joke");
-    this.jokeRatingDao = DaoFactory.getDao("jokeRating");
+    this.validator = Validator.load();
+    this.dao = DaoFactory.getDao(Constants.Schemas.JOKE);
+    this.jokeRatingDao = DaoFactory.getDao(Constants.Schemas.JOKE_RATING);
   }
 
   async addRating(awid, dtoIn, session) {
+    let uuAppErrorMap = {};
+
     // hds 1, A1, hds 1.1, A2
-    // TODO Add InstanceChecker
-    // await JokesInstanceAbl.checkInstance(
-    //   awid,
-    //   Errors.AddRating.JokesInstanceDoesNotExist,
-    //   Errors.AddRating.JokesInstanceNotInProperState
-    // );
+    await InstanceChecker.ensureInstanceAndState(
+      awid,
+      new Set([Constants.Jokes.States.ACTIVE]),
+      Errors.AddRating,
+      uuAppErrorMap
+    );
 
     // hds 2, 2.1
-    let validationResult = this.validator.validate("jokeAddRatingDtoInType", dtoIn);
+    const validationResult = this.validator.validate("jokeAddRatingDtoInType", dtoIn);
     // hds 2.2, 2.3, A3, A4
-    let uuAppErrorMap = ValidationHelper.processValidationResult(
+    uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.addRatingUnsupportedKeys.code,
+      uuAppErrorMap,
+      Warnings.AddRating.UnsupportedKeys.code,
       Errors.AddRating.InvalidDtoIn
     );
 
     // hds 3
-    let joke;
-    let jokeId = dtoIn.id;
-    joke = await this.dao.get(awid, jokeId);
+    const joke = await this.dao.get(awid, dtoIn.id);
     // A5
-    if (!joke) throw new Errors.AddRating.JokeDoesNotExist({ uuAppErrorMap }, { jokeId: jokeId });
-    jokeId = joke.id;
+    if (!joke) throw new Errors.AddRating.JokeDoesNotExist({ uuAppErrorMap }, { jokeId: dtoIn.id });
 
     // hds 4, A6
-    let uuIdentity = session.getIdentity().getUuIdentity();
+    const uuIdentity = session.getIdentity().getUuIdentity();
     if (uuIdentity === joke.uuIdentity) {
       throw new Errors.AddRating.UserNotAuthorized({ uuAppErrorMap });
     }
 
     // hds 5
-    let rating = dtoIn.rating;
-    let ratingUuObject = await this.jokeRatingDao.getByJokeIdAndUuIdentity(awid, jokeId, uuIdentity);
+    const { oldRating } = await this._createOrUpdateRating(awid, dtoIn.rating, dtoIn.id, uuIdentity, uuAppErrorMap);
+
+    // hds 6, 7
+    const newAverageRating = this._getJokeAverageRating(joke, dtoIn.rating, oldRating);
+    if (!oldRating) joke.ratingCount += 1;
+    joke.averageRating = newAverageRating;
+
+    // hds 8
+    let updatedJoke;
+    try {
+      updatedJoke = await this.dao.update(joke);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.AddRating.JokeDaoUpdateFailed({ uuAppErrorMap }, e);
+      }
+      throw e;
+    }
+
+    // hds 9
+    const dtoOut = {
+      ...updatedJoke,
+      uuAppErrorMap,
+    };
+
+    return dtoOut;
+  }
+
+  /**
+   * Creates or updates rating of particular uuIdentity and joke
+   * @param {String} awid Used awid
+   * @param {Number} rating Rating value
+   * @param {String} jokeId Id of the joke
+   * @param {String} uuIdentity UuIdentity of the user
+   * @returns {Promise<[]>} New and old rating value
+   */
+  async _createOrUpdateRating(awid, rating, jokeId, uuIdentity, uuAppErrorMap) {
+    const ratingUuObject = await this.jokeRatingDao.getByJokeIdAndUuIdentity(awid, jokeId, uuIdentity);
     let oldRating;
     if (ratingUuObject) {
       oldRating = ratingUuObject.value;
-      // hds 5.1
+      // hds 5.1 - this is basically an update of existing rating of the particular identity and joke
       try {
-        ratingUuObject.value = rating;
-        await this.jokeRatingDao.update(ratingUuObject);
+        await this.jokeRatingDao.update({ ...ratingUuObject, value: rating });
       } catch (e) {
         if (e instanceof ObjectStoreError) {
           // A7
@@ -82,30 +111,25 @@ class AddRatingAbl {
       }
     }
 
-    // hds 6
-    let newRating;
+    return { newRating: rating, oldRating };
+  }
+
+  /**
+   * Gets new average rating
+   * @param {Object} joke UuObject joke
+   * @param {Number} oldRating Original rating
+   * @returns {Number} New calculated average rating
+   */
+  _getJokeAverageRating(joke, rating, oldRating) {
+    let newAverage;
+
     if (oldRating) {
-      newRating = (joke.averageRating * joke.ratingCount - oldRating + rating) / joke.ratingCount;
+      newAverage = (joke.averageRating * joke.ratingCount - oldRating + rating) / joke.ratingCount;
     } else {
-      newRating = (joke.averageRating * joke.ratingCount + rating) / (joke.ratingCount + 1);
-      // hds 7
-      joke.ratingCount += 1;
-    }
-    joke.averageRating = newRating;
-
-    // hds 8
-    try {
-      joke = await this.dao.update(joke);
-    } catch (e) {
-      if (e instanceof ObjectStoreError) {
-        throw new Errors.AddRating.JokeDaoUpdateFailed({ uuAppErrorMap }, e);
-      }
-      throw e;
+      newAverage = (joke.averageRating * joke.ratingCount + rating) / (joke.ratingCount + 1);
     }
 
-    // hds 9
-    joke.uuAppErrorMap = uuAppErrorMap;
-    return joke;
+    return newAverage;
   }
 }
 

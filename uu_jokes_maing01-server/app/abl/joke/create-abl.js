@@ -1,108 +1,94 @@
 "use strict";
-const { Base64 } = require("uu_appg01_server").Utils;
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const { UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
-const { Profiles } = require("../constants");
 const Errors = require("../../api/errors/joke-error");
-const Path = require("path");
-const FileHelper = require("../../helpers/file-helper");
-const InstanceChecker = require("../../helpers/instance-checker");
-
-const WARNINGS = {
-  createUnsupportedKeys: {
-    code: `${Errors.Create.UC_CODE}unsupportedKeys`,
-  },
-  createCategoryDoesNotExist: {
-    code: `${Errors.Create.UC_CODE}categoryDoesNotExist`,
-    message: "One or more categories with given categoryId do not exist.",
-  },
-};
+const Warnings = require("../../api/warnings/joke-warning");
+const InstanceChecker = require("../components/instance-checker");
+const Joke = require("../components/joke");
+const Constants = require("../constants");
 
 class CreateAbl {
   constructor() {
-    this.validator = new Validator(Path.join(__dirname, "..", "..", "api", "validation_types", "joke-types.js"));
-    this.dao = DaoFactory.getDao("joke");
-    this.categoryDao = DaoFactory.getDao("category");
+    this.validator = Validator.load();
+    this.dao = DaoFactory.getDao(Constants.Schemas.JOKE);
   }
 
   async create(awid, dtoIn, session, authorizationResult) {
+    let uuAppErrorMap = {};
+
     // hds 1, A1, hds 1.1, A2
-    await InstanceChecker.checkInstance(
+    await InstanceChecker.ensureInstanceAndState(
       awid,
-      Errors.Create.JokesInstanceDoesNotExist,
-      Errors.Create.JokesInstanceNotInProperState
+      new Set([Constants.Jokes.States.ACTIVE]),
+      Errors.Create,
+      uuAppErrorMap
     );
 
     // hds 2, 2.1
-    let validationResult = this.validator.validate("jokeCreateDtoInType", dtoIn);
+    const validationResult = this.validator.validate("jokeCreateDtoInType", dtoIn);
     // hds 2.2, 2.3, A3, A4
-    let uuAppErrorMap = ValidationHelper.processValidationResult(
+    uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.createUnsupportedKeys.code,
+      uuAppErrorMap,
+      Warnings.Create.UnsupportedKeys.code,
       Errors.Create.InvalidDtoIn
     );
-    // hds 2.4
-    dtoIn.averageRating = 0;
-    dtoIn.ratingCount = 0;
-    dtoIn.visibility = authorizationResult.getAuthorizedProfiles().includes(Profiles.AUTHORITIES);
-    dtoIn.uuIdentity = session.getIdentity().getUuIdentity();
-    dtoIn.uuIdentityName = session.getIdentity().getName();
-    dtoIn.awid = awid;
 
-    // hds 3.1, A5
+    // hds 3
+    if ("text" in dtoIn && dtoIn.text.trim().length === 0) {
+      throw new Errors.Create.InvalidName(uuAppErrorMap, { text: dtoIn.text });
+    }
+
+    // hds 4
+    const uuObject = {
+      ...dtoIn,
+      averageRating: 0,
+      ratingCount: 0,
+      visibility: authorizationResult.getAuthorizedProfiles().includes(Constants.Profiles.AUTHORITIES),
+      uuIdentity: session.getIdentity().getUuIdentity(),
+      uuIdentityName: session.getIdentity().getName(),
+    };
+
+    // hds 5.1, A5
     if (dtoIn.image) {
-      //check if stream or base64
-      if (dtoIn.image.readable) {
-        //check if the stream is valid
-        let { valid: isValidStream, stream } = await FileHelper.validateImageStream(dtoIn.image);
-        if (!isValidStream) {
-          throw new Errors.Create.InvalidPhotoContentType({ uuAppErrorMap });
-        }
-        dtoIn.image = stream;
-      } else {
-        //check if the base64 is valid
-        let binaryBuffer = Base64.urlSafeDecode(dtoIn.image, "binary");
-        if (!FileHelper.validateImageBuffer(binaryBuffer).valid) {
-          throw new Errors.Create.InvalidPhotoContentType({ uuAppErrorMap });
-        }
+      const image = await Joke.checkAndGetImageAsStream(dtoIn.image, Errors.Create);
 
-        dtoIn.image = FileHelper.toStream(binaryBuffer);
-      }
-
-      //hds 3.2
+      // hds 5.2
       try {
-        let binary = await UuBinaryAbl.createBinary(awid, { data: dtoIn.image });
-        dtoIn.image = binary.code;
+        const binary = await UuBinaryAbl.createBinary(awid, { data: image });
+        uuObject.image = binary.code;
       } catch (e) {
         // A6
         throw new Errors.Create.UuBinaryCreateFailed({ uuAppErrorMap }, e);
       }
     }
 
-    // hds 4
-    if (dtoIn.categoryList && dtoIn.categoryList.length) {
-      let presentCategories = await this._checkCategoriesExistence(awid, dtoIn.categoryList);
+    // hds 6
+    if (dtoIn.categoryIdList && dtoIn.categoryIdList.length) {
+      const { validCategories, invalidCategories } = await Joke.checkCategoriesExistence(awid, dtoIn.categoryIdList);
       // A7
-      if (dtoIn.categoryList.length > 0) {
+      if (invalidCategories.length > 0) {
         ValidationHelper.addWarning(
           uuAppErrorMap,
-          WARNINGS.createCategoryDoesNotExist.code,
-          WARNINGS.createCategoryDoesNotExist.message,
-          { categoryList: [...new Set(dtoIn.categoryList)] }
+          Warnings.Create.CategoryDoesNotExist.code,
+          Warnings.Create.CategoryDoesNotExist.message,
+          { categoryIdList: invalidCategories }
         );
       }
-      dtoIn.categoryList = [...new Set(presentCategories)];
+      uuObject.categoryIdList = validCategories;
     } else {
-      dtoIn.categoryList = [];
+      uuObject.categoryIdList = [];
     }
 
-    // hds 5
+    // hds 7
+    uuObject.awid = awid;
     let joke;
+
     try {
-      joke = await this.dao.create(dtoIn);
+      joke = await this.dao.create(uuObject);
     } catch (e) {
       // A8
       if (e instanceof ObjectStoreError) {
@@ -111,32 +97,13 @@ class CreateAbl {
       throw e;
     }
 
-    // hds 6
-    joke.uuAppErrorMap = uuAppErrorMap;
-    return joke;
-  }
+    // hds 8
+    const dtoOut = {
+      ...joke,
+      uuAppErrorMap,
+    };
 
-  /**
-   * Checks whether categories exist for specified awid and removes them from categoryList (so it, in the end, contains
-   * only ids of categories, that do not exist).
-   * @param {String} awid Used awid
-   * @param {Array} categoryList An array with ids of categories
-   * @returns {Promise<[]>} Ids of existing categories
-   */
-  async _checkCategoriesExistence(awid, categoryList) {
-    let categories;
-    let presentCategories = [];
-    let categoryIndex;
-    categories = await this.categoryDao.listByCategoryIdList(awid, categoryList);
-    categories.itemList.forEach((category) => {
-      categoryIndex = categoryList.indexOf(category.id.toString());
-      if (categoryIndex !== -1) {
-        presentCategories.push(category.id.toString());
-        categoryList.splice(categoryIndex, 1);
-      }
-    });
-
-    return presentCategories;
+    return dtoOut;
   }
 }
 
