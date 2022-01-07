@@ -43,13 +43,17 @@ class CreateAbl {
     }
 
     // hds 4
-    const uuObject = {
-      ...dtoIn,
+    const addedValues = {
       averageRating: 0,
       ratingCount: 0,
       visibility: authorizationResult.getAuthorizedProfiles().includes(Constants.Profiles.AUTHORITIES),
       uuIdentity: session.getIdentity().getUuIdentity(),
       uuIdentityName: session.getIdentity().getName(),
+    };
+
+    const uuObject = {
+      ...dtoIn,
+      ...addedValues,
     };
 
     // hds 5.1, A5
