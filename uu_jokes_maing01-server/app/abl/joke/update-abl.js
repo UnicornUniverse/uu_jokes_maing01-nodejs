@@ -46,7 +46,7 @@ class UpdateAbl {
 
     // hds 4
     const invalidText = "text" in dtoIn && dtoIn.text.trim().length === 0;
-    if (invalidText && (!dtoIn.image && !joke.image)) {
+    if (invalidText && !dtoIn.image && !joke.image) {
       throw new Errors.Update.InvalidName(uuAppErrorMap, { text: dtoIn.text });
     }
 
@@ -64,7 +64,7 @@ class UpdateAbl {
     }
 
     // hds 7
-    const toUpdate = { ...dtoIn};
+    const toUpdate = { ...dtoIn };
     delete toUpdate.deleteImage;
     // note: empty array is valid (possibility to remove all categories)
     if (dtoIn.categoryIdList) {
@@ -88,7 +88,7 @@ class UpdateAbl {
       if (!joke.image) {
         // hds 8.1
         try {
-          binary = await UuBinaryAbl.createBinary(awid, { data: image});
+          binary = await UuBinaryAbl.createBinary(awid, { data: image });
         } catch (e) {
           // A8
           throw new Errors.Update.UuBinaryCreateFailed({ uuAppErrorMap }, e);

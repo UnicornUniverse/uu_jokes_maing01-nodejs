@@ -17,7 +17,12 @@ class GetAbl {
     let uuAppErrorMap = {};
 
     // hds 1, A1, hds 1.1, A2
-    await InstanceChecker.ensureInstanceAndState(awid, new Set([Constants.Jokes.States.ACTIVE]), Errors.Get, uuAppErrorMap);
+    await InstanceChecker.ensureInstanceAndState(
+      awid,
+      new Set([Constants.Jokes.States.ACTIVE]),
+      Errors.Get,
+      uuAppErrorMap
+    );
 
     // hds 2, 2.1
     const validationResult = this.validator.validate("jokeGetDtoInType", dtoIn);

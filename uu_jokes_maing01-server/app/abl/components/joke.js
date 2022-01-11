@@ -24,8 +24,8 @@ class Joke {
     const invalidCategories = [];
     let categoryFound;
     const storedCategories = await this.categoryDao.listByCategoryIdList(awid, categoryIdList);
-    categoryIdList.forEach(id => {
-      categoryFound = storedCategories.itemList.find(it=> it.id.toString() === id);
+    categoryIdList.forEach((id) => {
+      categoryFound = storedCategories.itemList.find((it) => it.id.toString() === id);
       if (categoryFound) {
         validCategories.push(id.toString());
       } else {

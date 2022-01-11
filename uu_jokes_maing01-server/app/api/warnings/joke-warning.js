@@ -43,7 +43,7 @@ const Warnings = {
     UnsupportedKeys: {
       code: `${Errors.Delete.UC_CODE}unsupportedKeys`,
     },
-  }
+  },
 };
 
 module.exports = Warnings;
