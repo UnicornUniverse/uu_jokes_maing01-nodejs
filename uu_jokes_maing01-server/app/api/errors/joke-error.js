@@ -26,6 +26,13 @@ const Create = {
       this.message = "DtoIn is not valid.";
     }
   },
+  InvalidName: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}invalidName`;
+      this.message = "Invalid name - it cannot have no characters or be of zero length if image is not provided.";
+    }
+  },
   UuBinaryCreateFailed: class extends UuJokesError {
     constructor() {
       super(...arguments);
@@ -111,6 +118,20 @@ const Update = {
       this.message = "DtoIn is not valid.";
     }
   },
+  InvalidName: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}invalidName`;
+      this.message = "Invalid name - it cannot have no characters or be of zero length if image is not provided.";
+    }
+  },
+  ImageCannotBeDeleted: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Create.UC_CODE}imageCannotBeDeleted`;
+      this.message = "Image cannot be deleted if joke would end up without both text and image.";
+    }
+  },
   UserNotAuthorized: class extends UuJokesError {
     constructor() {
       super(...arguments);
@@ -137,6 +158,13 @@ const Update = {
       super(...arguments);
       this.code = `${Update.UC_CODE}uuBinaryUpdateBinaryDataFailed`;
       this.message = "Updating uuBinary data failed.";
+    }
+  },
+  InvalidPhotoContentType: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}invalidPhotoContentType`;
+      this.message = "ContentType of new photo is invalid.";
     }
   },
   JokeDaoUpdateFailed: class extends UuJokesError {
@@ -285,7 +313,7 @@ const AddRating = {
     constructor() {
       super(...arguments);
       this.code = `${AddRating.UC_CODE}userNotAuthorized`;
-      this.message = "User is not authorized.";
+      this.message = "User is not authorized to rate the joke that they created.";
     }
   },
   JokeRatingDaoUpdateFailed: class extends UuJokesError {

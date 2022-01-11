@@ -2,15 +2,11 @@
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
-// TODO Add InstanceChecker
 const Errors = require("../../api/errors/joke-error");
-const Path = require("path");
+const Warnings = require("../../api/warnings/joke-warning");
+const InstanceChecker = require("../components/instance-checker");
+const Constants = require("../constants");
 
-const WARNINGS = {
-  listUnsupportedKeys: {
-    code: `${Errors.List.UC_CODE}unsupportedKeys`,
-  },
-};
 const DEFAULTS = {
   sortBy: "name",
   order: "asc",
@@ -20,37 +16,32 @@ const DEFAULTS = {
 
 class ListAbl {
   constructor() {
-    this.validator = new Validator(Path.join(__dirname, "..", "..", "api", "validation_types", "joke-types.js"));
-    this.dao = DaoFactory.getDao("joke");
+    this.validator = Validator.load();
+    this.dao = DaoFactory.getDao(Constants.Schemas.JOKE);
   }
 
-  async list(awid, dtoIn, authorizationResult) {
+  async list(awid, dtoIn) {
+    let uuAppErrorMap = {};
+
     // hds 1, A1, hds 1.1, A2
-    // TODO Add InstanceChecker
-    // let jokesInstance = await JokesInstanceAbl.checkInstance(
-    //   awid,
-    //   Errors.List.JokesInstanceDoesNotExist,
-    //   Errors.List.JokesInstanceNotInProperState
-    // );
-    // // A3
-    // let authorizedProfiles = authorizationResult.getAuthorizedProfiles();
-    // if (
-    //   jokesInstance.state === JokesInstanceAbl.STATE_UNDER_CONSTRUCTION &&
-    //   !authorizedProfiles.includes(JokesInstanceAbl.AUTHORITIES) &&
-    //   !authorizedProfiles.includes(JokesInstanceAbl.EXECUTIVES)
-    // ) {
-    //   throw new Errors.List.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
-    // }
+    await InstanceChecker.ensureInstanceAndState(
+      awid,
+      new Set([Constants.Jokes.States.ACTIVE]),
+      Errors.List,
+      uuAppErrorMap
+    );
 
     // hds 2, 2.1
-    let validationResult = this.validator.validate("jokeListDtoInType", dtoIn);
+    const validationResult = this.validator.validate("jokeListDtoInType", dtoIn);
     // hds 2.2, 2.3, A4, A5
-    let uuAppErrorMap = ValidationHelper.processValidationResult(
+    uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.listUnsupportedKeys.code,
+      uuAppErrorMap,
+      Warnings.List.UnsupportedKeys.code,
       Errors.List.InvalidDtoIn
     );
+
     // hds 2.4
     if (!dtoIn.sortBy) dtoIn.sortBy = DEFAULTS.sortBy;
     if (!dtoIn.order) dtoIn.order = DEFAULTS.order;
@@ -58,13 +49,10 @@ class ListAbl {
     if (!dtoIn.pageInfo.pageSize) dtoIn.pageInfo.pageSize = DEFAULTS.pageSize;
     if (!dtoIn.pageInfo.pageIndex) dtoIn.pageInfo.pageIndex = DEFAULTS.pageIndex;
 
-    if (dtoIn.sortBy === "rating") {
-      dtoIn.sortBy = "averageRating";
-    }
     // hds 3
     let list;
-    if (dtoIn.categoryList) {
-      list = await this.dao.listByCategoryIdList(awid, dtoIn.categoryList, dtoIn.sortBy, dtoIn.order, dtoIn.pageInfo);
+    if (dtoIn.categoryIdList) {
+      list = await this.dao.listByCategoryIdList(awid, dtoIn.categoryIdList, dtoIn.sortBy, dtoIn.order, dtoIn.pageInfo);
     } else {
       list = await this.dao.list(awid, dtoIn.sortBy, dtoIn.order, dtoIn.pageInfo);
     }

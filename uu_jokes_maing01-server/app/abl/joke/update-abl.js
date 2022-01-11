@@ -3,95 +3,101 @@ const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const { UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
-// TODO Add InstanceChecker
-const { Profiles } = require("../constants");
 const Errors = require("../../api/errors/joke-error");
-const Path = require("path");
-
-const WARNINGS = {
-  updateUnsupportedKeys: {
-    code: `${Errors.Update.UC_CODE}unsupportedKeys`,
-  },
-  updateCategoryDoesNotExist: {
-    code: `${Errors.Update.UC_CODE}categoryDoesNotExist`,
-    message: "One or more categories with given categoryId do not exist.",
-  },
-  updateVisibilityUnsupportedKeys: {
-    code: `${Errors.UpdateVisibility.UC_CODE}unsupportedKeys`,
-  },
-};
+const Warnings = require("../../api/warnings/joke-warning");
+const InstanceChecker = require("../components/instance-checker");
+const Joke = require("../components/joke");
+const Constants = require("../constants");
 
 class UpdateAbl {
   constructor() {
-    this.validator = new Validator(Path.join(__dirname, "..", "..", "api", "validation_types", "joke-types.js"));
-    this.dao = DaoFactory.getDao("joke");
-    this.categoryDao = DaoFactory.getDao("category");
+    this.validator = Validator.load();
+    this.dao = DaoFactory.getDao(Constants.Schemas.JOKE);
   }
 
   async update(awid, dtoIn, session, authorizationResult) {
+    let uuAppErrorMap = {};
+
     // hds 1, A1, hds 1.1, A2
-    // TODO Add InstanceChecker
-    // await JokesInstanceAbl.checkInstance(
-    //   awid,
-    //   Errors.Update.JokesInstanceDoesNotExist,
-    //   Errors.Update.JokesInstanceNotInProperState
-    // );
+    await InstanceChecker.ensureInstanceAndState(
+      awid,
+      new Set([Constants.Jokes.States.ACTIVE]),
+      Errors.Update,
+      uuAppErrorMap
+    );
 
     // hds 2, 2.1
-    let validationResult = this.validator.validate("jokeUpdateDtoInType", dtoIn);
+    const validationResult = this.validator.validate("jokeUpdateDtoInType", dtoIn);
     // hds 2.2, 2.3, A3, A4
-    let uuAppErrorMap = ValidationHelper.processValidationResult(
+    uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.updateUnsupportedKeys.code,
+      uuAppErrorMap,
+      Warnings.Update.UnsupportedKeys.code,
       Errors.Update.InvalidDtoIn
     );
 
     // hds 3
-    let joke = await this.dao.get(awid, dtoIn.id);
+    const joke = await this.dao.get(awid, dtoIn.id);
     // A5
     if (!joke) {
       throw new Errors.Update.JokeDoesNotExist({ uuAppErrorMap }, { jokeId: dtoIn.id });
     }
 
     // hds 4
-    let uuId = session.getIdentity().getUuIdentity();
-    // A6
-    if (uuId !== joke.uuIdentity && !authorizationResult.getAuthorizedProfiles().includes(Profiles.AUTHORITIES)) {
-      throw new Errors.Update.UserNotAuthorized({ uuAppErrorMap });
+    const invalidText = "text" in dtoIn && dtoIn.text.trim().length === 0;
+    if (invalidText && (!dtoIn.image && !joke.image)) {
+      throw new Errors.Update.InvalidName(uuAppErrorMap, { text: dtoIn.text });
     }
 
     // hds 5
-    if (dtoIn.categoryList) {
-      let presentCategories = await this._checkCategoriesExistence(awid, dtoIn.categoryList);
-      // A7
-      if (dtoIn.categoryList.length > 0) {
-        ValidationHelper.addWarning(
-          uuAppErrorMap,
-          WARNINGS.updateCategoryDoesNotExist.code,
-          WARNINGS.updateCategoryDoesNotExist.message,
-          { categoryList: [...new Set(dtoIn.categoryList)] }
-        );
-      }
-      dtoIn.categoryList = [...new Set(presentCategories)];
+    if (dtoIn.deleteImage && invalidText && !joke.text) {
+      throw new Errors.Update.ImageCannotBeDeleted(uuAppErrorMap);
     }
 
     // hds 6
+    const uuIdentity = session.getIdentity().getUuIdentity();
+    const isAuthorities = authorizationResult.getAuthorizedProfiles().includes(Constants.Profiles.AUTHORITIES);
+    // A6
+    if (uuIdentity !== joke.uuIdentity && !isAuthorities) {
+      throw new Errors.Update.UserNotAuthorized({ uuAppErrorMap });
+    }
+
+    // hds 7
+    const toUpdate = { ...dtoIn};
+    delete toUpdate.deleteImage;
+    // note: empty array is valid (possibility to remove all categories)
+    if (dtoIn.categoryIdList) {
+      const { validCategories, invalidCategories } = await Joke.checkCategoriesExistence(awid, dtoIn.categoryIdList);
+      // A7
+      if (invalidCategories.length > 0) {
+        ValidationHelper.addWarning(
+          uuAppErrorMap,
+          Warnings.Update.CategoryDoesNotExist.code,
+          Warnings.Update.CategoryDoesNotExist.message,
+          { categoryIdList: invalidCategories }
+        );
+      }
+      toUpdate.categoryIdList = validCategories;
+    }
+
+    // hds 8
     if (dtoIn.image) {
       let binary;
+      const image = await Joke.checkAndGetImageAsStream(dtoIn.image, Errors.Update);
       if (!joke.image) {
-        // hds 6.1
+        // hds 8.1
         try {
-          binary = await UuBinaryAbl.createBinary(awid, { data: dtoIn.image });
+          binary = await UuBinaryAbl.createBinary(awid, { data: image});
         } catch (e) {
           // A8
           throw new Errors.Update.UuBinaryCreateFailed({ uuAppErrorMap }, e);
         }
       } else {
-        // hds 6.2
+        // hds 8.2
         try {
           binary = await UuBinaryAbl.updateBinaryData(awid, {
-            data: dtoIn.image,
+            data: image,
             code: joke.image,
             revisionStrategy: "NONE",
           });
@@ -100,13 +106,23 @@ class UpdateAbl {
           throw new Errors.Update.UuBinaryUpdateBinaryDataFailed({ uuAppErrorMap }, e);
         }
       }
-      dtoIn.image = binary.code;
+      toUpdate.image = binary.code;
     }
 
-    // hds 7
+    // hds 9
+    if (dtoIn.deleteImage && joke.image) {
+      await UuBinaryAbl.deleteBinary(awid, {
+        code: joke.image,
+        revisionStrategy: "NONE",
+      });
+      toUpdate.image = null;
+    }
+
+    // hds 10
+    toUpdate.awid = awid;
+    let updatedJoke;
     try {
-      dtoIn.awid = awid;
-      joke = await this.dao.update(dtoIn);
+      updatedJoke = await this.dao.update(toUpdate);
     } catch (e) {
       if (e instanceof ObjectStoreError) {
         // A10
@@ -115,32 +131,13 @@ class UpdateAbl {
       throw e;
     }
 
-    // hds 8
-    joke.uuAppErrorMap = uuAppErrorMap;
-    return joke;
-  }
+    // hds 11
+    const dtoOut = {
+      ...updatedJoke,
+      uuAppErrorMap,
+    };
 
-  /**
-   * Checks whether categories exist for specified awid and removes them from categoryList (so it, in the end, contains
-   * only ids of categories, that do not exist).
-   * @param {String} awid Used awid
-   * @param {Array} categoryList An array with ids of categories
-   * @returns {Promise<[]>} Ids of existing categories
-   */
-  async _checkCategoriesExistence(awid, categoryList) {
-    let categories;
-    let presentCategories = [];
-    let categoryIndex;
-    categories = await this.categoryDao.listByCategoryIdList(awid, categoryList);
-    categories.itemList.forEach((category) => {
-      categoryIndex = categoryList.indexOf(category.id.toString());
-      if (categoryIndex !== -1) {
-        presentCategories.push(category.id.toString());
-        categoryList.splice(categoryIndex, 1);
-      }
-    });
-
-    return presentCategories;
+    return dtoOut;
   }
 }
 

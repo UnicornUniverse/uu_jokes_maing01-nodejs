@@ -2,6 +2,7 @@
 const Constants = require("../abl/constants");
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 
+// TODO: smazat?
 class InstanceChecker {
   constructor() {
     this.dao = DaoFactory.getDao("jokesInstance");

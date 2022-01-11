@@ -2,61 +2,48 @@
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
-// TODO Add InstanceChecker
 const Errors = require("../../api/errors/joke-error");
-const Path = require("path");
-
-const WARNINGS = {
-  getUnsupportedKeys: {
-    code: `${Errors.Get.UC_CODE}unsupportedKeys`,
-  },
-};
+const Warnings = require("../../api/warnings/joke-warning");
+const InstanceChecker = require("../components/instance-checker");
+const Constants = require("../constants");
 
 class GetAbl {
   constructor() {
-    this.validator = new Validator(Path.join(__dirname, "..", "..", "api", "validation_types", "joke-types.js"));
-    this.dao = DaoFactory.getDao("joke");
-    this.jokeRatingDao = DaoFactory.getDao("jokeRating");
+    this.validator = Validator.load();
+    this.dao = DaoFactory.getDao(Constants.Schemas.JOKE);
   }
 
-  async get(awid, dtoIn, authorizationResult) {
+  async get(awid, dtoIn) {
+    let uuAppErrorMap = {};
+
     // hds 1, A1, hds 1.1, A2
-    // TODO Add InstanceChecker
-    // let jokesInstance = await JokesInstanceAbl.checkInstance(
-    //   awid,
-    //   Errors.Get.JokesInstanceDoesNotExist,
-    //   Errors.Get.JokesInstanceNotInProperState
-    // );
-    // A3
-    // let authorizedProfiles = authorizationResult.getAuthorizedProfiles();
-    // if (
-    //   jokesInstance.state === JokesInstanceAbl.STATE_UNDER_CONSTRUCTION &&
-    //   !authorizedProfiles.includes(JokesInstanceAbl.AUTHORITIES) &&
-    //   !authorizedProfiles.includes(JokesInstanceAbl.EXECUTIVES)
-    // ) {
-    //   throw new Errors.Get.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
-    // }
+    await InstanceChecker.ensureInstanceAndState(awid, new Set([Constants.Jokes.States.ACTIVE]), Errors.Get, uuAppErrorMap);
 
     // hds 2, 2.1
-    let validationResult = this.validator.validate("jokeGetDtoInType", dtoIn);
+    const validationResult = this.validator.validate("jokeGetDtoInType", dtoIn);
     // hds 2.2, 2.3, A4, A5
-    let uuAppErrorMap = ValidationHelper.processValidationResult(
+    uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.getUnsupportedKeys.code,
+      uuAppErrorMap,
+      Warnings.Get.UnsupportedKeys.code,
       Errors.Get.InvalidDtoIn
     );
 
     // hds 3
-    let joke = await this.dao.get(awid, dtoIn.id);
+    const joke = await this.dao.get(awid, dtoIn.id);
     if (!joke) {
       // A6
       throw new Errors.Get.JokeDoesNotExist(uuAppErrorMap, { jokeId: dtoIn.id });
     }
 
     // hds 4
-    joke.uuAppErrorMap = uuAppErrorMap;
-    return joke;
+    const dtoOut = {
+      ...joke,
+      uuAppErrorMap,
+    };
+
+    return dtoOut;
   }
 }
 

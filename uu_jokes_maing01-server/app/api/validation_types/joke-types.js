@@ -1,9 +1,9 @@
 /* eslint-disable */
 const jokeCreateDtoInType = shape({
   name: uu5String(255).isRequired(),
-  text: uu5String(4000),
-  categoryList: array(id(), 10),
-  image: binary(),
+  text: uu5String(4000).isRequired(["image"]),
+  categoryIdList: array(id(), 10),
+  image: binary().isRequired(["text"]),
 });
 
 const jokeGetDtoInType = shape({
@@ -14,8 +14,10 @@ const jokeUpdateDtoInType = shape({
   id: id().isRequired(),
   name: uu5String(255),
   text: uu5String(4000),
-  categoryList: array(id(), 10),
+  categoryIdList: array(id(), 10),
   image: binary(),
+  // FIXME: right now not send from client!
+  deleteImage: boolean(),
 });
 
 const jokeUpdateVisibilityDtoInType = shape({
@@ -30,7 +32,7 @@ const jokeDeleteDtoInType = shape({
 const jokeListDtoInType = shape({
   sortBy: oneOf(["name", "averageRating"]),
   order: oneOf(["asc", "desc"]),
-  categoryList: array(id(), 10),
+  categoryIdList: array(id(), 1, 10),
   pageInfo: shape({
     pageIndex: integer(),
     pageSize: integer(),
