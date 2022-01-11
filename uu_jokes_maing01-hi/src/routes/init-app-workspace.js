@@ -2,7 +2,7 @@
 import UU5 from "uu5g04";
 import { createVisualComponent, useCallback, useLsiValues, useSession } from "uu5g04-hooks";
 import { useSystemData } from "uu_plus4u5g02";
-import { withRoute } from "uu_plus4u5g02-app";
+import { RouteController } from "uu_plus4u5g02-app";
 import { Core } from "uu_jokesg01-core";
 
 import "uu5g04-forms";
@@ -90,7 +90,7 @@ export const InitAppWorkspace = createVisualComponent({
     }
 
     return (
-      <>
+      <RouteController>
         <UU5.Bricks.Container noSpacing>
           <UU5.Forms.ContextSection
             {...attrs}
@@ -124,10 +124,10 @@ export const InitAppWorkspace = createVisualComponent({
             </UU5.Forms.ContextForm>
           </UU5.Forms.ContextSection>
         </UU5.Bricks.Container>
-      </>
+      </RouteController>
     );
   },
   //@@viewOff:render
 });
 
-export default withRoute(InitAppWorkspace, { authenticated: true, requireSubAppData: true });
+export default InitAppWorkspace;

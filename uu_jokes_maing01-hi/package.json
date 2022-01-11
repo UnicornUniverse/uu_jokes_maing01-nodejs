@@ -18,7 +18,23 @@
     "uu5loaderg01": "^1.0.1"
   },
   "uuBuildSettings": {
-    "externals": {}
+    "externals": {
+      "uu_plus4u5g02": {
+        "cdnBaseUri": "https://cdn.plus4u.net/beta/uu-plus4u5g02/0.0.0/"
+      },
+      "uu_plus4u5g02-app": {
+        "cdnBaseUri": "https://cdn.plus4u.net/beta/uu-plus4u5g02/0.0.0/"
+      },
+      "uu_plus4u5g02-elements": {
+        "cdnBaseUri": "https://cdn.plus4u.net/beta/uu-plus4u5g02/0.0.0/"
+      },
+      "uu_jokesg01-core": {
+        "cdnBaseUri": "http://localhost:4323/"
+      },
+      "uu5g05": {
+        "cdnBaseUri": "https://cdn.plus4u.net/beta/uu-uu5g05/1.3.1-dataobject.3/"
+      }
+    }
   },
   "devDependencies": {
     "uu_appg01_devkit": "^4.3.0"
