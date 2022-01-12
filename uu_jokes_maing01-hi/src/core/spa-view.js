@@ -1,19 +1,16 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, withLazy } from "uu5g05";
 import { useSubAppData } from "uu_plus4u5g02";
 import Plus4U5App from "uu_plus4u5g02-app";
-import "uu5g04-bricks";
 
 import Config from "./config/config";
 import RouteBar from "./route-bar";
 //@@viewOff:imports
 
-const Jokes = UU5.Common.Component.lazy(() => import("../routes/jokes"));
-const Categories = UU5.Common.Component.lazy(() => import("../routes/categories"));
-const ControlPanel = UU5.Common.Component.lazy(() => import("../routes/control-panel"));
-const InitAppWorkspace = UU5.Common.Component.lazy(() => import("../routes/init-app-workspace"));
-const About = UU5.Common.Component.lazy(() => import("../routes/about"));
+const Jokes = withLazy(() => import("../routes/jokes"));
+const Categories = withLazy(() => import("../routes/categories"));
+const ControlPanel = withLazy(() => import("../routes/control-panel"));
+const InitAppWorkspace = withLazy(() => import("../routes/init-app-workspace"));
 
 const STATICS = {
   //@@viewOn:statics
@@ -34,7 +31,7 @@ export const SpaView = createVisualComponent({
 
   render() {
     //@@viewOn:private
-    const { state } = useSubAppData();
+    const { data: subApp } = useSubAppData();
     //@@viewOff:private
 
     //@@viewOn:render
@@ -43,14 +40,13 @@ export const SpaView = createVisualComponent({
       [Config.Routes.CATEGORIES]: () => <Categories />,
       [Config.Routes.CONTROL_PANEL]: () => <ControlPanel />,
       [Config.Routes.INIT_APP_WORKSPACE]: () => <InitAppWorkspace />,
-      [Config.Routes.ABOUT]: () => <About />,
       "": { redirect: Config.Routes.JOKES },
       "*": { redirect: Config.Routes.JOKES },
     };
 
     return (
       <Plus4U5App.Spa>
-        {state !== "pendingNoData" && <RouteBar />}
+        {subApp?.state === "active" && <RouteBar />}
         <Plus4U5App.Router routeMap={routeMap} />
       </Plus4U5App.Spa>
     );
