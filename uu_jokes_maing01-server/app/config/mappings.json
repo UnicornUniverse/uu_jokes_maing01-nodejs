@@ -137,6 +137,29 @@
         "realization": "api/controllers/CategoryController.list",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "preference/loadFirst": {
+        "realization": "api/controllers/PreferenceController.loadFirst",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "preference/createOrUpdate": {
+        "realization": "api/controllers/PreferenceController.createOrUpdate",
+        "httpMethod": "POST",
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "code": "$.code",
+          "scope": "$.scope"
+        }
+      },
+      "preference/delete": {
+        "realization": "api/controllers/PreferenceController.delete",
+        "httpMethod": "POST",
+        "type": "CMD",
+        "dtoInAuditMap": {
+          "code": "$.code",
+          "scope": "$.scope"
+        }
       }
     }
   }
