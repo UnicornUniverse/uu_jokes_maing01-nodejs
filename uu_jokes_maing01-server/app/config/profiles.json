@@ -91,6 +91,18 @@
         "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       },
+      "preference/loadFirst": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "Executives", "Readers"]
+      },
+      "preference/createOrUpdate": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "Executives", "Readers"]
+      },
+      "preference/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "Executives", "Readers"]
+      },
       "getProductInfo": {
         "sysStateList": ["active"],
         "profileList": ["Public"]

@@ -3,6 +3,7 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils, useLsiValues } from "uu5g05";
 import Uu5Elements from "uu5g05-elements";
+import { RouteController } from "uu_plus4u5g02-app";
 import RouteContainer from "../core/route-container";
 import Config from "./config/config.js";
 import LsiData from "./init-app-workspace-lsi.js";
@@ -30,11 +31,13 @@ export const InitAppWorkspace = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <RouteContainer>
-        <Uu5Elements.HighlightedBox colorScheme={"primary"}>
-          {Utils.Uu5String.toChildren(lsiValues.formHeaderInfo)}
-        </Uu5Elements.HighlightedBox>
-      </RouteContainer>
+      <RouteController>
+        <RouteContainer>
+          <Uu5Elements.HighlightedBox colorScheme={"primary"}>
+            {Utils.Uu5String.toChildren(lsiValues.formHeaderInfo)}
+          </Uu5Elements.HighlightedBox>
+        </RouteContainer>
+      </RouteController>
     );
   },
   //@@viewOff:render

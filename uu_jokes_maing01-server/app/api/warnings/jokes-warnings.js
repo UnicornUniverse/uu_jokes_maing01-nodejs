@@ -1,4 +1,4 @@
-const Errors = require("../errors/polygons-error.js");
+const Errors = require("../errors/jokes-error.js");
 
 const Warnings = {
   InitUnsupportedKeys: {

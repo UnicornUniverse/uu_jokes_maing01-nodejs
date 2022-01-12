@@ -28,8 +28,8 @@ class SetStateAbl {
     let dtoOut = {};
 
     // HDS 1
-    const allowedStates = new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]);
-    let jokes = await InstanceChecker.ensureInstanceAndState(awid, Errors, allowedStates, uuAppErrorMap);
+    const allowedStates = new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION, Jokes.States.CLOSED]);
+    let jokes = await InstanceChecker.ensureInstanceAndState(awid, allowedStates, Errors, uuAppErrorMap);
 
     // HDS 2
     let validationResult = this.validator.validate("jokesSetStateDtoInType", dtoIn);
