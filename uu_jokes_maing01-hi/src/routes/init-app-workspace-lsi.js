@@ -11,9 +11,9 @@ export default {
 
   formHeaderInfo: {
     cs: `<uu5string/>Vaše uuApp běží, ale vyžaduje inicializaci. Pokud potřebujete pomoci s vyplněním tohoto formuláře, podívejte se do
-<UU5.Bricks.Link target="_blank" style="color: inherit" href="#">Dokumentace</UU5.Bricks.Link>.`,
+<Uu5Elements.Link target="_blank" style="color: inherit" href="#">Dokumentace</Uu5Elements.Link>.`,
     en: `<uu5string/>Your uuApp is running, but requires initialization. If you need help with filling up this form, see
-<UU5.Bricks.Link target="_blank" style="color: inherit" href="#">Documentation</UU5.Bricks.Link>.`,
+<Uu5Elements.Link target="_blank" style="color: inherit" href="#">Documentation</Uu5Elements.Link>.`,
   },
 
   notAuthorizedForInit: {

@@ -1,12 +1,10 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
-import { useRoute } from "uu5g05";
+import { createVisualComponent, useRoute, Lsi } from "uu5g05";
 import { useSubAppData, useSystemData } from "uu_plus4u5g02";
 import Plus4U5App from "uu_plus4u5g02-app";
 
 import Config from "./config/config";
-import Lsi from "./route-bar-lsi";
+import LsiData from "./route-bar-lsi";
 //@@viewOff:imports
 
 const STATICS = {
@@ -34,35 +32,29 @@ export const RouteBar = createVisualComponent({
 
     if (system.awidData.sysState === Config.AppWorkspace.State.CREATED) {
       actionMap[Config.Routes.INIT_APP_WORKSPACE] = {
-        children: <UU5.Bricks.Lsi lsi={Lsi.initAppWorkspace} />,
+        children: <Lsi lsi={LsiData.initAppWorkspace} />,
         onClick: () => setRoute(Config.Routes.INIT_APP_WORKSPACE),
       };
     } else {
       actionMap[Config.Routes.JOKES] = {
-        children: <UU5.Bricks.Lsi lsi={Lsi.jokes} />,
+        children: <Lsi lsi={LsiData.jokes} />,
         onClick: () => setRoute(Config.Routes.JOKES),
         icon: "mdi-emoticon-happy",
       };
 
       actionMap[Config.Routes.CATEGORIES] = {
-        children: <UU5.Bricks.Lsi lsi={Lsi.categories} />,
+        children: <Lsi lsi={LsiData.categories} />,
         onClick: () => setRoute(Config.Routes.CATEGORIES),
         icon: "mdi-shape",
       };
 
       actionMap[Config.Routes.CONTROL_PANEL] = {
-        children: <UU5.Bricks.Lsi lsi={Lsi.controlPanel} />,
+        children: <Lsi lsi={LsiData.controlPanel} />,
         onClick: () => setRoute(Config.Routes.CONTROL_PANEL),
         icon: "mdi-tune",
+        collapsed: true,
       };
     }
-
-    actionMap[Config.Routes.ABOUT] = {
-      children: <UU5.Bricks.Lsi lsi={Lsi.about} />,
-      onClick: () => setRoute(Config.Routes.ABOUT),
-      icon: "mdi-information",
-      collapsed: true,
-    };
 
     const activeAction = actionMap[route.uu5Route];
 
@@ -73,9 +65,8 @@ export const RouteBar = createVisualComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const attrs = UU5.Common.VisualComponent.getAttrs(props);
     return (
-      <Plus4U5App.RouteBar appActionList={Object.values(actionMap)} {...attrs}>
+      <Plus4U5App.RouteBar appActionList={Object.values(actionMap)}>
         <Plus4U5App.RouteHeader title={jokes?.name ?? Lsi.namePlaceholder} />
       </Plus4U5App.RouteBar>
     );

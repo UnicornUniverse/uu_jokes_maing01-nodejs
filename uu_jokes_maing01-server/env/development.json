@@ -4,7 +4,7 @@
     "primary": "mongodb://127.0.0.1:27017/jokesMainPrimary",
     "binary": "mongodb://127.0.0.1:27017/jokesMainBinary"
   },
-  "asid_license_owner_list": ["4-1", "12-470-1", "12-5696-1", "5060-4766-9574-0000", "3504-6847-1673-0000"],
+  "asid_license_owner_list": ["4-1", "12-470-1", "12-5696-1", "3504-6847-1673-0000", "642-1-1"],
   "asid": "00000622a8d544a3badf16adac35799f",
   "log_level": "INFO",
 
@@ -18,6 +18,5 @@
   "product_portal_uri": "https://uuapp.plus4u.net/uu-dockit-maing02/d112828dcd1445e2a916cdd59331a359/document?documentId=5fb577cf1d97660025f9023b",
 
   "uu_app_oidc_providers_oidcg02_authentication_type": "code",
-  "uu_app_oidc_providers_oidcg02_session_crossdomain_strategy": "forward",
-  "uu_app_oidc_providers_oidcg02_uri": "https://uuapp.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc"
+  "uu_app_oidc_providers_oidcg02_session_crossdomain_strategy": "forward"
 }

@@ -15,6 +15,7 @@
     "uu_territoryg01": "^2.14.0",
     "uu5g04": "^1.49.5",
     "uu5g05": "^1.0.0",
+    "uu5g05-elements": "^1.0.0",
     "uu5loaderg01": "^1.0.1"
   },
   "uuBuildSettings": {

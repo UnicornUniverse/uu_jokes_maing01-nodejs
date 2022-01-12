@@ -1,15 +1,15 @@
 /**
  * Server calls of application client.
  */
-import UU5 from "uu5g04";
-import Plus4U5 from "uu_plus4u5g01";
+import { Environment } from "uu5g05";
+import Plus4U5 from "uu_plus4u5g02";
 
 let Calls = {
   /** URL containing app base, e.g. "https://uuapp.plus4u.net/vendor-app-subapp/awid/". */
-  APP_BASE_URI: location.protocol + "//" + location.host + UU5.Environment.getAppBasePath(),
+  APP_BASE_URI: location.protocol + "//" + location.host + Environment.appBaseUri(),
 
   async call(method, url, dtoIn, clientOptions) {
-    let response = await Plus4U5.Common.Calls.call(method, url, dtoIn, clientOptions);
+    let response = await Plus4U5.Utils.AppClient[method](url, dtoIn, clientOptions);
     return response.data;
   },
 
@@ -40,7 +40,7 @@ let Calls = {
 
     // override tid / awid if it's present in environment (use also its gateway in such case)
     if (process.env.NODE_ENV !== "production") {
-      let env = UU5.Environment;
+      let env = Environment;
       if (env.tid || env.awid || env.vendor || env.app) {
         let url = Plus4U5.Common.Url.parse(targetUriStr);
         if (env.tid || env.awid) {

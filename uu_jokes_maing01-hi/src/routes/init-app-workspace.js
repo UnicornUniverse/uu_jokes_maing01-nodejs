@@ -1,34 +1,17 @@
+// TODO - properly with uu5g05 forms
+
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createVisualComponent, useCallback, useLsiValues, useSession } from "uu5g04-hooks";
-import { useSystemData } from "uu_plus4u5g02";
-import { withRoute } from "uu_plus4u5g02-app";
-import { Core } from "uu_jokesg01-core";
-
-import "uu5g04-forms";
-import Calls from "calls";
+import { createVisualComponent, Utils, useLsiValues } from "uu5g05";
+import Uu5Elements from "uu5g05-elements";
+import RouteContainer from "../core/route-container";
 import Config from "./config/config.js";
-import SpaUnauthorizedInit from "../core/spa-unauthorized-init.js";
-import Lsi from "./init-app-workspace-lsi.js";
+import LsiData from "./init-app-workspace-lsi.js";
 //@@viewOff:imports
-
-const RELATIVE_URI_REGEXP = new RegExp(/^\/[^/]/);
 
 const STATICS = {
   //@@viewOn:statics
   displayName: Config.TAG + "InitAppWorkspace",
   //@@viewOff:statics
-};
-
-const CLASS_NAMES = {
-  main: () => Config.Css.css`
-    max-width: 512px;
-    margin: auto;
-    padding: 10px;
-  `,
-  cancelButton: () => Config.Css.css`
-    display: none;
-  `,
 };
 
 export const InitAppWorkspace = createVisualComponent({
@@ -42,92 +25,19 @@ export const InitAppWorkspace = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    const { data: system } = useSystemData();
-    const { identity } = useSession();
-    const routeLsi = useLsiValues(Lsi);
-
-    let handleSave = useCallback(async ({ component, values }) => {
-      try {
-        let originalUrl = new URLSearchParams(window.location.search).get("originalUrl");
-        // TODO Add operation init to JokesProvider
-        await Calls.initWorkspace(values);
-        component.saveDone();
-
-        let redirectPath;
-
-        if (originalUrl) {
-          if (RELATIVE_URI_REGEXP.test(originalUrl)) {
-            redirectPath = originalUrl;
-          } else {
-            redirectPath = UU5.Environment.getAppBasePath();
-          }
-        } else {
-          redirectPath = UU5.Environment.getAppBasePath() + "controlPanel";
-        }
-
-        window.location.replace(redirectPath);
-      } catch (error) {
-        console.error(error);
-        component.saveFail();
-        component.getAlertBus().addAlert({
-          content: <Core.Error errorData={error} />,
-          colorSchema: "danger",
-        });
-      }
-    }, []);
+    const lsiValues = useLsiValues(LsiData);
     //@@viewOff:private
 
     //@@viewOn:render
-    let attrs = UU5.Common.VisualComponent.getAttrs(props, CLASS_NAMES.main());
-
-    // TODO Add permission to jokesPermission
-    if (!system.awidData.awidLicenseOwnerList.some((owner) => owner === identity.uuIdentity)) {
-      return (
-        <SpaUnauthorizedInit>
-          <UU5.Bricks.Lsi lsi={Lsi.notAuthorizedForInit} />
-        </SpaUnauthorizedInit>
-      );
-    }
-
     return (
-      <>
-        <UU5.Bricks.Container noSpacing>
-          <UU5.Forms.ContextSection
-            {...attrs}
-            header={
-              <UU5.Forms.ContextHeader
-                content={<UU5.Bricks.Lsi lsi={Lsi.formHeader} />}
-                info={<UU5.Bricks.Lsi lsi={Lsi.formHeaderInfo} />}
-              />
-            }
-          >
-            <UU5.Forms.ContextForm
-              onSave={handleSave}
-              onSaveDone={() => {}}
-              onSaveFail={() => {}}
-              controlled={false}
-              inputColWidth={"m-12"}
-              labelColWidth={"m-12"}
-            >
-              <UU5.Forms.Text
-                required
-                name="uuBtLocationUri"
-                label={routeLsi.uuBtLocationUriLabel}
-                tooltip={routeLsi.uuBtLocationUriTooltip}
-                controlled={false}
-              />
-              <UU5.Forms.Text name="name" label={routeLsi.nameLabel} controlled={false} />
-              <UU5.Forms.ContextControls
-                buttonSubmitProps={{ content: <UU5.Bricks.Lsi lsi={Lsi.initialize} /> }}
-                buttonCancelProps={{ className: CLASS_NAMES.cancelButton() }}
-              />
-            </UU5.Forms.ContextForm>
-          </UU5.Forms.ContextSection>
-        </UU5.Bricks.Container>
-      </>
+      <RouteContainer>
+        <Uu5Elements.HighlightedBox colorScheme={"primary"}>
+          {Utils.Uu5String.toChildren(lsiValues.formHeaderInfo)}
+        </Uu5Elements.HighlightedBox>
+      </RouteContainer>
     );
   },
   //@@viewOff:render
 });
 
-export default withRoute(InitAppWorkspace, { authenticated: true, requireSubAppData: true });
+export default InitAppWorkspace;
