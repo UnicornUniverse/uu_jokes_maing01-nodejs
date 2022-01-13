@@ -54,6 +54,13 @@ export const RouteBar = createVisualComponent({
         icon: "mdi-tune",
         collapsed: true,
       };
+
+      actionMap[Config.Routes.ABOUT] = {
+        children: <Lsi lsi={LsiData.about} />,
+        onClick: () => setRoute(Config.Routes.ABOUT),
+        icon: "mdi-information",
+        collapsed: true,
+      };
     }
 
     const activeAction = actionMap[route.uu5Route];

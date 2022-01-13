@@ -18,6 +18,7 @@ export default {
     CATEGORIES: "categories",
     CONTROL_PANEL: "controlPanel",
     INIT_APP_WORKSPACE: "sys/uuAppWorkspace/initUve",
+    ABOUT: "about",
   },
   AppWorkspace: {
     State: {

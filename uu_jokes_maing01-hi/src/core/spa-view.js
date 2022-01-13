@@ -11,6 +11,7 @@ const Jokes = withLazy(() => import("../routes/jokes"));
 const Categories = withLazy(() => import("../routes/categories"));
 const ControlPanel = withLazy(() => import("../routes/control-panel"));
 const InitAppWorkspace = withLazy(() => import("../routes/init-app-workspace"));
+const About = withLazy(() => import("../routes/about"));
 
 const STATICS = {
   //@@viewOn:statics
@@ -40,6 +41,7 @@ export const SpaView = createVisualComponent({
       [Config.Routes.CATEGORIES]: () => <Categories />,
       [Config.Routes.CONTROL_PANEL]: () => <ControlPanel />,
       [Config.Routes.INIT_APP_WORKSPACE]: () => <InitAppWorkspace />,
+      [Config.Routes.ABOUT]: () => <About />,
       "": { redirect: Config.Routes.JOKES },
       "*": { redirect: Config.Routes.JOKES },
     };
