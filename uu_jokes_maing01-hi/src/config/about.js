@@ -6,7 +6,7 @@ export const About = {
     en: "UuJokes is reference application for educational purposes.",
   },
   licence: {
-    termsOfUse: "https://unicorn.com/tou/your_product",
+    termsOfUse: "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/en/tou",
     organisation: {
       cs: {
         name: "Unicorn a.s.",
@@ -21,13 +21,15 @@ export const About = {
       cs: [
         {
           name: "Vladimír Kovář",
-          uri: "https://www.unicorn.com/",
+          uri:
+            "https://uuapp.plus4u.net/uu-plus4upeople-maing01/56ac93ddb0034de8b8e4f4b829ff7d0f/personDetail?uuIdentity=1-1",
         },
       ],
       en: [
         {
           name: "Vladimír Kovář",
-          uri: "https://www.unicorn.com/",
+          uri:
+            "https://uuapp.plus4u.net/uu-plus4upeople-maing01/56ac93ddb0034de8b8e4f4b829ff7d0f/personDetail?uuIdentity=1-1",
         },
       ],
     },
@@ -141,17 +143,24 @@ export const About = {
         <Uu5Elements.Link key="uucloud" href="https://docs.plus4u.net/uaf/uuapp/uucloud" target="_blank">
           uuCloud
         </Uu5Elements.Link>,
+        <Uu5Elements.Link
+          key="uubt"
+          href="https://uuapp.plus4u.net/uu-bookkit-maing01/aaba4b1d6f0746a8abfab638fb98971f/book/page?code=home"
+          target="_blank"
+        >
+          uuBusinessTerritory
+        </Uu5Elements.Link>,
       ],
     },
     content: {
       cs: [
-        `<uu5string/>Dále byly použity technologie: <Uu5Elements.Link href="http://www.w3schools.com/html/default.asp" target="_blank">Html5</Uu5Elements.Link>, <Uu5Elements.Link href="http://www.w3schools.com/css/default.asp" target="_blank">CSS</Uu5Elements.Link>, <Uu5Elements.Link href="http://www.w3schools.com/js/default.asp" target="_blank">JavaScript</Uu5Elements.Link>, <Uu5Elements.Link href="http://getbootstrap.com" target="_blank">Bootstrap</Uu5Elements.Link>,
-        <Uu5Elements.Link href="https://reactjs.org" target="_blank">React</Uu5Elements.Link>, <Uu5Elements.Link href="https://www.ruby-lang.org" target="_blank">Ruby</Uu5Elements.Link>, <Uu5Elements.Link href="http://puma.io" target="_blank">Puma</Uu5Elements.Link> a <Uu5Elements.Link href="https://www.docker.com" target="_blank">Docker</Uu5Elements.Link>.
+        `<uu5string/>Dále byly použity technologie: <Uu5Elements.Link href="http://www.w3schools.com/html/default.asp" target="_blank">Html5</Uu5Elements.Link>, <Uu5Elements.Link href="http://www.w3schools.com/css/default.asp" target="_blank">CSS</Uu5Elements.Link>, <Uu5Elements.Link href="http://www.w3schools.com/js/default.asp" target="_blank">JavaScript</Uu5Elements.Link>,
+        <Uu5Elements.Link href="https://reactjs.org" target="_blank">React</Uu5Elements.Link> a <Uu5Elements.Link href="https://www.docker.com" target="_blank">Docker</Uu5Elements.Link>.
         Aplikace je provozována v rámci internetové služby <Uu5Elements.Link href="https://plus4u.net" target="_blank">Plus4U</Uu5Elements.Link> s využitím cloudu <Uu5Elements.Link href="https://azure.microsoft.com" target="_blank">Microsoft Azure</Uu5Elements.Link>.`,
       ],
       en: [
-        `<uu5string/>Other used technologies: <Uu5Elements.Link href="http://www.w3schools.com/html/default.asp" target="_blank">Html5</Uu5Elements.Link>, <Uu5Elements.Link href="http://www.w3schools.com/css/default.asp" target="_blank">CSS</Uu5Elements.Link>, <Uu5Elements.Link href="http://www.w3schools.com/js/default.asp" target="_blank">JavaScript</Uu5Elements.Link>, <Uu5Elements.Link href="http://getbootstrap.com" target="_blank">Bootstrap</Uu5Elements.Link>,
-        <Uu5Elements.Link href="https://reactjs.org" target="_blank">React</Uu5Elements.Link>, <Uu5Elements.Link href="https://www.ruby-lang.org" target="_blank">Ruby</Uu5Elements.Link>, <Uu5Elements.Link href="http://puma.io" target="_blank">Puma</Uu5Elements.Link> a <Uu5Elements.Link href="https://www.docker.com" target="_blank">Docker</Uu5Elements.Link>.
+        `<uu5string/>Other used technologies: <Uu5Elements.Link href="http://www.w3schools.com/html/default.asp" target="_blank">Html5</Uu5Elements.Link>, <Uu5Elements.Link href="http://www.w3schools.com/css/default.asp" target="_blank">CSS</Uu5Elements.Link>, <Uu5Elements.Link href="http://www.w3schools.com/js/default.asp" target="_blank">JavaScript</Uu5Elements.Link>,
+        <Uu5Elements.Link href="https://reactjs.org" target="_blank">React</Uu5Elements.Link> a <Uu5Elements.Link href="https://www.docker.com" target="_blank">Docker</Uu5Elements.Link>.
         Application is operated in the <Uu5Elements.Link href="https://plus4u.net" target="_blank">Plus4U</Uu5Elements.Link> internet service with the usage of <Uu5Elements.Link href="https://azure.microsoft.com" target="_blank">Microsoft Azure</Uu5Elements.Link> cloud.`,
       ],
     },
