@@ -1,25 +1,21 @@
-//@@viewOn:imports
-import UU5 from "uu5g04";
-import "uu5g04-bricks";
-import { createVisualComponent, useLsi } from "uu5g04-hooks";
+import { Utils, createVisualComponent, Environment, useLsi, Lsi, DynamicLibraryComponent, useSession } from "uu5g05";
+import Uu5Elements from "uu5g05-elements";
 import Plus4U5 from "uu_plus4u5g01";
-import { useSystemData } from "uu_plus4u5g02";
-import { RouteController } from "uu_plus4u5g02-app";
 import "uu_plus4u5g01-app";
+import { useSubApp, useSystemData } from "uu_plus4u5g02";
+import { RouteController } from "uu_plus4u5g02-app";
 
 import Config from "./config/config.js";
-import Lsi from "../config/lsi.js";
+import LSI from "../config/lsi.js";
 import AboutCfg from "../config/about.js";
 //@@viewOff:imports
 
-const STATICS = {
-  //@@viewOn:statics
-  displayName: Config.TAG + "About",
-  //@@viewOff:statics
-};
-
-const CLASS_NAMES = {
+//@@viewOn:css
+const Css = {
   main: () => Config.Css.css`
+    margin: 0 auto;
+    max-width: 920px;
+
     .plus4u5-app-about > .uu5-bricks-header,
     .plus4u5-app-licence > .uu5-bricks-header,
     .plus4u5-app-authors > .uu5-bricks-header,
@@ -36,106 +32,160 @@ const CLASS_NAMES = {
       padding-bottom: 56px;
     }
   `,
-  logos: () => Config.Css.css`
-    text-align:center;
-    margin-top: 56px;
-
-    .uu5-bricks-image {
-      height: 80px;
+  technologies: () => Config.Css.css({ maxWidth: 480 }),
+  logos: () => Config.Css.css({ textAlign: "center", marginTop: 56 }),
+  common: () => Config.Css.css`
+    max-width: 480px;
+    margin: 12px auto 56px;
+  
+    & > * {
+      border-top: 1px solid rgba(0, 0, 0, 0.12);
+      padding: 9px 0 12px;
+      text-align: center;
+      color: #828282;
+      &:last-child {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      }
     }
   `,
-  termsOfUse: () => Config.Css.css`
-    text-align:center;
-    margin-top: 56px;
-  `,
+  technologiesLicenseRow: () =>
+    Config.Css.css({
+      display: "grid",
+      gridTemplateColumns: "minmax(0, 12fr)",
+      marginTop: 40,
+      padding: "0 8px",
+      gap: "0 16px",
+      borderTop: "1px solid rgba(0,0,0,.12)",
+      ...Utils.Style.getMinMediaQueries("l", {
+        gridTemplateColumns: "minmax(0, 8fr) minmax(0, 4fr)",
+      }),
+    }),
+  license: () => Config.Css.css({ width: "auto" }),
 };
+//@@viewOff:css
+
+//@@viewOn:helpers
+function getAuthors(authors) {
+  return authors?.map((author) => {
+    author = { ...author };
+    author.role = author.role && typeof author.role === "object" ? <Lsi lsi={author.role} /> : author.role;
+    return author;
+  });
+}
+//@@viewOff:helpers
 
 export const About = createVisualComponent({
-  ...STATICS,
+  //@@viewOn:statics
+  uu5Tag: Config.TAG + "About",
+  //@@viewOff:statics
 
   //@@viewOn:propTypes
+  propTypes: {},
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
+  defaultProps: {},
   //@@viewOff:defaultProps
 
   render(props) {
     //@@viewOn:private
-    const { data: system } = useSystemData();
+    const { awid } = useSubApp();
+    const { state: sessionState } = useSession();
+    const { data: systemData } = useSystemData();
+    const {
+      uuAppUuFlsBaseUri,
+      uuAppUuSlsBaseUri,
+      uuAppBusinessModelUri,
+      uuAppApplicationModelUri,
+      uuAppBusinessRequestsUri,
+      uuAppUserGuideUri,
+      uuAppWebKitUri,
+      uuAppProductPortalUri,
+    } = systemData?.relatedObjectsMap || {};
+    const products = [];
+    if (uuAppBusinessModelUri) products.push({ baseUri: uuAppBusinessModelUri });
+    if (uuAppApplicationModelUri) products.push({ baseUri: uuAppApplicationModelUri });
+    if (uuAppBusinessRequestsUri) products.push({ baseUri: uuAppBusinessRequestsUri });
+    if (uuAppUserGuideUri) products.push({ baseUri: uuAppUserGuideUri });
+    if (uuAppWebKitUri) products.push({ baseUri: uuAppWebKitUri });
+
     const aboutLsi = AboutCfg.about || {};
     const licence = AboutCfg.licence || {};
     const usedTechnologies = AboutCfg.usedTechnologies || {};
 
-    // NOTE Some of these cannot be passed as prop={<UU5.Bricks.Lsi />} therefore we're using useLsi() hook.
-    let about = useLsi(aboutLsi);
-    let organisation = useLsi(licence.organisation);
-    let authorities = useLsi(licence.authorities);
-    let technologies = useLsi(usedTechnologies.technologies);
-    let content = useLsi(usedTechnologies.content);
+    // NOTE Some of these cannot be passed as prop={<Lsi />} therefore we're using useLsi() hook.
+    const about = useLsi(aboutLsi);
+    const organisation = useLsi(licence.organisation);
+    const authorities = useLsi(licence.authorities);
+    const technologies = useLsi(usedTechnologies.technologies);
+    const content = useLsi(usedTechnologies.content);
 
-    let header = useLsi(Lsi.about.header);
-    let creatorsHeader = useLsi(Lsi.about.creatorsHeader);
-    let termsOfUse = useLsi(Lsi.about.termsOfUse);
+    const header = useLsi(LSI.about.header);
+    const creatorsHeader = useLsi(LSI.about.creatorsHeader);
+    const termsOfUse = useLsi(LSI.about.termsOfUse);
     //@@viewOff:private
 
-    //@@viewOn:interface
-    //@@viewOff:interface
-
     //@@viewOn:render
-    function getAuthors(authors) {
-      return (
-        authors &&
-        authors.slice().map((author) => {
-          author = UU5.Common.Tools.merge({}, author);
-          author.role =
-            author.role && typeof author.role === "object" ? <UU5.Bricks.Lsi lsi={author.role} /> : author.role;
-          return author;
-        })
-      );
-    }
     const leadingAuthors = getAuthors(AboutCfg.leadingAuthors);
     const otherAuthors = getAuthors(AboutCfg.otherAuthors);
-    const attrs = UU5.Common.VisualComponent.getAttrs(props, CLASS_NAMES.main());
+    const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
+
     return (
       <RouteController>
-        <UU5.Bricks.Section {...attrs}>
+        <div {...attrs}>
           <Plus4U5.App.About header={header} content={about} />
-
-          <Plus4U5.App.Support
-            uuFlsUri={system.relatedObjectsMap.uuAppUuFlsBaseUri}
-            uuSlsUri={system.relatedObjectsMap.uuAppUuSlsBaseUri}
-            productPortalUri={system.relatedObjectsMap.uuAppProductPortalUri}
-            productCode="uuJokes"
-          />
-
-          <UU5.Bricks.Div className="center">
-            {UU5.Common.Tools.findComponent("UuProductCatalogue.Bricks.ProductInfo", {
-              baseUri: system.relatedObjectsMap.uuAppBusinessRequestsUri,
-              type: "16x9",
-            })}
-            {UU5.Common.Tools.findComponent("UuProductCatalogue.Bricks.ProductInfo", {
-              baseUri: system.relatedObjectsMap.uuAppBusinessModelUri,
-              type: "16x9",
-            })}
-            {UU5.Common.Tools.findComponent("UuProductCatalogue.Bricks.ProductInfo", {
-              baseUri: system.relatedObjectsMap.uuAppApplicationModelUri,
-              type: "16x9",
-            })}
-          </UU5.Bricks.Div>
-
-          <Plus4U5.App.Licence organisation={organisation} authorities={authorities} awid={system.awidData.awid} />
+          {sessionState === "authenticated" ? (
+            <Plus4U5.App.Support
+              uuFlsUri={uuAppUuFlsBaseUri}
+              uuSlsUri={uuAppUuSlsBaseUri}
+              productCode="uuJokes"
+              productPortalUri={uuAppProductPortalUri}
+            />
+          ) : null}
+          {products.length > 0 ? (
+            <DynamicLibraryComponent
+              uu5Tag="UuProductCatalogue.Bricks.ProductList"
+              props={{
+                type: "16x9",
+                products,
+              }}
+            />
+          ) : null}
+          <div className={Css.common()}>
+            <div>{`uuJokes ${Environment.appVersion}`}</div>
+            {licence.termsOfUse && (
+              <div>
+                <Uu5Elements.Link href={licence.termsOfUse} target="_blank">
+                  {termsOfUse}
+                </Uu5Elements.Link>
+              </div>
+            )}
+          </div>
           <Plus4U5.App.Authors header={creatorsHeader} leadingAuthors={leadingAuthors} otherAuthors={otherAuthors} />
-          <Plus4U5.App.Technologies technologies={technologies} content={content} />
-          {licence.termsOfUse && (
-            <UU5.Bricks.P className={CLASS_NAMES.termsOfUse()}>
-              <UU5.Bricks.Link href={licence.termsOfUse} target="_blank" content={termsOfUse} />
-            </UU5.Bricks.P>
-          )}
-          <UU5.Bricks.Div className={CLASS_NAMES.logos()}>
-            <UU5.Bricks.Image responsive={false} src="assets/plus4u.svg" />
-            <UU5.Bricks.Image responsive={false} src="assets/unicorn.svg" />
-          </UU5.Bricks.Div>
-        </UU5.Bricks.Section>
+          <div className={Css.technologiesLicenseRow()}>
+            <div>
+              <Plus4U5.App.Technologies
+                technologies={technologies}
+                content={content}
+                textAlign="left"
+                className={Css.technologies()}
+              />
+            </div>
+            <div>
+              <Plus4U5.App.Licence
+                organisation={organisation}
+                authorities={authorities}
+                awid={<Uu5Elements.Link href={Environment.appBaseUri}>{awid}</Uu5Elements.Link>}
+                textAlign="left"
+                className={Css.license()}
+              />
+            </div>
+          </div>
+          <div className={Css.logos()}>
+            <img height={80} src="assets/plus4u.svg" />
+            <img height={80} src="assets/unicorn.svg" />
+          </div>
+        </div>
       </RouteController>
     );
   },
