@@ -4,7 +4,7 @@ import "uu5g04-bricks";
 import { createVisualComponent, useLsi } from "uu5g04-hooks";
 import Plus4U5 from "uu_plus4u5g01";
 import { useSystemData } from "uu_plus4u5g02";
-import { withRoute } from "uu_plus4u5g02-app";
+import { RouteController } from "uu_plus4u5g02-app";
 import "uu_plus4u5g01-app";
 
 import Config from "./config/config.js";
@@ -97,7 +97,7 @@ export const About = createVisualComponent({
     const otherAuthors = getAuthors(AboutCfg.otherAuthors);
     const attrs = UU5.Common.VisualComponent.getAttrs(props, CLASS_NAMES.main());
     return (
-      <>
+      <RouteController>
         <UU5.Bricks.Section {...attrs}>
           <Plus4U5.App.About header={header} content={about} />
 
@@ -136,10 +136,10 @@ export const About = createVisualComponent({
             <UU5.Bricks.Image responsive={false} src="assets/unicorn.svg" />
           </UU5.Bricks.Div>
         </UU5.Bricks.Section>
-      </>
+      </RouteController>
     );
   },
   //@@viewOff:render
 });
 
-export default withRoute(About, { authenticated: true, requireSubAppData: true });
+export default About;

@@ -34,7 +34,7 @@ class PlugInBtAbl {
 
     // HDS 1
     const allowedStates = new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]);
-    let jokes = await InstanceChecker.ensureInstanceAndState(awid, Errors, allowedStates, uuAppErrorMap);
+    let jokes = await InstanceChecker.ensureInstanceAndState(awid, allowedStates, Errors, uuAppErrorMap);
 
     // HDS 2
     let validationResult = this.validator.validate("jokesPlugInBtDtoInType", dtoIn);
