@@ -4,6 +4,7 @@ const LoadAbl = require("../../abl/jokes/load-abl");
 const UpdateAbl = require("../../abl/jokes/update-abl");
 const SetStateAbl = require("../../abl/jokes/set-state-abl");
 const MigrateAbl = require("../../abl/jokes/migrate-abl");
+const WorkspaceAbl = require("../../abl/workspace-abl");
 
 class JokesController {
   static init(ucEnv) {
@@ -11,7 +12,7 @@ class JokesController {
   }
 
   static plugInBt(ucEnv) {
-    return PlugInBtAbl.plugInBt(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession());
+    return PlugInBtAbl.plugInBt(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession(), ucEnv.getAuthorizationResult());
   }
 
   static load(ucEnv) {
@@ -19,15 +20,19 @@ class JokesController {
   }
 
   static update(ucEnv) {
-    return UpdateAbl.update(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession());
+    return UpdateAbl.update(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession(), ucEnv.getAuthorizationResult());
   }
 
   static setState(ucEnv) {
-    return SetStateAbl.setState(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession());
+    return SetStateAbl.setState(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession(), ucEnv.getAuthorizationResult());
   }
 
   static migrate(ucEnv) {
     return MigrateAbl.migrate(ucEnv.getDtoIn());
+  }
+
+  static remove(ucEnv) {
+    return WorkspaceAbl.remove(ucEnv.getUri(), ucEnv.getSession());
   }
 }
 

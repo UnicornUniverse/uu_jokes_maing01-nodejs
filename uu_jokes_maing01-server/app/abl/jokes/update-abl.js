@@ -7,14 +7,9 @@ const { UriBuilder } = require("uu_appg01_server").Uri;
 const Path = require("path");
 
 const Errors = require("../../api/errors/jokes-error");
-const InstanceChecker = require("../components/instance-checker");
-const { Schemas, Jokes } = require("../constants");
-
-const Warnings = {
-  UpdateUnsupportedKeys: {
-    CODE: `${Errors.Update.UC_CODE}unsupportedKeys`,
-  },
-};
+const Warnings = require("../../api/warnings/jokes-warnings");
+const InstanceChecker = require("../../component/instance-checker");
+const { Profiles, Schemas, Jokes } = require("../constants");
 
 class UpdateAbl {
   constructor() {
@@ -22,28 +17,37 @@ class UpdateAbl {
     this.dao = DaoFactory.getDao(Schemas.JOKES);
   }
 
-  async update(uri, dtoIn, session) {
+  async update(uri, dtoIn, session, authorizationResult) {
     const awid = uri.getAwid();
     let uuAppErrorMap = {};
     let dtoOut = {};
 
-    // HDS 1
-    const allowedStates = new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]);
-    let jokes = await InstanceChecker.ensureInstanceAndState(awid, allowedStates, Errors, uuAppErrorMap);
+    // hds 1
+    const allowedStateRules = {
+      [Profiles.AUTHORITIES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
+    };
+    await InstanceChecker.ensureInstanceAndState(
+      awid,
+      allowedStateRules,
+      authorizationResult,
+      Errors.Update,
+      uuAppErrorMap
+    );
 
-    // HDS 2
-    let validationResult = this.validator.validate("jokesUpdateDtoInType", dtoIn);
-
+    // hds 2
+    const validationResult = this.validator.validate("jokesUpdateDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      Warnings.UpdateUnsupportedKeys.CODE,
+      uuAppErrorMap,
+      Warnings.Update.UnsupportedKeys.code,
       Errors.Update.InvalidDtoIn
     );
 
-    // HDS 3
+    // hds 3
     const uuObject = { awid, ...dtoIn };
 
+    let jokes;
     try {
       jokes = await this.dao.updateByAwid(uuObject);
     } catch (e) {
@@ -52,9 +56,10 @@ class UpdateAbl {
 
     dtoOut.jokes = jokes;
 
-    // HDS 4
+    // hds 4
     const workspace = await UuAppWorkspace.get(awid);
 
+    // hds 5
     if (workspace.authorizationStrategy === "artifact") {
       const artifactUri = UriBuilder.parse(workspace.artifactUri).toUri();
 
@@ -78,14 +83,14 @@ class UpdateAbl {
           appUri: uri.getBaseUri(),
         });
       } catch (e) {
-        throw new Errors.UpdateBasicAttributesFailed({ uuAppErrorMap }, e);
+        throw new Errors.Update.UpdateBasicAttributesFailed({ uuAppErrorMap }, e);
       }
 
       dtoOut.artifact = awsc.artifact;
       dtoOut.context = awsc.context;
     }
 
-    // HDS 5
+    // hds 6
     dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
   }

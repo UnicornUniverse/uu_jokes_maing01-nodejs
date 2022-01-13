@@ -1,51 +1,55 @@
 "use strict";
-
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError, DuplicateKey } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
-// TODO Fix
-//const JokesInstanceAbl = require("./jokes-instance-abl");
+const InstanceChecker = require("../../component/instance-checker");
 const Errors = require("../../api/errors/category-error");
-const Path = require("path");
-
-const WARNINGS = {
-  updateUnsupportedKeys: {
-    code: `${Errors.Update.UC_CODE}unsupportedKeys`,
-  },
-};
+const Warnings = require("../../api/warnings/category-warning");
+const { Profiles, Schemas, Jokes } = require("../constants");
 
 class UpdateAbl {
   constructor() {
-    // Isn't it better, without using new Validator and Path?
     this.validator = Validator.load();
-    //this.validator = new Validator(Path.join(__dirname, "..", "..", "api", "validation_types", "category-types.js"));
-    this.dao = DaoFactory.getDao("category");
-    this.jokeDao = DaoFactory.getDao("joke");
+    this.dao = DaoFactory.getDao(Schemas.CATEGORY);
+    this.jokeDao = DaoFactory.getDao(Schemas.JOKE);
   }
-  async update(awid, dtoIn) {
-    // hds 1, A1, hds 1.1, A2
-    // TODO Add InstanceChecker
-    // await JokesInstanceAbl.checkInstance(
-    //   awid,
-    //   Errors.Update.JokesInstanceDoesNotExist,
-    //   Errors.Update.JokesInstanceNotInProperState
-    // );
+  async update(awid, dtoIn, authorizationResult) {
+    let uuAppErrorMap = {};
+
+    // hds 1
+    const allowedStateRules = {
+      [Profiles.AUTHORITIES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
+      [Profiles.EXECUTIVES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
+    };
+
+    await InstanceChecker.ensureInstanceAndState(
+      awid,
+      allowedStateRules,
+      authorizationResult,
+      Errors.Update,
+      uuAppErrorMap
+    );
 
     // hds 2, 2.1
-    let validationResult = this.validator.validate("categoryUpdateDtoInType", dtoIn);
+    const validationResult = this.validator.validate("categoryUpdateDtoInType", dtoIn);
     // hds 2.2, 2.3, A3, A4
-    let uuAppErrorMap = ValidationHelper.processValidationResult(
+    uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.updateUnsupportedKeys.code,
+      uuAppErrorMap,
+      Warnings.Update.UnsupportedKeys.code,
       Errors.Update.InvalidDtoIn
     );
 
     // hds 3
     let category;
-    dtoIn.awid = awid;
+    const toUpdate = {
+      ...dtoIn,
+      awid,
+    };
+
     try {
-      category = await this.dao.update(dtoIn);
+      category = await this.dao.update(toUpdate);
     } catch (e) {
       if (e instanceof DuplicateKey) {
         // A5
@@ -59,8 +63,12 @@ class UpdateAbl {
     }
 
     // hds 4
-    category.uuAppErrorMap = uuAppErrorMap;
-    return category;
+    const dtoOut = {
+      ...category,
+      uuAppErrorMap,
+    };
+
+    return dtoOut;
   }
 }
 

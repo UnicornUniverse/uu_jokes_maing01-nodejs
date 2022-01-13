@@ -80,6 +80,22 @@ const Init = {
 const PlugInBt = {
   UC_CODE: `${UuJokesError.ERROR_PREFIX}sys/uuAppWorkspace/plugInBt/`,
 
+  JokesDoesNotExist: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${PlugInBt.UC_CODE}jokesDoesNotExist`;
+      this.message = "UuObject jokes does not exist.";
+    }
+  },
+
+  JokesNotInCorrectState: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${PlugInBt.UC_CODE}jokesNotInCorrectState`;
+      this.message = "UuObject jokes is not in correct state.";
+    }
+  },
+
   InvalidDtoIn: class extends UuJokesError {
     constructor() {
       super(...arguments);
@@ -123,8 +139,8 @@ const PlugInBt = {
   JokesDaoUpdateFailed: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${PlugInBt.UC_CODE}jokesDaoUpdateFailed`;
-      this.message = "Jokes DAO update failed.";
+      this.code = `${PlugInBt.UC_CODE}jokesDaoUpdateByAwidFailed`;
+      this.message = "Jokes DAO updateByAwid failed.";
     }
   },
 };
@@ -136,23 +152,7 @@ const Load = {
     constructor() {
       super(...arguments);
       this.code = `${Load.UC_CODE}jokesDoesNotExist`;
-      this.message = "Jokes does not exist.";
-    }
-  },
-
-  UuAwscLoadFailed: class extends UuJokesError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Load.UC_CODE}uuAwscLoadFailed`;
-      this.message = "Load uuAwsc failed.";
-    }
-  },
-
-  JokesIsNotInCorrectState: class extends UuJokesError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Load.UC_CODE}jokesIsNotInCorrectState`;
-      this.message = "Jokes is not a valid state.";
+      this.message = "UuObject jokes does not exist.";
     }
   },
 };
@@ -172,15 +172,15 @@ const Update = {
     constructor() {
       super(...arguments);
       this.code = `${Update.UC_CODE}jokesDoesNotExist`;
-      this.message = "Jokes does not exist.";
+      this.message = "UuObject jokes does not exist.";
     }
   },
 
-  JokesIsNotInCorrectState: class extends UuJokesError {
+  JokesNotInCorrectState: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Update.UC_CODE}jokesIsNotInCorrectState`;
-      this.message = "Jokes is not a valid state.";
+      this.code = `${Update.UC_CODE}jokesNotInCorrectState`;
+      this.message = "UuObject jokes is not in correct state.";
     }
   },
 
@@ -188,7 +188,7 @@ const Update = {
     constructor() {
       super(...arguments);
       this.code = `${Update.UC_CODE}jokesDaoUpdateByAwidFailed`;
-      this.message = "Updating uuJokes by jokes DAO updateByAwid failed.";
+      this.message = "Update uuObject jokes by jokes DAO updateByAwid failed.";
     }
   },
 
@@ -216,15 +216,15 @@ const SetState = {
     constructor() {
       super(...arguments);
       this.code = `${SetState.UC_CODE}jokesDoesNotExist`;
-      this.message = "Jokes does not exist.";
+      this.message = "UuObject jokes does not exist.";
     }
   },
 
-  JokesIsNotInCorrectState: class extends UuJokesError {
+  JokesNotInCorrectState: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${SetState.UC_CODE}jokesIsNotInCorrectState`;
-      this.message = "Jokes is in final state.";
+      this.code = `${SetState.UC_CODE}jokesNotInCorrectState`;
+      this.message = "UuObject jokes is not in correct state.";
     }
   },
 
@@ -232,7 +232,7 @@ const SetState = {
     constructor() {
       super(...arguments);
       this.code = `${SetState.UC_CODE}jokesUpdateByAwidDaoFailed`;
-      this.message = "Updating Jokes by Jokes DAO updateByAwid failed.";
+      this.message = "Update uuObject jokes by Jokes DAO updateByAwid failed.";
     }
   },
 
@@ -287,4 +287,5 @@ module.exports = {
   Update,
   SetState,
   Migrate,
+  PlugInBt,
 };

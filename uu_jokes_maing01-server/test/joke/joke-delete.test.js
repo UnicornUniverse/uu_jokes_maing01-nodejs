@@ -101,8 +101,8 @@ test("A2 - jokes instance is closed", async () => {
   try {
     await TestHelper.executePostCommand(JOKE_DELETE, { id: MONGO_ID });
   } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/joke/delete/jokesInstanceNotInProperState");
-    expect(e.message).toEqual("JokesInstance is not in proper state [active|underConstruction].");
+    expect(e.code).toEqual("uu-jokes-main/joke/delete/jokesNotInCorrectState");
+    expect(e.message).toEqual("UuObject jokes is not in correct state.");
     expect(e.paramMap.state).toEqual("closed");
     expect(e.paramMap.expectedStateList).toEqual(["active", "underConstruction"]);
   }

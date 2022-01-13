@@ -5,23 +5,29 @@ const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const { UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
 const Errors = require("../../api/errors/joke-error");
 const Warnings = require("../../api/warnings/joke-warning");
-const InstanceChecker = require("../components/instance-checker");
-const Constants = require("../constants");
+const InstanceChecker = require("../../component/instance-checker");
+const { Profiles, Schemas, Jokes } = require("../constants");
 
 class DeleteAbl {
   constructor() {
     this.validator = Validator.load();
-    this.dao = DaoFactory.getDao(Constants.Schemas.JOKE);
-    this.jokeRatingDao = DaoFactory.getDao(Constants.Schemas.JOKE_RATING);
+    this.dao = DaoFactory.getDao(Schemas.JOKE);
+    this.jokeRatingDao = DaoFactory.getDao(Schemas.JOKE_RATING);
   }
 
   async delete(awid, dtoIn, session, authorizationResult) {
     let uuAppErrorMap = {};
 
-    // hds 1, A1, hds 1.1, A2
+    // hds 1
+    const allowedStateRules = {
+      [Profiles.AUTHORITIES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
+      [Profiles.EXECUTIVES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
+    };
+
     await InstanceChecker.ensureInstanceAndState(
       awid,
-      new Set([Constants.Jokes.States.ACTIVE]),
+      allowedStateRules,
+      authorizationResult,
       Errors.Delete,
       uuAppErrorMap
     );
@@ -46,7 +52,7 @@ class DeleteAbl {
 
     // hds 4, A6
     const uuIdentity = session.getIdentity().getUuIdentity();
-    const isAuthorities = authorizationResult.getAuthorizedProfiles().includes(Constants.Profiles.AUTHORITIES);
+    const isAuthorities = authorizationResult.getAuthorizedProfiles().includes(Profiles.AUTHORITIES);
     if (uuIdentity !== joke.uuIdentity && !isAuthorities) {
       throw new Errors.Delete.UserNotAuthorized({ uuAppErrorMap });
     }

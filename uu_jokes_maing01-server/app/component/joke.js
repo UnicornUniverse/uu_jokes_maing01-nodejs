@@ -1,8 +1,8 @@
 //@@viewOn:imports
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
-const { Schemas } = require("../constants");
+const { Schemas } = require("../abl/constants");
 const { Base64 } = require("uu_appg01_server").Utils;
-const FileHelper = require("../../helpers/file-helper");
+const FileHelper = require("../helpers/file-helper");
 //@@viewOff:imports
 
 //@@viewOn:components

@@ -29,11 +29,15 @@
       },
       "jokes/plugInBt": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Executives", "Readers"]
+        "profileList": ["Authorities"]
       },
       "jokes/load": {
         "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
+      },
+      "jokes/removeWorkspace": {
+        "sysStateList": ["closed"],
+        "profileList": ["Authorities"]
       },
       "jokes/update": {
         "sysStateList": ["active"],

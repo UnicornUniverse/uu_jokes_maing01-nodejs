@@ -2,42 +2,43 @@
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
-// TODO Fix
-//const JokesInstanceAbl = require("./jokes-instance-abl");
+const InstanceChecker = require("../../component/instance-checker");
 const Errors = require("../../api/errors/category-error");
-const Path = require("path");
-
-const WARNINGS = {
-  deleteUnsupportedKeys: {
-    code: `${Errors.Delete.UC_CODE}unsupportedKeys`,
-  },
-};
+const Warnings = require("../../api/warnings/category-warning");
+const { Profiles, Schemas, Jokes } = require("../constants");
 
 class DeleteAbl {
   constructor() {
-    // Isn't it better, without using new Validator and Path?
     this.validator = Validator.load();
-    //this.validator = new Validator(Path.join(__dirname, "..", "..", "api", "validation_types", "category-types.js"));
-    this.dao = DaoFactory.getDao("category");
-    this.jokeDao = DaoFactory.getDao("joke");
+    this.dao = DaoFactory.getDao(Schemas.CATEGORY);
+    this.jokeDao = DaoFactory.getDao(Schemas.JOKE);
   }
 
-  async delete(awid, dtoIn) {
-    // hds 1, A1, hds 1.1, A2
-    // TODO Add InstanceChecker
-    // await JokesInstanceAbl.checkInstance(
-    //   awid,
-    //   Errors.Delete.JokesInstanceDoesNotExist,
-    //   Errors.Delete.JokesInstanceNotInProperState
-    // );
+  async delete(awid, dtoIn, authorizationResult) {
+    let uuAppErrorMap = {};
+
+    // hds 1
+    const allowedStateRules = {
+      [Profiles.AUTHORITIES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
+      [Profiles.EXECUTIVES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
+    };
+
+    await InstanceChecker.ensureInstanceAndState(
+      awid,
+      allowedStateRules,
+      authorizationResult,
+      Errors.Delete,
+      uuAppErrorMap
+    );
 
     // hds 2, 2.1
-    let validationResult = this.validator.validate("categoryDeleteDtoInType", dtoIn);
+    const validationResult = this.validator.validate("categoryDeleteDtoInType", dtoIn);
     // hds 2.2, 2.3, A3, A4
-    let uuAppErrorMap = ValidationHelper.processValidationResult(
+    uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.deleteUnsupportedKeys.code,
+      uuAppErrorMap,
+      Warnings.Delete.UnsupportedKeys.code,
       Errors.Delete.InvalidDtoIn
     );
 
