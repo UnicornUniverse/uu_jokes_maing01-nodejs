@@ -36,7 +36,6 @@ const ControlPanel = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    // FIXME - Jokes.BasicInfo not working properly for some reason
     return (
       <RouteController>
         <RouteContainer>
@@ -47,7 +46,7 @@ const ControlPanel = createVisualComponent({
               </Uu5Elements.Text>
             }
           >
-            {/*<Jokes.BasicInfo />*/}
+            <Jokes.BasicInfo />
             {awsc && (
               <>
                 <UuTerritory.ArtifactIfc.Bricks.StateHistory
