@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, withLazy } from "uu5g05";
+import { createVisualComponent, Utils } from "uu5g05";
 import { useSubAppData } from "uu_plus4u5g02";
 import Plus4U5App from "uu_plus4u5g02-app";
 
@@ -7,11 +7,11 @@ import Config from "./config/config";
 import RouteBar from "./route-bar";
 //@@viewOff:imports
 
-const Jokes = withLazy(() => import("../routes/jokes"));
-const Categories = withLazy(() => import("../routes/categories"));
-const ControlPanel = withLazy(() => import("../routes/control-panel"));
-const InitAppWorkspace = withLazy(() => import("../routes/init-app-workspace"));
-const About = withLazy(() => import("../routes/about"));
+const Jokes = Utils.Component.lazy(() => import("../routes/jokes"));
+const Categories = Utils.Component.lazy(() => import("../routes/categories"));
+const ControlPanel = Utils.Component.lazy(() => import("../routes/control-panel"));
+const InitAppWorkspace = Utils.Component.lazy(() => import("../routes/init-app-workspace"));
+const About = Utils.Component.lazy(() => import("../routes/about"));
 
 const STATICS = {
   //@@viewOn:statics
