@@ -44,24 +44,28 @@ class UpdateAbl {
     );
 
     // hds 3
+    if (dtoIn.image && dtoIn.deleteImage) {
+      throw new Errors.Update.InvalidImageUpdate({ uuAppErrorMap });
+    }
+
+    // hds 4
     const joke = await this.dao.get(awid, dtoIn.id);
-    // A5
     if (!joke) {
       throw new Errors.Update.JokeDoesNotExist({ uuAppErrorMap }, { jokeId: dtoIn.id });
     }
 
-    // hds 4
+    // hds 5
     const invalidText = "text" in dtoIn && dtoIn.text.trim().length === 0;
     if (invalidText && !dtoIn.image && !joke.image) {
       throw new Errors.Update.InvalidName(uuAppErrorMap, { text: dtoIn.text });
     }
 
-    // hds 5
+    // hds 6
     if (dtoIn.deleteImage && invalidText && !joke.text) {
       throw new Errors.Update.ImageCannotBeDeleted(uuAppErrorMap);
     }
 
-    // hds 6
+    // hds 7
     const uuIdentity = session.getIdentity().getUuIdentity();
     const isAuthorities = authorizationResult.getAuthorizedProfiles().includes(Profiles.AUTHORITIES);
     // A6
@@ -69,7 +73,7 @@ class UpdateAbl {
       throw new Errors.Update.UserNotAuthorized({ uuAppErrorMap });
     }
 
-    // hds 7
+    // hds 8
     const toUpdate = { ...dtoIn };
     delete toUpdate.deleteImage;
     // note: empty array is valid (possibility to remove all categories)
@@ -87,20 +91,19 @@ class UpdateAbl {
       toUpdate.categoryIdList = validCategories;
     }
 
-    // hds 8
+    // hds 9
     if (dtoIn.image) {
       let binary;
       const image = await Joke.checkAndGetImageAsStream(dtoIn.image, Errors.Update);
       if (!joke.image) {
-        // hds 8.1
+        // hds 9.1
         try {
           binary = await UuBinaryAbl.createBinary(awid, { data: image });
         } catch (e) {
-          // A8
           throw new Errors.Update.UuBinaryCreateFailed({ uuAppErrorMap }, e);
         }
       } else {
-        // hds 8.2
+        // hds 9.2
         try {
           binary = await UuBinaryAbl.updateBinaryData(awid, {
             data: image,
@@ -108,14 +111,13 @@ class UpdateAbl {
             revisionStrategy: "NONE",
           });
         } catch (e) {
-          // A9
           throw new Errors.Update.UuBinaryUpdateBinaryDataFailed({ uuAppErrorMap }, e);
         }
       }
       toUpdate.image = binary.code;
     }
 
-    // hds 9
+    // hds 10
     if (dtoIn.deleteImage && joke.image) {
       await UuBinaryAbl.deleteBinary(awid, {
         code: joke.image,
@@ -124,20 +126,19 @@ class UpdateAbl {
       toUpdate.image = null;
     }
 
-    // hds 10
+    // hds 11
     toUpdate.awid = awid;
     let updatedJoke;
     try {
       updatedJoke = await this.dao.update(toUpdate);
     } catch (e) {
       if (e instanceof ObjectStoreError) {
-        // A10
         throw new Errors.Update.JokeDaoUpdateFailed({ uuAppErrorMap }, e);
       }
       throw e;
     }
 
-    // hds 11
+    // hds 12
     const dtoOut = {
       ...updatedJoke,
       uuAppErrorMap,

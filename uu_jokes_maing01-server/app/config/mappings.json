@@ -46,11 +46,6 @@
         "httpMethod": "POST",
         "type": "CMD"
       },
-      "jokes/removeWorkspace": {
-        "realization": "api/controllers/JokesController.remove",
-        "httpMethod": "POST",
-        "type": "CMD"
-      },
       "joke/create": {
         "realization": "api/controllers/JokeController.create",
         "httpMethod": "POST",

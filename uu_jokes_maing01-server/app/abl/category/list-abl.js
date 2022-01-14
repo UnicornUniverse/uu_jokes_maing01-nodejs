@@ -55,7 +55,7 @@ class ListAbl {
     if (!dtoIn.order) dtoIn.order = DEFAULTS.order;
 
     // hds 3
-    let list = await this.dao.list(awid, dtoIn.order, dtoIn.pageInfo);
+    const list = await this.dao.list(awid, dtoIn.order, dtoIn.pageInfo);
 
     // hds 4
     const dtoOut = {

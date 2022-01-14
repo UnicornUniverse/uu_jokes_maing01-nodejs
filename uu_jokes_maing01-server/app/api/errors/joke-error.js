@@ -37,7 +37,7 @@ const Create = {
     constructor() {
       super(...arguments);
       this.code = `${Create.UC_CODE}uuBinaryCreateFailed`;
-      this.message = "Creating uuBinary failed.";
+      this.message = "Create uuBinary failed.";
     }
   },
   JokeDaoCreateFailed: class extends UuJokesError {
@@ -47,11 +47,11 @@ const Create = {
       this.message = "Create joke by joke DAO create failed.";
     }
   },
-  InvalidPhotoContentType: class extends UuJokesError {
+  InvalidImageContentType: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}invalidPhotoContentType`;
-      this.message = "ContentType of new photo is invalid.";
+      this.code = `${Create.UC_CODE}invalidImageContentType`;
+      this.message = "ContentType of the image is invalid.";
     }
   },
 };
@@ -118,17 +118,24 @@ const Update = {
       this.message = "DtoIn is not valid.";
     }
   },
+  InvalidImageUpdate: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}invalidImageUpdate`;
+      this.message = "Invalid update of image - it is not possible to update and delete image at the same time.";
+    }
+  },
   InvalidName: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}invalidName`;
+      this.code = `${Update.UC_CODE}invalidName`;
       this.message = "Invalid name - it cannot have no characters or be of zero length if image is not provided.";
     }
   },
   ImageCannotBeDeleted: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}imageCannotBeDeleted`;
+      this.code = `${Update.UC_CODE}imageCannotBeDeleted`;
       this.message = "Image cannot be deleted if joke would end up without both text and image.";
     }
   },
@@ -160,11 +167,11 @@ const Update = {
       this.message = "Updating uuBinary data failed.";
     }
   },
-  InvalidPhotoContentType: class extends UuJokesError {
+  InvalidImageContentType: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Update.UC_CODE}invalidPhotoContentType`;
-      this.message = "ContentType of new photo is invalid.";
+      this.code = `${Update.UC_CODE}invalidImageContentType`;
+      this.message = "ContentType of the image is invalid.";
     }
   },
   JokeDaoUpdateFailed: class extends UuJokesError {

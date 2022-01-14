@@ -33,7 +33,6 @@ class GetAbl {
 
     // hds 2, 2.1
     const validationResult = this.validator.validate("jokeGetDtoInType", dtoIn);
-    // hds 2.2, 2.3, A4, A5
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
@@ -45,7 +44,6 @@ class GetAbl {
     // hds 3
     const joke = await this.dao.get(awid, dtoIn.id);
     if (!joke) {
-      // A6
       throw new Errors.Get.JokeDoesNotExist(uuAppErrorMap, { jokeId: dtoIn.id });
     }
 

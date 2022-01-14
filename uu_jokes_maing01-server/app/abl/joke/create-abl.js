@@ -43,12 +43,6 @@ class CreateAbl {
       Errors.Create.InvalidDtoIn
     );
 
-    // hds 3
-    if ("text" in dtoIn && dtoIn.text.trim().length === 0) {
-      throw new Errors.Create.InvalidName(uuAppErrorMap, { text: dtoIn.text });
-    }
-
-    // hds 4
     const addedValues = {
       averageRating: 0,
       ratingCount: 0,
@@ -61,25 +55,27 @@ class CreateAbl {
       ...dtoIn,
       ...addedValues,
     };
+    
+    // hds 3
+    if ("text" in dtoIn && dtoIn.text.trim().length === 0 && !dtoIn.image) {
+      throw new Errors.Create.InvalidName(uuAppErrorMap, { text: dtoIn.text });
+    }
 
-    // hds 5.1, A5
+    // hds 4
     if (dtoIn.image) {
       const image = await Joke.checkAndGetImageAsStream(dtoIn.image, Errors.Create);
 
-      // hds 5.2
       try {
         const binary = await UuBinaryAbl.createBinary(awid, { data: image });
         uuObject.image = binary.code;
       } catch (e) {
-        // A6
         throw new Errors.Create.UuBinaryCreateFailed({ uuAppErrorMap }, e);
       }
     }
 
-    // hds 6
+    // hds 5
     if (dtoIn.categoryIdList && dtoIn.categoryIdList.length) {
       const { validCategories, invalidCategories } = await Joke.checkCategoriesExistence(awid, dtoIn.categoryIdList);
-      // A7
       if (invalidCategories.length > 0) {
         ValidationHelper.addWarning(
           uuAppErrorMap,
@@ -93,21 +89,20 @@ class CreateAbl {
       uuObject.categoryIdList = [];
     }
 
-    // hds 7
+    // hds 6
     uuObject.awid = awid;
     let joke;
 
     try {
       joke = await this.dao.create(uuObject);
     } catch (e) {
-      // A8
       if (e instanceof ObjectStoreError) {
         throw new Errors.Create.JokeDaoCreateFailed({ uuAppErrorMap }, e);
       }
       throw e;
     }
 
-    // hds 8
+    // hds 7
     const dtoOut = {
       ...joke,
       uuAppErrorMap,

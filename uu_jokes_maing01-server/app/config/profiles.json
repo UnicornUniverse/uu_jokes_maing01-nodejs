@@ -35,10 +35,6 @@
         "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
       },
-      "jokes/removeWorkspace": {
-        "sysStateList": ["closed"],
-        "profileList": ["Authorities"]
-      },
       "jokes/update": {
         "sysStateList": ["active"],
         "profileList": ["Authorities"]

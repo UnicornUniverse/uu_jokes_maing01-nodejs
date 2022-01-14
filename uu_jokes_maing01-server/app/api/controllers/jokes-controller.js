@@ -4,7 +4,6 @@ const LoadAbl = require("../../abl/jokes/load-abl");
 const UpdateAbl = require("../../abl/jokes/update-abl");
 const SetStateAbl = require("../../abl/jokes/set-state-abl");
 const MigrateAbl = require("../../abl/jokes/migrate-abl");
-const WorkspaceAbl = require("../../abl/workspace-abl");
 
 class JokesController {
   static init(ucEnv) {
@@ -29,10 +28,6 @@ class JokesController {
 
   static migrate(ucEnv) {
     return MigrateAbl.migrate(ucEnv.getDtoIn());
-  }
-
-  static remove(ucEnv) {
-    return WorkspaceAbl.remove(ucEnv.getUri(), ucEnv.getSession());
   }
 }
 

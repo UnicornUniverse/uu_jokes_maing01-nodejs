@@ -10,14 +10,14 @@ class JokeMongo extends UuJokesDao {
 
   async createSchema() {
     await super.createIndex({ awid: 1, _id: 1 }, { unique: true });
-    await super.createIndex({ awid: 1, categoryList: 1 });
+    await super.createIndex({ awid: 1, categoryIdList: 1 });
     await super.createIndex({ awid: 1, name: 1 }, { collation: this.collation });
     await super.createIndex({ awid: 1, averageRating: 1 });
   }
 
   async create(uuObject) {
-    if (uuObject.categoryList) {
-      uuObject.categoryList = uuObject.categoryList.map((categoryId) => new ObjectId(categoryId));
+    if (uuObject.categoryIdList) {
+      uuObject.categoryIdList = uuObject.categoryIdList.map((categoryId) => new ObjectId(categoryId));
     }
     return await super.insertOne(uuObject);
   }
@@ -29,13 +29,13 @@ class JokeMongo extends UuJokesDao {
   async getCountByCategoryId(awid, categoryId) {
     return await super.count({
       awid,
-      categoryList: ObjectId.isValid(categoryId) ? new ObjectId(categoryId) : categoryId,
+      categoryIdList: ObjectId.isValid(categoryId) ? new ObjectId(categoryId) : categoryId,
     });
   }
 
   async update(uuObject) {
-    if (uuObject.categoryList) {
-      uuObject.categoryList = uuObject.categoryList.map((categoryId) => new ObjectId(categoryId));
+    if (uuObject.categoryIdList) {
+      uuObject.categoryIdList = uuObject.categoryIdList.map((categoryId) => new ObjectId(categoryId));
     }
     let filter = { id: uuObject.id, awid: uuObject.awid };
     return await super.findOneAndUpdate(filter, uuObject, "NONE");
@@ -45,13 +45,14 @@ class JokeMongo extends UuJokesDao {
     return await this.update({ awid, id, visibility });
   }
 
+  // TODO: missing revision and mts update
   async removeCategory(awid, categoryId) {
     let db = await DbConnection.get(this.customUri);
     await db
       .collection(this.collectionName)
       .updateMany(
         { awid },
-        { $pull: { categoryList: ObjectId.isValid(categoryId) ? new ObjectId(categoryId) : categoryId } }
+        { $pull: { categoryIdList: ObjectId.isValid(categoryId) ? new ObjectId(categoryId) : categoryId } }
       );
   }
 
@@ -72,7 +73,7 @@ class JokeMongo extends UuJokesDao {
   async listByCategoryIdList(awid, categoryIdList, sortBy, order, pageInfo) {
     const filter = {
       awid,
-      categoryList: {
+      categoryIdList: {
         $in: categoryIdList.map((id) => {
           if (!ObjectId.isValid(id)) return id;
           return new ObjectId(id);

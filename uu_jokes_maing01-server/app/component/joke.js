@@ -23,7 +23,7 @@ class Joke {
     const validCategories = [];
     const invalidCategories = [];
     let categoryFound;
-    const storedCategories = await this.categoryDao.listByCategoryIdList(awid, categoryIdList);
+    const storedCategories = await this.categoryDao.listByIdList(awid, categoryIdList);
     categoryIdList.forEach((id) => {
       categoryFound = storedCategories.itemList.find((it) => it.id.toString() === id);
       if (categoryFound) {
@@ -49,7 +49,7 @@ class Joke {
       //check if the stream is valid
       const { valid: isValidStream, stream } = await FileHelper.validateImageStream(image);
       if (!isValidStream) {
-        throw new errors.Create.InvalidPhotoContentType({ uuAppErrorMap });
+        throw new errors.Create.InvalidImageContentType({ uuAppErrorMap });
       }
       streamToReturn = stream;
     } else {

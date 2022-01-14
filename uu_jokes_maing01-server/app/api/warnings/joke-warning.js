@@ -7,7 +7,7 @@ const Warnings = {
     },
     CategoryDoesNotExist: {
       code: `${Errors.Create.UC_CODE}categoryDoesNotExist`,
-      message: "One or more categories with given categoryId do not exist.",
+      message: "One or more categories with given id do not exist.",
     },
   },
   Update: {
@@ -16,7 +16,7 @@ const Warnings = {
     },
     CategoryDoesNotExist: {
       code: `${Errors.Update.UC_CODE}categoryDoesNotExist`,
-      message: "One or more categories with given categoryId do not exist.",
+      message: "One or more categories with given id do not exist.",
     },
   },
   Get: {

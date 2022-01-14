@@ -45,10 +45,9 @@ class AddRatingAbl {
 
     // hds 3
     const joke = await this.dao.get(awid, dtoIn.id);
-    // A5
     if (!joke) throw new Errors.AddRating.JokeDoesNotExist({ uuAppErrorMap }, { jokeId: dtoIn.id });
 
-    // hds 4, A6
+    // hds 4
     const uuIdentity = session.getIdentity().getUuIdentity();
     if (uuIdentity === joke.uuIdentity) {
       throw new Errors.AddRating.UserNotAuthorized({ uuAppErrorMap });
@@ -57,12 +56,12 @@ class AddRatingAbl {
     // hds 5
     const { oldRating } = await this._createOrUpdateRating(awid, dtoIn.rating, dtoIn.id, uuIdentity, uuAppErrorMap);
 
-    // hds 6, 7
+    // hds 6
     const newAverageRating = this._getJokeAverageRating(joke, dtoIn.rating, oldRating);
     if (!oldRating) joke.ratingCount += 1;
     joke.averageRating = newAverageRating;
 
-    // hds 8
+    // hds 7
     let updatedJoke;
     try {
       updatedJoke = await this.dao.update(joke);
@@ -73,7 +72,7 @@ class AddRatingAbl {
       throw e;
     }
 
-    // hds 9
+    // hds 8
     const dtoOut = {
       ...updatedJoke,
       uuAppErrorMap,

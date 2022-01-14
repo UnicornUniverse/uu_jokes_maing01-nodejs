@@ -45,18 +45,8 @@ class DeleteAbl {
     // hds 3
     if (!dtoIn.forceDelete) {
       // hds 3.1
-      let count;
-      try {
-        count = await this.jokeDao.getCountByCategoryId(awid, dtoIn.id);
-      } catch (e) {
-        //  A5
-        if (e instanceof ObjectStoreError) {
-          throw new Errors.Delete.JokeDaoGetCountByCategoryFailed({ uuAppErrorMap }, e);
-        }
-        throw e;
-      }
+      const count = await this.jokeDao.getCountByCategoryId(awid, dtoIn.id);
       if (count !== 0) {
-        // A6
         throw new Errors.Delete.RelatedJokesExist({ uuAppErrorMap }, { relatedJokes: count });
       }
     } else {
@@ -65,7 +55,6 @@ class DeleteAbl {
         await this.jokeDao.removeCategory(awid, dtoIn.id);
       } catch (e) {
         if (e instanceof ObjectStoreError) {
-          // A7
           throw new Errors.Delete.JokeDaoRemoveCategoryFailed({ uuAppErrorMap }, e);
         }
         throw e;

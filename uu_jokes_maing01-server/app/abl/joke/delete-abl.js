@@ -45,12 +45,11 @@ class DeleteAbl {
 
     // hds 3
     const joke = await this.dao.get(awid, dtoIn.id);
-    // A5
     if (!joke) {
       throw new Errors.Delete.JokeDoesNotExist({ uuAppErrorMap }, { jokeId: dtoIn.id });
     }
 
-    // hds 4, A6
+    // hds 4
     const uuIdentity = session.getIdentity().getUuIdentity();
     const isAuthorities = authorizationResult.getAuthorizedProfiles().includes(Profiles.AUTHORITIES);
     if (uuIdentity !== joke.uuIdentity && !isAuthorities) {

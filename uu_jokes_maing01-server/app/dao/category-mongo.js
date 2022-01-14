@@ -41,7 +41,7 @@ class CategoryMongo extends UuJokesDao {
     return await super.find(filter, pageInfo, sort);
   }
 
-  async listByCategoryIdList(awid, categoryIdList) {
+  async listByIdList(awid, categoryIdList) {
     const filter = {
       awid,
       _id: {
