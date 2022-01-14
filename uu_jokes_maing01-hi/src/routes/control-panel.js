@@ -36,16 +36,16 @@ const ControlPanel = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
+    const header = (
+      <Uu5Elements.Text category="story" segment="heading" type="h1">
+        <Lsi lsi={LsiData.title} />
+      </Uu5Elements.Text>
+    );
+
     return (
       <RouteController>
         <RouteContainer>
-          <Uu5Elements.Block
-            header={
-              <Uu5Elements.Text category="story" segment="heading" type="h1">
-                <Lsi lsi={LsiData.title} />
-              </Uu5Elements.Text>
-            }
-          >
+          <Uu5Elements.Block header={header} collapsible={false}>
             <Jokes.BasicInfo />
             {awsc && (
               <>
