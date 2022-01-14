@@ -155,12 +155,12 @@ export const About = {
     content: {
       cs: [
         `<uu5string/>Dále byly použity technologie: <Uu5Elements.Link href="http://www.w3schools.com/html/default.asp" target="_blank">Html5</Uu5Elements.Link>, <Uu5Elements.Link href="http://www.w3schools.com/css/default.asp" target="_blank">CSS</Uu5Elements.Link>, <Uu5Elements.Link href="http://www.w3schools.com/js/default.asp" target="_blank">JavaScript</Uu5Elements.Link>,
-        <Uu5Elements.Link href="https://reactjs.org" target="_blank">React</Uu5Elements.Link> a <Uu5Elements.Link href="https://www.docker.com" target="_blank">Docker</Uu5Elements.Link>.
+        <Uu5Elements.Link href="https://reactjs.org" target="_blank">React</Uu5Elements.Link>, <Uu5Elements.Link href="https://nodejs.org" target="_blank">Node.js</Uu5Elements.Link> a <Uu5Elements.Link href="https://www.docker.com" target="_blank">Docker</Uu5Elements.Link>.
         Aplikace je provozována v rámci internetové služby <Uu5Elements.Link href="https://plus4u.net" target="_blank">Plus4U</Uu5Elements.Link> s využitím cloudu <Uu5Elements.Link href="https://azure.microsoft.com" target="_blank">Microsoft Azure</Uu5Elements.Link>.`,
       ],
       en: [
         `<uu5string/>Other used technologies: <Uu5Elements.Link href="http://www.w3schools.com/html/default.asp" target="_blank">Html5</Uu5Elements.Link>, <Uu5Elements.Link href="http://www.w3schools.com/css/default.asp" target="_blank">CSS</Uu5Elements.Link>, <Uu5Elements.Link href="http://www.w3schools.com/js/default.asp" target="_blank">JavaScript</Uu5Elements.Link>,
-        <Uu5Elements.Link href="https://reactjs.org" target="_blank">React</Uu5Elements.Link> a <Uu5Elements.Link href="https://www.docker.com" target="_blank">Docker</Uu5Elements.Link>.
+        <Uu5Elements.Link href="https://reactjs.org" target="_blank">React</Uu5Elements.Link>, <Uu5Elements.Link href="https://nodejs.org" target="_blank">Node.js</Uu5Elements.Link> a <Uu5Elements.Link href="https://www.docker.com" target="_blank">Docker</Uu5Elements.Link>.
         Application is operated in the <Uu5Elements.Link href="https://plus4u.net" target="_blank">Plus4U</Uu5Elements.Link> internet service with the usage of <Uu5Elements.Link href="https://azure.microsoft.com" target="_blank">Microsoft Azure</Uu5Elements.Link> cloud.`,
       ],
     },
