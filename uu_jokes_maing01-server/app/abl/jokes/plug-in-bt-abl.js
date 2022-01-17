@@ -47,14 +47,18 @@ class PlugInBtAbl {
     try {
       uuBtUri = UriBuilder.parse(dtoIn.uuBtLocationUri).toUri();
     } catch (e) {
-      throw new Errors.PlugInBt.UuBtLocationUriParseFailed({ uuAppErrorMap }, { uri: dtoIn.uuBtLocationUri }, e);
+      throw new Errors.PlugInBt.UuBtLocationUriInvalid(
+        { uuAppErrorMap },
+        { uuBtLocationUri: dtoIn.uuBtLocationUri },
+        e
+      );
     }
 
     const uuBtBaseUri = uuBtUri.getBaseUri().toString();
     const uuBtUriParams = uuBtUri.getParameters();
 
     if (!uuBtUriParams.code && !uuBtUriParams.id) {
-      throw new Errors.PlugInBt.UuBtLocationNotSpecified({ uuAppErrorMap }, { uri: dtoIn.uuBtLocationUri });
+      throw new Errors.PlugInBt.UuBtLocationNotSpecified({ uuAppErrorMap }, { uuBtLocationUri: dtoIn.uuBtLocationUri });
     }
 
     // hds 4

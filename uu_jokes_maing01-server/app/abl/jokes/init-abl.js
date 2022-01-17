@@ -41,7 +41,7 @@ class InitAbl {
       try {
         uuBtUri = UriBuilder.parse(dtoIn.uuBtLocationUri).toUri();
       } catch (e) {
-        throw new Errors.Init.UuBtLocationUriParseFailed({ uuAppErrorMap }, { uri: dtoIn.uuBtLocationUri }, e);
+        throw new Errors.Init.UuBtLocationUriInvalid({ uuAppErrorMap }, { uuBtLocationUri: dtoIn.uuBtLocationUri }, e);
       }
 
       uuBtBaseUri = uuBtUri.getBaseUri().toString();
@@ -110,7 +110,7 @@ class InitAbl {
       try {
         await Profile.set(awid, Profiles.AUTHORITIES, dtoIn.uuAppProfileAuthorities);
       } catch (e) {
-        throw new Errors.Init.SysSetProfileFailed({ uuAppErrorMap }, { role: dtoIn.uuAppProfileAuthorities }, e);
+        throw new Errors.Init.SetProfileFailed({ uuAppErrorMap }, { uuAppProfileAuthorities: dtoIn.uuAppProfileAuthorities }, e);
       }
     }
 

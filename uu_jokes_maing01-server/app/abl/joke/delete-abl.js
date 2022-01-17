@@ -64,7 +64,6 @@ class DeleteAbl {
       try {
         await UuBinaryAbl.deleteBinary(awid, { code: joke.image });
       } catch (e) {
-        // A7
         throw new Errors.Delete.UuBinaryDeleteFailed({ uuAppErrorMap }, e);
       }
     }

@@ -108,7 +108,7 @@ const Update = {
     constructor() {
       super(...arguments);
       this.code = `${Update.UC_CODE}categoryNameNotUnique`;
-      this.message = "Category name is not unique in awid.";
+      this.message = "Category with the given name already exists. Please choose a different name.";
     }
   },
   CategoryDaoUpdateFailed: class extends UuJokesError {

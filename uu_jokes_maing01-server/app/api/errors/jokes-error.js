@@ -28,11 +28,11 @@ const Init = {
     }
   },
 
-  UuBtLocationUriParseFailed: class extends UuJokesError {
+  UuBtLocationUriInvalid: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Init.UC_CODE}uuBtLocationUriParseFailed`;
-      this.message = "It seems like provided uuBt locationUri is not about to be parsed.";
+      this.code = `${Init.UC_CODE}uuBtLocationUriInvalid`;
+      this.message = "It seems like provided uuBt locationUri is invalid.";
     }
   },
 
@@ -68,11 +68,11 @@ const Init = {
     }
   },
 
-  SysSetProfileFailed: class extends UuJokesError {
+  SetProfileFailed: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Init.UC_CODE}sysSetProfileFailed`;
-      this.message = "Set of Authorities profile failed.";
+      this.code = `${Init.UC_CODE}setProfileFailed`;
+      this.message = "Set uuAppProfile failed.";
     }
   },
 };
@@ -104,11 +104,11 @@ const PlugInBt = {
     }
   },
 
-  UuBtLocationUriParseFailed: class extends UuJokesError {
+  UuBtLocationUriInvalid: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${PlugInBt.UC_CODE}uuBtLocationUriParseFailed`;
-      this.message = "It seems like provided uuBt locationUri is not about to be parsed.";
+      this.code = `${PlugInBt.UC_CODE}uuBtLocationUriInvalid`;
+      this.message = "It seems like provided uuBt locationUri is invalid.";
     }
   },
 

@@ -42,12 +42,12 @@ class UpdateAbl {
     );
 
     // hds 3
-    let category;
     const toUpdate = {
       ...dtoIn,
       awid,
     };
-
+    
+    let category;
     try {
       category = await this.dao.update(toUpdate);
     } catch (e) {

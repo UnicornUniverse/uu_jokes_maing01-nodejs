@@ -26,11 +26,11 @@ const Create = {
       this.message = "DtoIn is not valid.";
     }
   },
-  InvalidName: class extends UuJokesError {
+  InvalidText: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}invalidName`;
-      this.message = "Invalid name - it cannot have no characters or be of zero length if image is not provided.";
+      this.code = `${Create.UC_CODE}invalidText`;
+      this.message = "Invalid text - it cannot have no characters or be of zero length if image is not provided.";
     }
   },
   UuBinaryCreateFailed: class extends UuJokesError {
@@ -47,11 +47,11 @@ const Create = {
       this.message = "Create joke by joke DAO create failed.";
     }
   },
-  InvalidImageContentType: class extends UuJokesError {
+  InvalidImage: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}invalidImageContentType`;
-      this.message = "ContentType of the image is invalid.";
+      this.code = `${Create.UC_CODE}invalidImage`;
+      this.message = "Image is invalid or it is not an image.";
     }
   },
 };
@@ -118,18 +118,18 @@ const Update = {
       this.message = "DtoIn is not valid.";
     }
   },
-  InvalidImageUpdate: class extends UuJokesError {
+  InvalidInputCombination: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Update.UC_CODE}invalidImageUpdate`;
-      this.message = "Invalid update of image - it is not possible to update and delete image at the same time.";
+      this.code = `${Update.UC_CODE}invalidInputCombination`;
+      this.message = "Invalid input combination - it is not possible to update and delete image at the same time.";
     }
   },
-  InvalidName: class extends UuJokesError {
+  TextCannotBeRemoved: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Update.UC_CODE}invalidName`;
-      this.message = "Invalid name - it cannot have no characters or be of zero length if image is not provided.";
+      this.code = `${Update.UC_CODE}textCannotBeRemoved`;
+      this.message = "Text cannot be removed if joke would end up without both text and image.";
     }
   },
   ImageCannotBeDeleted: class extends UuJokesError {
@@ -167,11 +167,11 @@ const Update = {
       this.message = "Updating uuBinary data failed.";
     }
   },
-  InvalidImageContentType: class extends UuJokesError {
+  InvalidImage: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Update.UC_CODE}invalidImageContentType`;
-      this.message = "ContentType of the image is invalid.";
+      this.code = `${Update.UC_CODE}invalidImage`;
+      this.message = "Image is invalid or it is not an image.";
     }
   },
   JokeDaoUpdateFailed: class extends UuJokesError {

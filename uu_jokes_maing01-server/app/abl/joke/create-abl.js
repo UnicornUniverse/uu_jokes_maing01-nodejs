@@ -58,7 +58,7 @@ class CreateAbl {
     
     // hds 3
     if ("text" in dtoIn && dtoIn.text.trim().length === 0 && !dtoIn.image) {
-      throw new Errors.Create.InvalidName(uuAppErrorMap, { text: dtoIn.text });
+      throw new Errors.Create.InvalidText(uuAppErrorMap, { text: dtoIn.text });
     }
 
     // hds 4

@@ -46,7 +46,6 @@ class JokeAbl {
       joke = await this.dao.updateVisibility(awid, dtoIn.id, dtoIn.visibility);
     } catch (e) {
       if (e instanceof ObjectStoreError) {
-        // A5
         throw new Errors.UpdateVisibility.JokeDaoUpdateVisibilityFailed({ uuAppErrorMap }, e);
       }
       throw e;

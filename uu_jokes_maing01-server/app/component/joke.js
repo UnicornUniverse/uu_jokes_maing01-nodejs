@@ -49,14 +49,14 @@ class Joke {
       //check if the stream is valid
       const { valid: isValidStream, stream } = await FileHelper.validateImageStream(image);
       if (!isValidStream) {
-        throw new errors.Create.InvalidImageContentType({ uuAppErrorMap });
+        throw new errors.Create.InvalidImage({ uuAppErrorMap });
       }
       streamToReturn = stream;
     } else {
       //check if the base64 is valid
       let binaryBuffer = Base64.urlSafeDecode(dtoIn.image, "binary");
       if (!FileHelper.validateImageBuffer(binaryBuffer).valid) {
-        throw new errors.Create.InvalidPhotoContentType({ uuAppErrorMap });
+        throw new errors.Create.InvalidImage({ uuAppErrorMap });
       }
 
       streamToReturn = FileHelper.toStream(binaryBuffer);

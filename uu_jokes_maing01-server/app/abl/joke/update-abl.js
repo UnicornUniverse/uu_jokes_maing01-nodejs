@@ -45,7 +45,7 @@ class UpdateAbl {
 
     // hds 3
     if (dtoIn.image && dtoIn.deleteImage) {
-      throw new Errors.Update.InvalidImageUpdate({ uuAppErrorMap });
+      throw new Errors.Update.InvalidInputCombination({ uuAppErrorMap });
     }
 
     // hds 4
@@ -55,25 +55,26 @@ class UpdateAbl {
     }
 
     // hds 5
-    const invalidText = "text" in dtoIn && dtoIn.text.trim().length === 0;
-    if (invalidText && !dtoIn.image && !joke.image) {
-      throw new Errors.Update.InvalidName(uuAppErrorMap, { text: dtoIn.text });
-    }
-
-    // hds 6
-    if (dtoIn.deleteImage && invalidText && !joke.text) {
-      throw new Errors.Update.ImageCannotBeDeleted(uuAppErrorMap);
-    }
-
-    // hds 7
     const uuIdentity = session.getIdentity().getUuIdentity();
     const isAuthorities = authorizationResult.getAuthorizedProfiles().includes(Profiles.AUTHORITIES);
-    // A6
     if (uuIdentity !== joke.uuIdentity && !isAuthorities) {
       throw new Errors.Update.UserNotAuthorized({ uuAppErrorMap });
     }
 
-    // hds 8
+    // hds 6
+    const emptyText = "text" in dtoIn && dtoIn.text.trim().length === 0;
+    if (emptyText) {
+      // 6.1
+      if (!dtoIn.image && !joke.image) {
+        throw new Errors.Update.TextCannotBeRemoved(uuAppErrorMap, { text: dtoIn.text });
+      }
+      // 6.2
+      if (dtoIn.deleteImage && joke.image && !joke.text) {
+        throw new Errors.Update.ImageCannotBeDeleted(uuAppErrorMap);
+      }
+    }
+
+    // hds 7
     const toUpdate = { ...dtoIn };
     delete toUpdate.deleteImage;
     // note: empty array is valid (possibility to remove all categories)
@@ -91,19 +92,20 @@ class UpdateAbl {
       toUpdate.categoryIdList = validCategories;
     }
 
-    // hds 9
+    // hds 8
     if (dtoIn.image) {
       let binary;
+      // 8.1
       const image = await Joke.checkAndGetImageAsStream(dtoIn.image, Errors.Update);
       if (!joke.image) {
-        // hds 9.1
+        // 8.2.A
         try {
           binary = await UuBinaryAbl.createBinary(awid, { data: image });
         } catch (e) {
           throw new Errors.Update.UuBinaryCreateFailed({ uuAppErrorMap }, e);
         }
       } else {
-        // hds 9.2
+        // 8.2.B
         try {
           binary = await UuBinaryAbl.updateBinaryData(awid, {
             data: image,
@@ -117,7 +119,7 @@ class UpdateAbl {
       toUpdate.image = binary.code;
     }
 
-    // hds 10
+    // hds 9
     if (dtoIn.deleteImage && joke.image) {
       await UuBinaryAbl.deleteBinary(awid, {
         code: joke.image,
@@ -126,7 +128,7 @@ class UpdateAbl {
       toUpdate.image = null;
     }
 
-    // hds 11
+    // hds 10
     toUpdate.awid = awid;
     let updatedJoke;
     try {
@@ -138,7 +140,7 @@ class UpdateAbl {
       throw e;
     }
 
-    // hds 12
+    // hds 11
     const dtoOut = {
       ...updatedJoke,
       uuAppErrorMap,
