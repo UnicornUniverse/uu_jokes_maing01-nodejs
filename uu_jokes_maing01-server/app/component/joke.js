@@ -1,8 +1,8 @@
 //@@viewOn:imports
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
-const { Schemas } = require("../constants");
+const { Schemas } = require("../abl/constants");
 const { Base64 } = require("uu_appg01_server").Utils;
-const FileHelper = require("../../helpers/file-helper");
+const FileHelper = require("../helpers/file-helper");
 //@@viewOff:imports
 
 //@@viewOn:components
@@ -23,7 +23,7 @@ class Joke {
     const validCategories = [];
     const invalidCategories = [];
     let categoryFound;
-    const storedCategories = await this.categoryDao.listByCategoryIdList(awid, categoryIdList);
+    const storedCategories = await this.categoryDao.listByIdList(awid, categoryIdList);
     categoryIdList.forEach((id) => {
       categoryFound = storedCategories.itemList.find((it) => it.id.toString() === id);
       if (categoryFound) {
@@ -49,14 +49,14 @@ class Joke {
       //check if the stream is valid
       const { valid: isValidStream, stream } = await FileHelper.validateImageStream(image);
       if (!isValidStream) {
-        throw new errors.Create.InvalidPhotoContentType({ uuAppErrorMap });
+        throw new errors.Create.InvalidImage({ uuAppErrorMap });
       }
       streamToReturn = stream;
     } else {
       //check if the base64 is valid
       let binaryBuffer = Base64.urlSafeDecode(dtoIn.image, "binary");
       if (!FileHelper.validateImageBuffer(binaryBuffer).valid) {
-        throw new errors.Create.InvalidPhotoContentType({ uuAppErrorMap });
+        throw new errors.Create.InvalidImage({ uuAppErrorMap });
       }
 
       streamToReturn = FileHelper.toStream(binaryBuffer);

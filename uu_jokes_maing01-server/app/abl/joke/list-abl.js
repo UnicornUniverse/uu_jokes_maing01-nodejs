@@ -4,8 +4,8 @@ const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../../api/errors/joke-error");
 const Warnings = require("../../api/warnings/joke-warning");
-const InstanceChecker = require("../components/instance-checker");
-const Constants = require("../constants");
+const InstanceChecker = require("../../component/instance-checker");
+const { Profiles, Schemas, Jokes } = require("../constants");
 
 const DEFAULTS = {
   sortBy: "name",
@@ -17,16 +17,23 @@ const DEFAULTS = {
 class ListAbl {
   constructor() {
     this.validator = Validator.load();
-    this.dao = DaoFactory.getDao(Constants.Schemas.JOKE);
+    this.dao = DaoFactory.getDao(Schemas.JOKE);
   }
 
-  async list(awid, dtoIn) {
+  async list(awid, dtoIn, authorizationResult) {
     let uuAppErrorMap = {};
 
-    // hds 1, A1, hds 1.1, A2
+    // hds 1
+    const allowedStateRules = {
+      [Profiles.AUTHORITIES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION, Jokes.States.CLOSED]),
+      [Profiles.EXECUTIVES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
+      [Profiles.READERS]: new Set([Jokes.States.ACTIVE]),
+    };
+
     await InstanceChecker.ensureInstanceAndState(
       awid,
-      new Set([Constants.Jokes.States.ACTIVE]),
+      allowedStateRules,
+      authorizationResult,
       Errors.List,
       uuAppErrorMap
     );
@@ -58,8 +65,12 @@ class ListAbl {
     }
 
     // hds 4
-    list.uuAppErrorMap = uuAppErrorMap;
-    return list;
+    const dtoOut = {
+      ...list,
+      uuAppErrorMap,
+    };
+
+    return dtoOut;
   }
 }
 

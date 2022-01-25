@@ -4,17 +4,12 @@ const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const { UuAppWorkspace } = require("uu_appg01_server").Workspace;
 const { UriBuilder } = require("uu_appg01_server").Uri;
 const { UuTerrClient } = require("uu_territory_clientg01");
-const { Schemas, Jokes } = require("../constants");
+const { Profiles, Schemas, Jokes } = require("../constants");
 
 const Path = require("path");
 const Errors = require("../../api/errors/jokes-error");
-const InstanceChecker = require("../components/instance-checker");
-
-const Warnings = {
-  SetStateUnsupportedKeys: {
-    CODE: `${Errors.SetState.UC_CODE}unsupportedKeys`,
-  },
-};
+const Warnings = require("../../api/warnings/jokes-warnings");
+const InstanceChecker = require("../../component/instance-checker");
 
 class SetStateAbl {
   constructor() {
@@ -22,28 +17,38 @@ class SetStateAbl {
     this.dao = DaoFactory.getDao(Schemas.JOKES);
   }
 
-  async setState(uri, dtoIn, session) {
+  async setState(uri, dtoIn, session, authorizationResult) {
     const awid = uri.getAwid();
     let uuAppErrorMap = {};
     let dtoOut = {};
 
-    // HDS 1
-    const allowedStates = new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION, Jokes.States.CLOSED]);
-    let jokes = await InstanceChecker.ensureInstanceAndState(awid, allowedStates, Errors, uuAppErrorMap);
+    // hds 1
+    // note: "closed" state is allowed for educational reasons in order to have
+    // the possibility to test the state and still go back
+    const allowedStateRules = {
+      [Profiles.AUTHORITIES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION, Jokes.States.CLOSED]),
+    };
+    await InstanceChecker.ensureInstanceAndState(
+      awid,
+      allowedStateRules,
+      authorizationResult,
+      Errors.SetState,
+      uuAppErrorMap
+    );
 
-    // HDS 2
-    let validationResult = this.validator.validate("jokesSetStateDtoInType", dtoIn);
-
+    // hds 2
+    const validationResult = this.validator.validate("jokesSetStateDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      Warnings.SetStateUnsupportedKeys.CODE,
+      uuAppErrorMap,
+      Warnings.SetState.UnsupportedKeys.code,
       Errors.SetState.InvalidDtoIn
     );
 
-    // HDS 3
+    // hds 3
+    let jokes;
     const uuObject = { awid, ...dtoIn };
-
     try {
       jokes = await this.dao.updateByAwid(uuObject);
     } catch (e) {
@@ -52,9 +57,10 @@ class SetStateAbl {
 
     dtoOut.jokes = jokes;
 
-    // HDS 4
+    // hds 4
     const workspace = await UuAppWorkspace.get(awid);
 
+    // hds 5
     if (workspace.authorizationStrategy === "artifact") {
       const artifactUri = UriBuilder.parse(workspace.artifactUri).toUri();
 
@@ -76,14 +82,14 @@ class SetStateAbl {
           appUri: uri.getBaseUri(),
         });
       } catch (e) {
-        throw new Errors.UpdateAwscStateFailed({ uuAppErrorMap }, e);
+        throw new Errors.SetState.UpdateAwscStateFailed({ uuAppErrorMap }, e);
       }
 
       dtoOut.artifact = awsc.artifact;
       dtoOut.context = awsc.context;
     }
 
-    // HDS 5
+    // hds 6
     dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
   }

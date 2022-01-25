@@ -29,7 +29,7 @@
       },
       "jokes/plugInBt": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Executives", "Readers"]
+        "profileList": ["Authorities"]
       },
       "jokes/load": {
         "sysStateList": ["active"],

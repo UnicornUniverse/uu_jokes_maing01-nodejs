@@ -5,18 +5,18 @@ const CATEGORY_ERROR_PREFIX = `${UuJokesError.ERROR_PREFIX}category/`;
 
 const Create = {
   UC_CODE: `${CATEGORY_ERROR_PREFIX}create/`,
-  JokesInstanceDoesNotExist: class extends UuJokesError {
+  JokesDoesNotExist: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}jokesInstanceDoesNotExist`;
-      this.message = "JokesInstance does not exist.";
+      this.code = `${Create.UC_CODE}jokesDoesNotExist`;
+      this.message = "UuObject jokes does not exist.";
     }
   },
-  JokesInstanceNotInProperState: class extends UuJokesError {
+  JokesNotInCorrectState: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Create.UC_CODE}jokesInstanceNotInProperState`;
-      this.message = "JokesInstance is not in proper state [active|underConstruction].";
+      this.code = `${Create.UC_CODE}jokesNotInCorrectState`;
+      this.message = "UuObject jokes is not in correct state.";
     }
   },
   InvalidDtoIn: class extends UuJokesError {
@@ -44,18 +44,18 @@ const Create = {
 
 const Get = {
   UC_CODE: `${CATEGORY_ERROR_PREFIX}get/`,
-  JokesInstanceDoesNotExist: class extends UuJokesError {
+  JokesDoesNotExist: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}jokesInstanceDoesNotExist`;
-      this.message = "JokesInstance does not exist.";
+      this.code = `${Get.UC_CODE}jokesDoesNotExist`;
+      this.message = "UuObject jokes does not exist.";
     }
   },
-  JokesInstanceNotInProperState: class extends UuJokesError {
+  JokesNotInCorrectState: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}jokesInstanceNotInProperState`;
-      this.message = "JokesInstance is not in proper state [active|underConstruction].";
+      this.code = `${Get.UC_CODE}jokesNotInCorrectState`;
+      this.message = "UuObject jokes is not in correct state.";
     }
   },
   JokesInstanceIsUnderConstruction: class extends UuJokesError {
@@ -83,18 +83,18 @@ const Get = {
 
 const Update = {
   UC_CODE: `${CATEGORY_ERROR_PREFIX}update/`,
-  JokesInstanceDoesNotExist: class extends UuJokesError {
+  JokesDoesNotExist: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Update.UC_CODE}jokesInstanceDoesNotExist`;
-      this.message = "JokesInstance does not exist.";
+      this.code = `${Update.UC_CODE}jokesDoesNotExist`;
+      this.message = "UuObject jokes does not exist.";
     }
   },
-  JokesInstanceNotInProperState: class extends UuJokesError {
+  JokesNotInCorrectState: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Update.UC_CODE}jokesInstanceNotInProperState`;
-      this.message = "JokesInstance is not in proper state [active|underConstruction].";
+      this.code = `${Update.UC_CODE}jokesNotInCorrectState`;
+      this.message = "UuObject jokes is not in correct state.";
     }
   },
   InvalidDtoIn: class extends UuJokesError {
@@ -108,7 +108,7 @@ const Update = {
     constructor() {
       super(...arguments);
       this.code = `${Update.UC_CODE}categoryNameNotUnique`;
-      this.message = "Category name is not unique in awid.";
+      this.message = "Category with the given name already exists. Please choose a different name.";
     }
   },
   CategoryDaoUpdateFailed: class extends UuJokesError {
@@ -122,18 +122,18 @@ const Update = {
 
 const Delete = {
   UC_CODE: `${CATEGORY_ERROR_PREFIX}delete/`,
-  JokesInstanceDoesNotExist: class extends UuJokesError {
+  JokesDoesNotExist: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Delete.UC_CODE}jokesInstanceDoesNotExist`;
-      this.message = "JokesInstance does not exist.";
+      this.code = `${Delete.UC_CODE}jokesDoesNotExist`;
+      this.message = "UuObject jokes does not exist.";
     }
   },
-  JokesInstanceNotInProperState: class extends UuJokesError {
+  JokesNotInCorrectState: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${Delete.UC_CODE}jokesInstanceNotInProperState`;
-      this.message = "JokesInstance is not in proper state [active|underConstruction].";
+      this.code = `${Delete.UC_CODE}jokesNotInCorrectState`;
+      this.message = "UuObject jokes is not in correct state.";
     }
   },
   InvalidDtoIn: class extends UuJokesError {
@@ -168,18 +168,18 @@ const Delete = {
 
 const List = {
   UC_CODE: `${CATEGORY_ERROR_PREFIX}list/`,
-  JokesInstanceDoesNotExist: class extends UuJokesError {
+  JokesDoesNotExist: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${List.UC_CODE}jokesInstanceDoesNotExist`;
-      this.message = "JokesInstance does not exist.";
+      this.code = `${List.UC_CODE}jokesDoesNotExist`;
+      this.message = "UuObject jokes does not exist.";
     }
   },
-  JokesInstanceNotInProperState: class extends UuJokesError {
+  JokesNotInCorrectState: class extends UuJokesError {
     constructor() {
       super(...arguments);
-      this.code = `${List.UC_CODE}jokesInstanceNotInProperState`;
-      this.message = "JokesInstance is not in proper state [active|underConstruction].";
+      this.code = `${List.UC_CODE}jokesNotInCorrectState`;
+      this.message = "UuObject jokes is not in correct state.";
     }
   },
   JokesInstanceIsUnderConstruction: class extends UuJokesError {

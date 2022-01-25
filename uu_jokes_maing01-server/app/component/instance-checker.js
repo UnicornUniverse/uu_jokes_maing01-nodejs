@@ -1,6 +1,6 @@
 //@@viewOn:imports
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
-const { Schemas } = require("../constants");
+const { Schemas } = require("../abl/constants");
 //@@viewOff:imports
 
 //@@viewOn:components
@@ -17,19 +17,23 @@ class InstanceChecker {
    * @param {Object} uuAppErrorMap Standard uuAppErrorMap
    * @returns {Promise<[]>} instance itself
    */
-  async ensureInstanceAndState(awid, states, errors, uuAppErrorMap = {}) {
+  async ensureInstanceAndState(awid, allowedStateRules, authorizationResult, errors, uuAppErrorMap = {}) {
     // HDS 1
-    let jokes = await this.ensureInstance(awid, errors, uuAppErrorMap);
+    const jokes = await this.ensureInstance(awid, errors, uuAppErrorMap);
 
     // HDS 2
-    if (!states.has(jokes.state)) {
-      // 2.1.A
-      throw new errors.JokesInstanceNotInProperState(
+    const authorizedProfiles = authorizationResult.getAuthorizedProfiles();
+    // note: the "biggest" profile is always in first position
+    const allowedStates = allowedStateRules[authorizedProfiles[0]];
+
+    // HDS 3
+    if (!allowedStates.has(jokes.state)) {
+      throw new errors.JokesNotInCorrectState(
         { uuAppErrorMap },
         {
           awid,
           state: jokes.state,
-          expectedState: Array.from(states),
+          expectedState: Array.from(allowedStates),
         }
       );
     }
@@ -51,7 +55,7 @@ class InstanceChecker {
     // HDS 2
     if (!jokes) {
       // 2.1.A
-      throw new errors.JokesInstanceDoesNotExist({ uuAppErrorMap }, { awid });
+      throw new errors.JokesDoesNotExist({ uuAppErrorMap }, { awid });
     }
 
     return jokes;

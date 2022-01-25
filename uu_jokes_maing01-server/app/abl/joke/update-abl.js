@@ -5,23 +5,29 @@ const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const { UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
 const Errors = require("../../api/errors/joke-error");
 const Warnings = require("../../api/warnings/joke-warning");
-const InstanceChecker = require("../components/instance-checker");
-const Joke = require("../components/joke");
-const Constants = require("../constants");
+const InstanceChecker = require("../../component/instance-checker");
+const Joke = require("../../component/joke");
+const { Profiles, Schemas, Jokes } = require("../constants");
 
 class UpdateAbl {
   constructor() {
     this.validator = Validator.load();
-    this.dao = DaoFactory.getDao(Constants.Schemas.JOKE);
+    this.dao = DaoFactory.getDao(Schemas.JOKE);
   }
 
   async update(awid, dtoIn, session, authorizationResult) {
     let uuAppErrorMap = {};
 
-    // hds 1, A1, hds 1.1, A2
+    // hds 1
+    const allowedStateRules = {
+      [Profiles.AUTHORITIES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
+      [Profiles.EXECUTIVES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
+    };
+
     await InstanceChecker.ensureInstanceAndState(
       awid,
-      new Set([Constants.Jokes.States.ACTIVE]),
+      allowedStateRules,
+      authorizationResult,
       Errors.Update,
       uuAppErrorMap
     );
@@ -38,29 +44,34 @@ class UpdateAbl {
     );
 
     // hds 3
+    if (dtoIn.image && dtoIn.deleteImage) {
+      throw new Errors.Update.InvalidInputCombination({ uuAppErrorMap });
+    }
+
+    // hds 4
     const joke = await this.dao.get(awid, dtoIn.id);
-    // A5
     if (!joke) {
       throw new Errors.Update.JokeDoesNotExist({ uuAppErrorMap }, { jokeId: dtoIn.id });
     }
 
-    // hds 4
-    const invalidText = "text" in dtoIn && dtoIn.text.trim().length === 0;
-    if (invalidText && !dtoIn.image && !joke.image) {
-      throw new Errors.Update.InvalidName(uuAppErrorMap, { text: dtoIn.text });
-    }
-
     // hds 5
-    if (dtoIn.deleteImage && invalidText && !joke.text) {
-      throw new Errors.Update.ImageCannotBeDeleted(uuAppErrorMap);
+    const uuIdentity = session.getIdentity().getUuIdentity();
+    const isAuthorities = authorizationResult.getAuthorizedProfiles().includes(Profiles.AUTHORITIES);
+    if (uuIdentity !== joke.uuIdentity && !isAuthorities) {
+      throw new Errors.Update.UserNotAuthorized({ uuAppErrorMap });
     }
 
     // hds 6
-    const uuIdentity = session.getIdentity().getUuIdentity();
-    const isAuthorities = authorizationResult.getAuthorizedProfiles().includes(Constants.Profiles.AUTHORITIES);
-    // A6
-    if (uuIdentity !== joke.uuIdentity && !isAuthorities) {
-      throw new Errors.Update.UserNotAuthorized({ uuAppErrorMap });
+    const emptyText = "text" in dtoIn && dtoIn.text.trim().length === 0;
+    if (emptyText) {
+      // 6.1
+      if (!dtoIn.image && !joke.image) {
+        throw new Errors.Update.TextCannotBeRemoved(uuAppErrorMap, { text: dtoIn.text });
+      }
+      // 6.2
+      if (dtoIn.deleteImage && joke.image && !joke.text) {
+        throw new Errors.Update.ImageCannotBeDeleted(uuAppErrorMap);
+      }
     }
 
     // hds 7
@@ -84,17 +95,17 @@ class UpdateAbl {
     // hds 8
     if (dtoIn.image) {
       let binary;
+      // 8.1
       const image = await Joke.checkAndGetImageAsStream(dtoIn.image, Errors.Update);
       if (!joke.image) {
-        // hds 8.1
+        // 8.2.A
         try {
           binary = await UuBinaryAbl.createBinary(awid, { data: image });
         } catch (e) {
-          // A8
           throw new Errors.Update.UuBinaryCreateFailed({ uuAppErrorMap }, e);
         }
       } else {
-        // hds 8.2
+        // 8.2.B
         try {
           binary = await UuBinaryAbl.updateBinaryData(awid, {
             data: image,
@@ -102,7 +113,6 @@ class UpdateAbl {
             revisionStrategy: "NONE",
           });
         } catch (e) {
-          // A9
           throw new Errors.Update.UuBinaryUpdateBinaryDataFailed({ uuAppErrorMap }, e);
         }
       }
@@ -125,7 +135,6 @@ class UpdateAbl {
       updatedJoke = await this.dao.update(toUpdate);
     } catch (e) {
       if (e instanceof ObjectStoreError) {
-        // A10
         throw new Errors.Update.JokeDaoUpdateFailed({ uuAppErrorMap }, e);
       }
       throw e;

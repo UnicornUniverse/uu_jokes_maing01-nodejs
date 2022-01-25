@@ -7,7 +7,7 @@ const DeleteAbl = require("../../abl/category/delete-abl");
 
 class CategoryController {
   static create(ucEnv) {
-    return CreateAbl.create(ucEnv.getUri().getAwid(), ucEnv.parameters);
+    return CreateAbl.create(ucEnv.getUri().getAwid(), ucEnv.parameters, ucEnv.getAuthorizationResult());
   }
 
   static get(ucEnv) {
@@ -15,11 +15,11 @@ class CategoryController {
   }
 
   static update(ucEnv) {
-    return UpdateAbl.update(ucEnv.getUri().getAwid(), ucEnv.parameters);
+    return UpdateAbl.update(ucEnv.getUri().getAwid(), ucEnv.parameters, ucEnv.getAuthorizationResult());
   }
 
   static delete(ucEnv) {
-    return DeleteAbl.delete(ucEnv.getUri().getAwid(), ucEnv.parameters);
+    return DeleteAbl.delete(ucEnv.getUri().getAwid(), ucEnv.parameters, ucEnv.getAuthorizationResult());
   }
 
   static list(ucEnv) {

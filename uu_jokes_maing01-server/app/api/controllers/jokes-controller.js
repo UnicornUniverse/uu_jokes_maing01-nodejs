@@ -11,7 +11,7 @@ class JokesController {
   }
 
   static plugInBt(ucEnv) {
-    return PlugInBtAbl.plugInBt(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession());
+    return PlugInBtAbl.plugInBt(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession(), ucEnv.getAuthorizationResult());
   }
 
   static load(ucEnv) {
@@ -19,11 +19,11 @@ class JokesController {
   }
 
   static update(ucEnv) {
-    return UpdateAbl.update(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession());
+    return UpdateAbl.update(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession(), ucEnv.getAuthorizationResult());
   }
 
   static setState(ucEnv) {
-    return SetStateAbl.setState(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession());
+    return SetStateAbl.setState(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession(), ucEnv.getAuthorizationResult());
   }
 
   static migrate(ucEnv) {

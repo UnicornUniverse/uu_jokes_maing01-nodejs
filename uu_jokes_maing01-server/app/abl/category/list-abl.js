@@ -1,18 +1,12 @@
 "use strict";
-
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
-// TODO Fix
-//const JokesInstanceAbl = require("./jokes-instance-abl");
+const InstanceChecker = require("../../component/instance-checker");
 const Errors = require("../../api/errors/category-error");
-const Path = require("path");
+const Warnings = require("../../api/warnings/category-warning");
+const { Profiles, Schemas, Jokes } = require("../constants");
 
-const WARNINGS = {
-  listUnsupportedKeys: {
-    code: `${Errors.List.UC_CODE}unsupportedKeys`,
-  },
-};
 const DEFAULTS = {
   order: "asc",
   pageIndex: 0,
@@ -21,39 +15,39 @@ const DEFAULTS = {
 
 class ListAbl {
   constructor() {
-    // Isn't it better, without using new Validator and Path?
     this.validator = Validator.load();
-    //this.validator = new Validator(Path.join(__dirname, "..", "..", "api", "validation_types", "category-types.js"));
-    this.dao = DaoFactory.getDao("category");
-    this.jokeDao = DaoFactory.getDao("joke");
+    this.dao = DaoFactory.getDao(Schemas.CATEGORY);
+    this.jokeDao = DaoFactory.getDao(Schemas.JOKE);
   }
   async list(awid, dtoIn, authorizationResult) {
-    // hds 1, A1, hds 1.1, A2
-    // TODO Add InstanceChecker
-    // let jokesInstance = await JokesInstanceAbl.checkInstance(
-    //   awid,
-    //   Errors.List.JokesInstanceDoesNotExist,
-    //   Errors.List.JokesInstanceNotInProperState
-    // );
-    // // A3
-    // let authorizedProfiles = authorizationResult.getAuthorizedProfiles();
-    // if (
-    //   jokesInstance.state === JokesInstanceAbl.STATE_UNDER_CONSTRUCTION &&
-    //   !authorizedProfiles.includes(JokesInstanceAbl.AUTHORITIES) &&
-    //   !authorizedProfiles.includes(JokesInstanceAbl.EXECUTIVES)
-    // ) {
-    //   throw new Errors.List.JokesInstanceIsUnderConstruction({}, { state: jokesInstance.state });
-    // }
+    let uuAppErrorMap = {};
+
+    // hds 1
+    const allowedStateRules = {
+      [Profiles.AUTHORITIES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION, Jokes.States.CLOSED]),
+      [Profiles.EXECUTIVES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
+      [Profiles.READERS]: new Set([Jokes.States.ACTIVE]),
+    };
+
+    await InstanceChecker.ensureInstanceAndState(
+      awid,
+      allowedStateRules,
+      authorizationResult,
+      Errors.List,
+      uuAppErrorMap
+    );
 
     // hds 2, 2.1
-    let validationResult = this.validator.validate("categoryListDtoInType", dtoIn);
+    const validationResult = this.validator.validate("categoryListDtoInType", dtoIn);
     // hds 2.2, 2.3, A4, A5
-    let uuAppErrorMap = ValidationHelper.processValidationResult(
+    uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.listUnsupportedKeys.code,
+      uuAppErrorMap,
+      Warnings.List.UnsupportedKeys.code,
       Errors.List.InvalidDtoIn
     );
+
     // hds 2.4
     if (!dtoIn.pageInfo) dtoIn.pageInfo = {};
     if (!dtoIn.pageInfo.pageSize) dtoIn.pageInfo.pageSize = DEFAULTS.pageSize;
@@ -61,11 +55,15 @@ class ListAbl {
     if (!dtoIn.order) dtoIn.order = DEFAULTS.order;
 
     // hds 3
-    let list = await this.dao.list(awid, dtoIn.order, dtoIn.pageInfo);
+    const list = await this.dao.list(awid, dtoIn.order, dtoIn.pageInfo);
 
     // hds 4
-    list.uuAppErrorMap = uuAppErrorMap;
-    return list;
+    const dtoOut = {
+      ...list,
+      uuAppErrorMap,
+    };
+
+    return dtoOut;
   }
 }
 

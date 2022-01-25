@@ -40,8 +40,8 @@ test("A2 - jokes instance is closed", async () => {
   try {
     await TestHelper.executeGetCommand(JOKE_GET, { id: MONGO_ID });
   } catch (e) {
-    expect(e.code).toEqual("uu-jokes-main/joke/get/jokesInstanceNotInProperState");
-    expect(e.message).toEqual("JokesInstance is not in proper state [active|underConstruction].");
+    expect(e.code).toEqual("uu-jokes-main/joke/get/jokesNotInCorrectState");
+    expect(e.message).toEqual("UuObject jokes is not in correct state.");
     expect(e.paramMap.state).toEqual("closed");
     expect(e.paramMap.expectedStateList).toEqual(["active", "underConstruction"]);
   }
