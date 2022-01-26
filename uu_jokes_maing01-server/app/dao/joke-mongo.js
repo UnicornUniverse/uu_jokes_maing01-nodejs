@@ -29,7 +29,7 @@ class JokeMongo extends UuJokesDao {
   async getCountByCategoryId(awid, categoryId) {
     return await super.count({
       awid,
-      categoryIdList: ObjectId.isValid(categoryId) ? new ObjectId(categoryId) : categoryId,
+      categoryIdList: new ObjectId(categoryId),
     });
   }
 
@@ -50,10 +50,7 @@ class JokeMongo extends UuJokesDao {
     let db = await DbConnection.get(this.customUri);
     await db
       .collection(this.collectionName)
-      .updateMany(
-        { awid },
-        { $pull: { categoryIdList: ObjectId.isValid(categoryId) ? new ObjectId(categoryId) : categoryId } }
-      );
+      .updateMany({ awid }, { $pull: { categoryIdList: new ObjectId(categoryId) } });
   }
 
   async delete(awid, id) {
@@ -74,10 +71,7 @@ class JokeMongo extends UuJokesDao {
     const filter = {
       awid,
       categoryIdList: {
-        $in: categoryIdList.map((id) => {
-          if (!ObjectId.isValid(id)) return id;
-          return new ObjectId(id);
-        }),
+        $in: categoryIdList.map((id) => new ObjectId(id)),
       },
     };
 
