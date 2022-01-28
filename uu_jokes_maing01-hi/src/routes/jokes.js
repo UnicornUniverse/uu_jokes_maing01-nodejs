@@ -27,7 +27,7 @@ const Jokes = createVisualComponent({
     return (
       <RouteController>
         <RouteContainer>
-          <UuJokesCore.Joke.List cardView="none" elevation={0} style={{ padding: "40px 24px 0px 24px" }} />
+          <UuJokesCore.Joke.List card="none" />
         </RouteContainer>
       </RouteController>
     );

@@ -9,13 +9,13 @@ const Css = {
     switch (screenSize) {
       case "xs":
       case "s":
-        padding = "0 32px";
+        padding = "8px 8px";
         break;
       case "m":
       case "l":
       case "xl":
       default:
-        padding = "0 16px";
+        padding = "16px 16px";
     }
     return Config.Css.css`padding: ${padding};`;
   },
@@ -23,7 +23,7 @@ const Css = {
 
 export const RouteContainer = createVisualComponent({
   render(props) {
-    const { screenSize } = useScreenSize();
+    const [screenSize] = useScreenSize();
     return <div className={Css.routeContainer(screenSize)}>{props.children}</div>;
   },
 });

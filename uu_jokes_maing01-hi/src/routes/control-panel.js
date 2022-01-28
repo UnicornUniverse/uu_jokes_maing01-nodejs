@@ -70,7 +70,7 @@ const ControlPanel = createVisualComponent({
               </>
             )}
             {!awsc && (
-              <Uu5Elements.HighlightedBox colorScheme={"negative"}>
+              <Uu5Elements.HighlightedBox colorScheme={"negative"} className={Css.noBt()}>
                 <Lsi lsi={LsiData.btNotConnected} />
               </Uu5Elements.HighlightedBox>
             )}
@@ -80,5 +80,11 @@ const ControlPanel = createVisualComponent({
     );
   },
 });
+
+//@@viewOn:css
+const Css = {
+  noBt: () => Config.Css.css`margin-top: 16px`,
+};
+//@@viewOff:css
 
 export default ControlPanel;
