@@ -17,7 +17,7 @@ const UuBtPlugIn = {
   /**
    * Creates awsc
    * @param {String} awid Used awid
-   * @param {string} uuBtBaseUri 
+   * @param {string} uuBtBaseUri
    * @param {object} dtoIn
    * @param {object} uuBtUriParams
    * @param {object} uuAppErrorMap

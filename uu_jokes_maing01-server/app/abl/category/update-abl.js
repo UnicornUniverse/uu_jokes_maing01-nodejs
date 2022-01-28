@@ -46,7 +46,7 @@ class UpdateAbl {
       ...dtoIn,
       awid,
     };
-    
+
     let category;
     try {
       category = await this.dao.update(toUpdate);

@@ -13,7 +13,12 @@ class JokeController {
   }
 
   static get(ucEnv) {
-    return GetAbl.get(ucEnv.getUri().getAwid(), ucEnv.parameters, ucEnv.getAuthorizationResult(), ucEnv.getAuthorizationResult());
+    return GetAbl.get(
+      ucEnv.getUri().getAwid(),
+      ucEnv.parameters,
+      ucEnv.getAuthorizationResult(),
+      ucEnv.getAuthorizationResult()
+    );
   }
 
   static update(ucEnv) {
@@ -21,7 +26,11 @@ class JokeController {
   }
 
   static updateVisibility(ucEnv) {
-    return UpdateVisibilityAbl.updateVisibility(ucEnv.getUri().getAwid(), ucEnv.parameters, ucEnv.getAuthorizationResult());
+    return UpdateVisibilityAbl.updateVisibility(
+      ucEnv.getUri().getAwid(),
+      ucEnv.parameters,
+      ucEnv.getAuthorizationResult()
+    );
   }
 
   static delete(ucEnv) {
@@ -33,7 +42,12 @@ class JokeController {
   }
 
   static addRating(ucEnv) {
-    return AddRatingAbl.addRating(ucEnv.getUri().getAwid(), ucEnv.parameters, ucEnv.session, ucEnv.getAuthorizationResult());
+    return AddRatingAbl.addRating(
+      ucEnv.getUri().getAwid(),
+      ucEnv.parameters,
+      ucEnv.session,
+      ucEnv.getAuthorizationResult()
+    );
   }
 }
 

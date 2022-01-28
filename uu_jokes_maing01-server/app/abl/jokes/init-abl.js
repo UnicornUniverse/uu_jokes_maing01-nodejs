@@ -110,7 +110,11 @@ class InitAbl {
       try {
         await Profile.set(awid, Profiles.AUTHORITIES, dtoIn.uuAppProfileAuthorities);
       } catch (e) {
-        throw new Errors.Init.SetProfileFailed({ uuAppErrorMap }, { uuAppProfileAuthorities: dtoIn.uuAppProfileAuthorities }, e);
+        throw new Errors.Init.SetProfileFailed(
+          { uuAppErrorMap },
+          { uuAppProfileAuthorities: dtoIn.uuAppProfileAuthorities },
+          e
+        );
       }
     }
 
