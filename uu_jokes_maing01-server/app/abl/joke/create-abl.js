@@ -55,7 +55,7 @@ class CreateAbl {
       ...dtoIn,
       ...addedValues,
     };
-    
+
     // hds 3
     if ("text" in dtoIn && dtoIn.text.trim().length === 0 && !dtoIn.image) {
       throw new Errors.Create.InvalidText(uuAppErrorMap, { text: dtoIn.text });
@@ -63,10 +63,14 @@ class CreateAbl {
 
     // hds 4
     if (dtoIn.image) {
-      const image = await Joke.checkAndGetImageAsStream(dtoIn.image, Errors.Create);
+      const image = await Joke.checkAndGetImageAsStream(dtoIn.image, Errors.Create, uuAppErrorMap);
 
       try {
-        const binary = await UuBinaryAbl.createBinary(awid, { data: image });
+        const binary = await UuBinaryAbl.createBinary(awid, {
+          data: image,
+          filename: dtoIn.image.filename,
+          contentType: dtoIn.image.contentType,
+        });
         uuObject.image = binary.code;
       } catch (e) {
         throw new Errors.Create.UuBinaryCreateFailed({ uuAppErrorMap }, e);

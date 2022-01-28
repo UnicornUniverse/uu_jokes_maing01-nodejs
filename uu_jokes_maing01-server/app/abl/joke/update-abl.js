@@ -96,11 +96,16 @@ class UpdateAbl {
     if (dtoIn.image) {
       let binary;
       // 8.1
-      const image = await Joke.checkAndGetImageAsStream(dtoIn.image, Errors.Update);
+      const image = await Joke.checkAndGetImageAsStream(dtoIn.image, Errors.Update, uuAppErrorMap);
+
       if (!joke.image) {
         // 8.2.A
         try {
-          binary = await UuBinaryAbl.createBinary(awid, { data: image });
+          binary = await UuBinaryAbl.createBinary(awid, {
+            data: image,
+            filename: dtoIn.image.filename,
+            contentType: dtoIn.image.contentType,
+          });
         } catch (e) {
           throw new Errors.Update.UuBinaryCreateFailed({ uuAppErrorMap }, e);
         }
@@ -110,6 +115,8 @@ class UpdateAbl {
           binary = await UuBinaryAbl.updateBinaryData(awid, {
             data: image,
             code: joke.image,
+            filename: dtoIn.image.filename,
+            contentType: dtoIn.image.contentType,
             revisionStrategy: "NONE",
           });
         } catch (e) {

@@ -42,21 +42,21 @@ class Joke {
    * @param {Object} errors Object with error definitions
    * @returns {Promise<[]>} Binary stream
    */
-  async checkAndGetImageAsStream(image, errors) {
+  async checkAndGetImageAsStream(image, errors, uuAppErrorMap) {
     let streamToReturn;
     //check if stream or base64
     if (image.readable) {
       //check if the stream is valid
       const { valid: isValidStream, stream } = await FileHelper.validateImageStream(image);
       if (!isValidStream) {
-        throw new errors.Create.InvalidImage({ uuAppErrorMap });
+        throw new errors.InvalidImage({ uuAppErrorMap });
       }
       streamToReturn = stream;
     } else {
       //check if the base64 is valid
-      let binaryBuffer = Base64.urlSafeDecode(dtoIn.image, "binary");
+      let binaryBuffer = Base64.urlSafeDecode(image, "binary");
       if (!FileHelper.validateImageBuffer(binaryBuffer).valid) {
-        throw new errors.Create.InvalidImage({ uuAppErrorMap });
+        throw new errors.InvalidImage({ uuAppErrorMap });
       }
 
       streamToReturn = FileHelper.toStream(binaryBuffer);
