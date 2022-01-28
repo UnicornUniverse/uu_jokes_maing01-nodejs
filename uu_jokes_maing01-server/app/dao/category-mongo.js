@@ -45,10 +45,7 @@ class CategoryMongo extends UuJokesDao {
     const filter = {
       awid,
       _id: {
-        $in: categoryIdList.map((id) => {
-          if (!ObjectId.isValid(id)) return id;
-          return new ObjectId(id);
-        }),
+        $in: categoryIdList.map((id) => new ObjectId(id)),
       },
     };
 
