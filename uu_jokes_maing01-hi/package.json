@@ -9,23 +9,14 @@
   "dependencies": {
     "uu5g05": "^1.0.0",
     "uu5g05-elements": "^1.0.0",
-    "uu_plus4u5g02": "^0.7.0",
-    "uu_plus4u5g02-app": "^0.7.0",
+    "uu_plus4u5g02": "^1.0.0",
+    "uu_plus4u5g02-app": "^1.0.0",
     "uu_territoryg01": "^2.14.0",
     "uu_jokesg01-core": "^1.0.0",
     "uu5loaderg01": "^1.0.1"
   },
   "uuBuildSettings": {
     "externals": {
-      "uu_plus4u5g02": {
-        "cdnBaseUri": "https://cdn.plus4u.net/beta/uu-plus4u5g02/1.0.0/"
-      },
-      "uu_plus4u5g02-app": {
-        "cdnBaseUri": "https://cdn.plus4u.net/beta/uu-plus4u5g02/1.0.0/"
-      },
-      "uu_plus4u5g02-elements": {
-        "cdnBaseUri": "https://cdn.plus4u.net/beta/uu-plus4u5g02/1.0.0/"
-      },
       "uu_jokesg01-core": {
         "cdnBaseUri": "https://cdn.plus4u.net/beta/uu-jokesg01/1.0.0/"
       }
