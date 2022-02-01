@@ -1,5 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils } from "uu5g05";
+import { ModalBus } from "uu5g05-elements";
 import { useSubAppData } from "uu_plus4u5g02";
 import Plus4U5App from "uu_plus4u5g02-app";
 
@@ -47,10 +48,12 @@ export const SpaView = createVisualComponent({
     };
 
     return (
-      <Plus4U5App.Spa>
-        {subApp?.state === "active" && <RouteBar />}
-        <Plus4U5App.Router routeMap={routeMap} />
-      </Plus4U5App.Spa>
+      <ModalBus>
+        <Plus4U5App.Spa>
+          {subApp?.state === "active" && <RouteBar />}
+          <Plus4U5App.Router routeMap={routeMap} />
+        </Plus4U5App.Spa>
+      </ModalBus>
     );
     //@@viewOff:render
   },
