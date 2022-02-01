@@ -119,7 +119,7 @@ class InitAbl {
     }
 
     // hds 7
-    return { ...jokes, uuAppErrorMap };
+    return { jokes, uuAppErrorMap };
   }
 }
 module.exports = new InitAbl();

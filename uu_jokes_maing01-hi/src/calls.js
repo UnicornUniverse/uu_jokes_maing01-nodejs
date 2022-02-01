@@ -16,11 +16,6 @@ let Calls = {
     return response.data;
   },
 
-  initWorkspace(dtoIn) {
-    let commandUri = Calls.getCommandUri("sys/uuAppWorkspace/init");
-    return Calls.call("post", commandUri, dtoIn);
-  },
-
   getCommandUri(useCase) {
     return CALLS_BASE_URI + useCase.replace(/^\/+/, "");
   },

@@ -1,19 +1,14 @@
 export default {
-  notAuthorized: {
-    cs: "Nemáte dostatečná práva k použití aplikace",
-    en: "You do not have sufficient rights to use the application",
-  },
-
-  formHeader: {
+  header: {
     cs: "Inicializovat aplikaci",
     en: "Initialize uuApp",
   },
 
-  formHeaderInfo: {
+  info: {
     cs: `<uu5string/>Vaše uuApp běží, ale vyžaduje inicializaci. Pokud potřebujete pomoci s vyplněním tohoto formuláře, podívejte se do
-<Uu5Elements.Link target="_blank" style="color: inherit" href="#">Dokumentace</Uu5Elements.Link>.`,
+<Uu5Elements.Link target="_blank" style="color: inherit" href="https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=71074282">Dokumentace</Uu5Elements.Link>.`,
     en: `<uu5string/>Your uuApp is running, but requires initialization. If you need help with filling up this form, see
-<Uu5Elements.Link target="_blank" style="color: inherit" href="#">Documentation</Uu5Elements.Link>.`,
+<Uu5Elements.Link target="_blank" style="color: inherit" href="https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/book/page?code=71074282">Documentation</Uu5Elements.Link>.`,
   },
 
   notAuthorizedForInit: {
@@ -21,17 +16,17 @@ export default {
     en: "The application is running but it was not initialized yet and you do not have sufficient rights to do so.",
   },
 
-  uuBtLocationUriLabel: {
-    cs: "Umístění uuBusinessTerritory",
-    en: "uuBusinessTerritory location",
+  uuBtLocationUri: {
+    cs: "URI umístění v teritoriu",
+    en: "Location URI in territory",
   },
 
-  uuBtLocationUriTooltip: {
+  uuBtLocationUriInfo: {
     cs: "Uri uuBt umístění kam bude založen AWSC",
     en: "Uri of the uuBt location where AWSC will be created",
   },
 
-  nameLabel: {
+  name: {
     cs: "Název",
     en: "Name",
   },
