@@ -12,6 +12,7 @@
     "uu_plus4u5g02-app": "^1.0.0",
     "uu_territoryg01": "^2.14.0",
     "uu5g05": "^1.0.0",
+    "uu5g05-browser-compatibility": "^1.5.1",
     "uu5g05-elements": "^1.0.0",
     "uu5g05-forms": "^1.0.0",
     "uu5loaderg01": "^1.0.1"
@@ -24,7 +25,7 @@
     }
   },
   "devDependencies": {
-    "uu_appg01_devkit": "^4.3.0"
+    "uu_appg01_devkit": "^5.0.0"
   },
   "engines": {
     "node": ">=12.0.0"

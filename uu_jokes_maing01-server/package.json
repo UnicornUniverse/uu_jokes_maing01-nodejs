@@ -13,7 +13,7 @@
     "uu_territory_clientg01": "^1.0.0"
   },
   "devDependencies": {
-    "uu_appg01_devkit": "^4.0.0",
+    "uu_appg01_devkit": "^5.0.0",
     "uu_appg01_server-test": "^5.0.0"
   },
   "engines": {

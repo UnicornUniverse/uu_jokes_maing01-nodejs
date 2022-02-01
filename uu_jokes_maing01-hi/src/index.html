@@ -3,88 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google" content="notranslate" />
     <title>uuJokes</title>
 
     <!-- NOTE Following URLs are automatically replaced during build according to the configuration.
       Additionally, <base> element is automatically inserted here so that relative paths are loaded relatively to app base,
       not relatively to current use case in the URL. -->
-    <% template = `
-    <script src="uu5-environment.js"></script>
-    <script src="~uu5g04/uu5g04-browser-update.min.js" crossorigin="anonymous"></script>
-
-    <link type="text/css" rel="stylesheet" href="https://cdn.plus4u.net/libs/clearsans/2.0.0/fonts/clear-sans.min.css">
-    <link rel="preconnect" href="https://uuidentity.plus4u.net">
-    <script src="~uu5loaderg01" crossorigin="anonymous"></script>
-
-    <meta name="apple-mobile-web-app-title" content="uuJokes">
-    <meta name="application-name" content="uuJokes">
-    <meta name="msapplication-TileImage" content="assets/meta/mstile-150x150.png">
-    <meta name="msapplication-TileColor" content="#004191">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/meta/apple-touch-icon.png">
-    <link rel="icon" type="image/png" href="assets/meta/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="assets/meta/favicon-16x16.png" sizes="16x16">
-    <link rel="mask-icon" href="assets/meta/safari-pinned-tab.svg" color="#004191">
-
-    <style>
-      .uu-app-loading {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        pointer-events: none;
-      }
-
-      .uu-app-loading-svg {
-        height: 256px;
-        color: #2196f3;
-        vertical-align: middle;
-        animation: uu-app-loading 1s infinite linear;
-      }
-
-      @keyframes uu-app-loading {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
-
-    <!-- Add extra <link>s or <script>s here if necessary. -->
-
-    ` %><%= htmlWebpackPlugin.options.ejsFixUrls(template) %>
-  </head>
-
+      <% template = `
+      <script src="uu5-environment.js"></script>
+      <script src="~uu5g05-browser-compatibility/uu5g05-browser-compatibility.min.js" crossorigin="anonymous"></script>
   
-
-  <body class="clear-sans">
-    <div id="uuApp">
-      <div class="uu-app-loading">
-        <svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="uu-app-loading-svg">
-          <defs>
-            <linearGradient id="a" x1="50%" x2="50%" y2="100%">
-              <stop stop-color="currentColor" offset="0" />
-              <stop stop-color="currentColor" stop-opacity=".3" offset="1" />
-            </linearGradient>
-          </defs>
-          <circle cx="12" cy="12" r="11.8" fill="none" stroke="url(#a)" stroke-width="0.4" />
-        </svg>
+      <link type="text/css" rel="stylesheet" href="https://cdn.plus4u.net/libs/clearsans/2.0.0/fonts/clear-sans.min.css">
+      <link type="text/css" rel="stylesheet" href="loading.css">
+      <link rel="preconnect" href="https://uuidentity.plus4u.net">
+      <script src="~uu5loaderg01" crossorigin="anonymous"></script>
+  
+      <meta name="apple-mobile-web-app-title" content="uuJokes">
+      <meta name="application-name" content="uuJokes">
+      <meta name="msapplication-TileImage" content="assets/meta/mstile-150x150.png">
+      <meta name="msapplication-TileColor" content="#004191">
+      <link rel="apple-touch-icon" sizes="180x180" href="assets/meta/apple-touch-icon.png">
+      <link rel="icon" type="image/png" href="assets/meta/favicon-32x32.png" sizes="32x32">
+      <link rel="icon" type="image/png" href="assets/meta/favicon-16x16.png" sizes="16x16">
+      <link rel="mask-icon" href="assets/meta/safari-pinned-tab.svg" color="#004191">
+  
+      <!-- Add extra <link>s or <script>s here if necessary. -->
+  
+      ` %><%= htmlWebpackPlugin.options.ejsFixUrls(template) %>
+    </head>
+  
+    <body class="clear-sans">
+      <div id="uuApp">
+        <div class="uu-app-loading" hidden>
+          <svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="uu-app-loading-svg">
+            <defs>
+              <linearGradient id="a" x1="50%" x2="50%" y2="100%">
+                <stop stop-color="currentColor" offset="0" />
+                <stop stop-color="currentColor" stop-opacity=".3" offset="1" />
+              </linearGradient>
+            </defs>
+            <circle cx="12" cy="12" r="11.8" fill="none" stroke="url(#a)" stroke-width="0.4" />
+          </svg>
+          <div class="uu-app-loading-name">uuJokes</div>
+        </div>
       </div>
-    </div>
-    
-<%=
-  // insert error snippet if application initialization fails entirely
-  htmlWebpackPlugin.options.renderTemplate("index-error.html", {
-    handlerName: "handleUuAppScriptError",
-    targetElementId: "uuApp"
-  })
-%>
+      
+  <%=
+    // insert error snippet if application initialization fails entirely
+    htmlWebpackPlugin.options.renderTemplate("index-error.html", {
+      handlerName: "handleUuAppScriptError",
+      targetElementId: "uuApp"
+    })
+  %>
 
     <script>
       if (!window.Uu5Loader) handleUuAppScriptError(new Error("Uu5Loader failed to load."));
