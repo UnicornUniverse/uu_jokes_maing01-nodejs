@@ -1,18 +1,29 @@
-import { Utils, createVisualComponent, Environment, useLsi, Lsi, DynamicLibraryComponent, useSession } from "uu5g05";
+//@@viewOn:imports
+import {
+  Utils,
+  createVisualComponent,
+  Environment,
+  useLsi,
+  Lsi,
+  DynamicLibraryComponent,
+  useSession,
+  useDynamicLibraryComponent,
+} from "uu5g05";
 import Uu5Elements from "uu5g05-elements";
-import Plus4U5 from "uu_plus4u5g01";
-import "uu_plus4u5g01-app";
 import { useSubApp, useSystemData } from "uu_plus4u5g02";
-import { RouteController } from "uu_plus4u5g02-app";
+import Plus4U5App, { withRoute } from "uu_plus4u5g02-app";
 
 import Config from "./config/config.js";
 import LSI from "../config/lsi.js";
 import AboutCfg from "../config/about.js";
 //@@viewOff:imports
 
+//@@viewOn:constants
+//@@viewOff:constants
+
 //@@viewOn:css
 const Css = {
-  main: () => Config.Css.css`
+  content: () => Config.Css.css`
     margin: 0 auto;
     max-width: 920px;
 
@@ -34,20 +45,21 @@ const Css = {
   `,
   technologies: () => Config.Css.css({ maxWidth: 480 }),
   logos: () => Config.Css.css({ textAlign: "center", marginTop: 56 }),
-  common: () => Config.Css.css`
-    max-width: 480px;
-    margin: 12px auto 56px;
-  
-    & > * {
-      border-top: 1px solid rgba(0, 0, 0, 0.12);
-      padding: 9px 0 12px;
-      text-align: center;
-      color: #828282;
-      &:last-child {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-      }
-    }
-  `,
+  common: () =>
+    Config.Css.css({
+      maxWidth: 480,
+      margin: "12px auto 56px",
+
+      "& > *": {
+        borderTop: "1px solid rgba(0, 0, 0, 0.12)",
+        padding: "9px 0 12px",
+        textAlign: "center",
+        color: "#828282",
+        "&:last-child": {
+          borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
+        },
+      },
+    }),
   technologiesLicenseRow: () =>
     Config.Css.css({
       display: "grid",
@@ -74,7 +86,7 @@ function getAuthors(authors) {
 }
 //@@viewOff:helpers
 
-export const About = createVisualComponent({
+let About = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "About",
   //@@viewOff:statics
@@ -123,19 +135,22 @@ export const About = createVisualComponent({
     const header = useLsi(LSI.about.header);
     const creatorsHeader = useLsi(LSI.about.creatorsHeader);
     const termsOfUse = useLsi(LSI.about.termsOfUse);
+
+    const { state } = useDynamicLibraryComponent("Plus4U5.App.About");
+    const legacyComponentsReady = !state.startsWith("pending");
     //@@viewOff:private
 
     //@@viewOn:render
     const leadingAuthors = getAuthors(AboutCfg.leadingAuthors);
     const otherAuthors = getAuthors(AboutCfg.otherAuthors);
-    const attrs = Utils.VisualComponent.getAttrs(props, Css.main());
-
-    return (
-      <RouteController>
-        <div {...attrs}>
-          <Plus4U5.App.About header={header} content={about} />
+    const attrs = Utils.VisualComponent.getAttrs(props);
+    return legacyComponentsReady ? (
+      <div {...attrs}>
+        <div className={Css.content()}>
+          <DynamicLibraryComponent uu5Tag="Plus4U5.App.About" header={header} content={about} />
           {sessionState === "authenticated" ? (
-            <Plus4U5.App.Support
+            <DynamicLibraryComponent
+              uu5Tag="Plus4U5.App.Support"
               uuFlsUri={uuAppUuFlsBaseUri}
               uuSlsUri={uuAppUuSlsBaseUri}
               productCode="uuJokes"
@@ -143,13 +158,7 @@ export const About = createVisualComponent({
             />
           ) : null}
           {products.length > 0 ? (
-            <DynamicLibraryComponent
-              uu5Tag="UuProductCatalogue.Bricks.ProductList"
-              props={{
-                type: "16x9",
-                products,
-              }}
-            />
+            <DynamicLibraryComponent uu5Tag="UuProductCatalogue.Bricks.ProductList" type="16x9" products={products} />
           ) : null}
           <div className={Css.common()}>
             <div>{`uuJokes ${Environment.appVersion}`}</div>
@@ -161,10 +170,16 @@ export const About = createVisualComponent({
               </div>
             )}
           </div>
-          <Plus4U5.App.Authors header={creatorsHeader} leadingAuthors={leadingAuthors} otherAuthors={otherAuthors} />
+          <DynamicLibraryComponent
+            uu5Tag="Plus4U5.App.Authors"
+            header={creatorsHeader}
+            leadingAuthors={leadingAuthors}
+            otherAuthors={otherAuthors}
+          />
           <div className={Css.technologiesLicenseRow()}>
             <div>
-              <Plus4U5.App.Technologies
+              <DynamicLibraryComponent
+                uu5Tag="Plus4U5.App.Technologies"
                 technologies={technologies}
                 content={content}
                 textAlign="left"
@@ -172,7 +187,8 @@ export const About = createVisualComponent({
               />
             </div>
             <div>
-              <Plus4U5.App.Licence
+              <DynamicLibraryComponent
+                uu5Tag="Plus4U5.App.Licence"
                 organisation={organisation}
                 authorities={authorities}
                 awid={<Uu5Elements.Link href={Environment.appBaseUri}>{awid}</Uu5Elements.Link>}
@@ -186,10 +202,17 @@ export const About = createVisualComponent({
             <img height={80} src="assets/unicorn.svg" />
           </div>
         </div>
-      </RouteController>
+      </div>
+    ) : (
+      <Plus4U5App.SpaPending />
     );
   },
   //@@viewOff:render
 });
 
+About = withRoute(About);
+
+//@@viewOn:exports
+export { About };
 export default About;
+//@@viewOff:exports
