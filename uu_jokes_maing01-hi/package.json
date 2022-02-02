@@ -1,6 +1,6 @@
 {
   "name": "uu_jokes_maing01-hi",
-  "version": "3.0.0",
+  "version": "4.0.0-dev",
   "private": true,
   "description": "uuJokes is reference application for educational purposes",
   "license": "License Commercial",
@@ -10,7 +10,6 @@
     "uu_jokesg01-core": "^1.0.0",
     "uu_plus4u5g02": "^1.0.0",
     "uu_plus4u5g02-app": "^1.0.0",
-    "uu_territoryg01": "^2.14.0",
     "uu5g04": "^1.0.0",
     "uu5g05": "^1.0.0",
     "uu5g05-browser-compatibility": "^1.5.1",

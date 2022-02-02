@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, Lsi, useLsiValues, useSession, useRef } from "uu5g05";
+import { createVisualComponent, Lsi, useLsiValues, useRef, Environment } from "uu5g05";
 import { Block, HighlightedBox } from "uu5g05-elements";
 import { Form, FormText, SubmitButton } from "uu5g05-forms";
 import { useSubAppData } from "uu_plus4u5g02";

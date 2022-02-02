@@ -4,7 +4,7 @@
   "uuSubApp": {
     "code": "UU.JOKES.MAING01",
     "name": "uuJokes",
-    "version": "3.0.0",
+    "version": "4.0.0-dev",
     "description": "uuJokes is reference application for educational purposes",
     "license": "License Commercial",
     "asidRequired": true,
@@ -39,7 +39,11 @@
       }
     },
     "uuConfigMap": {
-      "asid_license_owner_list": ["23-8392-1", "6565-1", "4-1"],
+      "asid_license_owner_list": [
+        "23-8392-1",
+        "6565-1",
+        "4-1"
+      ],
       "uu_app_auditlog_record_count_limit": 10000,
       "uu_app_auditlog_record_limit_check_after": 1000,
       "uu_app_oidc_providers_oidcg02_enabled": true,

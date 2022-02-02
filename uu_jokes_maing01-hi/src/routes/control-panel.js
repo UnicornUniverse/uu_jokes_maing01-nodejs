@@ -1,10 +1,8 @@
 //@@viewOn:imports
-import { createVisualComponent, Lsi } from "uu5g05";
-import Uu5Elements from "uu5g05-elements";
+import { createVisualComponent, Lsi, DynamicLibraryComponent } from "uu5g05";
+import { Text, Block, HighlightedBox } from "uu5g05-elements";
 import { useAwscData } from "uu_plus4u5g02";
 import { Jokes } from "uu_jokesg01-core";
-import UuTerritory from "uu_territoryg01";
-import "uu_territoryg01-artifactifc";
 import { RouteController } from "uu_plus4u5g02-app";
 import RouteContainer from "../core/route-container";
 
@@ -36,32 +34,35 @@ const ControlPanel = createVisualComponent({
     //@@viewOff:interface
 
     //@@viewOn:render
-    const header = (
-      <Uu5Elements.Text category="story" segment="heading" type="h1">
+    const headerElement = (
+      <Text category="story" segment="heading" type="h1">
         <Lsi lsi={LsiData.title} />
-      </Uu5Elements.Text>
+      </Text>
     );
 
     return (
       <RouteController>
         <RouteContainer>
-          <Uu5Elements.Block header={header} collapsible={false}>
+          <Block header={headerElement} collapsible={false}>
             <Jokes.BasicInfo />
             {awsc && (
               <>
-                <UuTerritory.ArtifactIfc.Bricks.StateHistory
+                <DynamicLibraryComponent
+                  uu5Tag="UuTerritory.ArtifactIfc.Bricks.StateHistory"
                   territoryBaseUri={awsc.data.uuTerritoryBaseUri}
                   artifactId={awsc.data.artifact.id}
                   contextType="none"
                   cardView="full"
                 />
-                <UuTerritory.Activity.Bricks.ActivityList
+                <DynamicLibraryComponent
+                  uu5Tag="UuTerritory.Activity.Bricks.ActivityList"
                   territoryBaseUri={awsc.data.uuTerritoryBaseUri}
                   artifactId={awsc.data.artifact.id}
                   contextType="none"
                   cardView="full"
                 />
-                <UuTerritory.ArtifactIfc.Bricks.PermissionSettings
+                <DynamicLibraryComponent
+                  uu5Tag="UuTerritory.ArtifactIfc.Bricks.PermissionSettings"
                   territoryBaseUri={awsc.data.uuTerritoryBaseUri}
                   artifactId={awsc.data.artifact.id}
                   contextType="none"
@@ -70,11 +71,11 @@ const ControlPanel = createVisualComponent({
               </>
             )}
             {!awsc && (
-              <Uu5Elements.HighlightedBox colorScheme={"negative"} className={Css.noBt()}>
+              <HighlightedBox colorScheme={"negative"} className={Css.noBt()}>
                 <Lsi lsi={LsiData.btNotConnected} />
-              </Uu5Elements.HighlightedBox>
+              </HighlightedBox>
             )}
-          </Uu5Elements.Block>
+          </Block>
         </RouteContainer>
       </RouteController>
     );
