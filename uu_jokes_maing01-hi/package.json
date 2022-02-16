@@ -19,6 +19,12 @@
   },
   "uuBuildSettings": {
     "externals": {
+      "uu_plus4u5g02": {
+        "cdnBaseUri": "https://cdn.plus4u.net/uu-plus4u5g02/1.1.0/"
+      },
+      "uu_plus4u5g02-app": {
+        "cdnBaseUri": "https://cdn.plus4u.net/uu-plus4u5g02/1.1.0/"
+      },
       "uu_jokesg01-core": {
         "cdnBaseUri": "https://cdn.plus4u.net/beta/uu-jokesg01/2.0.0/"
       }
