@@ -4,7 +4,7 @@
     "primary": "mongodb://127.0.0.1:27017/jokesMainPrimary",
     "binary": "mongodb://127.0.0.1:27017/jokesMainBinary"
   },
-  "asid_license_owner_list": ["5060-4766-9574-0000", "3504-6847-1673-0000", "5278-1157-5179-0000"],
+  "asid_license_owner_list": ["3021-5827-7555-0000","5060-4766-9574-0000", "3504-6847-1673-0000", "5278-1157-5179-0000"],
   "asid": "00000622a8d544a3badf16adac35799f",
   "log_level": "INFO",
 

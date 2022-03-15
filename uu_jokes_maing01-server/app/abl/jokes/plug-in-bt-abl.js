@@ -31,6 +31,7 @@ class PlugInBtAbl {
 
   async plugInBt(uri, dtoIn, session) {
     const awid = uri.getAwid();
+    let uuAppErrorMap = {};
 
     // HDS 1
     const allowedStates = new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]);
@@ -39,11 +40,11 @@ class PlugInBtAbl {
     // HDS 2
     let validationResult = this.validator.validate("jokesPlugInBtDtoInType", dtoIn);
 
-    let uuAppErrorMap = ValidationHelper.processValidationResult(
+    uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      Warnings.PlugInBtUnsupportedKeys.code,
-      Errors.PlugInBtAbl.InvalidDtoIn
+      Warnings.PlugInBtUnsupportedKeys.CODE,
+      Errors.PlugInBt.InvalidDtoIn
     );
 
     // HDS 3
@@ -65,7 +66,7 @@ class PlugInBtAbl {
     }
 
     // HDS 5
-    const awsc = await this._createAwsc(awid, uuBtBaseUri, dtoIn, uuBtUriParams, uuAppErrorMap, uri, session);
+    const awsc = await this._createAwsc(awid, uuBtBaseUri, dtoIn, jokes.name, uuBtUriParams, uuAppErrorMap, uri, session);
 
     // HDS 6
     try {
@@ -92,7 +93,7 @@ class PlugInBtAbl {
   }
 
   // TODO Move helpers to reusable app component
-  async _createAwsc(awid, uuBtBaseUri, dtoIn, uuBtUriParams, uuAppErrorMap, uri, session) {
+  async _createAwsc(awid, uuBtBaseUri, dtoIn, name, uuBtUriParams, uuAppErrorMap, uri, session) {
     const uuTerritoryClient = new UuTerrClient({
       baseUri: uuBtBaseUri,
       session,

@@ -287,4 +287,5 @@ module.exports = {
   Update,
   SetState,
   Migrate,
+  PlugInBt
 };
