@@ -1,6 +1,6 @@
 {
   "name": "uu_jokes_maing01-server",
-  "version": "4.0.0-dev",
+  "version": "4.0.0",
   "description": "uuJokes is reference application for educational purposes",
   "license": "License Commercial",
   "spec": "nodejs-app; uu_appg01_devkit@4.0.1",
