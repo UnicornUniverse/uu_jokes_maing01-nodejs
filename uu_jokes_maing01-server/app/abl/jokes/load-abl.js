@@ -71,11 +71,16 @@ class LoadAbl {
         const artifactId = artifactUri.getParameters().id;
         const btBaseUri = artifactUri.getBaseUri();
         const terrClientOpts = { baseUri: btBaseUri.toString(), session };
+        let awsc;
 
-        const awsc = await UuTerrClient.Awsc.load(
-          { id: artifactId, getTerritoryName: true, loadContext: true, loadVisualIdentification: true },
-          terrClientOpts
-        );
+        try {
+          awsc = await UuTerrClient.Awsc.load(
+            { id: artifactId, getTerritoryName: true, loadContext: true, loadVisualIdentification: true },
+            terrClientOpts
+          );
+        } catch (e) {
+          throw new Errors.Load.UuAwscLoadFailed({ uuAppErrorMap }, e);
+        }
 
         dtoOut.territoryData = { data: awsc };
       }
