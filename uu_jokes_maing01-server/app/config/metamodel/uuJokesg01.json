@@ -2,8 +2,8 @@
   "code": "uu-jokes-maing01",
   "name": "uuJokes uuAppMetaModel",
   "desc": "uuJokes uuAppMetaModel",
-  "version": "3.0.0.1",
-  "defaultIcon": "uubml-artifact",
+  "version": "3.1.5",
+  "defaultIcon": "uubmlicon-uujokes-uu-jokes",
 
   "stateList": [
     {
@@ -80,6 +80,9 @@
         "setState": "",
         "setPermissions": "",
         "setImplicitPermissions": "",
+        "setExplicitPermissions": "",
+        "listExplicitPermissions": "",
+        "authorizeRoleGroupIfc": "",
         "connectAppWorkspace": "",
         "delete": "",
         "listStateHistory": "",
@@ -191,6 +194,8 @@
 
     "uu-businessterritory-maing01/uuAwsc/authorizeMe": "11100000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/authorizeUuIdentity": "11000000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/authorizeRoleGroupIfc": "11000000-00000000-00000000-00000000",
+
     "uu-businessterritory-maing01/uuAwsc/get": "11100000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/load": "11100000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/loadEnvironment": "11100000-00000000-00000000-00000000",
@@ -202,8 +207,11 @@
     "uu-businessterritory-maing01/uuAwsc/setResponsibleRole": "11000000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/setHomeFolder": "11000000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/setState": "11000000-00000000-00000000-00000000",
-    "uu-businessterritory-maing01/uuAwsc/setPermissions": "11000000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/setExplicitPermissions": "11000000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/listExplicitPermissions": "11100000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/setImplicitPermissions": "11000000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/setPermissions": "11000000-00000000-00000000-00000000",
+
     "uu-businessterritory-maing01/uuAwsc/find": "11000000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/connectAppWorkspace": "11000000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/delete": "11000000-00000000-00000000-00000000",
