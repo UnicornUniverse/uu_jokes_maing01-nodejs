@@ -48,12 +48,10 @@ export const SpaView = createVisualComponent({
     };
 
     return (
-      <ModalBus>
-        <Plus4U5App.Spa>
-          {system?.awidData.sysState !== Config.AppWorkspace.State.CREATED && <RouteBar />}
-          <Plus4U5App.Router routeMap={routeMap} />
-        </Plus4U5App.Spa>
-      </ModalBus>
+      <Plus4U5App.Spa>
+        {system?.awidData.sysState !== Config.AppWorkspace.State.CREATED && <RouteBar />}
+        <Plus4U5App.Router routeMap={routeMap} />
+      </Plus4U5App.Spa>
     );
     //@@viewOff:render
   },
