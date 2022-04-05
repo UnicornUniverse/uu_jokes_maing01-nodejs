@@ -165,6 +165,18 @@ const Load = {
   },
 };
 
+const Get = {
+  UC_CODE: `${JOKES_ERROR_PREFIX}get/`,
+
+  JokesDoesNotExist: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Get.UC_CODE}jokesDoesNotExist`;
+      this.message = "UuObject jokes does not exist.";
+    }
+  },
+};
+
 const Update = {
   UC_CODE: `${JOKES_ERROR_PREFIX}update/`,
 
@@ -291,6 +303,7 @@ const Migrate = {
 
 module.exports = {
   Init,
+  Get,
   Load,
   Update,
   SetState,
