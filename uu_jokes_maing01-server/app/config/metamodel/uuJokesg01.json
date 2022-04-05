@@ -131,13 +131,8 @@
     }
   },
 
-  "synchronizeUuCmdMap": {
-    "uu-businessterritory-maing01/uuAwsc/synchronizeArtifactAttributes": "uu-jokes-maing01/jokes/get"
-  },
-
   "useCaseProfileMap": {
     "uu-jokes-maing01/sys/uuAppWorkspace/load": "11100000-00000000-00000000-00000000",
-    "uu-jokes-maing01/jokes/get": "11100000-00000000-00000000-00000000",
     "uu-jokes-maing01/jokes/update": "10000000-00000000-00000000-00000000",
     "uu-jokes-maing01/jokes/setState": "10000000-00000000-00000000-00000000",
     "uu-jokes-maing01/joke/create": "11000000-00000000-00000000-00000000",

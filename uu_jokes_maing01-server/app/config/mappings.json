@@ -21,11 +21,6 @@
         "httpMethod": "GET",
         "type": "CMD"
       },
-      "jokes/get": {
-        "realization": "api/controllers/JokesController.get",
-        "httpMethod": "GET",
-        "type": "CMD"
-      },
       "jokes/plugInBt": {
         "realization": "api/controllers/JokesController.plugInBt",
         "httpMethod": "POST",

@@ -31,10 +31,6 @@
         "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
-      "jokes/get": {
-        "sysStateList": ["created", "active", "restricted", "readOnly", "closed", "suspended"],
-        "profileList": ["Authorities", "Executives", "Readers", "AwidLicenseOwner"]
-      },
       "jokes/update": {
         "sysStateList": ["active"],
         "profileList": ["Authorities"]
