@@ -31,10 +31,6 @@
         "sysStateList": ["active"],
         "profileList": ["Authorities"]
       },
-      "jokes/load": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities", "Executives", "Readers"]
-      },
       "jokes/update": {
         "sysStateList": ["active"],
         "profileList": ["Authorities"]

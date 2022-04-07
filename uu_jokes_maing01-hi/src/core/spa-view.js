@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils } from "uu5g05";
 import { ModalBus } from "uu5g05-elements";
-import { useSubAppData } from "uu_plus4u5g02";
+import { useSystemData } from "uu_plus4u5g02";
 import Plus4U5App from "uu_plus4u5g02-app";
 
 import Config from "./config/config";
@@ -33,7 +33,7 @@ export const SpaView = createVisualComponent({
 
   render() {
     //@@viewOn:private
-    const { data: subApp } = useSubAppData();
+    const { data: system } = useSystemData();
     //@@viewOff:private
 
     //@@viewOn:render
@@ -48,12 +48,10 @@ export const SpaView = createVisualComponent({
     };
 
     return (
-      <ModalBus>
-        <Plus4U5App.Spa>
-          {subApp?.state === "active" && <RouteBar />}
-          <Plus4U5App.Router routeMap={routeMap} />
-        </Plus4U5App.Spa>
-      </ModalBus>
+      <Plus4U5App.Spa>
+        {system?.awidData.sysState !== Config.AppWorkspace.State.CREATED && <RouteBar />}
+        <Plus4U5App.Router routeMap={routeMap} />
+      </Plus4U5App.Spa>
     );
     //@@viewOff:render
   },

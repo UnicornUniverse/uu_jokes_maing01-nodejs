@@ -155,6 +155,14 @@ const Load = {
       this.message = "UuObject jokes does not exist.";
     }
   },
+
+  UuAwscLoadFailed: class extends UuJokesError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Load.UC_CODE}awscLoadFailed`;
+      this.message = "UuAwsc loading from territory failed.";
+    }
+  },
 };
 
 const Update = {

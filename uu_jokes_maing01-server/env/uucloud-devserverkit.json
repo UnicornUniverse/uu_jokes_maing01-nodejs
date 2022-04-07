@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "1.0.0",
+  "schemaSpecificationUri": "https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-289fcd2e11d34f3e9b2184bedb236ded/book/page?code=uuSubAppInstanceDescriptor",
+  "uuSubApp": {
+    "code": "UU.JOKES.MAING01",
+    "name": "uuJokes",
+    "version": "4.0.1",
+    "description": "uuJokes is reference application for educational purposes",
+    "license": "License Commercial",
+    "asidRequired": true,
+    "awidCount": 1,
+    "resourcePoolUri": "ues:UUSERVERKIT-BT:FAMILY_UUSERVERKIT_DEV_RESOURCEPOOL_AWE",
+    "targetSlot": "PRODUCTION",
+    "uuAppNodeSetMap": {
+      "CMD": {
+        "nodeSize": "G1_S",
+        "nodeCount": {
+          "min": 1,
+          "max": 1
+        },
+        "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.7",
+        "appPackUri": "ues:UU-BT:UU.JOKES.MAING01/APPBOX-4.0.0-devkitTest:UU.JOKES.MAING01/CMD-PACK"
+      }
+    },
+    "uuAppObjectStoreMap": {
+      "OSID_1": {
+        "size": 0.25,
+        "alias": "primary",
+        "technology": "MongoDB-4.0",
+        "backup": false
+      }
+    },
+    "uuAppBinaryStoreMap": {
+      "BSID_1": {
+        "size": 0.25,
+        "alias": "binary",
+        "technology": "MongoDB-4.0",
+        "backup": false
+      }
+    },
+    "uuConfigMap": {
+      "asid_license_owner_list": [
+        "25-5728-1",
+        "5255-8178-1",
+        "7777-1"
+      ],
+      "uu_app_oidc_primary_provider": "oidcg02",
+      "uu_app_auditlog_record_schema_version": "1.0.0",
+      "uu_app_qos_progress_base_uri": "https://uuapp.plus4u.net/uu-console-maing02/3bb69e1ed9304980998ce8f77144beb9",
+      "uu_app_status_progress_base_uri": "https://uuapp.plus4u.net/uu-console-maing02/3bb69e1ed9304980998ce8f77144beb9"
+    }
+  },
+  "uuSubAppInstance": {
+    "uuEeMap": {
+      "asidOwner": "25-2295-1"
+    },
+    "awidList": [
+      {
+        "awid": "d368ef2c3b79463383ea64f79eccab04",
+        "awidOwner": "25-2296-1"
+      },
+      {
+        "awid": "bb1f2096aec04be79fedaae3c4c02380",
+        "awidOwner": "25-7340-1"
+      }
+    ],
+    "uuAppObjectStoreMap": {
+      "OSID_1": {
+        "osid": "e10a40113e4442558e4ff4fd41f2dc2b"
+      }
+    },
+    "uuAppBinaryStoreMap": {
+      "BSID_1": {
+        "bsid": "f23b4d0772a84e17b9b00d1f58be7fca"
+      }
+    },
+    "asid": "85288568b1814c48bb1c16d5ce0aa7a0",
+    "asidOwner": "25-2295-1"
+  }
+}
