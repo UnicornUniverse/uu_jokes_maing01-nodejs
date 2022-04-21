@@ -248,6 +248,16 @@
     "uu-businessterritory-maing01/uuAwsc/contextProperty/delete": "11000000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/contextProperty/setValue": "11000000-00000000-00000000-00000000",
 
+    "uu-businessterritory-maing01/uuAwsc/contextNavigation/set": "10000000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/contextNavigation/get": "11110000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/contextNavigation/load": "11110000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/contextNavigation/unset": "10000000-00000000-00000000-00000000",
+
+    "uu-businessterritory-maing01/uuAwsc/visualIdentification/set": "10000000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/visualIdentification/get": "11110000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/visualIdentification/load": "11110000-00000000-00000000-00000000",
+    "uu-businessterritory-maing01/uuAwsc/visualIdentification/unset": "10000000-00000000-00000000-00000000",
+
     "uu-businessterritory-maing01/uuAwsc/synchronizeArtifactAttributes": "11000000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/synchronizeHomeUnit": "11000000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/synchronizeHomeFolder": "11000000-00000000-00000000-00000000",
