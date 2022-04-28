@@ -1,10 +1,9 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g05";
 import { useSystemData } from "uu_plus4u5g02";
-import { withRoute } from "uu_plus4u5g02-app";
+import { RouteController } from "uu_plus4u5g02-app";
+import { PageProvider, View } from "../bricks/about/about";
 import Config from "./config/config.js";
-import AboutProvider from "../bricks/about/provider";
-import AboutView from "../bricks/about/view";
 //@@viewOff:imports
 
 let About = createVisualComponent({
@@ -27,15 +26,17 @@ let About = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <AboutProvider baseUri={systemData.relatedObjectsMap.uuAppWebKitUri}>
-        {(aboutDataObject) => <AboutView aboutDataObject={aboutDataObject} />}
-      </AboutProvider>
+      <PageProvider baseUri={systemData.relatedObjectsMap.uuAppWebKitUri}>
+        {(aboutDataObject) => (
+          <RouteController routeDataObject={aboutDataObject}>
+            <View aboutPage={aboutDataObject.data} />
+          </RouteController>
+        )}
+      </PageProvider>
     );
     //@@viewOff:render
   },
 });
-
-About = withRoute(About);
 
 //@@viewOn:exports
 export { About };

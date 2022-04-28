@@ -4,9 +4,9 @@ import Config from "./config/config";
 import Calls from "calls";
 //@@viewOff:imports
 
-export const Provider = createComponent({
+export const PageProvider = createComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "Provider",
+  uu5Tag: Config.TAG + "PageProvider",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -43,4 +43,4 @@ export const Provider = createComponent({
   },
 });
 
-export default Provider;
+export default PageProvider;
