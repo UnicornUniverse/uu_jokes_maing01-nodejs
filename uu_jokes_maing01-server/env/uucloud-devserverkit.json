@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "1.0.0",
+  "schemaSpecificationUri": "https://uuapp.plus4u.net/uu-bookkit-maing01/bef682626ed943f28cde360ccb325981/book/page?code=uuSubAppInstanceDescriptor",
+  "uuSubApp": {
+    "code": "UU.JOKES.MAING01",
+    "version": "4.0.0-swap",
+    "name": "uuJokesMaing01",
+    "description": "uuJokes is reference application for educational purposes",
+    "license": "License Commercial",
+    "asidRequired": true,
+    "awidCount": 3,
+    "resourcePoolUri": "ues:UUSERVERKIT-BT:FAMILY_UUSERVERKIT_DEV_RESOURCEPOOL_AWE",
+    "uuAppNodeSetMap": {
+      "CMD": {
+        "nodeSize": "G1_S",
+        "nodeCount": {
+          "min": 1,
+          "max": 1
+        },
+        "appPackUri": "ues:DEV0186-BT:UU.JOKES.MAING01/APPBOX-4.0.0-swap:UU.JOKES.MAING01/CMD-PACK",
+        "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.7"
+      }
+    },
+    "uuAppObjectStoreMap": {
+      "OSID_1": {
+        "technology": "MongoDB-4.0",
+        "size": 0.25,
+        "backup": false,
+        "alias": "primary"
+      }
+    },
+    "uuAppBinaryStoreMap": {
+      "BSID_1": {
+        "size": 0.25,
+        "alias": "binary",
+        "technology": "MongoDB-4.0",
+        "backup": false
+      }
+    },
+    "uuConfigMap": {
+      "asid_license_owner_list": [
+        "2326-2966-3680-0000"
+      ],
+      "uu_app_auditlog_record_count_limit": 10000,
+      "uu_app_auditlog_record_limit_check_after": 1000,
+      "uu_app_oidc_providers_oidcg02_enabled": true,
+      "uu_app_oidc_primary_provider": "oidcg02",
+      "uu_app_oidc_providers_oidcg01_enabled": true,
+      "fls_base_uri": "https://uuapp.plus4u.net/uu-flsg01-main/8014eb79e8184ebb8942d96ce37b61b4/",
+      "sls_base_uri": "https://uuapp.plus4u.net/uu-sls-maing01/3c440c47fc1f4ba4bc78e64f571835dc/",
+      "business_request_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/a04c8463649b425fb8b46076c0c5e5d0/",
+      "business_model_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/a129e74e3bcc4fe4a4a95f5e4bb494ed/",
+      "application_model_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/",
+      "user_guide_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/233edf4ed51e4c0eb0c2caad2c270e8a/",
+      "web_uri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/",
+      "product_portal_uri": "https://uuapp.plus4u.net/uu-dockit-maing02/d112828dcd1445e2a916cdd59331a359/document?documentId=5fb577cf1d97660025f9023b",
+      "uu_app_oidc_providers_oidcg02_uri": "https://uuapp.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc"
+    }
+  },
+  "uuSubAppInstance": {
+    "asid": "2c57aebea14d46c957af128e2c82af36",
+    "asidOwner": "2551-8147-1818-0000",
+    "awidList": [
+      {
+        "awid": "c254730501e321821a619b528b0c1c9c",
+        "awidOwner": "26-9720-1"
+      },
+      {
+        "awid": "f5f698e0b336bf5f2b82718ea0673314",
+        "awidOwner": "26-9721-1"
+      }
+    ],
+    "uuAppObjectStoreMap": {
+      "OSID_1": {
+        "osid": "56dce261fbbc4e17a47d93dd189e8e14"
+      }
+    },
+    "uuAppBinaryStoreMap": {
+      "BSID_1": {
+        "bsid": "bef6c52f0f104f649961f03b2314ff71"
+      }
+    }
+  }
+}
