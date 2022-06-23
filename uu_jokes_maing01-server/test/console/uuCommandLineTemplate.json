@@ -1,0 +1,1086 @@
+{
+  "name": "uu-jokes-maing01",
+  "useCaseFolderList": [
+    {
+      "name": "jokes",
+      "useCaseList": [
+        "jokes/plugInBt",
+        "jokes/load",
+        "jokes/update",
+        "jokes/setState",
+        "jokes/migrate"
+      ]
+    },
+    {
+      "name": "joke",
+      "useCaseList": [
+        "joke/create",
+        "joke/get",
+        "joke/update",
+        "joke/updateVisibility",
+        "joke/delete",
+        "joke/list",
+        "joke/addRating"
+      ]
+    },
+    {
+      "name": "category",
+      "useCaseList": [
+        "category/create",
+        "category/get",
+        "category/update",
+        "category/delete",
+        "category/list"
+      ]
+    },
+    {
+      "name": "preference",
+      "useCaseList": [
+        "preference/loadFirst",
+        "preference/createOrUpdate",
+        "preference/delete"
+      ]
+    },
+    {
+      "name": "uuSubAppInstance",
+      "useCaseList": [
+        "sys/uuSubAppInstance/profile/set",
+        "sys/uuSubAppInstance/profile/get",
+        "sys/uuSubAppInstance/profile/list",
+        "sys/uuSubAppInstance/profile/update",
+        "sys/uuSubAppInstance/permission/create",
+        "sys/uuSubAppInstance/permission/list",
+        "sys/uuSubAppInstance/permission/delete",
+        "sys/uuSubAppInstance/setActiveSysState",
+        "sys/uuSubAppInstance/setRestrictedSysState",
+        "sys/uuSubAppInstance/setAuthorizationStrategy",
+        "sys/uuSubAppInstance/init",
+        "sys/uuSubAppInstance/get",
+        "sys/uuSubAppInstance/set",
+        "sys/uuSubAppInstance/dump",
+        "sys/uuSubAppInstance/restore",
+        "sys/uuSubAppInstance/upgrade",
+        "sys/uuSubAppInstance/upgradeCleanup",
+        "sys/uuSubAppInstance/qos/setConfiguration",
+        "sys/uuSubAppInstance/qos/getConfiguration",
+        "sys/uuSubAppInstance/productInfo/set",
+        "sys/uuSubAppInstance/productInfo/get",
+        "sys/uuSubAppInstance/productLogo/set",
+        "sys/uuSubAppInstance/productLogo/get"
+      ]
+    },
+    {
+      "name": "uuAppWorkspace",
+      "useCaseList": [
+        "sys/uuAppWorkspace/create",
+        "sys/uuAppWorkspace/get",
+        "sys/uuAppWorkspace/set",
+        "sys/uuAppWorkspace/close",
+        "sys/uuAppWorkspace/suspend",
+        "sys/uuAppWorkspace/resume",
+        "sys/uuAppWorkspace/setActiveSysState",
+        "sys/uuAppWorkspace/setRestrictedSysState",
+        "sys/uuAppWorkspace/setReadOnlySysState",
+        "sys/uuAppWorkspace/profile/set",
+        "sys/uuAppWorkspace/profile/get",
+        "sys/uuAppWorkspace/profile/list",
+        "sys/uuAppWorkspace/permission/create",
+        "sys/uuAppWorkspace/permission/delete",
+        "sys/uuAppWorkspace/permission/list",
+        "sys/uuAppWorkspace/delete",
+        "sys/uuAppWorkspace/list",
+        "sys/uuAppWorkspace/connectArtifact",
+        "sys/uuAppWorkspace/setAuthorizationStrategy",
+        "sys/uuAppWorkspace/dump",
+        "sys/uuAppWorkspace/restore",
+        "sys/uuAppWorkspace/profile/update",
+        "sys/uuAppWorkspace/import",
+        "sys/uuAppWorkspace/listImportMappings",
+        "sys/uuAppWorkspace/deleteImportMappings",
+        "sys/uuAppWorkspace/productInfo/set",
+        "sys/uuAppWorkspace/productInfo/get",
+        "sys/uuAppWorkspace/productLogo/set",
+        "sys/uuAppWorkspace/productLogo/get",
+        "sys/uuAppWorkspace/init",
+        "sys/uuAppWorkspace/load"
+      ]
+    },
+    {
+      "name": "uuAppDataStore",
+      "useCaseList": [
+        "sys/uuAppDataStore/stats/get",
+        "sys/uuAppDataStore/stats/list",
+        "sys/uuAppDataStore/stats/calculate",
+        "sys/uuAppDataStore/stats/privilegedCalculate",
+        "sys/uuAppDataStore/drop"
+      ]
+    },
+    {
+      "name": "appClientToken",
+      "useCaseList": [
+        "sys/appClientToken/initKeys"
+      ]
+    },
+    {
+      "name": "uuAppSecretStore",
+      "useCaseList": [
+        "sys/uuAppSecretStore/rotateMasterKey",
+        "sys/uuAppSecretStore/getStatus"
+      ]
+    },
+    {
+      "name": "logRecord",
+      "useCaseList": [
+        "sys/logRecord/delete",
+        "sys/logRecord/list",
+        "sys/logRecord/getTransferStatus",
+        "sys/logRecord/transfer"
+      ]
+    },
+    {
+      "name": "uu-app-binarystore",
+      "useCaseList": [
+        "uu-app-binarystore/createBinary",
+        "uu-app-binarystore/updateBinaryData",
+        "uu-app-binarystore/getBinaryData",
+        "uu-app-binarystore/getBinary",
+        "uu-app-binarystore/updateBinary",
+        "uu-app-binarystore/deleteBinary",
+        "uu-app-binarystore/listBinaries",
+        "uu-app-binarystore/getBinaryVersion",
+        "uu-app-binarystore/updateBinaryVersion",
+        "uu-app-binarystore/getBinaryVersionData",
+        "uu-app-binarystore/deleteBinaryVersion",
+        "uu-app-binarystore/listBinaryVersions"
+      ]
+    },
+    {
+      "name": "oidc",
+      "useCaseList": [
+        "oidc/initOidcClient",
+        "oidc/setAllowedRedirects",
+        "oidc/getAllowedRedirects",
+        "oidc/getClientId",
+        "oidc/introspect",
+        "oidc/grantCallToken",
+        "oidc/extendSession"
+      ]
+    },
+    {
+      "name": "getProductInfo",
+      "useCaseList": [
+        "getProductInfo"
+      ]
+    },
+    {
+      "name": "getProductLogo",
+      "useCaseList": [
+        "getProductLogo"
+      ]
+    }
+  ],
+  "useCaseMap": {
+    "sys/uuAppWorkspace/init": {
+      "method": "post",
+      "dtoIn": {
+        "name": "...",
+        "uuAppProfileAuthorities": "...",
+        "uuBtLocationUri": "..."
+      },
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/load": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "jokes/plugInBt": {
+      "method": "post",
+      "dtoIn": {
+        "uuBtLocationUri": "..."
+      },
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "jokes/load": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "jokes/update": {
+      "method": "post",
+      "dtoIn": {
+        "name": "..."
+      },
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "jokes/setState": {
+      "method": "post",
+      "dtoIn": {
+        "state": "active|underConstruction|closed"
+      },
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "jokes/migrate": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "joke/create": {
+      "method": "post",
+      "dtoIn": {
+        "name": "...",
+        "text": "..."
+      },
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {
+          "name": "from compo",
+          "text": "test"
+        }
+      }
+    },
+    "joke/get": {
+      "method": "get",
+      "dtoIn": {
+        "id": "..."
+      },
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "joke/update": {
+      "method": "post",
+      "dtoIn": {
+        "id": "...",
+        "name": "...",
+        "text": "..."
+      },
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "joke/updateVisibility": {
+      "method": "post",
+      "dtoIn": {
+        "id": "...",
+        "visibility": true
+      },
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "joke/delete": {
+      "method": "post",
+      "dtoIn": {
+        "id": "..."
+      },
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "joke/list": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "joke/addRating": {
+      "method": "post",
+      "dtoIn": {
+        "id": "...",
+        "rating": 5
+      },
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "category/create": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "category/get": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "category/update": {
+      "method": "post",
+      "dtoIn": {
+        "id": "...",
+        "name": "...",
+        "icon": "..."
+      },
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "category/delete": {
+      "method": "post",
+      "dtoIn": {
+        "id": "..."
+      },
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "category/list": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "preference/loadFirst": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "preference/createOrUpdate": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "preference/delete": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/logRecord/delete": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/logRecord/list": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/logRecord/getTransferStatus": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/logRecord/transfer": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "uu-app-binarystore/createBinary": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "uu-app-binarystore/updateBinaryData": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "uu-app-binarystore/getBinaryData": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "uu-app-binarystore/getBinary": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "uu-app-binarystore/updateBinary": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "uu-app-binarystore/deleteBinary": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "uu-app-binarystore/listBinaries": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "uu-app-binarystore/getBinaryVersion": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "uu-app-binarystore/updateBinaryVersion": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "uu-app-binarystore/getBinaryVersionData": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "uu-app-binarystore/deleteBinaryVersion": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "uu-app-binarystore/listBinaryVersions": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "oidc/initOidcClient": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "oidc/setAllowedRedirects": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "oidc/getAllowedRedirects": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "oidc/getClientId": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "oidc/introspect": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "oidc/grantCallToken": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "oidc/extendSession": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/profile/set": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/profile/get": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/profile/list": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/profile/update": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/permission/create": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/permission/list": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/permission/delete": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/setActiveSysState": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/setRestrictedSysState": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/setAuthorizationStrategy": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/create": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/get": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/set": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/close": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/suspend": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/resume": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/setActiveSysState": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/setRestrictedSysState": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/setReadOnlySysState": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/profile/set": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/profile/get": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/profile/list": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/permission/create": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/permission/delete": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/permission/list": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/delete": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/list": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppDataStore/stats/get": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppDataStore/stats/list": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppDataStore/stats/calculate": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppDataStore/stats/privilegedCalculate": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/connectArtifact": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/setAuthorizationStrategy": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/init": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/get": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/set": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/dump": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/restore": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/dump": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/restore": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/appClientToken/initKeys": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/profile/update": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppDataStore/drop": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/import": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/listImportMappings": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/deleteImportMappings": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/upgrade": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppSecretStore/rotateMasterKey": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/upgradeCleanup": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppSecretStore/getStatus": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/qos/setConfiguration": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/qos/getConfiguration": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/productInfo/set": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/productInfo/get": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/productLogo/set": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuSubAppInstance/productLogo/get": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/productInfo/set": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/productInfo/get": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/productLogo/set": {
+      "method": "post",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "sys/uuAppWorkspace/productLogo/get": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "getProductInfo": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    },
+    "getProductLogo": {
+      "method": "get",
+      "dtoIn": {},
+      "docUri": "",
+      "dtoInMap": {
+        "customDtoIn": {}
+      }
+    }
+  },
+  "environmentMap": {
+    "demoAsid": {
+      "name": "uuJokes Demo Asid",
+      "baseUri": "https://uuapp.plus4u.net/uu-jokes-maing01/1ebf79d54d2e4e91a58b1376117fa623"
+    },
+    "demoAwid": {
+      "name": "uuJokes Demo Awid",
+      "baseUri": "https://uuapp.plus4u.net/uu-jokes-maing01/4ef6a7b01b5942ecbfb925b249af987f"
+    }
+  }
+}

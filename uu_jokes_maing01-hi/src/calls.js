@@ -16,8 +16,15 @@ let Calls = {
     return response.data;
   },
 
-  getCommandUri(useCase) {
-    return CALLS_BASE_URI + useCase.replace(/^\/+/, "");
+  About: {
+    loadWebPage(dtoIn, baseUri) {
+      const commandUri = Calls.getCommandUri("loadWebPage", baseUri);
+      return Calls.call("get", commandUri, dtoIn);
+    },
+  },
+
+  getCommandUri(useCase, baseUri = CALLS_BASE_URI) {
+    return baseUri + useCase.replace(/^\/+/, "");
   },
 };
 
