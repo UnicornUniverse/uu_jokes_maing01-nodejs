@@ -5,7 +5,7 @@
   "description": "uuJokes is reference application for educational purposes",
   "license": "License Commercial",
   "namespace": "UuJokes",
-  "spec": "uu5-app; uu_appg01_devkit@4.3.0",
+  "spec": "uu5-app; uu_appg01_devkit@5.3.1",
   "dependencies": {
     "uu_jokesg01-core": "^2.0.1",
     "uu_plus4u5g02": "^1.0.0",
