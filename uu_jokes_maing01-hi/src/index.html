@@ -34,17 +34,12 @@
   
     <body class="uu-gdsg01-unicorn">
       <div id="uuApp">
-        <div class="uu-app-loading" hidden>
-          <svg version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="uu-app-loading-svg">
-            <defs>
-              <linearGradient id="a" x1="50%" x2="50%" y2="100%">
-                <stop stop-color="currentColor" offset="0" />
-                <stop stop-color="currentColor" stop-opacity=".3" offset="1" />
-              </linearGradient>
-            </defs>
-            <circle cx="12" cy="12" r="11.8" fill="none" stroke="url(#a)" stroke-width="0.4" />
-          </svg>
-          <div class="uu-app-loading-name">uuJokes</div>
+        <div id="uuAppLoading">
+          <%=
+            // add loading indication and apply uuApp visual settings from uu5Environment["uu_plus4u5g02_uuApp"] (env/production.json)
+            // https://uuapp.plus4u.net/uu-bookkit-maing01/83c1406c4fc541dba975941424106318/book/page?code=67000055
+            htmlWebpackPlugin.options.renderTemplate("index-loading.html")
+          %>
         </div>
       </div>
       

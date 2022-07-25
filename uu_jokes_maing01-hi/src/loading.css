@@ -8,14 +8,19 @@
   justify-content: center;
   align-items: center;
   pointer-events: none;
+  color: #2196f3;
+  line-height: 1.15;
 }
 .uu-app-loading.uu-app-loading {
   display: flex !important;
 }
 
+.uu-app-loading-svg-container {
+  position: relative;
+}
+
 .uu-app-loading-svg {
   height: 256px;
-  color: #2196f3;
   vertical-align: middle;
   animation: uu-app-loading 1s infinite linear;
 }
