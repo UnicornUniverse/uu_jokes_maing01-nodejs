@@ -1,5 +1,6 @@
 import { AppContainer } from "react-hot-loader";
 import { Environment, Utils } from "uu5g05";
+import "uu5g04"; // required for proper integration with uu5g05
 
 import Spa from "./core/spa.js";
 
@@ -17,7 +18,7 @@ if (!navigator.userAgent.match(/iPhone|iPad|iPod/)) {
 // store the target element selector to use it again during hot update
 let _targetElementId;
 
-export function render(targetElementId) {
+function render(targetElementId) {
   _targetElementId = targetElementId;
 
   Utils.Dom.render(
@@ -33,3 +34,5 @@ if (module.hot) {
     if (_targetElementId) render(_targetElementId);
   });
 }
+
+export { render };
