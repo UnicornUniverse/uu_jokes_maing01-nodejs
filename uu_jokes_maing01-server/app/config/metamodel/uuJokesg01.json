@@ -2,7 +2,7 @@
   "code": "uu-jokes-maing01",
   "name": "uuJokes uuAppMetaModel",
   "desc": "uuJokes uuAppMetaModel",
-  "version": "3.2.0",
+  "version": "3.2.2",
   "defaultIcon": "uubmlicon-uujokes-uu-jokes",
 
   "stateList": [
@@ -266,7 +266,9 @@
     "uu-businessterritory-maing01/uuAwsc/addExplicitPermission": "11000000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/removeExplicitPermission": "11000000-00000000-00000000-00000000",
     "uu-businessterritory-maing01/uuAwsc/getExplicitPermissions": "11000000-00000000-00000000-00000000",
-    "uu-businessterritory-maing01/uuAwsc/checkIntegrityRules": "11000000-00000000-00000000-00000000"
+    "uu-businessterritory-maing01/uuAwsc/checkIntegrityRules": "11000000-00000000-00000000-00000000",
+
+    "uu-businessterritory-maing01/uuAwsc/loadData": "11100000-00000000-00000000-00000000"
   },
 
   "routeMap": {

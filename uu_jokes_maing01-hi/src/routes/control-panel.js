@@ -1,7 +1,8 @@
 //@@viewOn:imports
 import { createVisualComponent, Lsi, DynamicLibraryComponent } from "uu5g05";
 import { Text, Block, HighlightedBox } from "uu5g05-elements";
-import { useAwscData } from "uu_plus4u5g02";
+import { useAwscData, useSystemData } from "uu_plus4u5g02";
+import { Uri } from "uu_appg01_core";
 import { Jokes } from "uu_jokesg01-core";
 import { RouteController } from "uu_plus4u5g02-app";
 import RouteContainer from "../core/route-container";
@@ -28,6 +29,13 @@ const ControlPanel = createVisualComponent({
   render() {
     //@@viewOn:private
     const { data: awsc } = useAwscData();
+    const { data: system } = useSystemData();
+    let uuTerritoryBaseUri;
+
+    if (awsc) {
+      const artifactUri = Uri.Uri.parse(system.awidData.artifactUri);
+      uuTerritoryBaseUri = artifactUri.getBaseUri().toString();
+    }
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -49,21 +57,21 @@ const ControlPanel = createVisualComponent({
               <>
                 <DynamicLibraryComponent
                   uu5Tag="UuTerritory.ArtifactIfc.Bricks.StateHistory"
-                  territoryBaseUri={awsc.data.uuTerritoryBaseUri}
+                  territoryBaseUri={uuTerritoryBaseUri}
                   artifactId={awsc.data.artifact.id}
                   contextType="none"
                   cardView="full"
                 />
                 <DynamicLibraryComponent
                   uu5Tag="UuTerritory.Activity.Bricks.ActivityList"
-                  territoryBaseUri={awsc.data.uuTerritoryBaseUri}
+                  territoryBaseUri={uuTerritoryBaseUri}
                   artifactId={awsc.data.artifact.id}
                   contextType="none"
                   cardView="full"
                 />
                 <DynamicLibraryComponent
                   uu5Tag="UuTerritory.ArtifactIfc.Bricks.PermissionSettings"
-                  territoryBaseUri={awsc.data.uuTerritoryBaseUri}
+                  territoryBaseUri={uuTerritoryBaseUri}
                   artifactId={awsc.data.artifact.id}
                   contextType="none"
                   cardView="full"

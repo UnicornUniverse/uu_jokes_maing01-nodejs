@@ -30,7 +30,7 @@ export const RouteBar = createVisualComponent({
 
     const actionMap = {};
 
-    if (system.awidData.sysState === Config.AppWorkspace.State.CREATED) {
+    if (system?.awidData?.sysState === Config.AppWorkspace.State.CREATED) {
       actionMap[Config.Routes.INIT_APP_WORKSPACE] = {
         children: <Lsi lsi={LsiData.initAppWorkspace} />,
         onClick: () => setRoute(Config.Routes.INIT_APP_WORKSPACE),

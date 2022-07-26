@@ -1,6 +1,5 @@
 //@@viewOn:imports
 import { createVisualComponent, Utils } from "uu5g05";
-import { ModalBus } from "uu5g05-elements";
 import { useSystemData } from "uu_plus4u5g02";
 import Plus4U5App from "uu_plus4u5g02-app";
 
@@ -49,7 +48,7 @@ export const SpaView = createVisualComponent({
 
     return (
       <Plus4U5App.Spa>
-        {system?.awidData.sysState !== Config.AppWorkspace.State.CREATED && <RouteBar />}
+        {system?.awidData?.sysState !== Config.AppWorkspace.State.CREATED && <RouteBar />}
         <Plus4U5App.Router routeMap={routeMap} />
       </Plus4U5App.Spa>
     );

@@ -18,6 +18,10 @@ class JokesController {
     return LoadAbl.load(ucEnv.getUri(), ucEnv.getSession());
   }
 
+  static loadBasicData(ucEnv) {
+    return LoadAbl.loadBasicData(ucEnv.getUri(), ucEnv.getSession());
+  }
+
   static update(ucEnv) {
     return UpdateAbl.update(ucEnv.getUri(), ucEnv.getDtoIn(), ucEnv.getSession(), ucEnv.getAuthorizationResult());
   }

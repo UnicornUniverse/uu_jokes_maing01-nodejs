@@ -1,12 +1,9 @@
 "use strict";
 
-const { UuAppWorkspace, UuSubAppInstance, WorkspaceAuthorizationService } = require("uu_appg01_server").Workspace;
+const { UuAppWorkspace } = require("uu_appg01_server").Workspace;
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
-const { Uri, UriBuilder } = require("uu_appg01_server").Uri;
 const { Config } = require("uu_appg01_server").Utils;
-const { UuTerrClient } = require("uu_territory_clientg01");
-
 const Errors = require("../../api/errors/jokes-error");
 const InstanceChecker = require("../../component/instance-checker");
 const Constants = require("../constants");
@@ -20,17 +17,44 @@ class LoadAbl {
 
   async load(uri, session, uuAppErrorMap = {}) {
     let awid = uri.getAwid();
-    let dtoOut = {};
 
     // hds 1
-    const asidData = await UuSubAppInstance.get();
+    const dtoOut = await UuAppWorkspace.load(uri, session, uuAppErrorMap);
+
+    // ISSUE - The uuAppWorkspaceUri has been moved to territoryData.data.artifact.uuAppWorkspaceUri
+    // We need to first deploy uuApp -> Then deploy modification in uuJokes library -> And finally remove this temporary fix
+    if (dtoOut.territoryData) {
+      dtoOut.territoryData = {
+        data: {
+          ...dtoOut.territoryData.data.data,
+          uuAppWorkspaceUri: dtoOut.territoryData.data.artifact.uuAppWorkspaceUri,
+        },
+        sysData: dtoOut.territoryData.sysData,
+      };
+    }
 
     // hds 2
-    const awidData = await UuAppWorkspace.get(awid);
+    if (dtoOut.sysData.awidData.sysState !== "created") {
+      const jokes = await InstanceChecker.ensureInstance(awid, Errors, uuAppErrorMap);
+      const categoryList = await this.categoryDao.list(awid);
+      dtoOut.data = { ...jokes, categoryList: categoryList.itemList, relatedObjectsMap: {} };
+    }
 
     // hds 3
-    // ISSUE The uuAppProductPortalUri is not allowed in this map by official documentation but should be
-    // https://uuapp.plus4u.net/uu-sls-maing01/3f1ef221518d49f2ac936f53f83ebd84/issueDetail?id=611f6bdf545e5300294e5ed1
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+    return dtoOut;
+  }
+
+  async loadBasicData(uri, session, uuAppErrorMap = {}) {
+    // HDS 1
+
+    // ISSUE uuBT DEV Environment - Upgrade uuBT version to 2.15+
+    // https://uuapp.plus4u.net/uu-elementarymanagement-maing01/9c6fa609fb484a4c87861c927b3f5356/request?id=62de9dc9ed50f40028a471de
+    // const dtoOut = await UuAppWorkspace.loadBasicData(uri, session, uuAppErrorMap);
+
+    let awid = uri.getAwid();
+    let dtoOut = {};
+
     const relatedObjectsMap = {
       uuAppUuFlsBaseUri: Config.get("fls_base_uri"),
       uuAppUuSlsBaseUri: Config.get("sls_base_uri"),
@@ -42,52 +66,19 @@ class LoadAbl {
       uuAppProductPortalUri: Config.get("product_portal_uri"),
     };
 
-    // hds 4
-    const cmdUri = UriBuilder.parse(uri).setUseCase("sys/uuAppWorkspace/load").clearParameters();
-    const authorizationResult = await WorkspaceAuthorizationService.authorize(session, cmdUri.toUri());
+    dtoOut.sysData = { relatedObjectsMap };
 
-    const profileData = {
-      uuIdentityProfileList: authorizationResult.getIdentityProfiles(),
-      profileList: authorizationResult.getAuthorizedProfiles(),
-    };
+    const awidData = await UuAppWorkspace.get(awid);
 
-    // hds 5
-    dtoOut.sysData = { asidData, awidData, relatedObjectsMap, profileData };
-
-    // hds 6, 6.A
     if (awidData.sysState !== "created") {
-      // hds 6.A.1
       const jokes = await InstanceChecker.ensureInstance(awid, Errors, uuAppErrorMap);
-
-      // hds 6.A.2
       dtoOut.data = { ...jokes, relatedObjectsMap: {} };
-
-      const categoryList = await this.categoryDao.list(awid);
-      dtoOut.data.categoryList = categoryList.itemList;
-
-      // hds 6.A.3
-      if (awidData.authorizationStrategy === "artifact") {
-        const artifactUri = Uri.parse(awidData.artifactUri);
-        const artifactId = artifactUri.getParameters().id;
-        const btBaseUri = artifactUri.getBaseUri();
-        const terrClientOpts = { baseUri: btBaseUri.toString(), session };
-        let awsc;
-
-        try {
-          awsc = await UuTerrClient.Awsc.load(
-            { id: artifactId, getTerritoryName: true, loadContext: true, loadVisualIdentification: true },
-            terrClientOpts
-          );
-        } catch (e) {
-          throw new Errors.Load.UuAwscLoadFailed({ uuAppErrorMap }, e);
-        }
-
-        dtoOut.territoryData = { data: awsc };
-      }
     }
 
-    // hds 7
+    dtoOut.territoryData = { data: {} };
     dtoOut.uuAppErrorMap = uuAppErrorMap;
+
+    // HDS 2
     return dtoOut;
   }
 }

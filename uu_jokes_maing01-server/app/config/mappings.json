@@ -21,6 +21,11 @@
         "httpMethod": "GET",
         "type": "CMD"
       },
+      "sys/uuAppWorkspace/loadBasicData": {
+        "realization": "api/controllers/JokesController.loadBasicData",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
       "jokes/plugInBt": {
         "realization": "api/controllers/JokesController.plugInBt",
         "httpMethod": "POST",
