@@ -34,7 +34,9 @@ class LoadAbl {
     }
 
     // hds 2
-    if (dtoOut.sysData.awidData.sysState !== "created") {
+    const sysState = dtoOut.sysData.awidData.sysState;
+
+    if (sysState !== UuAppWorkspace.SYS_STATES.CREATED && sysState !== UuAppWorkspace.SYS_STATES.ASSIGNED) {
       const jokes = await InstanceChecker.ensureInstance(awid, Errors, uuAppErrorMap);
       const categoryList = await this.categoryDao.list(awid);
       dtoOut.data = { ...jokes, categoryList: categoryList.itemList, relatedObjectsMap: {} };
@@ -70,7 +72,10 @@ class LoadAbl {
 
     const awidData = await UuAppWorkspace.get(awid);
 
-    if (awidData.sysState !== "created") {
+    if (
+      awidData.sysState !== UuAppWorkspace.SYS_STATES.CREATED &&
+      awidData.sysState !== UuAppWorkspace.SYS_STATES.ASSIGNED
+    ) {
       const jokes = await InstanceChecker.ensureInstance(awid, Errors, uuAppErrorMap);
       dtoOut.data = { ...jokes, relatedObjectsMap: {} };
     }
