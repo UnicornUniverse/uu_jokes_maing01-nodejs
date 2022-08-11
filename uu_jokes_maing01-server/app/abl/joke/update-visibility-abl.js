@@ -16,7 +16,18 @@ class JokeAbl {
   async updateVisibility(awid, dtoIn, authorizationResult) {
     let uuAppErrorMap = {};
 
-    // hds 1
+    // hds 1, 1.1
+    const validationResult = this.validator.validate("jokeUpdateVisibilityDtoInType", dtoIn);
+    // hds 1.2, 1.3, A1, A2
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.UpdateVisibility.UnsupportedKeys.code,
+      Errors.UpdateVisibility.InvalidDtoIn
+    );
+
+    // hds 2
     const allowedStateRules = {
       [Profiles.AUTHORITIES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
     };
@@ -27,17 +38,6 @@ class JokeAbl {
       authorizationResult,
       Errors.UpdateVisibility,
       uuAppErrorMap
-    );
-
-    // hds 2, 2.1
-    const validationResult = this.validator.validate("jokeUpdateVisibilityDtoInType", dtoIn);
-    // hds 2.2, 2.3, A3, A4
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      Warnings.UpdateVisibility.UnsupportedKeys.code,
-      Errors.UpdateVisibility.InvalidDtoIn
     );
 
     // hds 3

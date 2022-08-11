@@ -16,7 +16,17 @@ class GetAbl {
   async get(awid, dtoIn, authorizationResult) {
     let uuAppErrorMap = {};
 
-    // hds 1
+    // hds 1, 1.1
+    const validationResult = this.validator.validate("jokeGetDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Get.UnsupportedKeys.code,
+      Errors.Get.InvalidDtoIn
+    );
+
+    // hds 2
     const allowedStateRules = {
       [Profiles.AUTHORITIES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION, Jokes.States.CLOSED]),
       [Profiles.EXECUTIVES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
@@ -29,16 +39,6 @@ class GetAbl {
       authorizationResult,
       Errors.Get,
       uuAppErrorMap
-    );
-
-    // hds 2, 2.1
-    const validationResult = this.validator.validate("jokeGetDtoInType", dtoIn);
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      Warnings.Get.UnsupportedKeys.code,
-      Errors.Get.InvalidDtoIn
     );
 
     // hds 3

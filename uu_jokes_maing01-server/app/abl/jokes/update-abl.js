@@ -23,6 +23,16 @@ class UpdateAbl {
     let dtoOut = {};
 
     // hds 1
+    const validationResult = this.validator.validate("jokesUpdateDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Update.UnsupportedKeys.code,
+      Errors.Update.InvalidDtoIn
+    );
+
+    // hds 2
     const allowedStateRules = {
       [Profiles.AUTHORITIES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
     };
@@ -32,16 +42,6 @@ class UpdateAbl {
       authorizationResult,
       Errors.Update,
       uuAppErrorMap
-    );
-
-    // hds 2
-    const validationResult = this.validator.validate("jokesUpdateDtoInType", dtoIn);
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      Warnings.Update.UnsupportedKeys.code,
-      Errors.Update.InvalidDtoIn
     );
 
     // hds 3

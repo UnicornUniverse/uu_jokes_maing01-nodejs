@@ -17,7 +17,18 @@ class AddRatingAbl {
   async addRating(awid, dtoIn, session, authorizationResult) {
     let uuAppErrorMap = {};
 
-    // hds 1
+    // hds 1, 1.1
+    const validationResult = this.validator.validate("jokeAddRatingDtoInType", dtoIn);
+    // hds 1.2, 1.3, A1, A2
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.AddRating.UnsupportedKeys.code,
+      Errors.AddRating.InvalidDtoIn
+    );
+
+    // hds 2
     const allowedStateRules = {
       [Profiles.AUTHORITIES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
       [Profiles.EXECUTIVES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
@@ -30,17 +41,6 @@ class AddRatingAbl {
       authorizationResult,
       Errors.AddRating,
       uuAppErrorMap
-    );
-
-    // hds 2, 2.1
-    const validationResult = this.validator.validate("jokeAddRatingDtoInType", dtoIn);
-    // hds 2.2, 2.3, A3, A4
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      Warnings.AddRating.UnsupportedKeys.code,
-      Errors.AddRating.InvalidDtoIn
     );
 
     // hds 3
