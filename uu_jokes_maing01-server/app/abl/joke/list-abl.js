@@ -23,7 +23,25 @@ class ListAbl {
   async list(awid, dtoIn, authorizationResult) {
     let uuAppErrorMap = {};
 
-    // hds 1
+    // hds 1, 1.1
+    const validationResult = this.validator.validate("jokeListDtoInType", dtoIn);
+    // hds 1.2, 1.3, A1, A2
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.List.UnsupportedKeys.code,
+      Errors.List.InvalidDtoIn
+    );
+
+    // hds 1.4
+    if (!dtoIn.sortBy) dtoIn.sortBy = DEFAULTS.sortBy;
+    if (!dtoIn.order) dtoIn.order = DEFAULTS.order;
+    if (!dtoIn.pageInfo) dtoIn.pageInfo = {};
+    if (!dtoIn.pageInfo.pageSize) dtoIn.pageInfo.pageSize = DEFAULTS.pageSize;
+    if (!dtoIn.pageInfo.pageIndex) dtoIn.pageInfo.pageIndex = DEFAULTS.pageIndex;
+
+    // hds 2
     const allowedStateRules = {
       [Profiles.AUTHORITIES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION, Jokes.States.CLOSED]),
       [Profiles.EXECUTIVES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
@@ -37,24 +55,6 @@ class ListAbl {
       Errors.List,
       uuAppErrorMap
     );
-
-    // hds 2, 2.1
-    const validationResult = this.validator.validate("jokeListDtoInType", dtoIn);
-    // hds 2.2, 2.3, A4, A5
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      Warnings.List.UnsupportedKeys.code,
-      Errors.List.InvalidDtoIn
-    );
-
-    // hds 2.4
-    if (!dtoIn.sortBy) dtoIn.sortBy = DEFAULTS.sortBy;
-    if (!dtoIn.order) dtoIn.order = DEFAULTS.order;
-    if (!dtoIn.pageInfo) dtoIn.pageInfo = {};
-    if (!dtoIn.pageInfo.pageSize) dtoIn.pageInfo.pageSize = DEFAULTS.pageSize;
-    if (!dtoIn.pageInfo.pageIndex) dtoIn.pageInfo.pageIndex = DEFAULTS.pageIndex;
 
     // hds 3
     let list;

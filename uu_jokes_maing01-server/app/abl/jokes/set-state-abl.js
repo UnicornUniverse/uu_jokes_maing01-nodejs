@@ -23,6 +23,16 @@ class SetStateAbl {
     let dtoOut = {};
 
     // hds 1
+    const validationResult = this.validator.validate("jokesSetStateDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.SetState.UnsupportedKeys.code,
+      Errors.SetState.InvalidDtoIn
+    );
+
+    // hds 2
     // note: "closed" state is allowed for educational reasons in order to have
     // the possibility to test the state and still go back
     const allowedStateRules = {
@@ -34,16 +44,6 @@ class SetStateAbl {
       authorizationResult,
       Errors.SetState,
       uuAppErrorMap
-    );
-
-    // hds 2
-    const validationResult = this.validator.validate("jokesSetStateDtoInType", dtoIn);
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      Warnings.SetState.UnsupportedKeys.code,
-      Errors.SetState.InvalidDtoIn
     );
 
     // hds 3

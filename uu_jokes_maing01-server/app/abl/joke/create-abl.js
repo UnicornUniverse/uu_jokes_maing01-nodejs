@@ -18,7 +18,18 @@ class CreateAbl {
   async create(awid, dtoIn, session, authorizationResult) {
     let uuAppErrorMap = {};
 
-    // hds 1
+    // hds 1, 1.1
+    const validationResult = this.validator.validate("jokeCreateDtoInType", dtoIn);
+    // hds 1.2, 1.3, A1, A2
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      Warnings.Create.UnsupportedKeys.code,
+      Errors.Create.InvalidDtoIn
+    );
+
+    // hds 2
     const allowedStateRules = {
       [Profiles.AUTHORITIES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
       [Profiles.EXECUTIVES]: new Set([Jokes.States.ACTIVE, Jokes.States.UNDER_CONSTRUCTION]),
@@ -30,17 +41,6 @@ class CreateAbl {
       authorizationResult,
       Errors.Create,
       uuAppErrorMap
-    );
-
-    // hds 2, 2.1
-    const validationResult = this.validator.validate("jokeCreateDtoInType", dtoIn);
-    // hds 2.2, 2.3, A3, A4
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      Warnings.Create.UnsupportedKeys.code,
-      Errors.Create.InvalidDtoIn
     );
 
     const addedValues = {
