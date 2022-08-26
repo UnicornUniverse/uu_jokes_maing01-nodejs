@@ -20,7 +20,7 @@ class ListAbl {
     this.dao = DaoFactory.getDao(Schemas.JOKE);
   }
 
-  async list(awid, dtoIn, authorizationResult) {
+  async list(awid, dtoIn, session, authorizationResult) {
     let uuAppErrorMap = {};
 
     // hds 1, 1.1
@@ -57,12 +57,30 @@ class ListAbl {
     );
 
     // hds 3
-    let list;
+    const profiles = authorizationResult.getUuIdentityProfileList();
+
+    let filterMap = {
+      visibility: dtoIn.visibility,
+    };
+
     if (dtoIn.categoryIdList) {
-      list = await this.dao.listByCategoryIdList(awid, dtoIn.categoryIdList, dtoIn.sortBy, dtoIn.order, dtoIn.pageInfo);
-    } else {
-      list = await this.dao.list(awid, dtoIn.sortBy, dtoIn.order, dtoIn.pageInfo);
+      filterMap.categoryIdList = dtoIn.categoryIdList;
     }
+
+    if (!profiles.includes(Profiles.AUTHORITIES)) {
+      if (!profiles.includes(Profiles.EXECUTIVES)) {
+        filterMap.visibility = true;
+      } else {
+        filterMap.uuIdentity = session.getIdentity().getUuIdentity();
+        filterMap.onlyOwnOrVisible = true;
+      }
+    }
+
+    let sortBy = dtoIn.sortBy === "createTs" ? "sys.cts" : dtoIn.sortBy;
+    sortBy = sortBy ?? "name";
+    let order = dtoIn.order ?? "asc";
+
+    const list = await this.dao.list(awid, filterMap, sortBy, order, dtoIn.pageInfo);
 
     // hds 4
     const dtoOut = {

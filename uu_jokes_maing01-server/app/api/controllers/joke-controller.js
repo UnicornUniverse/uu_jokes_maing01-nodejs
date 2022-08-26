@@ -38,7 +38,7 @@ class JokeController {
   }
 
   static list(ucEnv) {
-    return ListAbl.list(ucEnv.getUri().getAwid(), ucEnv.parameters, ucEnv.getAuthorizationResult());
+    return ListAbl.list(ucEnv.getUri().getAwid(), ucEnv.parameters, ucEnv.session, ucEnv.getAuthorizationResult());
   }
 
   static addRating(ucEnv) {
