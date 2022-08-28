@@ -77,9 +77,12 @@ class UpdateAbl {
     // hds 7
     const toUpdate = { ...dtoIn };
     delete toUpdate.deleteImage;
+
+    // The AppClient is not able to sent empty array through multipart/form-data requrest
+    const categoryIdList = dtoIn.categoryIdList === "[]" ? [] : dtoIn.categoryIdList;
     // note: empty array is valid (possibility to remove all categories)
-    if (dtoIn.categoryIdList) {
-      const { validCategories, invalidCategories } = await Joke.checkCategoriesExistence(awid, dtoIn.categoryIdList);
+    if (categoryIdList) {
+      const { validCategories, invalidCategories } = await Joke.checkCategoriesExistence(awid, categoryIdList);
       // A7
       if (invalidCategories.length > 0) {
         ValidationHelper.addWarning(
