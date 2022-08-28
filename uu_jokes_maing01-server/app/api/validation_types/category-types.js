@@ -21,6 +21,7 @@ const categoryDeleteDtoInType = shape({
 });
 
 const categoryListDtoInType = shape({
+  idList: array(id(), 1000),
   order: oneOf(["asc", "desc"]),
   pageInfo: shape({
     pageIndex: integer(),

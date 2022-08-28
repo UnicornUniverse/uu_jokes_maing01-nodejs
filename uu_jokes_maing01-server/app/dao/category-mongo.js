@@ -34,8 +34,13 @@ class CategoryMongo extends UuJokesDao {
     await super.deleteOne({ awid, id });
   }
 
-  async list(awid, order, pageInfo) {
+  async list(awid, criteria, order, pageInfo) {
     const filter = { awid };
+
+    if (criteria?.idList) {
+      filter._id = { $in: criteria.idList.map((id) => new ObjectId(id)) };
+    }
+
     const sort = { name: order === "asc" ? 1 : -1 };
 
     return await super.find(filter, pageInfo, sort);
