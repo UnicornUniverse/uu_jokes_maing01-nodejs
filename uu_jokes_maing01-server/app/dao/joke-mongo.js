@@ -57,23 +57,23 @@ class JokeMongo extends UuJokesDao {
     await super.deleteOne({ awid, id });
   }
 
-  async list(awid, filterMap = {}, sortBy, order, pageInfo) {
+  async list(awid, criteria = {}, sortBy, order, pageInfo) {
     let filter = {
       awid,
     };
 
-    if (filterMap.categoryIdList) {
+    if (criteria.categoryIdList) {
       filter.categoryIdList = {
-        $in: filterMap.categoryIdList.map((id) => new ObjectId(id)),
+        $in: criteria.categoryIdList.map((id) => new ObjectId(id)),
       };
     }
 
-    if (filterMap.onlyOwnOrVisible) {
-      filter.$or = [{ visibility: true }, { uuIdentity: filterMap.uuIdentity }];
+    if (criteria.onlyOwnOrVisible) {
+      filter.$or = [{ visibility: true }, { uuIdentity: criteria.uuIdentity }];
     }
 
-    if (filter.visibility !== undefined) {
-      filter.visibility = filterMap.visibility;
+    if (criteria.visibility !== undefined) {
+      filter.visibility = criteria.visibility;
     }
 
     let sort = {};

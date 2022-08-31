@@ -59,20 +59,20 @@ class ListAbl {
     // hds 3
     const profiles = authorizationResult.getUuIdentityProfileList();
 
-    let filterMap = {
+    let criteria = {
       visibility: dtoIn.visibility,
     };
 
     if (dtoIn.categoryIdList) {
-      filterMap.categoryIdList = dtoIn.categoryIdList;
+      criteria.categoryIdList = dtoIn.categoryIdList;
     }
 
     if (!profiles.includes(Profiles.AUTHORITIES)) {
       if (!profiles.includes(Profiles.EXECUTIVES)) {
-        filterMap.visibility = true;
+        criteria.visibility = true;
       } else {
-        filterMap.uuIdentity = session.getIdentity().getUuIdentity();
-        filterMap.onlyOwnOrVisible = true;
+        criteria.uuIdentity = session.getIdentity().getUuIdentity();
+        criteria.onlyOwnOrVisible = true;
       }
     }
 
@@ -80,7 +80,7 @@ class ListAbl {
     sortBy = sortBy ?? "name";
     let order = dtoIn.order ?? "asc";
 
-    const list = await this.dao.list(awid, filterMap, sortBy, order, dtoIn.pageInfo);
+    const list = await this.dao.list(awid, criteria, sortBy, order, dtoIn.pageInfo);
 
     // hds 4
     const dtoOut = {
