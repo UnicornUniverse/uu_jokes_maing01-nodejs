@@ -32,6 +32,24 @@ class MigrateAbl {
     );
 
     // HDS 3
+    const categoryDao = DaoFactory.getDao(Schemas.CATEGORY);
+    const categoryIndexes = await categoryDao.getIndexes();
+
+    // We have added collation to index (awid, name).
+    // The previous index without collaction is obsolete.
+    const obsoleteIndex = categoryIndexes.itemList.find(
+      (index) => index.key.awid === 1 && index.key.name === 1 && index.unique && index.collation === undefined
+    );
+
+    if (obsoleteIndex) {
+      try {
+        await categoryDao.dropIndex(obsoleteIndex.key);
+      } catch (e) {
+        throw new Errors.Migrate.SchemaDaoMigrateSchemaFailed({ uuAppErrorMap }, e);
+      }
+    }
+
+    // HDS 4
     const promises = Object.values(Schemas).map(async (schema) => DaoFactory.getDao(schema).createSchema());
 
     try {
@@ -40,7 +58,7 @@ class MigrateAbl {
       throw new Errors.Migrate.SchemaDaoMigrateSchemaFailed({ uuAppErrorMap }, e);
     }
 
-    // HDS 4
+    // HDS 5
     dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
   }

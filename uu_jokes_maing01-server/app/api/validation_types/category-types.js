@@ -23,8 +23,13 @@ const categoryDeleteDtoInType = shape({
 const categoryListDtoInType = shape({
   idList: array(id(), 1000),
   order: oneOf(["asc", "desc"]),
+  projection: shape({
+    name: boolean(),
+    icon: boolean(),
+  }),
   pageInfo: shape({
     pageIndex: integer(),
     pageSize: integer(),
+    total: integer(),
   }),
 });

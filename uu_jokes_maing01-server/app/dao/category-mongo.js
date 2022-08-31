@@ -10,7 +10,7 @@ class CategoryMongo extends UuJokesDao {
 
   async createSchema() {
     await super.createIndex({ awid: 1, _id: 1 }, { unique: true });
-    await super.createIndex({ awid: 1, name: 1 }, { unique: true });
+    await super.createIndex({ awid: 1, name: 1 }, { unique: true, collation: this.collation });
   }
 
   async create(uuObject) {
@@ -34,7 +34,7 @@ class CategoryMongo extends UuJokesDao {
     await super.deleteOne({ awid, id });
   }
 
-  async list(awid, criteria, order, pageInfo) {
+  async list(awid, criteria, order, pageInfo, projection = {}) {
     const filter = { awid };
 
     if (criteria?.idList) {
@@ -42,8 +42,8 @@ class CategoryMongo extends UuJokesDao {
     }
 
     const sort = { name: order === "asc" ? 1 : -1 };
-
-    return await super.find(filter, pageInfo, sort);
+    console.log("PageInfo:", JSON.stringify(pageInfo));
+    return await super.find(filter, pageInfo, sort, projection);
   }
 
   async listByIdList(awid, categoryIdList) {

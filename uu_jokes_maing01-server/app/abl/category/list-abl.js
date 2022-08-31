@@ -56,7 +56,7 @@ class ListAbl {
 
     // hds 3
     const criteria = { idList: dtoIn.idList };
-    const list = await this.dao.list(awid, criteria, dtoIn.order, dtoIn.pageInfo);
+    const list = await this.dao.list(awid, criteria, dtoIn.order, dtoIn.pageInfo, dtoIn.projection);
 
     // hds 4
     const dtoOut = {
