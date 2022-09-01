@@ -14,6 +14,7 @@ class CorsEnabler {
     const corsOptions = {
       origin: true,
       credentials: true,
+      exposedHeaders: ["X-Ues-Error", "Etag", "X-Request-Id", "Www-Authenticate", "Content-Disposition"],
     };
 
     return [cors(corsOptions)];
