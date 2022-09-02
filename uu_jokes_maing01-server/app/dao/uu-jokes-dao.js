@@ -13,9 +13,9 @@ class UuJokesDao extends UuObjectDao {
   // HINT - If you don't need to sort by text attribute you can use directly the UuObjectDao
   // https://uuapp.plus4u.net/uu-sls-maing01/3f1ef221518d49f2ac936f53f83ebd84/issueDetail?id=6167f590a57edb002a91b079
   async find(filter, pageInfo = {}, sort = {}, projection = {}) {
-    const pageIndex = pageInfo.pageIndex ? pageInfo.pageIndex : 0;
-    const pageSize = pageInfo.pageSize ? pageInfo.pageSize : this.defaultPageSize;
-    const totalCount = await this.count(filter);
+    const pageIndex = pageInfo.pageIndex ?? 0;
+    const pageSize = pageInfo.pageSize ?? this.defaultPageSize;
+    const total = pageInfo.total === -1 ? -1 : await this.count(filter);
 
     const db = await DbConnection.get(this.customUri);
     let itemList = await db
@@ -30,14 +30,7 @@ class UuJokesDao extends UuObjectDao {
         return this._convertToId(result);
       });
 
-    return {
-      itemList,
-      pageInfo: {
-        pageIndex: pageIndex,
-        pageSize: pageSize,
-        total: totalCount,
-      },
-    };
+    return { itemList, pageInfo: { pageIndex, pageSize, total } };
   }
 }
 
