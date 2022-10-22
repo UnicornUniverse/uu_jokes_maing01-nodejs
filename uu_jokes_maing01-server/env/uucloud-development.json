@@ -3,7 +3,7 @@
   "schemaSpecificationUri": "https://uuapp.plus4u.net/uu-bookkit-maing01/bef682626ed943f28cde360ccb325981/book/page?code=uuSubAppInstanceDescriptor",
   "uuSubApp": {
     "code": "UU.JOKES.MAING01",
-    "version": "4.0.1",
+    "version": "4.0.3",
     "name": "uuJokesMaing01",
     "description": "uuJokes is reference application for educational purposes",
     "license": "License Commercial",
@@ -38,7 +38,11 @@
       }
     },
     "uuConfigMap": {
-      "asid_license_owner_list": ["26-9719-1", "6565-1", "4-1"],
+      "asid_license_owner_list": [
+        "26-9719-1",
+        "6565-1",
+        "4-1"
+      ],
       "uu_app_auditlog_record_count_limit": 10000,
       "uu_app_auditlog_record_limit_check_after": 1000,
       "uu_app_oidc_providers_oidcg02_enabled": true,
