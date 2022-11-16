@@ -2,7 +2,7 @@
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
-const { UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
+const { BinaryComponent, AppBinaryStoreError } = require("uu_appbinarystoreg02");
 const Errors = require("../../api/errors/joke-error");
 const Warnings = require("../../api/warnings/joke-warning");
 const InstanceChecker = require("../../component/instance-checker");
@@ -13,6 +13,7 @@ class UpdateAbl {
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao(Schemas.JOKE);
+    this.binaryComponent = new BinaryComponent();
   }
 
   async update(awid, dtoIn, session, authorizationResult) {
@@ -104,18 +105,22 @@ class UpdateAbl {
       if (!joke.image) {
         // 8.2.A
         try {
-          binary = await UuBinaryAbl.createBinary(awid, {
+          binary = await this.binaryComponent.create(awid, {
             data: image,
             filename: dtoIn.image.filename,
             contentType: dtoIn.image.contentType,
           });
         } catch (e) {
-          throw new Errors.Update.UuBinaryCreateFailed({ uuAppErrorMap }, e);
+          if (e instanceof AppBinaryStoreError) {
+            throw new Errors.Update.UuBinaryCreateFailed({ uuAppErrorMap }, e);
+          } else {
+            throw e;
+          }
         }
       } else {
         // 8.2.B
         try {
-          binary = await UuBinaryAbl.updateBinaryData(awid, {
+          binary = await this.binaryComponent.update(awid, {
             data: image,
             code: joke.image,
             filename: dtoIn.image.filename,
@@ -123,7 +128,11 @@ class UpdateAbl {
             revisionStrategy: "NONE",
           });
         } catch (e) {
-          throw new Errors.Update.UuBinaryUpdateBinaryDataFailed({ uuAppErrorMap }, e);
+          if (e instanceof AppBinaryStoreError) {
+            throw new Errors.Update.UuBinaryUpdateBinaryDataFailed({ uuAppErrorMap }, e);
+          } else {
+            throw e;
+          }
         }
       }
       toUpdate.image = binary.code;
@@ -131,7 +140,7 @@ class UpdateAbl {
 
     // hds 9
     if (dtoIn.deleteImage && joke.image) {
-      await UuBinaryAbl.deleteBinary(awid, {
+      await this.binaryComponent.delete(awid, {
         code: joke.image,
         revisionStrategy: "NONE",
       });

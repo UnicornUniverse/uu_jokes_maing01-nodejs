@@ -2,7 +2,7 @@
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
-const { UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
+const { BinaryComponent, AppBinaryStoreError } = require("uu_appbinarystoreg02");
 const Errors = require("../../api/errors/joke-error");
 const Warnings = require("../../api/warnings/joke-warning");
 const InstanceChecker = require("../../component/instance-checker");
@@ -13,6 +13,7 @@ class CreateAbl {
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao(Schemas.JOKE);
+    this.binaryComponent = new BinaryComponent();
   }
 
   async create(awid, dtoIn, session, authorizationResult) {
@@ -66,14 +67,18 @@ class CreateAbl {
       const image = await Joke.checkAndGetImageAsStream(dtoIn.image, Errors.Create, uuAppErrorMap);
 
       try {
-        const binary = await UuBinaryAbl.createBinary(awid, {
+        const binary = await this.binaryComponent.create(awid, {
           data: image,
           filename: dtoIn.image.filename,
           contentType: dtoIn.image.contentType,
         });
         uuObject.image = binary.code;
       } catch (e) {
-        throw new Errors.Create.UuBinaryCreateFailed({ uuAppErrorMap }, e);
+        if (e instanceof AppBinaryStoreError) {
+          throw new Errors.Create.UuBinaryCreateFailed({ uuAppErrorMap }, e);
+        } else {
+          throw e;
+        }
       }
     }
 

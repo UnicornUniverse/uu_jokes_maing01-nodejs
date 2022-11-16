@@ -119,25 +119,25 @@
         "sysStateList": ["active"],
         "profileList": ["Public"]
       },
-      "uu-app-binarystore/createBinary": {
+      "binary/get": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Executives"]
+        "profileList": ["Authorities","Executives","Auditors"]
       },
-      "uu-app-binarystore/getBinaryData": {
+      "binary/getData": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Executives", "Readers"]
+        "profileList": ["Authorities","Executives","Auditors"]
       },
-      "uu-app-binarystore/updateBinaryData": {
+      "binary/update": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Executives"]
+        "profileList": ["Authorities","Executives"]
       },
-      "uu-app-binarystore/deleteBinary": {
+      "binary/list": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Executives"]
+        "profileList": ["Authorities","Executives","Auditors"]
       },
-      "uu-app-binarystore/listBinaries": {
+      "binary/delete": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities", "Executives"]
+        "profileList": ["Authorities","Executives"]
       }
     }
   }
