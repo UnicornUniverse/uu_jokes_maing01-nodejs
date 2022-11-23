@@ -1,6 +1,6 @@
 /* eslint-disable */
 const categoryCreateDtoInType = shape({
-  name: uu5String(255).isRequired(),
+  name: uu5String(1, 255).isRequired(),
   icon: string(40),
 });
 
@@ -11,7 +11,7 @@ const categoryGetDtoInType = shape({
 
 const categoryUpdateDtoInType = shape({
   id: id().isRequired(),
-  name: uu5String(255),
+  name: uu5String(1, 255),
   icon: string(40),
 });
 
