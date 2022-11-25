@@ -121,11 +121,11 @@
       },
       "binary/get": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives","Auditors"]
+        "profileList": ["Authorities","Executives"]
       },
       "binary/getData": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives","Auditors"]
+        "profileList": ["Authorities","Executives","Readers"]
       },
       "binary/update": {
         "sysStateList": ["active"],
@@ -133,7 +133,7 @@
       },
       "binary/list": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives","Auditors"]
+        "profileList": ["Authorities","Executives"]
       },
       "binary/delete": {
         "sysStateList": ["active"],
