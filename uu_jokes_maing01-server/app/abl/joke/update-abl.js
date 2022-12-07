@@ -120,12 +120,11 @@ class UpdateAbl {
       } else {
         // 8.2.B
         try {
-          binary = await this.binaryComponent.update(awid, {
+          binary = await this.binaryComponent.updateData(awid, {
             data: image,
             code: joke.image,
             filename: dtoIn.image.filename,
             contentType: dtoIn.image.contentType,
-            revisionStrategy: "NONE",
           });
         } catch (e) {
           if (e instanceof AppBinaryStoreError) {
@@ -142,7 +141,6 @@ class UpdateAbl {
     if (dtoIn.deleteImage && joke.image) {
       await this.binaryComponent.delete(awid, {
         code: joke.image,
-        revisionStrategy: "NONE",
       });
       toUpdate.image = null;
     }
