@@ -21,8 +21,7 @@
       "label": "eslint-all",
       "dependsOn": ["eslint-hi", "eslint-server"],
       "dependsOrder": "sequence",
-      "problemMatcher": "$eslint-stylish",
-      "runOptions": { "runOn": "folderOpen" }
+      "problemMatcher": "$eslint-stylish"
     }
   ]
 }
