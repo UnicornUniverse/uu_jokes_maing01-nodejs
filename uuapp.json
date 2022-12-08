@@ -1,6 +1,6 @@
 {
   "product": "uu_jokes_maing01",
-  "version": "4.0.0-dev",
+  "version": "4.0.3",
   "license": "License Commercial",
   "description": {
     "en": "uuJokes is reference application for educational purposes",
@@ -13,7 +13,7 @@
     },
     "demo": {
       "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX",
-      "appDeploymentUri": "ues:DEV0114-BT[84723967990073193]:AWE_DEMO[5c90a9904f1d8a75778df379]:UU.JOKES.MAING01[5c90e6584f1d8ad5648df40c]"
+      "appDeploymentUri": "ues:NETPROV1-BT[99923616732505139]:B_PRODUCTION_EGL[632a26959d2f13ec54850721]:UU.JOKES.MAING01[635264073f824ed95d5a0e3c]"
     }
   },
   "uu_jokes_maing01-hi": {},
