@@ -3,14 +3,15 @@
   "configurations": [
     {
       "name": "Debug HI",
-      "type": "pwa-chrome",
+      "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:8080/uu-jokes-maing01/22222222222222222222222222222222/",
-      "webRoot": "${workspaceFolder}/uu_jokes_maing01-hi"
+      "url": "http://localhost:8080/uu-jokes-maing01/00000d09ee2040f9a6c27e66475a57af/",
+      "webRoot": "${workspaceFolder}/uu_jokes_maing01-hi",
+      "userDataDir": "${env:DEV_CHROME_DIR}"
     },
     {
       "name": "Debug HI Test - All",
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run-script", "test"],
@@ -24,7 +25,7 @@
     },
     {
       "name": "Debug HI Test - Current File",
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run-script", "test"],
@@ -38,7 +39,7 @@
     },
     {
       "name": "Debug Server",
-      "type": "pwa-node",
+      "type": "node",
       "request": "launch",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run-script", "start"],

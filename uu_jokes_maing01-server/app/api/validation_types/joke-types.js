@@ -1,7 +1,7 @@
 /* eslint-disable */
 const jokeCreateDtoInType = shape({
-  name: uu5String(255).isRequired(),
-  text: uu5String(4000).isRequired("image"),
+  name: uu5String(1, 255).isRequired(),
+  text: uu5String(1, 4000).isRequired("image"),
   categoryIdList: array(id(), 1, 10),
   image: binary().isRequired("text"),
 });
@@ -12,8 +12,8 @@ const jokeGetDtoInType = shape({
 
 const jokeUpdateDtoInType = shape({
   id: id().isRequired(),
-  name: uu5String(255),
-  text: uu5String(4000),
+  name: uu5String(1, 255),
+  text: uu5String(1, 4000),
   categoryIdList: oneOf([array(id(), 10), "[]"]),
   image: binary(),
   deleteImage: boolean(),

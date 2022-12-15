@@ -1,0 +1,27 @@
+{
+  "name": "docker_scripts",
+  "version": "1.0.1",
+  "description": "Tools to manage your local Docker environment of uuBT.",
+  "main": "index.js",
+  "dependencies": {
+    "jwt-decode": "^3.1.2",
+    "mongodb": "^4.6.0",
+    "open": "^8.4.0",
+    "unzipper": "^0.10.11",
+    "uu_appg01_core-appclient": "^5.8.0"
+  },
+  "scripts": {
+    "upgradeData": "node ./scripts/upgrade-data",
+    "dropMongo": "node ./scripts/drop-mongo",
+    "castYourself": "node ./scripts/cast-yourself",
+    "prepareYourMt": "node ./scripts/prepare-your-mt",
+    "updateDockerFiles": "node ./scripts/update-docker-files"
+  },
+  "keywords": [
+    "uuBusinessTerritory",
+    "Docker",
+    "Localhost"
+  ],
+  "author": "Jan Rudolf",
+  "license": "ISC"
+}
