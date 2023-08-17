@@ -1,9 +1,10 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node-mongo
 {
   "name": "uu_jokes_maing01",
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "app",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
+  "runArgs": [
+    "--name=uu_jokes_maing01_devcontainer",
+    "--network=uu_dockerenvg01_default"
+  ],
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "mounts": [
     "source=uu_jokes_maing01-hi-node_modules,target=${containerWorkspaceFolder}/uu_jokes_maing01-hi/node_modules,type=volume",
@@ -12,7 +13,8 @@
   "forwardPorts": [8080],
   "postCreateCommand": "sudo chown node:node -R ./",
   "remoteEnv": {
-    "DEV_CHROME_DIR": "${localEnv:DEV_CHROME_DIR}"
+    "DEV_CHROME_DIR": "${localEnv:DEV_CHROME_DIR}",
+    "WATCHPACK_POLLING": "true"
   },
   "customizations": {
     "vscode": {
@@ -21,7 +23,8 @@
         "esbenp.prettier-vscode",
         "mhutchie.git-graph",
         "eamodio.gitlens",
-        "mongodb.mongodb-vscode"
+        "mongodb.mongodb-vscode",
+        "unicorn-universe.uu5g05-snippets"
       ]
     }
   }

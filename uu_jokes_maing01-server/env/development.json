@@ -1,8 +1,8 @@
 {
   "port": 8080,
   "uuSubAppDataStoreMap": {
-    "primary": "mongodb://localhost:27017/jokesMainPrimary",
-    "binary": "mongodb://localhost:27017/jokesMainBinary"
+    "primary": "mongodb://mongo:27017/jokesMainPrimary",
+    "binary": "mongodb://mongo:27017/jokesMainBinary"
   },
   "asid_license_owner_list": [
     "3021-5827-7555-0000",
@@ -24,5 +24,5 @@
 
   "uu_app_oidc_providers_oidcg02_authentication_type": "code",
   "uu_app_oidc_providers_oidcg02_session_crossdomain_strategy": "forward",
-  "uu_app_oidc_providers_oidcg02_uri": "https://uuapp.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc"
+  "uu_app_oidc_providers_oidcg02_uri": "https://uuapp-dev.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc"
 }
