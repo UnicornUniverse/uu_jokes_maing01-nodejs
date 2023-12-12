@@ -1,0 +1,85 @@
+{
+  "uuAppBoxDescriptor": {
+    "schemaVersion": "2.0",
+    "code": "uu-jokes-maing01",
+    "version": "${projectVersion}",
+    "name": "uuJokes",
+    "description": "uuJokes is reference application for educational purposes",
+    "productUri": null,
+    "uuAppPackMap": {
+      "uuAppPack01": {
+        "type": "uuNodeImage"
+      }
+    },
+    "deliverySpecType": "uusubappspec:2.0",
+    "deliverySpec": {
+      "urlPath": "uu-jokes-maing01",
+      "uuNodeSetMap": {
+        "nodeSet01": {
+          "uuNodeSetType": "cmdSync",
+          "uuNodeSize": "G2_S",
+          "uuAppPackRef": "uuAppPack01",
+          "uuAppRoutingList": [
+            {
+              "uuGatewayRef": "gwCmdSync01",
+              "uuSubAppSpp": "${urlPath}"
+            }
+          ]
+        }
+      },
+      "uuGatewayMap": {
+        "gwCmdSync01": {
+          "uuGatewayType": "cmdSync",
+          "uuGatewaySize": "XXS"
+        }
+      },
+      "uuAppObjectStoreMap": {
+        "osid01": {
+          "uuAppObjectStoreType": "uuAppObjectStoreg01",
+          "uuAppObjectStoreSize": "G0_25"
+        }
+      },
+      "uuAppServerEnvironment": {
+        "uuSubAppDataStoreMap": {
+          "primary": "${uuAppObjectStoreMap.osid01}"
+        }
+      }
+    }
+  },
+  "uuAppPackRuntimeStackMap": {
+    "uuAppPack01": "docker://uuapp-dev-repo.plus4u.net/runtimestacks/uu_appruntimestackg02-nodejs:0.1"
+  },
+  "uuSubAppDeploymentConfig": {
+    "uuAppResourcePoolOid": "----- VALUE REQUIRED -----",
+    "targetSlot": "production",
+    "asid": "1ebf79d54d2e4e91a58b1376117fa623",
+    "awidList": [
+      "4ef6a7b01b5942ecbfb925b249af987f",
+      "415f0820c0e54f14962611fda4586e53",
+      "a471f66a66184280a7d3f5d079e9708e"
+    ]
+  },
+  "uuAppServerEnvironment": {
+    "asid_license_owner_list": [
+      "23-8392-1",
+      "6565-1",
+      "4-1"
+    ],
+    "uu_app_oidc_providers_oidcg02_enabled": true,
+    "uu_app_oidc_primary_provider": "oidcg02",
+    "fls_base_uri": "https://uuapp.plus4u.net/uu-flsg01-main/8014eb79e8184ebb8942d96ce37b61b4/",
+    "sls_base_uri": "https://uuapp.plus4u.net/uu-sls-maing01/3c440c47fc1f4ba4bc78e64f571835dc/",
+    "business_request_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/a04c8463649b425fb8b46076c0c5e5d0/",
+    "business_model_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/a129e74e3bcc4fe4a4a95f5e4bb494ed/",
+    "application_model_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/",
+    "user_guide_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/233edf4ed51e4c0eb0c2caad2c270e8a/",
+    "web_uri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/",
+    "product_portal_uri": "https://uuapp.plus4u.net/uu-dockit-maing02/d112828dcd1445e2a916cdd59331a359/document?documentId=5fb577cf1d97660025f9023b",
+    "uu_app_auditlog_app_logstore_uri": "https://uuappg01-eu-w-1.plus4u.net/uu-applogstore-maing01/8d4483c9dcb0f7f32abc9fa7fca4d438",
+    "uu_app_auditlog_app_logstore_transfer_after_count": 1000,
+    "uu_app_auditlog_app_logstore_uuee": "23-8392-1",
+    "uu_app_auditlog_max_record_count": 200000,
+    "uu_app_auditlog_min_record_count": 180000,
+    "uu_app_auditlog_record_limit_check_after": 5000
+  }
+}
