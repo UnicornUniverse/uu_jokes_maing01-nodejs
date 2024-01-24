@@ -8,7 +8,7 @@
     "description": "uuJokes is reference application for educational purposes",
     "license": "License Commercial",
     "asidRequired": true,
-    "awidCount": 3,
+    "awidCount": 2,
     "resourcePoolUri": "ues:EMF-BT:FAMILY_EM_DEV_RESOURCEPOOL_AWE",
     "uuAppNodeSetMap": {
       "CMD": {
@@ -18,7 +18,7 @@
           "max": 1
         },
         "appPackUri": "ues:UU-BT:UU.JOKES.MAING01/APPBOX-4.0.0-dev:UU.JOKES.MAING01/CMD-PACK",
-        "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.6"
+        "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-2.0"
       }
     },
     "uuAppObjectStoreMap": {
@@ -38,12 +38,12 @@
       }
     },
     "uuConfigMap": {
-      "asid_license_owner_list": ["26-9719-1", "6565-1", "4-1"],
+      "asid_license_owner_list": ["6776-8575-2621-0000", "5060-4766-9574-0000", "4553-3798-1141-0000"],
       "uu_app_auditlog_record_count_limit": 10000,
       "uu_app_auditlog_record_limit_check_after": 1000,
       "uu_app_oidc_providers_oidcg02_enabled": true,
       "uu_app_oidc_primary_provider": "oidcg02",
-      "uu_app_oidc_providers_oidcg01_enabled": true,
+      "uu_app_oidc_providers_oidcg01_enabled": false,
       "fls_base_uri": "https://uuapp.plus4u.net/uu-flsg01-main/8014eb79e8184ebb8942d96ce37b61b4/",
       "sls_base_uri": "https://uuapp.plus4u.net/uu-sls-maing01/3c440c47fc1f4ba4bc78e64f571835dc/",
       "business_request_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/a04c8463649b425fb8b46076c0c5e5d0/",
@@ -51,34 +51,38 @@
       "application_model_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/",
       "user_guide_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/233edf4ed51e4c0eb0c2caad2c270e8a/",
       "web_uri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/",
-      "product_portal_uri": "https://uuapp.plus4u.net/uu-dockit-maing02/d112828dcd1445e2a916cdd59331a359/document?documentId=5fb577cf1d97660025f9023b"
+      "product_portal_uri": "https://uuapp.plus4u.net/uu-dockit-maing02/d112828dcd1445e2a916cdd59331a359/document?documentId=5fb577cf1d97660025f9023b",
+      "uu_app_oidc_providers_oidcg02_authentication_type": "code",
+      "uu_app_oidc_providers_oidcg02_session_crossdomain_strategy": "forward",
+      "uu_app_oidc_providers_oidcg02_uri": "https://uuapp-dev.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc",
+      "uu5g05_componentUveUri": "https://uuapp-dev.plus4u.net/uu-plus4ugo-maing01/00000c3f57074bfcb759aba2d562e013/component/render",
+      "uu5g05_libraryRegistryBaseUri": "https://uuapp-dev.plus4u.net/uu-applibraryregistry-maing01/000008ad5570455e83857a394f9a21c9",
+      "uu5g05_plus4UGoBaseUri": "https://uuapp-dev.plus4u.net/uu-plus4ugo-maing01/00000c3f57074bfcb759aba2d562e013",
+      "uu_plus4u5g02_identityManagementBaseUri": "https://uuapp-dev.plus4u.net/uu-identitymanagement-maing01/58ceb15c275c4b31bfe0fc9768aa6a9c",
+      "uu_plus4u5g02_commonServicesBaseUri": "https://uuapp-dev.plus4u.net/uu-commonservices-maing01/00000b33c474420aa887c972097b8024",
+      "uu_plus4u5g02_peopleBaseUri": "https://uuapp-dev.plus4u.net/uu-plus4upeople-maing01/0000004723544d1ab0b74000d9f7671c",
+      "uu_plus4u5g02_organizationBaseUri": "https://uuapp-dev.plus4u.net/uu-plus4uorganization-maing01/00000e17cfda49f49db73ed53ac8e4cf"
     }
   },
   "uuSubAppInstance": {
-    "asid": "aefba149ef364877a2898231db7f888e",
-    "asidOwner": "26-9719-1",
+    "asid": "56eead00d39124c23f5e06940ca2c0ba",
+    "asidOwner": "6776-8575-2621-0000",
     "awidList": [
       {
-        "awid": "2d2bd544eacf44b78e5ccaf16aa38b10",
-        "awidOwner": "26-9720-1"
+        "awid": "fc329c3c740537b734a1d256c7736e74"
       },
       {
-        "awid": "363889bfd6644a74af903551b02d7a42",
-        "awidOwner": "26-9721-1"
-      },
-      {
-        "awid": "c8044be73b8b48d4a09e0854ed15362d",
-        "awidOwner": "26-9722-1"
+        "awid": "9713389102e4479ba896e3abb690056c"
       }
     ],
     "uuAppObjectStoreMap": {
       "OSID_1": {
-        "osid": "de56733314e14620ad6c7a41bd429a5f"
+        "osid": "b2e9d23b04d1443a9833d3589c39f391"
       }
     },
     "uuAppBinaryStoreMap": {
       "BSID_1": {
-        "bsid": "0981124fe8a44bd7b162403ebed7b8fa"
+        "bsid": "c3cb3cabec624ae6808b046d86b33d0d"
       }
     }
   }

@@ -18,6 +18,7 @@
     "uu_appbinarystoreg02-mongodb": "^1.3.1",
     "uu_appg01_devkit": "^5.4.0",
     "uu_appg01_server-test": "^5.12.0",
+    "uu_cloudg02-devkit": "^0.7.3",
     "uu_console_commandlineg01-devkit": "^0.1.0"
   },
   "engines": {
@@ -39,10 +40,17 @@
     "uuCloudShare": "uu_appg01_devkit uuCloudShare",
     "uuCloudUnshare": "uu_appg01_devkit uuCloudUnshare",
     "uuCloudDeployList": "uu_appg01_devkit uuCloudDeployList",
-    "uuCloudLogStoreExport": "uu_appg01_devkit uuCloudLogStoreExport",
     "uuCmdCreate": "uu_appg01_devkit uuCmdCreate",
     "uuAppDevKitUpgrade": "uu_appg01_devkit uuAppDevKitUpgrade",
-    "uuConsoleCommandlineTemplateCreate": "uu_console_commandlineg01-devkit templateCreate"
+    "uuConsoleCommandlineTemplateCreate": "uu_console_commandlineg01-devkit templateCreate",
+    "uuCloudg02AppBoxCopy": "uu_cloudg02-devkit appBoxCopy",
+    "uuCloudg02AppBox": "uu_cloudg02-devkit appBox",
+    "uuCloudg02CleanResources": "uu_cloudg02-devkit cleanResources",
+    "uuCloudg02DeployList": "uu_cloudg02-devkit deployList",
+    "uuCloudg02Deploy": "uu_cloudg02-devkit deploy",
+    "uuCloudg02LogExport": "uu_cloudg02-devkit log-export",
+    "uuCloudg02Swap": "uu_cloudg02-devkit swap",
+    "uuCloudg02Undeploy": "uu_cloudg02-devkit undeploy"
   },
   "main": "app.js",
   "files": [

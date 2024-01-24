@@ -9,15 +9,23 @@
   "devkit": {
     "development": {
       "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX",
-      "appDeploymentUri": "ues:EMF-BT[52816343470606949]:FAMILY_EM_DEV_RESOURCEPOOL_AWE[60378981f90380f4b78eef93]:UU.JOKES.MAING01[611f7600566164380e3891c4]"
+      "appDeploymentUri": "ues:EMF-BT[52816343470606949]:FAMILY_EM_DEV_RESOURCEPOOL_AWE[60378981f90380f4b78eef93]:UU.JOKES.MAING01[611f7600566164380e3891c4]",
+      "uuCloudLogStoreBaseUri": "https://uuapp.plus4u.net/uu-cloudlogstore-maing02/09cecaac4b644a8e8e051ff2eb0d0a68",
+      "uuCloudUniverseBaseUri": "----- VALUE REQUIRED -----",
+      "uuAppBoxRegistryBaseUri": "----- VALUE REQUIRED -----"
+    },
+    "test": {
+      "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX",
+      "appDeploymentUri": "ues:EMF-BT[52816343470606949]:FAMILY_EM_DEV_RESOURCEPOOL_AWE[60378981f90380f4b78eef93]:UU.JOKES.MAING01[63809fd011b484df2b1e6e04]",
+      "uuCloudLogStoreBaseUri": "https://uuapp.plus4u.net/uu-cloudlogstore-maing02/09cecaac4b644a8e8e051ff2eb0d0a68",
+      "uuCloudUniverseBaseUri": "----- VALUE REQUIRED -----",
+      "uuAppBoxRegistryBaseUri": "----- VALUE REQUIRED -----"
     },
     "demo": {
       "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX",
-      "appDeploymentUri": "ues:NETPROV1-BT[99923616732505139]:B_PRODUCTION_EGL[632a26959d2f13ec54850721]:UU.JOKES.MAING01[635264073f824ed95d5a0e3c]"
-    },
-    "development-dev": {
-      "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX/DEVOIDC",
-      "appDeploymentUri": ""
+      "appDeploymentUri": "ues:NETPROV1-BT[99923616732505139]:B_PRODUCTION_EGL[632a26959d2f13ec54850721]:UU.JOKES.MAING01[635264073f824ed95d5a0e3c]",
+      "uuCloudUniverseBaseUri": "----- VALUE REQUIRED -----",
+      "uuAppBoxRegistryBaseUri": "----- VALUE REQUIRED -----"
     }
   },
   "uu_jokes_maing01-hi": {},

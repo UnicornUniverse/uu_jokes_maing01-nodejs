@@ -1,0 +1,77 @@
+{
+  "uuAppBoxDescriptor": {
+    "schemaVersion": "2.0",
+    "code": "uu-jokes-maing01",
+    "version": "${projectVersion}",
+    "name": "uuJokesMaing01",
+    "description": "uuJokes is reference application for educational purposes",
+    "productUri": null,
+    "uuAppPackMap": {
+      "uuAppPack01": {
+        "type": "uuNodeImage"
+      }
+    },
+    "deliverySpecType": "uusubappspec:2.0",
+    "deliverySpec": {
+      "urlPath": "uu-jokes-maing01",
+      "uuNodeSetMap": {
+        "nodeSet01": {
+          "uuNodeSetType": "cmdSync",
+          "uuNodeSize": "G2_S",
+          "uuAppPackRef": "uuAppPack01",
+          "uuAppRoutingList": [
+            {
+              "uuGatewayRef": "gwCmdSync01",
+              "uuSubAppSpp": "${urlPath}"
+            }
+          ]
+        }
+      },
+      "uuGatewayMap": {
+        "gwCmdSync01": {
+          "uuGatewayType": "cmdSync",
+          "uuGatewaySize": "XXS"
+        }
+      },
+      "uuAppObjectStoreMap": {
+        "osid01": {
+          "uuAppObjectStoreType": "uuAppObjectStoreg01",
+          "uuAppObjectStoreSize": "G0_25"
+        }
+      },
+      "uuAppServerEnvironment": {
+        "uuSubAppDataStoreMap": {
+          "primary": "${uuAppObjectStoreMap.osid01}"
+        }
+      }
+    }
+  },
+  "uuAppPackRuntimeStackMap": {
+    "uuAppPack01": "docker://uuapp-dev-repo.plus4u.net/runtimestacks/uu_appruntimestackg02-nodejs:0.1"
+  },
+  "uuSubAppDeploymentConfig": {
+    "uuAppResourcePoolOid": "----- VALUE REQUIRED -----",
+    "targetSlot": "production",
+    "asid": "56eead00d39124c23f5e06940ca2c0ba",
+    "awidList": ["fc329c3c740537b734a1d256c7736e74", "9713389102e4479ba896e3abb690056c"]
+  },
+  "uuAppServerEnvironment": {
+    "asid_license_owner_list": ["6776-8575-2621-0000", "5060-4766-9574-0000", "4553-3798-1141-0000"],
+    "uu_app_auditlog_record_count_limit": 10000,
+    "uu_app_auditlog_record_limit_check_after": 1000,
+    "uu_app_oidc_providers_oidcg02_enabled": true,
+    "uu_app_oidc_primary_provider": "oidcg02",
+    "uu_app_oidc_providers_oidcg01_enabled": false,
+    "fls_base_uri": "https://uuapp.plus4u.net/uu-flsg01-main/8014eb79e8184ebb8942d96ce37b61b4/",
+    "sls_base_uri": "https://uuapp.plus4u.net/uu-sls-maing01/3c440c47fc1f4ba4bc78e64f571835dc/",
+    "business_request_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/a04c8463649b425fb8b46076c0c5e5d0/",
+    "business_model_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/a129e74e3bcc4fe4a4a95f5e4bb494ed/",
+    "application_model_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/",
+    "user_guide_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/233edf4ed51e4c0eb0c2caad2c270e8a/",
+    "web_uri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/",
+    "product_portal_uri": "https://uuapp.plus4u.net/uu-dockit-maing02/d112828dcd1445e2a916cdd59331a359/document?documentId=5fb577cf1d97660025f9023b",
+    "uu_app_oidc_providers_oidcg02_authentication_type": "code",
+    "uu_app_oidc_providers_oidcg02_session_crossdomain_strategy": "forward",
+    "uu_app_oidc_providers_oidcg02_uri": "https://uuapp-dev.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc"
+  }
+}
