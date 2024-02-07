@@ -13,7 +13,7 @@
     "targetSlot": "PRODUCTION",
     "uuAppNodeSetMap": {
       "CMD": {
-        "nodeSize": "G1_M",
+        "nodeSize": "G1_S",
         "nodeCount": {
           "min": 1,
           "max": 1
@@ -26,15 +26,7 @@
       "OSID_1": {
         "size": 0.25,
         "alias": "primary",
-        "technology": "MongoDB-4.0",
-        "backup": false
-      }
-    },
-    "uuAppBinaryStoreMap": {
-      "BSID_1": {
-        "size": 0.25,
-        "alias": "binary",
-        "technology": "MongoDB-4.0",
+        "technology": "MongoDB-5.0",
         "backup": false
       }
     },
