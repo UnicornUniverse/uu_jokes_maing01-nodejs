@@ -19,7 +19,7 @@
           "max": 1
         },
         "appPackUri": "ues:UU-BT:UU.JOKES.MAING01/APPBOX-4.0.0-dev:UU.JOKES.MAING01/CMD-PACK",
-        "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-2.0"
+        "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-3.1"
       }
     },
     "uuAppObjectStoreMap": {
