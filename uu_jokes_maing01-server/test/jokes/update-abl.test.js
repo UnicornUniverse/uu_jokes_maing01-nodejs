@@ -29,7 +29,7 @@ afterEach(() => {
 
 test("HDS - simple", async () => {
   let result = await TestHelper.initUuAppWorkspace({ uuAppProfileAuthorities: "." });
-  expect(result.name).toEqual("uuJokes");
+  expect(result.jokes.name).toEqual("uuJokes");
 
   let name = "My uuJokes";
   result = await TestHelper.executePostCommand(JOKES_INSTANCE_UPDATE, { name });

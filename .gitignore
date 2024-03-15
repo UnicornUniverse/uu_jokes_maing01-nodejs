@@ -29,3 +29,6 @@ gradlew
 gradlew.bat
 metamodel.zip
 access_codes
+.scannerwork
+dependency-check-bin
+dependency-check-reports

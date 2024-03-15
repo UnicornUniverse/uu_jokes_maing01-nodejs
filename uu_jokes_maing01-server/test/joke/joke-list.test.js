@@ -21,9 +21,9 @@ test("HDS", async () => {
   await TestHelper.login("Authorities");
 
   // create some jokes
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A", text: "aaa" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C", text: "ccc" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B", text: "bbb" });
 
   let response = await TestHelper.executeGetCommand(JOKE_LIST);
   expect(response.status).toEqual(200);
@@ -42,9 +42,9 @@ test("HDS - default sort by (name), default order (ascending)", async () => {
   await TestHelper.login("Authorities");
 
   // create some jokes
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A", text: "aaa" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C", text: "ccc" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B", text: "bbb" });
 
   let response = await TestHelper.executeGetCommand(JOKE_LIST);
   expect(response.status).toEqual(200);
@@ -60,9 +60,9 @@ test("HDS - default sort by (name), custom order", async () => {
   await TestHelper.login("Authorities");
 
   // create some jokes
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A", text: "aaa" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C", text: "ccc" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B", text: "bbb" });
 
   let response = await TestHelper.executeGetCommand(JOKE_LIST, { order: "desc" });
   expect(response.status).toEqual(200);
@@ -100,9 +100,9 @@ test("HDS - pageInfo", async () => {
   await TestHelper.login("Authorities");
 
   // create some jokes
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A", text: "aaa" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C", text: "ccc" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B", text: "bbb" });
 
   let pIndex = 2;
   let pSize = 1;
@@ -120,9 +120,9 @@ test("HDS - only pageSize in pageInfo", async () => {
   await TestHelper.login("Authorities");
 
   // create some jokes
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A", text: "aaa" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C", text: "ccc" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B", text: "bbb" });
 
   let pSize = 1;
   let response = await TestHelper.executeGetCommand(JOKE_LIST, { pageInfo: { pageSize: pSize } });
@@ -139,9 +139,9 @@ test("HDS - only pageIndex in pageInfo", async () => {
   await TestHelper.login("Authorities");
 
   // create some jokes
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A", text: "aaa" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C", text: "ccc" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B", text: "bbb" });
 
   let pIndex = 2;
   let response = await TestHelper.executeGetCommand(JOKE_LIST, { pageInfo: { pageIndex: pIndex } });
