@@ -1,6 +1,6 @@
 {
   "product": "uu_jokes_maing01",
-  "version": "5.1.0-dev",
+  "version": "5.0.0-dev",
   "license": "License Commercial",
   "description": {
     "en": "uuJokes is reference application for educational purposes",
@@ -8,24 +8,14 @@
   },
   "devkit": {
     "development": {
-      "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX",
-      "appDeploymentUri": "",
-      "uuCloudLogStoreBaseUri": "https://uuapp.plus4u.net/uu-cloudlogstore-maing02/09cecaac4b644a8e8e051ff2eb0d0a68",
-      "uuCloudUniverseBaseUri": "----- VALUE REQUIRED -----",
-      "uuAppBoxRegistryBaseUri": "----- VALUE REQUIRED -----"
+      "uuCloudUniverseBaseUri": "https://uuapp.plus4u.net/uu-cloud-universeg01/499b255d2620f209353489fad4ccceb4",
+      "uuCloudLogStoreBaseUri": "https://uuapp.plus4u.net/uu-cloudlogstore-maing02/203a4bb4c0c5484690533e658a1c8c9e",
+      "uuAppBoxRegistryBaseUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/ae03424ac63a4e068f390db5b58bbcdd"
     },
     "test": {
-      "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX",
-      "appDeploymentUri": "ues:EMF-BT[52816343470606949]:FAMILY_EM_DEV_RESOURCEPOOL_AWE[60378981f90380f4b78eef93]:UU.JOKES.MAING01[63809fd011b484df2b1e6e04]",
-      "uuCloudLogStoreBaseUri": "https://uuapp.plus4u.net/uu-cloudlogstore-maing02/09cecaac4b644a8e8e051ff2eb0d0a68",
-      "uuCloudUniverseBaseUri": "----- VALUE REQUIRED -----",
-      "uuAppBoxRegistryBaseUri": "----- VALUE REQUIRED -----"
-    },
-    "demo": {
-      "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX",
-      "appDeploymentUri": "ues:NETPROV1-BT[99923616732505139]:B_PRODUCTION_EGL[632a26959d2f13ec54850721]:UU.JOKES.MAING01[635264073f824ed95d5a0e3c]",
-      "uuCloudUniverseBaseUri": "----- VALUE REQUIRED -----",
-      "uuAppBoxRegistryBaseUri": "----- VALUE REQUIRED -----"
+      "uuCloudUniverseBaseUri": "https://uuapp.plus4u.net/uu-cloud-universeg01/499b255d2620f209353489fad4ccceb4",
+      "uuCloudLogStoreBaseUri": "https://uuapp.plus4u.net/uu-cloudlogstore-maing02/203a4bb4c0c5484690533e658a1c8c9e",
+      "uuAppBoxRegistryBaseUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/ae03424ac63a4e068f390db5b58bbcdd"
     }
   },
   "uu_jokes_maing01-hi": {},
