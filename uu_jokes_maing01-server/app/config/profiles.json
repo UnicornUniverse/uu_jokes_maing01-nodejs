@@ -119,25 +119,9 @@
         "sysStateList": ["active"],
         "profileList": ["Public"]
       },
-      "binary/get": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives"]
-      },
       "binary/getData": {
         "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives","Readers"]
-      },
-      "binary/update": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives"]
-      },
-      "binary/list": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives"]
-      },
-      "binary/delete": {
-        "sysStateList": ["active"],
-        "profileList": ["Authorities","Executives"]
+        "profileList": ["Authorities", "Executives", "Readers"]
       }
     }
   }

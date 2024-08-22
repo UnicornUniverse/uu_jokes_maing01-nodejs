@@ -1,7 +1,8 @@
 {
   "port": 8080,
   "uuSubAppDataStoreMap": {
-    "primary": "mongodb://127.0.0.1:27018/jokesMainPrimary"
+    "primary": "mongodb://127.0.0.1:27018/jokesMainPrimary",
+    "binary": "mongodb://127.0.0.1:27018/jokesMainBinary"
   },
   "uu_app_binarystore_uri": "mongodb://127.0.0.1:27018/jokesMainBinary",
   "asid_license_owner_list": [

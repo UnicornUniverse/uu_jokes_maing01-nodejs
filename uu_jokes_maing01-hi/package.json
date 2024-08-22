@@ -19,7 +19,11 @@
     "uu5loaderg01": "^1.1.2"
   },
   "uuBuildSettings": {
-    "externals": {}
+    "externals": {
+      "uu_jokesg01-core": {
+        "cdnBaseUri": "https://cdn.plus4u.net/beta/uu-jokesg01/2.0.0/"
+      }
+    }
   },
   "devDependencies": {
     "uu_appg01_devkit": "^5.4.0"
