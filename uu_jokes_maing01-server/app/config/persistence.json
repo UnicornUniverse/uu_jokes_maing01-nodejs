@@ -22,16 +22,6 @@
           "maxNoi": 128
         }
       }
-    },
-    "binary": {
-      "type": "uuAppBinaryStore",
-      "realization": "MongoDB",
-      "schemaMap": {
-        "uuBinary": {
-          "realization": "uu_appg01_binarystore-cmd:dao/UuAppBinarystoreMongo",
-          "maxSob": 5242880
-        }
-      }
     }
   }
 }

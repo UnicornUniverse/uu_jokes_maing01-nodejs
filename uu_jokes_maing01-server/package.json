@@ -1,19 +1,21 @@
 {
   "name": "uu_jokes_maing01-server",
-  "version": "4.0.0-dev",
+  "version": "5.1.0-dev",
   "description": "uuJokes is reference application for educational purposes",
   "license": "License Commercial",
   "spec": "nodejs-app; uu_appg01_devkit@5.5.0",
   "dependencies": {
     "cors": "^2.8.5",
     "file-type": "^12.0.1",
-    "uu_appg01_binarystore-cmd": "^3.0.1",
+    "uu_appbinarystoreg02": "^1.3.1",
+    "uu_appbinarystoreg02-cmd": "^1.3.1",
     "uu_appg01_datastore": "^3.3.0",
     "uu_appg01_server": "^5.12.0",
     "uu_apprepresentationg01": "^2.2.0",
     "uu_territory_clientg01": "^1.2.1"
   },
   "devDependencies": {
+    "uu_appbinarystoreg02-mongodb": "^1.3.1",
     "uu_appg01_devkit": "^5.4.0",
     "uu_appg01_server-test": "^5.12.0",
     "uu_cloudg02-devkit": "^0.7.3",
