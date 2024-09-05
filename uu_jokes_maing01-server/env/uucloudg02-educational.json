@@ -69,6 +69,6 @@
     "uu_app_secretstore_master_key_active_slot": "slot1",
     "uu_app_secretstore_master_key1_slot1": "_7E]qGGK/cZUD#ywcr~z8@luBgXwHK^24srRQ>2#7:0(}dnuwKn+(rXSxGB8LKd8",
     "uu_app_oidc_providers_oidcg02_uri": "https://uuapp-dev.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc",
-    "uu_app_binarystore_uri": "------- TODO MFA -------"
+    "uu_app_binarystore_uri": "https://uuapp-dev.plus4u.net/uu-appbinarystore-maing02/63c1031b3e034917b26d4901510d9248"
   }
 }
