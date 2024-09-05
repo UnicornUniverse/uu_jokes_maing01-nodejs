@@ -1,6 +1,6 @@
 {
   "name": "uu_jokes_maing01-server",
-  "version": "5.1.0-dev",
+  "version": "5.0.0-dev",
   "description": "uuJokes is reference application for educational purposes",
   "license": "License Commercial",
   "spec": "nodejs-app; uu_appg01_devkit@5.5.0",
@@ -18,7 +18,7 @@
     "uu_appbinarystoreg02-mongodb": "^1.3.1",
     "uu_appg01_devkit": "^5.4.0",
     "uu_appg01_server-test": "^5.12.0",
-    "uu_cloudg02-devkit": "^0.7.3",
+    "uu_cloudg02-devkit": "^0.13.0",
     "uu_console_commandlineg01-devkit": "^0.1.0",
     "sonarqube-scanner": "^3.0.1",
     "owasp-dependency-check": "^0.0.21",
@@ -58,7 +58,11 @@
     "uuCloudg02Undeploy": "uu_cloudg02-devkit undeploy",
     "presonar": "nyc report --temp-dir=./target/coverage/.nyc_output --report-dir=./target/coverage/lcov/ --reporter=lcov",
     "sonar": "npm run presonar && node ./tools/sonar-project.js",
-    "owasp": "owasp-dependency-check --scan package-lock.json --exclude dependency-check-bin -f HTML -f JSON"
+    "owasp": "owasp-dependency-check --scan package-lock.json --exclude dependency-check-bin -f HTML -f JSON",
+    "uuCloudg02AppBoxExport": "uu_cloudg02-devkit appBoxExport",
+    "uuCloudg02AppBoxImport": "uu_cloudg02-devkit appBoxImport",
+    "uuCloudg02VerifySignature": "uu_cloudg02-devkit verifySignature",
+    "uuCloudg02VulnerabilityScan": "uu_cloudg02-devkit vulnerabilityScan"
   },
   "main": "app.js",
   "files": [

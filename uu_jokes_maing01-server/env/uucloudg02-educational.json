@@ -47,21 +47,16 @@
     }
   },
   "uuAppPackRuntimeStackMap": {
-    "uuAppPack01": "docker://uuapp-dev-repo.plus4u.net/runtimestacks/uu_appruntimestackg02-nodejs:0.1"
+    "uuAppPack01": "docker://uuapp-dev-repo.plus4u.net/runtimestacks/uu_appruntimestackg02-nodejs:1.0"
   },
   "uuSubAppDeploymentConfig": {
-    "uuAppResourcePoolOid": "----- VALUE REQUIRED -----",
+    "uuAppResourcePoolOid": "65eeb84cbccb18001624db99",
     "targetSlot": "production",
     "asid": "56eead00d39124c23f5e06940ca2c0ba",
     "awidList": ["fc329c3c740537b734a1d256c7736e74", "9713389102e4479ba896e3abb690056c"]
   },
   "uuAppServerEnvironment": {
-    "asid_license_owner_list": ["6776-8575-2621-0000", "5060-4766-9574-0000", "4553-3798-1141-0000"],
-    "uu_app_auditlog_record_count_limit": 10000,
-    "uu_app_auditlog_record_limit_check_after": 1000,
-    "uu_app_oidc_providers_oidcg02_enabled": true,
-    "uu_app_oidc_primary_provider": "oidcg02",
-    "uu_app_oidc_providers_oidcg01_enabled": false,
+    "asid_license_owner_list": ["4-1", "5060-4766-9574-0000", "5278-1157-5179-0000"],
     "fls_base_uri": "https://uuapp.plus4u.net/uu-flsg01-main/8014eb79e8184ebb8942d96ce37b61b4/",
     "sls_base_uri": "https://uuapp.plus4u.net/uu-sls-maing01/3c440c47fc1f4ba4bc78e64f571835dc/",
     "business_request_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/a04c8463649b425fb8b46076c0c5e5d0/",
@@ -70,8 +65,10 @@
     "user_guide_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/233edf4ed51e4c0eb0c2caad2c270e8a/",
     "web_uri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/",
     "product_portal_uri": "https://uuapp.plus4u.net/uu-dockit-maing02/d112828dcd1445e2a916cdd59331a359/document?documentId=5fb577cf1d97660025f9023b",
-    "uu_app_oidc_providers_oidcg02_authentication_type": "code",
-    "uu_app_oidc_providers_oidcg02_session_crossdomain_strategy": "forward",
-    "uu_app_oidc_providers_oidcg02_uri": "https://uuapp-dev.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc"
+    "uu_app_secretstore_enable_encryption": true,
+    "uu_app_secretstore_master_key_active_slot": "slot1",
+    "uu_app_secretstore_master_key1_slot1": "_7E]qGGK/cZUD#ywcr~z8@luBgXwHK^24srRQ>2#7:0(}dnuwKn+(rXSxGB8LKd8",
+    "uu_app_oidc_providers_oidcg02_uri": "https://uuapp-dev.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc",
+    "uu_app_binarystore_uri": "https://uuapp-dev.plus4u.net/uu-appbinarystore-maing02/63c1031b3e034917b26d4901510d9248"
   }
 }
