@@ -72,6 +72,6 @@
     "uu_app_secretstore_enable_encryption": true,
     "uu_app_secretstore_master_key_active_slot": "slot1",
     "uu_app_secretstore_master_key1_slot1": "_7E]qGGK/cZUD#ywcr~z8@luBgXwHK^24srRQ>2#7:0(}dnuwKn+(rXSxGB8LKd8",
-    "uu_app_binarystore_uri": "TODO MFA - waiting for instance"
+    "uu_app_binarystore_uri": "https://uuappg01-eu-w-1.plus4u.net/uu-appbinarystore-maing02/eae7ec58af034bdabecbfa01ae2e115a"
   }
 }
