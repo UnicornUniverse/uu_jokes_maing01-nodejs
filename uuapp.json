@@ -16,6 +16,11 @@
       "uuCloudUniverseBaseUri": "https://uuapp.plus4u.net/uu-cloud-universeg01/499b255d2620f209353489fad4ccceb4",
       "uuCloudLogStoreBaseUri": "https://uuapp.plus4u.net/uu-cloudlogstore-maing02/203a4bb4c0c5484690533e658a1c8c9e",
       "uuAppBoxRegistryBaseUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/ae03424ac63a4e068f390db5b58bbcdd"
+    },
+    "production": {
+      "uuCloudUniverseBaseUri": "https://uucloudg02.plus4u.net/uu-cloud-universeg01/b04d3066985db923cd9c0c09f413bf7a",
+      "uuCloudLogStoreBaseUri": "https://uuapp.plus4u.net/uu-cloudlogstore-maing02/203a4bb4c0c5484690533e658a1c8c9e",
+      "uuAppBoxRegistryBaseUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/ae03424ac63a4e068f390db5b58bbcdd"
     }
   },
   "uu_jokes_maing01-hi": {},
@@ -28,6 +33,9 @@
       "educational": {
         "uuAppBoxUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/ae03424ac63a4e068f390db5b58bbcdd/uuAppBox/get?id=66d9b8b3199d576a6e69d3f4&extended=true",
         "uuSubAppInstanceWorkloadOid": "66d9b8c4297cb2c0ddaa2dab"
+      },
+      "production": {
+        "uuAppBoxUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/ae03424ac63a4e068f390db5b58bbcdd/uuAppBox/get?id=67544f69a9dc41fda738052f&extended=true"
       }
     }
   }
