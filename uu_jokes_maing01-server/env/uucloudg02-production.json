@@ -72,6 +72,13 @@
     "uu_app_secretstore_enable_encryption": true,
     "uu_app_secretstore_master_key_active_slot": "slot1",
     "uu_app_secretstore_master_key1_slot1": "_7E]qGGK/cZUD#ywcr~z8@luBgXwHK^24srRQ>2#7:0(}dnuwKn+(rXSxGB8LKd8",
-    "uu_app_binarystore_uri": "https://uuappg01-eu-w-1.plus4u.net/uu-appbinarystore-maing02/eae7ec58af034bdabecbfa01ae2e115a"
+    "uu_app_binarystore_uri": "https://uuappg01-eu-w-1.plus4u.net/uu-appbinarystore-maing02/eae7ec58af034bdabecbfa01ae2e115a",
+    "uu_app_auditlog_app_logstore_uri": "https://uuappg01-eu-w-1.plus4u.net/uu-applogstore-maing01/8d4483c9dcb0f7f32abc9fa7fca4d438",
+    "uu_app_statistics_tfilestore_uri": "https://uuapp.plus4u.net/uu-appsecondarylogstore-maing01/f717919570f048e49f7c8d29a7aa12a1",
+    "uu_app_status_progress_base_uri": "https://uuapp.plus4u.net/uu-console-maing02/712c81a0fc0445ea8a04638871753172",
+    "uu_app_auditlog_app_logstore_transfer_after_count": 1000,
+    "uu_app_auditlog_max_record_count": 200000,
+    "uu_app_auditlog_min_record_count": 180000,
+    "uu_app_auditlog_record_limit_check_after": 5000
   }
 }
