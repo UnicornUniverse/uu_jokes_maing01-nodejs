@@ -122,6 +122,10 @@
       "binary/getData": {
         "sysStateList": ["active"],
         "profileList": ["Authorities", "Executives", "Readers"]
+      },
+      "binary/createAccessKey": {
+        "sysStateList": ["active"],
+        "profileList": ["Authorities", "Executives", "Readers"]
       }
     }
   }
