@@ -1,6 +1,8 @@
-import { AppContainer } from "react-hot-loader";
 import { Environment, Utils } from "uu5g05";
-import "uu5g04"; // required for proper integration with uu5g05
+// NOTE Following import is required to make uu5g04-based components work and integrate correctly with uu5g05.
+// It is primarily intended for applications using uuEcc, uu5RichText, components that are dynamically loaded
+// via uuAppLibraryRegistry or customizable uu5Strings (as all of those may contain uu5g04-based components).
+import "uu5g04";
 
 import Spa from "./core/spa.js";
 
@@ -15,24 +17,8 @@ if (!navigator.userAgent.match(/iPhone|iPad|iPod/)) {
   document.head.appendChild(link);
 }
 
-// store the target element selector to use it again during hot update
-let _targetElementId;
-
 function render(targetElementId) {
-  _targetElementId = targetElementId;
-
-  Utils.Dom.render(
-    <AppContainer>
-      <Spa />
-    </AppContainer>,
-    document.getElementById(targetElementId)
-  );
-}
-
-if (module.hot) {
-  module.hot.accept("./core/spa", () => {
-    if (_targetElementId) render(_targetElementId);
-  });
+  Utils.Dom.render(<Spa />, document.getElementById(targetElementId));
 }
 
 export { render };

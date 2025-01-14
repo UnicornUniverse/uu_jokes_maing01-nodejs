@@ -5,9 +5,9 @@ import UuJokesCore from "uu_jokesg01-core";
 import Config from "./config/config";
 //@@viewOff:imports
 
-let Jokes = createVisualComponent({
+let Joke = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "Jokes",
+  uu5Tag: Config.TAG + "Joke",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -19,19 +19,16 @@ let Jokes = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    //@@viewOn:private
-    //@@viewOff:private
-
     //@@viewOn:render
     const { elementProps } = Utils.VisualComponent.splitProps(props);
-    return <UuJokesCore.Joke.List {...elementProps} nestingLevel="route" />;
+    return <UuJokesCore.Joke.Detail {...elementProps} nestingLevel="route" />;
     //@@viewOff:render
   },
 });
 
-Jokes = withRoute(Jokes, { authenticated: true });
+Joke = withRoute(Joke, { authenticated: true });
 
 //@@viewOn:exports
-export { Jokes };
-export default Jokes;
+export { Joke };
+export default Joke;
 //@@viewOff:exports

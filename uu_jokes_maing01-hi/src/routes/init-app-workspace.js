@@ -1,28 +1,22 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, Lsi, useLsiValues, useRef, Environment } from "uu5g05";
-import { Block, HighlightedBox } from "uu5g05-elements";
+import { createVisualComponent, Lsi, useLsi, Environment, Content } from "uu5g05";
+import { HighlightedBox } from "uu5g05-elements";
 import { Form, FormText, SubmitButton } from "uu5g05-forms";
 import { useSubAppData } from "uu_plus4u5g02";
-import { RouteController } from "uu_plus4u5g02-app";
-import { Core, Jokes } from "uu_jokesg01-core";
-import "uu5g04-bricks";
-import "uu5g05-forms";
+import { RouteContainer, useAlertBus } from "uu_plus4u5g02-elements";
+import { withRoute } from "uu_plus4u5g02-app";
+import UuJokesCore from "uu_jokesg01-core";
 import Config from "./config/config.js";
-import RouteContainer from "../core/route-container.js";
-import LsiData from "./init-app-workspace-lsi.js";
+import importLsi from "../lsi/import-lsi.js";
 //@@viewOff:imports
 
 const RELATIVE_URI_REGEXP = new RegExp(/^\/[^/]/);
 
-const STATICS = {
+const InternalComponent = createVisualComponent({
   //@@viewOn:statics
-  displayName: Config.TAG + "InitAppWorkspace",
+  uu5Tag: Config.TAG + "InitAppWorkspace",
   //@@viewOff:statics
-};
-
-export const InitAppWorkspace = createVisualComponent({
-  ...STATICS,
 
   //@@viewOn:propTypes
   //@@viewOff:propTypes
@@ -30,12 +24,12 @@ export const InitAppWorkspace = createVisualComponent({
   //@@viewOn:defaultProps
   //@@viewOff:defaultProps
 
-  render(props) {
+  render() {
     //@@viewOn:private
     const jokesDataObject = useSubAppData();
-    const jokesPermission = Jokes.usePermission();
-    const formLsi = useLsiValues(LsiData);
-    const alertBusRef = useRef();
+    const jokesPermission = UuJokesCore.Workspace.usePermission();
+    const lsi = useLsi(importLsi, [InternalComponent.uu5Tag]);
+    const { showError } = useAlertBus(importLsi, ["Errors"]);
 
     async function handleSubmit(event) {
       try {
@@ -56,59 +50,45 @@ export const InitAppWorkspace = createVisualComponent({
 
         window.location.replace(redirectPath);
       } catch (error) {
-        console.error(error);
-        alertBusRef.current.addAlert({
-          content: <Core.Error errorData={error} />,
-          colorSchema: "danger",
-        });
+        InternalComponent.logger.error(error);
+        showError(error);
       }
     }
     //@@viewOff:private
 
     //@@viewOn:render
-    const canInit = jokesPermission.jokes.canInit();
+    const canInit = jokesPermission.workspace.canInit();
     const formInputCss = Config.Css.css`margin-bottom:16px`;
-    const blockCss = Config.Css.css`max-width: 600px;margin: auto`;
 
     return (
-      <RouteController>
-        <UU5.Bricks.AlertBus ref_={alertBusRef} location="portal" />
-        <RouteContainer>
-          {!canInit && (
-            <HighlightedBox>
-              <Lsi lsi={LsiData.notAuthorizedForInit} />
-            </HighlightedBox>
-          )}
-          {canInit && (
-            <Block
-              header={<Lsi lsi={LsiData.header} />}
-              headerType="title"
-              info={<Lsi lsi={LsiData.info} />}
-              collapsible={false}
-              className={blockCss}
-            >
-              <Form onSubmit={handleSubmit}>
-                <FormText
-                  name="uuBtLocationUri"
-                  label={formLsi.uuBtLocationUri}
-                  info={formLsi.uuBtLocationUriInfo}
-                  required
-                  className={formInputCss}
-                />
-                <FormText name="name" label={formLsi.name} required className={formInputCss} />
-                <div className={Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" })}>
-                  <SubmitButton>
-                    <Lsi lsi={LsiData.initialize} />
-                  </SubmitButton>
-                </div>
-              </Form>
-            </Block>
-          )}
-        </RouteContainer>
-      </RouteController>
+      <RouteContainer header={lsi.formHeader} info={<Content>{lsi.formHeaderInfo}</Content>}>
+        {!canInit && (
+          <HighlightedBox>
+            <Lsi lsi={lsi.notAuthorizedForInit} />
+          </HighlightedBox>
+        )}
+        {canInit && (
+          <Form onSubmit={handleSubmit}>
+            <FormText
+              name="uuBtLocationUri"
+              label={lsi.uuBtLocationUriLabel}
+              info={lsi.uuBtLocationUriInfo}
+              required
+              className={formInputCss}
+            />
+            <FormText name="name" label={lsi.nameLabel} required className={formInputCss} />
+            <div className={Config.Css.css({ display: "flex", gap: 8, justifyContent: "flex-end" })}>
+              <SubmitButton>{lsi.initialize}</SubmitButton>
+            </div>
+          </Form>
+        )}
+      </RouteContainer>
     );
   },
   //@@viewOff:render
 });
 
+const InitAppWorkspace = withRoute(InternalComponent, { authenticated: true });
+
+export { InitAppWorkspace };
 export default InitAppWorkspace;
