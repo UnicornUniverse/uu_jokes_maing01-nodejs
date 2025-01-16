@@ -1,11 +1,14 @@
 //@@viewOn:imports
 import { Utils, createVisualComponent } from "uu5g05";
+import { Breadcrumbs } from "uu5g05-elements";
 import { withRoute } from "uu_plus4u5g02-app";
 import UuJokesCore from "uu_jokesg01-core";
 import Config from "./config/config";
+import RouteName from "../core/route-name";
+import Route from "../utils/route";
 //@@viewOff:imports
 
-let Joke = createVisualComponent({
+const InternalJoke = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "Joke",
   //@@viewOff:statics
@@ -19,14 +22,26 @@ let Joke = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    //@@viewOn:render
+    //@@viewOn:private
     const { elementProps } = Utils.VisualComponent.splitProps(props);
-    return <UuJokesCore.Joke.Detail {...elementProps} nestingLevel="route" />;
+
+    const subtitle = (
+      <Breadcrumbs
+        itemList={[
+          { children: <RouteName code={Route.JOKES} />, href: Route.JOKES, collapsed: false },
+          { children: <RouteName code={Route.JOKE} /> },
+        ]}
+      />
+    );
+    //@@viewOff:private
+
+    //@@viewOn:render
+    return <UuJokesCore.Joke.Detail {...elementProps} subtitle={subtitle} nestingLevel="route" />;
     //@@viewOff:render
   },
 });
 
-Joke = withRoute(Joke, { authenticated: true });
+const Joke = withRoute(InternalJoke, { authenticated: true });
 
 //@@viewOn:exports
 export { Joke };

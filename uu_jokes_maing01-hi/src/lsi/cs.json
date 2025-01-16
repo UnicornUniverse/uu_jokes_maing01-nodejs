@@ -1,13 +1,9 @@
 {
-  "appName": "Aplikace Jokes",
-  "About": {
-    "header": "O aplikaci Jokes",
-    "creatorsHeader": "Tvůrci aplikace",
-    "termsOfUse": "Podmínky užívání"
-  },
-  "AboutContent": {
-    "content": "<uu5string/>Demo aplikace je šablona pro vývoj nových aplikací.",
-    "technologiesContent": "<uu5string/>Dále byly použity technologie: <Uu5Elements.Link href='http://www.w3schools.com/html/default.asp' target='_blank'>Html5</Uu5Elements.Link>, <Uu5Elements.Link href='http://www.w3schools.com/css/default.asp' target='_blank'>CSS</Uu5Elements.Link>, <Uu5Elements.Link href='http://www.w3schools.com/js/default.asp' target='_blank'>JavaScript</Uu5Elements.Link>, <Uu5Elements.Link href='http://getbootstrap.com' target='_blank'>Bootstrap</Uu5Elements.Link>, <Uu5Elements.Link href='https://reactjs.org' target='_blank'>React</Uu5Elements.Link>, <Uu5Elements.Link href='https://www.ruby-lang.org' target='_blank'>Ruby</Uu5Elements.Link>, <Uu5Elements.Link href='http://puma.io' target='_blank'>Puma</Uu5Elements.Link> a <Uu5Elements.Link href='https://www.docker.com' target='_blank'>Docker</Uu5Elements.Link>. Aplikace je provozována v rámci internetové služby <Uu5Elements.Link href='https://plus4u.net' target='_blank'>Plus4U</Uu5Elements.Link> s využitím cloudu <Uu5Elements.Link href='https://azure.microsoft.com' target='_blank'>Microsoft Azure</Uu5Elements.Link>."
+  "UuJokes.Core.RouteName": {
+    "jokes": "Vtipy",
+    "joke": "Vtip",
+    "categories": "Kategorie",
+    "controlPanel": "Ovládací panel"
   },
   "UuJokes.Routes.InitAppWorkspace": {
     "notAuthorized": "Nemáte dostatečná práva k použití aplikace.",
@@ -20,7 +16,6 @@
     "initialize": "Inicializovat"
   },
   "UuJokes.Routes.ControlPanel": {
-    "title": "Ovládací panel",
     "btNotConnected": "Aplikace není napojená na Business Territory."
   }
 }

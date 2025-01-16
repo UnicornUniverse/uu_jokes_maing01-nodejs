@@ -6,6 +6,8 @@ import { useAwscData, useSystemData } from "uu_plus4u5g02";
 import { withRoute } from "uu_plus4u5g02-app";
 import { Uri } from "uu_appg01_core";
 import UuJokesCore from "uu_jokesg01-core";
+import RouteName from "../core/route-name";
+import Route from "../utils/route";
 import Config from "./config/config";
 import importLsi from "../lsi/import-lsi";
 //@@viewOff:imports
@@ -37,7 +39,7 @@ const InternalControlPanel = createVisualComponent({
 
     const headerElement = (
       <Text category="story" segment="heading" type="h1">
-        <Lsi lsi={lsi.title} />
+        <RouteName code={Route.CONTROL_PANEL} />
       </Text>
     );
     //@@viewOff:private
