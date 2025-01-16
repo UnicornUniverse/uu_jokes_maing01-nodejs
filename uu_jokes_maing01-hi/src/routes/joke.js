@@ -29,7 +29,7 @@ const InternalJoke = createVisualComponent({
       <Breadcrumbs
         itemList={[
           { children: <RouteName code={Route.JOKES} />, href: Route.JOKES, collapsed: false },
-          { children: <RouteName code={Route.JOKE} /> },
+          { children: <RouteName code={Route.JOKE} />, collapsed: false },
         ]}
       />
     );

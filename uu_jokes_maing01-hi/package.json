@@ -2,7 +2,7 @@
   "name": "uu_jokes_maing01-hi",
   "version": "5.2.0-dev",
   "private": true,
-  "description": "uuJokes is reference application for educational purposes",
+  "description": "Jokes is reference application for educational purposes",
   "license": "License Commercial",
   "namespace": "UuJokes",
   "spec": "uu5-app; uu_appg01_devkit@6.3.0; uu5devkitg01-plugin@1.3.2",
