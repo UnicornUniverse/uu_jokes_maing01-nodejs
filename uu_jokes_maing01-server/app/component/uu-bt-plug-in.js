@@ -67,7 +67,7 @@ const UuBtPlugIn = {
           uuAppErrorMap,
           AWSC_CREATE_FAILED_CODE,
           awscCreateErrorMap[AWSC_CREATE_FAILED_CODE].message,
-          awscCreateErrorMap[AWSC_CREATE_FAILED_CODE].cause
+          awscCreateErrorMap[AWSC_CREATE_FAILED_CODE].cause,
         );
 
         awsc = await uuTerritoryClient.Awsc.get({ code: awscCode });
@@ -75,7 +75,6 @@ const UuBtPlugIn = {
         throw new createAwscFailedError(
           { uuAppErrorMap: { ...uuAppErrorMap, ...awscCreateErrorMap } },
           { uuBtBaseUri: uuBtBaseUri, awid },
-          e
         );
       }
     }

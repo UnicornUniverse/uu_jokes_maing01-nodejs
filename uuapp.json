@@ -3,8 +3,8 @@
   "version": "5.2.0-dev",
   "license": "License Commercial",
   "description": {
-    "en": "uuJokes is reference application for educational purposes",
-    "cs": "uuJokes je referenční aplikace pro vzdělávací účely"
+    "en": "Jokes is reference application for educational purposes",
+    "cs": "Jokes je referenční aplikace pro vzdělávací účely"
   },
   "devkit": {
     "development": {

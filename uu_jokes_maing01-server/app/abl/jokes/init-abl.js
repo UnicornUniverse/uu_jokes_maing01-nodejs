@@ -10,7 +10,7 @@ const Errors = require("../../api/errors/jokes-error");
 const Warnings = require("../../api/warnings/jokes-warnings");
 const { Schemas, Jokes, Profiles } = require("../constants");
 
-const DEFAULT_NAME = "uuJokes";
+const DEFAULT_NAME = "Jokes";
 
 class InitAbl {
   constructor() {
@@ -29,7 +29,7 @@ class InitAbl {
       dtoIn,
       validationResult,
       Warnings.Init.UnsupportedKeys.code,
-      Errors.Init.InvalidDtoIn
+      Errors.Init.InvalidDtoIn,
     );
 
     // 1.4
@@ -89,7 +89,7 @@ class InitAbl {
         uuAppErrorMap,
         Errors.Init.CreateAwscFailed,
         uri,
-        session
+        session,
       );
 
       // hds 6.3
@@ -113,7 +113,7 @@ class InitAbl {
         throw new Errors.Init.SetProfileFailed(
           { uuAppErrorMap },
           { uuAppProfileAuthorities: dtoIn.uuAppProfileAuthorities },
-          e
+          e,
         );
       }
     }
