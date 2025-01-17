@@ -9,15 +9,7 @@
     }
   },
   "*": {
-    "profileList": [
-      "Authorities",
-      "Executives",
-      "Readers",
-      "AwidLicenseOwner",
-      "Public",
-      "Authenticated",
-      "AwidInitiator"
-    ],
+    "profileList": ["Authorities", "Executives", "Readers", "AwidLicenseOwner", "Public", "AwidInitiator"],
     "useCaseMap": {
       "defaultUve": {
         "sysStateList": ["active"],
@@ -33,7 +25,7 @@
       },
       "sys/uuAppWorkspace/load": {
         "sysStateList": ["created", "assigned", "active", "restricted", "readOnly", "closed", "suspended"],
-        "profileList": ["Authenticated", "AwidLicenseOwner"]
+        "profileList": ["Authorities", "Executives", "Readers", "AwidLicenseOwner", "AwidInitiator"]
       },
       "sys/uuAppWorkspace/loadBasicData": {
         "sysStateList": ["created", "assigned", "active", "restricted", "readOnly", "closed", "suspended"],
