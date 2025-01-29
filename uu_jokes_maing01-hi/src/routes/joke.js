@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { Utils, createVisualComponent } from "uu5g05";
+import { Utils, createVisualComponent, useRoute } from "uu5g05";
 import { Breadcrumbs } from "uu5g05-elements";
 import { withRoute } from "uu_plus4u5g02-app";
 import UuJokesCore from "uu_jokesg01-core";
@@ -23,20 +23,31 @@ const InternalJoke = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const [, setRoute] = useRoute();
     const { elementProps } = Utils.VisualComponent.splitProps(props);
 
-    const subtitle = (
-      <Breadcrumbs
-        itemList={[
-          { children: <RouteName code={Route.JOKES} />, href: Route.JOKES, collapsed: false },
-          { children: <RouteName code={Route.JOKE} />, collapsed: false },
-        ]}
-      />
-    );
+    const subtitle = {
+      route: (
+        <Breadcrumbs
+          itemList={[
+            { children: <RouteName code={Route.JOKES} />, href: Route.JOKES, collapsed: false },
+            { children: <RouteName code={Route.JOKE} />, collapsed: false },
+          ]}
+        />
+      ),
+    };
     //@@viewOff:private
 
     //@@viewOn:render
-    return <UuJokesCore.Joke.Detail {...elementProps} subtitle={subtitle} nestingLevel="route" />;
+    return (
+      <UuJokesCore.Joke.Detail
+        {...elementProps}
+        subtitle={subtitle}
+        onDeleteDone={() => setRoute(Route.JOKES)}
+        uu5Id="6798d7fd821a520017b377e2"
+        nestingLevel="route"
+      />
+    );
     //@@viewOff:render
   },
 });
