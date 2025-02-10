@@ -1,33 +1,33 @@
 //@@viewOn:imports
-import { createVisualComponent, Lsi, DynamicLibraryComponent } from "uu5g05";
-import { Text, Block, HighlightedBox } from "uu5g05-elements";
+import { createVisualComponent, Lsi, DynamicLibraryComponent, useLsi } from "uu5g05";
+import { RouteContainer } from "uu_plus4u5g02-elements";
+import { HighlightedBox, Grid, Header } from "uu5g05-elements";
 import { useAwscData, useSystemData } from "uu_plus4u5g02";
+import { withRoute } from "uu_plus4u5g02-app";
 import { Uri } from "uu_appg01_core";
-import { Jokes } from "uu_jokesg01-core";
-import { RouteController } from "uu_plus4u5g02-app";
-import RouteContainer from "../core/route-container";
-
-import Config from "./config/config.js";
-import LsiData from "./control-panel-lsi";
+import UuJokesCore from "uu_jokesg01-core";
+import RouteName from "../core/route-name";
+import Route from "../utils/route";
+import Config from "./config/config";
+import importLsi from "../lsi/import-lsi";
 //@@viewOff:imports
 
-const STATICS = {
+const InternalControlPanel = createVisualComponent({
   //@@viewOn:statics
-  displayName: Config.TAG + "ControlPanel",
+  uu5Tag: Config.TAG + "ControlPanel",
   //@@viewOff:statics
-};
-
-const ControlPanel = createVisualComponent({
-  ...STATICS,
 
   //@@viewOn:propTypes
+  propTypes: {},
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
+  defaultProps: {},
   //@@viewOff:defaultProps
 
-  render() {
+  render(props) {
     //@@viewOn:private
+    const lsi = useLsi(importLsi, [InternalControlPanel.uu5Tag]);
     const { data: awsc } = useAwscData();
     const { data: system } = useSystemData();
     let uuTerritoryBaseUri;
@@ -36,25 +36,26 @@ const ControlPanel = createVisualComponent({
       const artifactUri = Uri.Uri.parse(system.awidData.artifactUri);
       uuTerritoryBaseUri = artifactUri.getBaseUri().toString();
     }
+
+    const header = (
+      <Header
+        title={<RouteName code={Route.CONTROL_PANEL} />}
+        subtitle={<UuJokesCore.Workspace.ArtifactLink />}
+        direction="vertical-reverse"
+      />
+    );
     //@@viewOff:private
 
-    //@@viewOn:interface
-    //@@viewOff:interface
-
     //@@viewOn:render
-    const headerElement = (
-      <Text category="story" segment="heading" type="h1">
-        <Lsi lsi={LsiData.title} />
-      </Text>
-    );
-
     return (
-      <RouteController>
-        <RouteContainer>
-          <Block header={headerElement} collapsible={false}>
-            <Jokes.BasicInfo />
-            {awsc && (
-              <>
+      <RouteContainer header={header}>
+        <Grid>
+          <Grid.Item>
+            <UuJokesCore.Workspace.BasicInfo subtitle={null} />
+          </Grid.Item>
+          {awsc && (
+            <>
+              <Grid.Item>
                 <DynamicLibraryComponent
                   uu5Tag="UuTerritory.ArtifactIfc.Bricks.StateHistory"
                   territoryBaseUri={uuTerritoryBaseUri}
@@ -62,6 +63,8 @@ const ControlPanel = createVisualComponent({
                   contextType="none"
                   cardView="full"
                 />
+              </Grid.Item>
+              <Grid.Item>
                 <DynamicLibraryComponent
                   uu5Tag="UuTerritory.Activity.Bricks.ActivityList"
                   territoryBaseUri={uuTerritoryBaseUri}
@@ -69,6 +72,8 @@ const ControlPanel = createVisualComponent({
                   contextType="none"
                   cardView="full"
                 />
+              </Grid.Item>
+              <Grid.Item>
                 <DynamicLibraryComponent
                   uu5Tag="UuTerritory.ArtifactIfc.Bricks.PermissionSettings"
                   territoryBaseUri={uuTerritoryBaseUri}
@@ -76,24 +81,26 @@ const ControlPanel = createVisualComponent({
                   contextType="none"
                   cardView="full"
                 />
-              </>
-            )}
-            {!awsc && (
-              <HighlightedBox colorScheme={"negative"} className={Css.noBt()}>
-                <Lsi lsi={LsiData.btNotConnected} />
+              </Grid.Item>
+            </>
+          )}
+          {!awsc && (
+            <Grid.Item>
+              <HighlightedBox colorScheme={"negative"}>
+                <Lsi lsi={lsi.btNotConnected} />
               </HighlightedBox>
-            )}
-          </Block>
-        </RouteContainer>
-      </RouteController>
+            </Grid.Item>
+          )}
+        </Grid>
+      </RouteContainer>
     );
+    //@@viewOff:render
   },
 });
 
-//@@viewOn:css
-const Css = {
-  noBt: () => Config.Css.css`margin-top: 16px`,
-};
-//@@viewOff:css
+const ControlPanel = withRoute(InternalControlPanel, { authenticated: true });
 
+//@@viewOn:exports
+export { ControlPanel };
 export default ControlPanel;
+//@@viewOff:exports

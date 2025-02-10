@@ -11,16 +11,24 @@
   color: #2196f3;
   line-height: 1.15;
 }
-.uu-app-loading.uu-app-loading {
+.uu-app-loading[data-visual-ready] {
   display: flex !important;
+}
+.uu-app-loading>* {
+  pointer-events: all;
 }
 
 .uu-app-loading-svg-container {
   position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.uu-app-loading-svg-container>* {
+  pointer-events: none;
 }
 
 .uu-app-loading-svg {
-  height: 256px;
+  height: 144px;
   vertical-align: middle;
   animation: uu-app-loading 1s infinite linear;
 }
@@ -28,8 +36,9 @@
 .uu-app-loading-name {
   color: #212121;
   font-size: 24px;
+  font-weight: 500;
+  line-height: 28px;
   text-align: center;
-  height: 0; /* so that it doesn't affect vertical positioning */
 }
 .uu-app-loading-name:before {
   content: "";
@@ -38,8 +47,12 @@
 }
 
 @media screen and (min-width: 481px) {
+  .uu-app-loading-svg {
+    height: 252px;
+  }
   .uu-app-loading-name {
     font-size: 32px;
+    line-height: 36px;
   }
   .uu-app-loading-name:before {
     margin-top: 24px;

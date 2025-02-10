@@ -3,7 +3,7 @@
   "code": "uu-jokes-maing01",
   "name": "uuJokesMain",
   "desc": "uuJokesMain",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "defaultIcon": "uubmlicon-uujokes-uu-jokes",
   "defaultCategory": "control",
   "stateDataSchema": "shape({progress: shape({weight: integer(), current: integer (0, 100)})}, nostrict, 10000)",
@@ -132,6 +132,9 @@
     "uu-jokes-maing01/binary/getData": {
       "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
     },
+    "uu-jokes-maing01/binary/createAccessKey": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
     "uu-jokes-maing01/sys/uuAppWorkspace/get": {
       "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
     },
@@ -198,7 +201,7 @@
     "uu-jokes-maing01/sys/logRecord/delete": {
       "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
     },
-   "uu-businessterritory-maing01/uuAwsc/loadData": {
+    "uu-businessterritory-maing01/uuAwsc/loadData": {
       "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
     },
     "uu-businessterritory-maing01/uuAwsc/authorizeMe": {

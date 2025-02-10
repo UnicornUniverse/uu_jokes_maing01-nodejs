@@ -1,0 +1,21 @@
+{
+  "UuJokes.Core.RouteName": {
+    "jokes": "Vtipy",
+    "joke": "Vtip",
+    "categories": "Kategorie",
+    "controlPanel": "Ovládací panel"
+  },
+  "UuJokes.Routes.InitAppWorkspace": {
+    "notAuthorized": "Nemáte dostatečná práva k použití aplikace.",
+    "notAuthorizedForInit": "Aplikace běží, ale ještě nebyla inicializována a nemáte práva ji inicializovat.",
+    "formHeader": "Inicializovat aplikaci",
+    "formHeaderInfo": "<uu5string/>Vaše uuApp běží, ale vyžaduje inicializaci. Pokud potřebujete pomoci s vyplněním tohoto formuláře, podívejte se do\n<Uu5Elements.Link target=\"_blank\" href=\"#\">Dokumentace</Uu5Elements.Link>.",
+    "uuBtLocationUriLabel": "Umístění uuBusinessTerritory",
+    "uuBtLocationUriInfo": "Uri uuBt umístění kam bude založen AWSC",
+    "nameLabel": "Název",
+    "initialize": "Inicializovat"
+  },
+  "UuJokes.Routes.ControlPanel": {
+    "btNotConnected": "Aplikace není napojená na Business Territory."
+  }
+}

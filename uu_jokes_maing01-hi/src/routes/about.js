@@ -1,8 +1,8 @@
 //@@viewOn:imports
-import { createVisualComponent } from "uu5g05";
-import { useSystemData } from "uu_plus4u5g02";
-import { RouteController } from "uu_plus4u5g02-app";
-import { PageProvider, View } from "../bricks/about/about";
+import { createVisualComponent, useEffect } from "uu5g05";
+import { withRoute } from "uu_plus4u5g02-app";
+import Plus4U5 from "uu_plus4u5g02";
+
 import Config from "./config/config.js";
 //@@viewOff:imports
 
@@ -21,22 +21,23 @@ let About = createVisualComponent({
 
   render() {
     //@@viewOn:private
-    const { data: systemData } = useSystemData();
+    const { data: systemData } = Plus4U5.useSystemData();
+
+    useEffect(() => {
+      if (systemData) {
+        const uri = Plus4U5.Utils.Uri.join(systemData.relatedObjectsMap.uuAppWebKitUri, "about-product");
+        Plus4U5.Utils.Uri.open(uri.toString());
+      }
+    }, [systemData]);
     //@@viewOff:private
 
     //@@viewOn:render
-    return (
-      <PageProvider baseUri={systemData.relatedObjectsMap.uuAppWebKitUri}>
-        {(aboutDataObject) => (
-          <RouteController routeDataObject={aboutDataObject}>
-            <View aboutPage={aboutDataObject.data} />
-          </RouteController>
-        )}
-      </PageProvider>
-    );
+    return null;
     //@@viewOff:render
   },
 });
+
+About = withRoute(About);
 
 //@@viewOn:exports
 export { About };

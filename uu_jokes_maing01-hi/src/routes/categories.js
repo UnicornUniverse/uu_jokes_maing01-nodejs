@@ -1,15 +1,13 @@
 //@@viewOn:imports
-import { createVisualComponent } from "uu5g05";
+import { Utils, createVisualComponent } from "uu5g05";
+import { withRoute } from "uu_plus4u5g02-app";
 import UuJokesCore from "uu_jokesg01-core";
-import { RouteController } from "uu_plus4u5g02-app";
-import RouteContainer from "../core/route-container";
-
 import Config from "./config/config";
 //@@viewOff:imports
 
-const Categories = createVisualComponent({
+let Categories = createVisualComponent({
   //@@viewOn:statics
-  displayName: Config.TAG + "Categories",
+  uu5Tag: Config.TAG + "Categories",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -20,20 +18,20 @@ const Categories = createVisualComponent({
   defaultProps: {},
   //@@viewOff:defaultProps
 
-  render() {
+  render(props) {
     //@@viewOn:private
     //@@viewOff:private
 
     //@@viewOn:render
-    return (
-      <RouteController>
-        <RouteContainer>
-          <UuJokesCore.Category.List card="none" />
-        </RouteContainer>
-      </RouteController>
-    );
+    const { elementProps } = Utils.VisualComponent.splitProps(props);
+    return <UuJokesCore.Category.List {...elementProps} nestingLevel="route" />;
     //@@viewOff:render
   },
 });
 
+Categories = withRoute(Categories, { authenticated: true });
+
+//@@viewOn:exports
+export { Categories };
 export default Categories;
+//@@viewOff:exports

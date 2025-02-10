@@ -1,14 +1,13 @@
 //@@viewOn:imports
-import { createVisualComponent } from "uu5g05";
+import { Utils, createVisualComponent } from "uu5g05";
+import { withRoute } from "uu_plus4u5g02-app";
 import UuJokesCore from "uu_jokesg01-core";
-import { RouteController } from "uu_plus4u5g02-app";
-import RouteContainer from "../core/route-container";
 import Config from "./config/config";
 //@@viewOff:imports
 
-const Jokes = createVisualComponent({
+let Jokes = createVisualComponent({
   //@@viewOn:statics
-  displayName: Config.TAG + "Jokes",
+  uu5Tag: Config.TAG + "Jokes",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -19,20 +18,20 @@ const Jokes = createVisualComponent({
   defaultProps: {},
   //@@viewOff:defaultProps
 
-  render() {
+  render(props) {
     //@@viewOn:private
     //@@viewOff:private
 
     //@@viewOn:render
-    return (
-      <RouteController>
-        <RouteContainer>
-          <UuJokesCore.Joke.List card="none" />
-        </RouteContainer>
-      </RouteController>
-    );
+    const { elementProps } = Utils.VisualComponent.splitProps(props);
+    return <UuJokesCore.Joke.List {...elementProps} nestingLevel="route" />;
     //@@viewOff:render
   },
 });
 
+Jokes = withRoute(Jokes, { authenticated: true });
+
+//@@viewOn:exports
+export { Jokes };
 export default Jokes;
+//@@viewOff:exports
