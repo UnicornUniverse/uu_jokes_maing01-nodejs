@@ -21,7 +21,7 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initUuSubAppInstance();
   await TestHelper.createUuAppWorkspace();
-  await TestHelper.login("AwidLicenseOwner", false);
+  await TestHelper.login("AwidInitiator", false);
 });
 
 afterEach(() => {
@@ -67,7 +67,7 @@ test("HDS - correct rating recalculating", async () => {
         awid: "${TestHelper.getAwid()}",
         name:"A",
         averageRating:3.5,
-        ratingCount:4 })`
+        ratingCount:4 })`,
   );
 
   // cast the first vote

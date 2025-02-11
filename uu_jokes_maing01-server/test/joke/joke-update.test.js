@@ -22,7 +22,7 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initUuSubAppInstance();
   await TestHelper.createUuAppWorkspace();
-  await TestHelper.login("AwidLicenseOwner", false);
+  await TestHelper.login("AwidInitiator", false);
 });
 
 afterEach(() => {
@@ -153,7 +153,7 @@ test("A7 - categories don't exist", async () => {
   let existingCategoryId = "012345678910111213141516";
   let nonExistentCategoryId = "171819202122232425262728";
   await TestHelper.executeDbScript(
-    `db.getCollection('category').insert({_id:ObjectId("${existingCategoryId}"),awid:"${TestHelper.getAwid()}"})`
+    `db.getCollection('category').insert({_id:ObjectId("${existingCategoryId}"),awid:"${TestHelper.getAwid()}"})`,
   );
 
   let joke = await TestHelper.executePostCommand(JOKE_CREATE, {

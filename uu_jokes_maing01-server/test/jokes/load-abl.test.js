@@ -13,7 +13,7 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initUuSubAppInstance();
   await TestHelper.createUuAppWorkspace();
-  await TestHelper.login("AwidLicenseOwner", false);
+  await TestHelper.login("AwidInitiator", false);
 });
 
 test("HDS", async () => {

@@ -13,7 +13,7 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initUuSubAppInstance();
   await TestHelper.createUuAppWorkspace();
-  await TestHelper.login("AwidLicenseOwner", false);
+  await TestHelper.login("AwidInitiator", false);
 });
 
 test("HDS", async () => {
@@ -83,7 +83,7 @@ test("HDS - custom sort by, default order (ascending)", async () => {
       {awid: "${TestHelper.getAwid()}", name:"A", averageRating:3.5},
       {awid: "${TestHelper.getAwid()}", name:"B", averageRating:1.7},
       {awid: "${TestHelper.getAwid()}", name:"C", averageRating:2.0}
-    ])`
+    ])`,
   );
 
   let response = await TestHelper.executeGetCommand(JOKE_LIST, { sortBy: "rating" });
@@ -163,7 +163,7 @@ test("HDS - filter by category", async () => {
       {awid: "${TestHelper.getAwid()}", name:"A", categoryList:[ObjectId("${MONGO_ID}"), 14]},
       {awid: "${TestHelper.getAwid()}", name:"B", categoryList:[true]},
       {awid: "${TestHelper.getAwid()}", name:"C", categoryList:[ObjectId("${MONGO_ID}")]},
-    ])`
+    ])`,
   );
 
   // The second categoryId is a valid id - it will pass through the validation - but there is no category
