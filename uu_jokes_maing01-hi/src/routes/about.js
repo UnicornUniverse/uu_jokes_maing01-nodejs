@@ -1,8 +1,11 @@
 //@@viewOn:imports
-import { createVisualComponent, useEffect } from "uu5g05";
+import { createVisualComponent } from "uu5g05";
 import { withRoute } from "uu_plus4u5g02-app";
-import Plus4U5 from "uu_plus4u5g02";
+import { Breadcrumbs } from "uu5g05-elements";
+import { AwidAbout } from "uu_plus4u5g02-elements";
 
+import RouteName from "../core/route-name";
+import Route from "../utils/route";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
@@ -21,18 +24,21 @@ let About = createVisualComponent({
 
   render() {
     //@@viewOn:private
-    const { data: systemData } = Plus4U5.useSystemData();
+    const subtitle = {
+      route: (
+        <Breadcrumbs
+          itemList={[
+            { children: <RouteName code={Route.JOKES} />, href: Route.JOKES, collapsed: false },
+            { children: <RouteName code={Route.ABOUT} />, collapsed: false },
+          ]}
+        />
+      ),
+    };
 
-    useEffect(() => {
-      if (systemData) {
-        const uri = Plus4U5.Utils.Uri.join(systemData.relatedObjectsMap.uuAppWebKitUri, "about-product");
-        Plus4U5.Utils.Uri.open(uri.toString());
-      }
-    }, [systemData]);
     //@@viewOff:private
 
     //@@viewOn:render
-    return null;
+    return <AwidAbout subtitle={subtitle} />;
     //@@viewOff:render
   },
 });

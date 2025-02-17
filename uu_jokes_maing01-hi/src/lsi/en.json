@@ -3,7 +3,8 @@
     "jokes": "Jokes",
     "joke": "Joke",
     "categories": "Categories",
-    "controlPanel": "Control panel"
+    "controlPanel": "Control panel",
+    "about": "About uuJokes"
   },
   "UuJokes.Routes.ControlPanel": {
     "btNotConnected": "The application is not connected to a Business Territory"

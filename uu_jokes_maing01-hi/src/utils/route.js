@@ -14,6 +14,10 @@ class Route {
   static get CONTROL_PANEL() {
     return "controlPanel";
   }
+
+  static get ABOUT() {
+    return "about";
+  }
 }
 
 export { Route };
