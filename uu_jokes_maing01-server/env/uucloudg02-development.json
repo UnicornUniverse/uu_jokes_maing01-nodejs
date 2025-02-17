@@ -66,7 +66,7 @@
     "uu_plus4u5g02_commonServicesBaseUri": "https://uuapp-dev.plus4u.net/uu-commonservices-maing01/00000b33c474420aa887c972097b8024",
     "uu_plus4u5g02_peopleBaseUri": "https://uuapp-dev.plus4u.net/uu-plus4upeople-maing01/0000004723544d1ab0b74000d9f7671c",
     "uu_plus4u5g02_organizationBaseUri": "https://uuapp-dev.plus4u.net/uu-plus4uorganization-maing01/00000e17cfda49f49db73ed53ac8e4cf",
-    "asid_license_owner_list": ["4-1", "5060-4766-9574-0000", "5278-1157-5179-0000"],
+    "asid_license_owner_list": ["4-1", "6565-1", "5278-1157-5179-0000"],
     "fls_base_uri": "https://uuapp.plus4u.net/uu-flsg01-main/8014eb79e8184ebb8942d96ce37b61b4/",
     "sls_base_uri": "https://uuapp.plus4u.net/uu-sls-maing01/3c440c47fc1f4ba4bc78e64f571835dc/",
     "business_request_uri": "https://uuapp.plus4u.net/uu-bookkit-maing01/a04c8463649b425fb8b46076c0c5e5d0/",
