@@ -19,16 +19,7 @@
     "uu5loaderg01": "^1.7.0"
   },
   "uuBuildSettings": {
-    "externals": {
-      "uu_plus4u5g02": {
-        "cdnBaseUri": "https://cdn.plus4u.net/beta/uu-plus4u5g02/1.37.0-alpha-about.1/",
-        "main": "uu_plus4u5g02.js"
-      },
-      "uu_plus4u5g02-elements": {
-        "cdnBaseUri": "https://cdn.plus4u.net/beta/uu-plus4u5g02/1.37.0-alpha-about.1/",
-        "main": "uu_plus4u5g02-elements.js"
-      }
-    }
+    "externals": {}
   },
   "devDependencies": {
     "uu_appg01_devkit": "^6.3.0",
