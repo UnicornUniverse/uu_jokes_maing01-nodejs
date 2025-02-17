@@ -3,7 +3,8 @@
     "jokes": "Vtipy",
     "joke": "Vtip",
     "categories": "Kategorie",
-    "controlPanel": "Ovládací panel"
+    "controlPanel": "Ovládací panel",
+    "about": "O uuJokes"
   },
   "UuJokes.Routes.InitAppWorkspace": {
     "notAuthorized": "Nemáte dostatečná práva k použití aplikace.",
