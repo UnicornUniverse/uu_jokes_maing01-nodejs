@@ -29,7 +29,7 @@ class UpdateAbl {
       validationResult,
       uuAppErrorMap,
       Warnings.Update.UnsupportedKeys.code,
-      Errors.Update.InvalidDtoIn
+      Errors.Update.InvalidDtoIn,
     );
 
     // hds 2
@@ -41,7 +41,7 @@ class UpdateAbl {
       allowedStateRules,
       authorizationResult,
       Errors.Update,
-      uuAppErrorMap
+      uuAppErrorMap,
     );
 
     // hds 3
@@ -66,6 +66,7 @@ class UpdateAbl {
       const setBasicAttributesDtoIn = {
         id: artifactUri.getParameters().id,
         name: jokes.name,
+        desc: jokes.desc,
 
         stateData: {
           name: jokes.name,
