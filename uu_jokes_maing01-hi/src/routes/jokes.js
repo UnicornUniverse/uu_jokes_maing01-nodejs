@@ -24,7 +24,7 @@ let Jokes = createVisualComponent({
 
     //@@viewOn:render
     const { elementProps } = Utils.VisualComponent.splitProps(props);
-    return <UuJokesCore.Joke.List {...elementProps} nestingLevel="route" />;
+    return <UuJokesCore.Joke.List {...elementProps} nestingLevel="route" uu5Id="6b4167380d815474a851e48482d4ecda" />;
     //@@viewOff:render
   },
 });
