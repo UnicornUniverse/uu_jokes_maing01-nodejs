@@ -13,7 +13,7 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initUuSubAppInstance();
   await TestHelper.createUuAppWorkspace();
-  await TestHelper.login("AwidLicenseOwner", false);
+  await TestHelper.login("AwidInitiator", false);
 });
 
 test("HDS", async () => {
@@ -21,9 +21,9 @@ test("HDS", async () => {
   await TestHelper.login("Authorities");
 
   // create some jokes
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A", text: "aaa" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C", text: "ccc" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B", text: "bbb" });
 
   let response = await TestHelper.executeGetCommand(JOKE_LIST);
   expect(response.status).toEqual(200);
@@ -42,9 +42,9 @@ test("HDS - default sort by (name), default order (ascending)", async () => {
   await TestHelper.login("Authorities");
 
   // create some jokes
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A", text: "aaa" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C", text: "ccc" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B", text: "bbb" });
 
   let response = await TestHelper.executeGetCommand(JOKE_LIST);
   expect(response.status).toEqual(200);
@@ -60,9 +60,9 @@ test("HDS - default sort by (name), custom order", async () => {
   await TestHelper.login("Authorities");
 
   // create some jokes
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A", text: "aaa" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C", text: "ccc" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B", text: "bbb" });
 
   let response = await TestHelper.executeGetCommand(JOKE_LIST, { order: "desc" });
   expect(response.status).toEqual(200);
@@ -83,7 +83,7 @@ test("HDS - custom sort by, default order (ascending)", async () => {
       {awid: "${TestHelper.getAwid()}", name:"A", averageRating:3.5},
       {awid: "${TestHelper.getAwid()}", name:"B", averageRating:1.7},
       {awid: "${TestHelper.getAwid()}", name:"C", averageRating:2.0}
-    ])`
+    ])`,
   );
 
   let response = await TestHelper.executeGetCommand(JOKE_LIST, { sortBy: "rating" });
@@ -100,9 +100,9 @@ test("HDS - pageInfo", async () => {
   await TestHelper.login("Authorities");
 
   // create some jokes
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A", text: "aaa" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C", text: "ccc" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B", text: "bbb" });
 
   let pIndex = 2;
   let pSize = 1;
@@ -120,9 +120,9 @@ test("HDS - only pageSize in pageInfo", async () => {
   await TestHelper.login("Authorities");
 
   // create some jokes
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A", text: "aaa" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C", text: "ccc" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B", text: "bbb" });
 
   let pSize = 1;
   let response = await TestHelper.executeGetCommand(JOKE_LIST, { pageInfo: { pageSize: pSize } });
@@ -139,9 +139,9 @@ test("HDS - only pageIndex in pageInfo", async () => {
   await TestHelper.login("Authorities");
 
   // create some jokes
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B" });
-  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "A", text: "aaa" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "C", text: "ccc" });
+  await TestHelper.executePostCommand(JOKE_CREATE, { name: "B", text: "bbb" });
 
   let pIndex = 2;
   let response = await TestHelper.executeGetCommand(JOKE_LIST, { pageInfo: { pageIndex: pIndex } });
@@ -163,7 +163,7 @@ test("HDS - filter by category", async () => {
       {awid: "${TestHelper.getAwid()}", name:"A", categoryList:[ObjectId("${MONGO_ID}"), 14]},
       {awid: "${TestHelper.getAwid()}", name:"B", categoryList:[true]},
       {awid: "${TestHelper.getAwid()}", name:"C", categoryList:[ObjectId("${MONGO_ID}")]},
-    ])`
+    ])`,
   );
 
   // The second categoryId is a valid id - it will pass through the validation - but there is no category

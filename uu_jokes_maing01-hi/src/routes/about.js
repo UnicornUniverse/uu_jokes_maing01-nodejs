@@ -1,8 +1,11 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g05";
-import { useSystemData } from "uu_plus4u5g02";
-import { RouteController } from "uu_plus4u5g02-app";
-import { PageProvider, View } from "../bricks/about/about";
+import { withRoute } from "uu_plus4u5g02-app";
+import { Breadcrumbs } from "uu5g05-elements";
+import { AwidAbout } from "uu_plus4u5g02-elements";
+
+import RouteName from "../core/route-name";
+import Route from "../utils/route";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
@@ -21,22 +24,26 @@ let About = createVisualComponent({
 
   render() {
     //@@viewOn:private
-    const { data: systemData } = useSystemData();
+    const subtitle = {
+      route: (
+        <Breadcrumbs
+          itemList={[
+            { children: <RouteName code={Route.JOKES} />, href: Route.JOKES, collapsed: false },
+            { children: <RouteName code={Route.ABOUT} />, collapsed: false },
+          ]}
+        />
+      ),
+    };
+
     //@@viewOff:private
 
     //@@viewOn:render
-    return (
-      <PageProvider baseUri={systemData.relatedObjectsMap.uuAppWebKitUri}>
-        {(aboutDataObject) => (
-          <RouteController routeDataObject={aboutDataObject}>
-            <View aboutPage={aboutDataObject.data} />
-          </RouteController>
-        )}
-      </PageProvider>
-    );
+    return <AwidAbout subtitle={subtitle} />;
     //@@viewOff:render
   },
 });
+
+About = withRoute(About);
 
 //@@viewOn:exports
 export { About };

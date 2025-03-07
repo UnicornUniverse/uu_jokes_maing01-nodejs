@@ -2,7 +2,7 @@
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
-const { UuBinaryAbl } = require("uu_appg01_binarystore-cmd");
+const { BinaryComponent, AppBinaryStoreError } = require("uu_appbinarystoreg02");
 const Errors = require("../../api/errors/joke-error");
 const Warnings = require("../../api/warnings/joke-warning");
 const InstanceChecker = require("../../component/instance-checker");
@@ -13,6 +13,7 @@ class DeleteAbl {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao(Schemas.JOKE);
     this.jokeRatingDao = DaoFactory.getDao(Schemas.JOKE_RATING);
+    this.binaryComponent = new BinaryComponent();
   }
 
   async delete(awid, dtoIn, session, authorizationResult) {
@@ -62,9 +63,13 @@ class DeleteAbl {
     // hds 6
     if (joke.image) {
       try {
-        await UuBinaryAbl.deleteBinary(awid, { code: joke.image });
+        await this.binaryComponent.delete(awid, { code: joke.image });
       } catch (e) {
-        throw new Errors.Delete.UuBinaryDeleteFailed({ uuAppErrorMap }, e);
+        if (e instanceof AppBinaryStoreError) {
+          throw new Errors.Delete.UuBinaryDeleteFailed({ uuAppErrorMap }, e);
+        } else {
+          throw e;
+        }
       }
     }
 

@@ -1,0 +1,21 @@
+{
+  "UuJokes.Core.RouteName": {
+    "jokes": "Jokes",
+    "joke": "Joke",
+    "categories": "Categories",
+    "controlPanel": "Control panel",
+    "about": "About uuJokes"
+  },
+  "UuJokes.Routes.ControlPanel": {
+    "btNotConnected": "The application is not connected to a Business Territory"
+  },
+  "UuJokes.Routes.InitAppWorkspace": {
+    "notAuthorizedForInit": "The application is running but it was not initialized yet and you do not have sufficient rights to do so.",
+    "formHeader": "Initialize uuApp",
+    "formHeaderInfo": "<uu5string/>Your uuApp is running, but requires initialization. If you need help with filling up this form, see\n<Uu5Elements.Link target=\"_blank\" href=\"#\">Documentation</Uu5Elements.Link>.",
+    "uuBtLocationUriLabel": "uuBusinessTerritory location",
+    "uuBtLocationUriInfo": "Uri of the uuBt location where AWSC will be created",
+    "nameLabel": "Name",
+    "initialize": "Initialize"
+  }
+}

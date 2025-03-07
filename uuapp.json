@@ -1,21 +1,191 @@
 {
   "product": "uu_jokes_maing01",
-  "version": "4.0.2",
+  "version": "5.2.0",
   "license": "License Commercial",
   "description": {
-    "en": "uuJokes is reference application for educational purposes",
-    "cs": "uuJokes je referenční aplikace pro vzdělávací účely"
+    "en": "Jokes is reference application for educational purposes",
+    "cs": "Jokes je referenční aplikace pro vzdělávací účely"
   },
   "devkit": {
     "development": {
-      "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX",
-      "appDeploymentUri": "ues:EMF-BT[52816343470606949]:FAMILY_EM_DEV_RESOURCEPOOL_AWE[60378981f90380f4b78eef93]:UU.JOKES.MAING01[611f7600566164380e3891c4]"
+      "uuCloudUniverseBaseUri": "https://uuapp.plus4u.net/uu-cloud-universeg01/499b255d2620f209353489fad4ccceb4",
+      "uuCloudLogStoreBaseUri": "https://uuapp.plus4u.net/uu-cloudlogstore-maing02/203a4bb4c0c5484690533e658a1c8c9e",
+      "uuAppBoxRegistryBaseUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/ae03424ac63a4e068f390db5b58bbcdd"
     },
-    "demo": {
-      "appBoxLocationUri": "ues:UU-BT:PRD.UU-JOKESG01-NODEJS/APPBOX",
-      "appDeploymentUri": "ues:NETPROV1-BT[99923616732505139]:B_PRODUCTION_EGL[632a26959d2f13ec54850721]:UU.JOKES.MAING01[635264073f824ed95d5a0e3c]"
+    "educational": {
+      "uuCloudUniverseBaseUri": "https://uuapp.plus4u.net/uu-cloud-universeg01/499b255d2620f209353489fad4ccceb4",
+      "uuCloudLogStoreBaseUri": "https://uuapp.plus4u.net/uu-cloudlogstore-maing02/203a4bb4c0c5484690533e658a1c8c9e",
+      "uuAppBoxRegistryBaseUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/ae03424ac63a4e068f390db5b58bbcdd"
+    },
+    "production": {
+      "uuCloudUniverseBaseUri": "https://uucloudg02.plus4u.net/uu-cloud-universeg01/b04d3066985db923cd9c0c09f413bf7a",
+      "uuCloudLogStoreBaseUri": "https://uuapp.plus4u.net/uu-cloudlogstore-maing02/203a4bb4c0c5484690533e658a1c8c9e",
+      "uuAppBoxRegistryBaseUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/ae03424ac63a4e068f390db5b58bbcdd"
     }
   },
   "uu_jokes_maing01-hi": {},
-  "uu_jokes_maing01-server": {}
+  "uu_jokes_maing01-server": {
+    "devkit": {
+      "development": {
+        "uuAppBoxUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/ae03424ac63a4e068f390db5b58bbcdd/uuAppBox/get?id=67b59c221a28d46b7023f06e&extended=true",
+        "uuSubAppInstanceWorkloadOid": "66cada4c297cb2c0dda6cf85"
+      },
+      "educational": {
+        "uuAppBoxUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/ae03424ac63a4e068f390db5b58bbcdd/uuAppBox/get?id=66d9b8b3199d576a6e69d3f4&extended=true",
+        "uuSubAppInstanceWorkloadOid": "66d9b8c4297cb2c0ddaa2dab"
+      },
+      "production": {
+        "uuAppBoxUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/ae03424ac63a4e068f390db5b58bbcdd/uuAppBox/get?id=67544f69a9dc41fda738052f&extended=true"
+      }
+    }
+  },
+  "vendor": {
+    "productPortalUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/",
+    "licenseAgreementUri": "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/licenses",
+    "relatedProductUriList": [
+      "https://uuapp.plus4u.net/uu-bookkit-maing01/a04c8463649b425fb8b46076c0c5e5d0/",
+      "https://uuapp.plus4u.net/uu-bookkit-maing01/a129e74e3bcc4fe4a4a95f5e4bb494ed/",
+      "https://uuapp.plus4u.net/uu-bookkit-maing01/71f8d7b5cfdc4336b0abfe47b3cb237b/",
+      "https://uuapp.plus4u.net/uu-webkit-maing02/7c9a436a0eef4c2a810a680d8de65b65/",
+      "https://uuapp.plus4u.net/uu-bookkit-maing01/233edf4ed51e4c0eb0c2caad2c270e8a/",
+      "https://uuapp.plus4u.net/uu-coursekit-courseg01/c96a684982a647fb9a3e6fccc971dafc/"
+    ],
+    "organizationName": "Unicorn a.s.",
+    "organizationOid": "6151b716fcbcc50029b499d5",
+    "leadingAuthorList": [
+      {
+        "name": "Vladimír Kovář",
+        "uuIdentity": "1-1",
+        "role": "Chief Stakeholder, Business & Software Architect"
+      },
+      {
+        "name": "Marek Šťastný",
+        "uuIdentity": "11-1",
+        "role": "UAF Authority & Supervision"
+      },
+      {
+        "name": "Radek Dolejš",
+        "uuIdentity": "4-1",
+        "role": "Evangelist Hub Manager"
+      },
+      {
+        "name": "Klára Vojkůvková",
+        "uuIdentity": "13-2340-1",
+        "role": "Educational Materials Family Manager"
+      }
+    ],
+    "otherAuthorList": [
+      {
+        "name": "Martin Farkaš",
+        "role": "Developer",
+        "uuIdentity": "6565-1"
+      },
+      {
+        "name": "Michal Husák",
+        "role": "UX Designer",
+        "uuIdentity": "7709-1"
+      },
+      {
+        "name": "Petr Příhoda",
+        "role": "Developer",
+        "uuIdentity": "21-7222-1"
+      },
+      {
+        "name": "Ladislav Kašša",
+        "role": "Developer",
+        "uuIdentity": "6399-5018-1"
+      },
+      {
+        "name": "Simona Klučková",
+        "role": "Designer",
+        "uuIdentity": "4891-4363-1"
+      }
+    ],
+    "usedTechnologies": {
+      "technologyList": [
+        {
+          "name": "uuDigitalConstructionKit",
+          "uri": "https://uuapp.plus4u.net/uu-webkit-maing02/f1dc9ba872204b788ff86e9b0b38f582/",
+          "description": {
+            "en": "A strong platform for developing website cloud applications that are secure, nice-looking, and easy to use."
+          },
+          "license": "https://uuapp.plus4u.net/uu-webkit-maing02/f1dc9ba872204b788ff86e9b0b38f582/licenses"
+        },
+        {
+          "name": "uu5",
+          "uri": "https://uuapp.plus4u.net/uu-webkit-maing02/b6d739b46b0a4f4980891c3c54a6df5d/",
+          "description": {
+            "en": "uu5 is a library and an environment for user interface development. It is based on HTML5 and Javascript and integrates popular web frameworks, React and Material Design. The main purpose of uu5 is to develop responsive mobile-first applications that are able to adjust their user interface for every device in a way to make user experience the best possible and comparable with a native application for a given platform."
+          },
+          "license": "https://uuapp.plus4u.net/uu-webkit-maing02/b6d739b46b0a4f4980891c3c54a6df5d//licences"
+        },
+        {
+          "name": "uuCloud",
+          "uri": "https://uuapp.plus4u.net/uu-webkit-maing02/58a4a0ded5c84da6b89ffce06df163e5/",
+          "description": {
+            "en": "uuCloud is a Platform as a Service (PaaS) solution providing management and automation layer for applications hosted and operated in cloud environment."
+          },
+          "license": "https://uuapp.plus4u.net/uu-webkit-maing02/58a4a0ded5c84da6b89ffce06df163e5/licenses"
+        },
+        {
+          "name": "uuBusinessTerritory",
+          "uri": "https://uuapp.plus4u.net/uu-webkit-maing02/2aa448a9fd2049448ef25e8dcfcf4fa5/",
+          "description": {
+            "en": "BusinessTerritory is a system for storing, managing and creating data, documents, information with organizational units and roles."
+          },
+          "license": "https://uuapp.plus4u.net/uu-webkit-maing02/2aa448a9fd2049448ef25e8dcfcf4fa5/licences"
+        }
+      ],
+      "otherTechnologyList": [
+        {
+          "name": "HTML5",
+          "uri": "https://html.spec.whatwg.org/",
+          "description": {
+            "en": "HTML5 is a markup language used for structuring and presenting content on the World Wide Web."
+          },
+          "license": "https://github.com/whatwg/whatwg.org/blob/main/LICENSE"
+        },
+        {
+          "name": "CSS3",
+          "uri": "https://www.w3.org/Style/CSS/",
+          "description": {
+            "en": "CSS3 is the latest evolution of the Cascading Style Sheets language."
+          },
+          "license": "https://www.w3.org/copyright/document-license/"
+        },
+        {
+          "name": "JavaScript",
+          "uri": "https://tc39.es/ecma262/",
+          "description": {
+            "en": "JavaScript is a high-level, interpreted programming language."
+          },
+          "license": "https://tc39.es/ecma262/#sec-copyright-and-software-license"
+        },
+        {
+          "name": "React",
+          "uri": "https://react.dev/",
+          "description": {
+            "en": "React is a JavaScript library for building user interfaces."
+          },
+          "license": "https://github.com/facebook/react/blob/main/LICENSE"
+        },
+        {
+          "name": "Node.js",
+          "uri": "https://nodejs.org",
+          "description": {
+            "en": "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine."
+          },
+          "license": "https://github.com/nodejs/node/blob/main/LICENSE"
+        },
+        {
+          "name": "Docker",
+          "uri": "https://www.docker.com/",
+          "description": {
+            "en": "Docker is an open platform for developing, shipping, and running applications using containers."
+          },
+          "license": "https://github.com/moby/moby/blob/master/LICENSE"
+        }
+      ]
+    }
+  }
 }

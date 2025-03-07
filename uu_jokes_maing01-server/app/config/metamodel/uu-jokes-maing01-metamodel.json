@@ -1,0 +1,460 @@
+{
+  "schemaVersion": "2.0",
+  "code": "uu-jokes-maing01",
+  "name": "uuJokesMain",
+  "desc": "uuJokesMain",
+  "version": "4.2.0",
+  "defaultIcon": "uubmlicon-uujokes-uu-jokes",
+  "defaultCategory": "control",
+  "stateDataSchema": "shape({progress: shape({weight: integer(), current: integer (0, 100)})}, nostrict, 10000)",
+  "stateList": [
+    {
+      "code": "active",
+      "name": "<uu5string/><UU5.Bricks.Lsi><UU5.Bricks.Lsi.Item language='en'>Active</UU5.Bricks.Lsi.Item><UU5.Bricks.Lsi.Item language='cs'>Aktivní</UU5.Bricks.Lsi.Item></UU5.Bricks.Lsi>",
+      "icon": "uubml-state-s00-active",
+      "type": "ACTIVE",
+      "ancestorStateMap": {
+        "uu-businessterritory-maing01/uuAwsc": "active"
+      }
+    },
+    {
+      "code": "underConstruction",
+      "name": "<uu5string/><UU5.Bricks.Lsi><UU5.Bricks.Lsi.Item language='en'>Under construction</UU5.Bricks.Lsi.Item><UU5.Bricks.Lsi.Item language='cs'>Rozpracováno</UU5.Bricks.Lsi.Item></UU5.Bricks.Lsi>",
+      "icon": "uubml-state-s10-alternative-active",
+      "type": "ACTIVE",
+      "ancestorStateMap": {
+        "uu-businessterritory-maing01/uuAwsc": "active"
+      }
+    },
+    {
+      "code": "closed",
+      "name": "<uu5string/><UU5.Bricks.Lsi><UU5.Bricks.Lsi.Item language='en'>Closed</UU5.Bricks.Lsi.Item><UU5.Bricks.Lsi.Item language='cs'>Uzavřeno</UU5.Bricks.Lsi.Item></UU5.Bricks.Lsi>",
+      "icon": "uubml-state-s00-final",
+      "type": "FINAL",
+      "ancestorStateMap": {
+        "uu-businessterritory-maing01/uuAwsc": "closed"
+      }
+    }
+  ],
+  "roleProfileList": [
+    {
+      "code": "SystemIdentity",
+      "name": "<uu5string/><UU5.Bricks.Lsi><UU5.Bricks.Lsi.Item language='en'>System identity</UU5.Bricks.Lsi.Item><UU5.Bricks.Lsi.Item language='cs'>Systémová identita</UU5.Bricks.Lsi.Item></UU5.Bricks.Lsi>",
+      "desc": "<uu5string/><UU5.Bricks.Lsi><UU5.Bricks.Lsi.Item language='en'>Profile of artifact's application system identity</UU5.Bricks.Lsi.Item><UU5.Bricks.Lsi.Item language='cs'>Profil aplikační systémové identity role artefaktu</UU5.Bricks.Lsi.Item></UU5.Bricks.Lsi>"
+    },
+    {
+      "code": "ResponsibleRole",
+      "name": "<uu5string/><UU5.Bricks.Lsi><UU5.Bricks.Lsi.Item language='en'>Resposible role</UU5.Bricks.Lsi.Item><UU5.Bricks.Lsi.Item language='cs'>Kompetentní role</UU5.Bricks.Lsi.Item></UU5.Bricks.Lsi>",
+      "desc": "<uu5string/><UU5.Bricks.Lsi><UU5.Bricks.Lsi.Item language='en'>Profile of artifact's responsible role</UU5.Bricks.Lsi.Item><UU5.Bricks.Lsi.Item language='cs'>Profil kompetentní role za artefakt</UU5.Bricks.Lsi.Item></UU5.Bricks.Lsi>"
+    }
+  ],
+  "roleGroupProfileList": [
+    {
+      "code": "Authorities",
+      "name": "Authorities",
+      "desc": "Authorities"
+    },
+    {
+      "code": "Executives",
+      "name": "Executives",
+      "desc": "Executives"
+    },
+    {
+      "code": "Readers",
+      "name": "Readers",
+      "desc": "Readers"
+    }
+  ],
+  "defaultPermissionMatrix": [
+    "11000000-00000000-00000000-00001000",
+    "00100000-00000000-00000000-00000000",
+    "00000000-00000000-00000000-00000011"
+  ],
+  "ancestorPathList": ["uu-businessterritory-maing01/uuAwsc"],
+  "ancestorMap": {
+    "uu-businessterritory-maing01/uuAwsc": {
+      "interfaceUuCmdMap": {
+        "uu-businessterritory-maing01/uuAwsc/setState": "uu-jokes-maing01/jokes/setState",
+        "uu-businessterritory-maing01/uuAwsc/setBasicAttributes": "uu-jokes-maing01/jokes/update"
+      }
+    }
+  },
+  "synchronizeUuCmdMap": {
+    "uu-businessterritory-maing01/uuAwsc/synchronizeArtifactAttributes": "uu-jokes-maing01/sys/uuAppWorkspace/load"
+  },
+  "lsiObjectAttributeList": ["name", "desc"],
+  "useCaseProfileMap": {
+    "uu-jokes-maing01/sys/uuAppWorkspace/load": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-jokes-maing01/jokes/update": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-jokes-maing01/jokes/setState": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-jokes-maing01/joke/create": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-jokes-maing01/joke/get": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-jokes-maing01/joke/update": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-jokes-maing01/joke/updateVisibility": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-jokes-maing01/joke/delete": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-jokes-maing01/joke/list": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-jokes-maing01/joke/addRating": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-jokes-maing01/category/create": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-jokes-maing01/category/get": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-jokes-maing01/category/update": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-jokes-maing01/category/delete": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-jokes-maing01/category/list": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-jokes-maing01/binary/getData": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-jokes-maing01/binary/createAccessKey": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/get": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/set": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/setActiveSysState": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/setRestrictedSysState": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/setReadOnlySysState": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/productInfo/get": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/productInfo/set": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/productLogo/get": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/productLogo/set": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/profile/get": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/profile/set": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/profile/list": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/profile/update": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/permission/create": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/permission/delete": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/permission/list": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/setAthorizationStrategy": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/dump": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/restore": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/import": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/listImportMappings": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-jokes-maing01/sys/uuAppWorkspace/deleteImportMappings": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-jokes-maing01/sys/uuAppDataStore/stats/calculate": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-jokes-maing01/sys/uuAppDataStore/stats/get": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-jokes-maing01/sys/logRecord/list": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-jokes-maing01/sys/logRecord/delete": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/loadData": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/authorizeMe": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/authorizeUuIdentity": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/authorizeRoleGroupIfc": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/authorizeMeForBlackOrWhiteList": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/get": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/load": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/loadWithStateHistoryData": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/loadEnvironment": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/loadPermissions": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/getNavigation": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/getImplicitPermissions": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/find": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/setBasicAttributes": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/setVersion": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/setResponsibleRole": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/setHomeFolder": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/setUnit": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/setState": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/setPermissions": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/setImplicitPermissions": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/setExplicitPermissions": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/connectAppWorkspace": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/moveToTrash": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/restoreFromTrash": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/delete": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/listStateHistory": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/listExplicitPermissions": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/listMyRoles": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/checkIntegrityRules": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/synchronizeImplicitPermissions": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/checkConsistency": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/loadLifeCycle": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/listActivities": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/propagateReadToDw": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/create": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/load": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/setBasicAttributes": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/setState": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/setTypeSpecificData": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/setSubmitter": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/addSolver": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/removeSolver": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/reactivateSolver": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/elementary/setSolver": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/createNote": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/elementary/createNote": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/elementary/setState": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/setNoteImportance": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/activity/removeNote": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/authorizeRoleIfcList": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/aar/create": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/aar/get": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/aar/update": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/aar/delete": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/aar/listByArtifactA": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/aar/listByArtifactB": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/aar/createMirror": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/aar/updateMirror": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/aar/deleteMirror": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/contextProperty/create": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/contextProperty/setBasicAttributes": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/contextProperty/get": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/contextProperty/listByArtifact": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/contextProperty/load": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/contextProperty/delete": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/contextProperty/setValue": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/visualIdentification/set": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/visualIdentification/get": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/visualIdentification/load": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/visualIdentification/unset": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/loadAvailableTagSets": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/tagSet/create": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/tagSet/get": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/tagSet/setBasicAttributes": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/tagSet/setTagMap": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/tagSet/delete": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/tagSet/addTag": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/tagSet/updateTag": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/tagSet/deleteTag": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities"]
+    },
+    "uu-businessterritory-maing01/uuAwsc/tagSet/list": {
+      "appProfileCodeList": ["SystemIdentity", "ResponsibleRole", "Authorities", "Executives", "Readers"]
+    }
+  }
+}

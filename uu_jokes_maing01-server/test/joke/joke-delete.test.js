@@ -23,7 +23,7 @@ beforeEach(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.initUuSubAppInstance();
   await TestHelper.createUuAppWorkspace();
-  await TestHelper.login("AwidLicenseOwner", false);
+  await TestHelper.login("AwidInitiator", false);
 });
 
 afterEach(() => {
@@ -75,7 +75,7 @@ test("HDS - deleting ratings", async () => {
       {jokeId:ObjectId("${joke.id}"),awid:"${TestHelper.getAwid()}",uuIdentity:1},
       {jokeId:ObjectId("${joke.id}"),awid:"${TestHelper.getAwid()}",uuIdentity:2},
       {awid:"${TestHelper.getAwid()}",uuIdentity:3}
-    ])`
+    ])`,
   );
 
   let result = await TestHelper.executePostCommand(JOKE_DELETE, { id: joke.id });
