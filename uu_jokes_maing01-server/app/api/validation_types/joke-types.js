@@ -12,7 +12,7 @@ const jokeGetDtoInType = shape({
 
 const jokeUpdateDtoInType = shape({
   id: id().isRequired(),
-  name: uu5String(1, 255),
+  name: uu5String(1, 255).isNotNull(),
   text: uu5String(1, 4000),
   categoryIdList: oneOf([array(id(), 10), "[]"]),
   image: binary(),
