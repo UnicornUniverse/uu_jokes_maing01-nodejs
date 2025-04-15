@@ -1,6 +1,6 @@
 {
   "product": "uu_jokes_maing01",
-  "version": "5.3.0-dev",
+  "version": "5.3.0",
   "license": "License Commercial",
   "description": {
     "en": "Jokes is reference application for educational purposes",
@@ -27,7 +27,7 @@
   "uu_jokes_maing01-server": {
     "devkit": {
       "development": {
-        "uuAppBoxUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/ae03424ac63a4e068f390db5b58bbcdd/uuAppBox/get?id=67ebbdadaf57dfb22a41f8f4&extended=true",
+        "uuAppBoxUri": "https://uuapp.plus4u.net/uu-cloud-appboxregistryg01/ae03424ac63a4e068f390db5b58bbcdd/uuAppBox/get?id=67fdf3c7adbc3c5e49d50693&extended=true",
         "uuSubAppInstanceWorkloadOid": "66cada4c297cb2c0dda6cf85"
       },
       "educational": {
