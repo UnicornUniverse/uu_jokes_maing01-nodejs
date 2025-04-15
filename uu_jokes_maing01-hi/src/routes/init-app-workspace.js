@@ -1,5 +1,4 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
 import { createVisualComponent, Lsi, useLsi, Environment, Content } from "uu5g05";
 import { HighlightedBox } from "uu5g05-elements";
 import { Form, FormText, SubmitButton } from "uu5g05-forms";
@@ -18,12 +17,6 @@ const InternalComponent = createVisualComponent({
   uu5Tag: Config.TAG + "InitAppWorkspace",
   //@@viewOff:statics
 
-  //@@viewOn:propTypes
-  //@@viewOff:propTypes
-
-  //@@viewOn:defaultProps
-  //@@viewOff:defaultProps
-
   render() {
     //@@viewOn:private
     const jokesDataObject = useSubAppData();
@@ -41,11 +34,9 @@ const InternalComponent = createVisualComponent({
         if (originalUrl) {
           if (RELATIVE_URI_REGEXP.test(originalUrl)) {
             redirectPath = originalUrl;
-          } else {
-            redirectPath = UU5.Environment.appBaseUri();
           }
         } else {
-          redirectPath = Environment.appBaseUri() + "/controlPanel";
+          redirectPath = Environment.appBaseUri + "controlPanel";
         }
 
         window.location.replace(redirectPath);

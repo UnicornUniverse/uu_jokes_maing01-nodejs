@@ -2,7 +2,7 @@
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
-const { BinaryComponent, AppBinaryStoreError } = require("uu_appbinarystoreg02");
+const { BinaryComponent, AppBinaryStoreError, BinaryDoesNotExist } = require("uu_appbinarystoreg02");
 const Errors = require("../../api/errors/joke-error");
 const Warnings = require("../../api/warnings/joke-warning");
 const InstanceChecker = require("../../component/instance-checker");
@@ -27,7 +27,7 @@ class DeleteAbl {
       validationResult,
       uuAppErrorMap,
       Warnings.Delete.UnsupportedKeys.code,
-      Errors.Delete.InvalidDtoIn
+      Errors.Delete.InvalidDtoIn,
     );
 
     // hds 2
@@ -41,7 +41,7 @@ class DeleteAbl {
       allowedStateRules,
       authorizationResult,
       Errors.Delete,
-      uuAppErrorMap
+      uuAppErrorMap,
     );
 
     // hds 3
@@ -65,7 +65,9 @@ class DeleteAbl {
       try {
         await this.binaryComponent.delete(awid, { code: joke.image });
       } catch (e) {
-        if (e instanceof AppBinaryStoreError) {
+        if (e instanceof BinaryDoesNotExist) {
+          // do nothing because the binary does not exist because of historical binary store migration
+        } else if (e instanceof AppBinaryStoreError) {
           throw new Errors.Delete.UuBinaryDeleteFailed({ uuAppErrorMap }, e);
         } else {
           throw e;

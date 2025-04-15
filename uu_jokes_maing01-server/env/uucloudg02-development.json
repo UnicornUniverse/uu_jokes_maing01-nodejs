@@ -47,7 +47,7 @@
     }
   },
   "uuAppPackRuntimeStackMap": {
-    "uuAppPack01": "docker://uuapp-dev-repo.plus4u.net/runtimestacks/uu_appruntimestackg02-nodejs:1.0"
+    "uuAppPack01": "docker://uuapp-dev-repo.plus4u.net/runtimestacks/uu_appruntimestackg02-nodejs:2.1"
   },
   "uuSubAppDeploymentConfig": {
     "uuAppResourcePoolOid": "65eeb84cbccb18001624db99",
@@ -79,6 +79,9 @@
     "uu_app_secretstore_master_key_active_slot": "slot1",
     "uu_app_secretstore_master_key1_slot1": "_7E]qGGK/cZUD#ywcr~z8@luBgXwHK^24srRQ>2#7:0(}dnuwKn+(rXSxGB8LKd8",
     "uu_app_oidc_providers_oidcg02_uri": "https://uuapp-dev.plus4u.net/uu-oidc-maing02/eca71064ecce44b0a25ce940eb8f053d/oidc",
-    "uu_app_binarystore_uri": "https://uuapp-dev.plus4u.net/uu-appbinarystore-maing02/b51ac795d5a8413a817b74ce0e94f91c"
+    "uu_app_binarystore_uri": "https://uuapp-dev.plus4u.net/uu-appbinarystore-maing02/b51ac795d5a8413a817b74ce0e94f91c",
+    "uu_app_auditlog_max_record_count": 50000,
+    "uu_app_auditlog_min_record_count": 40000,
+    "uu_app_auditlog_record_limit_check_after": 500
   }
 }
